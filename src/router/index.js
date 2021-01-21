@@ -58,7 +58,7 @@ export const asyncRoutes = [
         path: 'department',
         name: 'Department',
         component: () => import('@/views/system/department'),
-        meta: { title: '部门设置' },
+        meta: { title: '部门设置', permissions: ['admin'] },
       },
     ],
   },
@@ -74,19 +74,19 @@ export const asyncRoutes = [
         path: 'index',
         name: 'Index',
         component: () => import('@/views/personnel/index'),
-        meta: { title: '人员列表' },
+        meta: { title: '人员列表', permissions: ['admin'] },
       },
       {
         path: 'visitor',
         name: 'Visitor',
         component: () => import('@/views/personnel/visitor'),
-        meta: { title: '访客管理' },
+        meta: { title: '访客管理', permissions: ['admin'] },
       },
       {
         path: 'issue',
         name: 'Issue',
         component: () => import('@/views/personnel/issue'),
-        meta: { title: '下发记录' },
+        meta: { title: '下发记录', permissions: ['admin'] },
       },
     ],
   },
@@ -102,13 +102,13 @@ export const asyncRoutes = [
         path: 'index',
         name: 'Index',
         component: () => import('@/views/device/index'),
-        meta: { title: '设备列表' },
+        meta: { title: '设备列表', permissions: ['admin'] },
       },
       {
         path: 'online',
         name: 'Online',
         component: () => import('@/views/device/online'),
-        meta: { title: '在线视频' },
+        meta: { title: '在线视频', permissions: ['admin'] },
       },
     ],
   },
@@ -124,7 +124,7 @@ export const asyncRoutes = [
         path: 'record',
         name: 'Record',
         component: () => import('@/views/snapshot/record'),
-        meta: { title: '抓拍记录' },
+        meta: { title: '抓拍记录', permissions: ['admin'] },
       },
     ],
   },
@@ -140,13 +140,13 @@ export const asyncRoutes = [
         path: 'classes',
         name: 'Classes',
         component: () => import('@/views/attendanceSet/classes'),
-        meta: { title: '考勤班次' },
+        meta: { title: '考勤班次', permissions: ['admin'] },
       },
       {
         path: 'group',
         name: 'Group',
         component: () => import('@/views/attendanceSet/group'),
-        meta: { title: '考勤组' },
+        meta: { title: '考勤组', permissions: ['admin'] },
       },
     ],
   },
@@ -162,13 +162,13 @@ export const asyncRoutes = [
         path: 'everyday',
         name: 'Everyday',
         component: () => import('@/views/attendance/everyday'),
-        meta: { title: '每日考勤' },
+        meta: { title: '每日考勤', permissions: ['admin'] },
       },
       {
         path: 'monthly',
         name: 'monthly',
         component: () => import('@/views/attendance/monthly'),
-        meta: { title: '月度考勤' },
+        meta: { title: '月度考勤', permissions: ['admin'] },
       },
     ],
   },
@@ -177,10 +177,35 @@ export const asyncRoutes = [
     redirect: '/404',
     hidden: true,
   },
+  {
+    path: '/401',
+    name: '401',
+    component: () => import('@/views/401'),
+    hidden: true,
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/404'),
+    hidden: true,
+  },
 ]
 
 const router = new VueRouter({
-  routes: constantRoutes,
+  routes: asyncRoutes,
 })
+//注释的地方是允许路由重复点击，如果你觉得框架路由跳转规范太过严格可选择放开
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject)
+    return originalPush.call(this, location, onResolve, onReject)
+  return originalPush.call(this, location).catch((err) => err)
+}
+
+export function resetRouter() {
+  router.matcher = new VueRouter({
+    routes: asyncRoutes,
+  }).matcher
+}
 
 export default router

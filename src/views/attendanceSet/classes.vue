@@ -105,8 +105,8 @@
         </el-form-item>
         <el-form-item label="上下班时间段" prop="commuter">
           <el-time-picker
-            is-range
             v-model="form.commuter"
+            is-range
             range-separator="至"
             value-format="HH:mm"
             format="HH:mm"
@@ -118,8 +118,8 @@
         </el-form-item>
         <el-form-item label="休息时间段" prop="rest">
           <el-time-picker
-            is-range
             v-model="form.rest"
+            is-range
             range-separator="至"
             value-format="HH:mm"
             format="HH:mm"
@@ -134,8 +134,8 @@
         </el-form-item>
         <el-form-item label="上班有效打卡区间">
           <el-time-picker
-            is-range
             v-model="form.punchCard1"
+            is-range
             range-separator="至"
             value-format="HH:mm"
             format="HH:mm"
@@ -147,8 +147,8 @@
         </el-form-item>
         <el-form-item label="下班有效打卡区间">
           <el-time-picker
-            is-range
             v-model="form.punchCard2"
+            is-range
             range-separator="至"
             value-format="HH:mm"
             format="HH:mm"
@@ -172,7 +172,7 @@
 <script>
   import { getshiftlist, delClasses, setClasses } from '@/api/attendanceSet'
   export default {
-    name: 'classes',
+    name: 'Classes',
     data() {
       return {
         list: [],
@@ -203,20 +203,9 @@
         },
       }
     },
-    created() {
-      this.init()
-    },
-    watch: {
-      'form.commuter'(val, old) {
-        this.form.commuter = val
-      },
-      'form.rest'(val, old) {
-        this.form.rest = val
-      },
-    },
     computed: {
       //计算出勤时长
-      timeLong: function () {
+      timeLong() {
         if (!this.form.commuter || !this.form.rest) {
           return ''
         }
@@ -246,9 +235,23 @@
           let c = a - b
           time += c
         }
-        this.form.time = time.toFixed(2)
+
         return time.toFixed(2)
       },
+    },
+    watch: {
+      'form.commuter'(val, old) {
+        this.form.commuter = val
+      },
+      'form.rest'(val, old) {
+        this.form.rest = val
+      },
+      timeLong(val, old) {
+        this.form.time = val
+      },
+    },
+    created() {
+      this.init()
     },
     beforeDestroy() {},
     mounted() {},

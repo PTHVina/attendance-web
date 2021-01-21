@@ -169,11 +169,11 @@
       :before-close="closeFn"
     >
       <el-form
+        ref="form"
         :model="form"
         label-width="120px"
         :rules="rules"
         size="medium"
-        ref="form"
       >
         <el-form-item label="姓名" prop="name">
           <el-input
@@ -232,7 +232,7 @@
     issueVisitor,
   } from '@/api/personnel'
   export default {
-    name: 'visitor',
+    name: 'Visitor',
     data() {
       return {
         list: [],

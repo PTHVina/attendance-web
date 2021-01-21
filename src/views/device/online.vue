@@ -1,5 +1,5 @@
 <template>
-  <div class="test-container" ref="videoBox" id="content">
+  <div id="content" ref="videoBox" class="test-container">
     <div class="select">
       <el-select v-model="value" placeholder="请选择设备">
         <el-option
@@ -30,7 +30,7 @@
 <script>
   import { getDeviceList, play, setDome } from '@/api/device'
   export default {
-    name: 'online',
+    name: 'Online',
     data() {
       return {
         value: '', //设备ip

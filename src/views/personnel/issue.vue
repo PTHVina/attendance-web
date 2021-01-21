@@ -113,7 +113,7 @@
 <script>
   import { getIssueList } from '@/api/personnel'
   export default {
-    name: 'issue',
+    name: 'Issue',
     data() {
       return {
         list: [],

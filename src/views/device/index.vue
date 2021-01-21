@@ -97,11 +97,11 @@
       :before-close="closeFn"
     >
       <el-form
+        ref="formInfo"
         :model="form"
         label-width="80px"
         :rules="rules"
         size="medium"
-        ref="formInfo"
       >
         <el-form-item label="IP" prop="IP">
           <el-input
@@ -170,11 +170,11 @@
       :destroy-on-close="true"
     >
       <el-form
+        ref="IPform"
         :model="ipForm"
         label-width="80px"
         :rules="rules"
         size="medium"
-        ref="IPform"
       >
         <el-form-item label="IP" prop="IP">
           <el-input
@@ -217,7 +217,7 @@
     changeIP,
   } from '@/api/device'
   export default {
-    name: 'device',
+    name: 'Device',
     data() {
       return {
         list: [],

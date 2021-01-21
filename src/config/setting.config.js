@@ -3,7 +3,7 @@
  */
 const setting = {
   // 开发以及部署时的URL
-  publicPath: '/',
+  publicPath: './',
   // 生产环境构建文件的目录名
   outputDir: 'dist',
   // 放置生成的静态资源 (js、css、img、fonts) 的 (相对于 outputDir 的) 目录。
@@ -19,7 +19,7 @@ const setting = {
   //简写
   abbreviation: 'FaceRASystem',
   //开发环境端口号
-  devPort: '80',
+  devPort: 'FaceRASystem',
   //版本号
   version: process.env.VUE_APP_VERSION,
   //这一项非常重要！请务必保留MIT协议下package.json及copyright作者信息 即可免费商用，不遵守此项约定你将无法使用该框架，如需自定义版权信息请联系QQ1204505056
@@ -33,7 +33,7 @@ const setting = {
   // 路由模式，可选值为 history 或 hash
   routerMode: 'hash',
   //不经过token校验的路由
-  routesWhiteList: ['/login', '/404', '/401'],
+  routesWhiteList: ['/index', '/login', '/404', '/401'],
   //加载时显示文字
   loadingText: '正在加载中...',
   //token名称
@@ -57,7 +57,7 @@ const setting = {
   //vertical布局时是否只保持一个子菜单的展开
   uniqueOpened: true,
   //vertical布局时默认展开的菜单path，使用逗号隔开建议只展开一个
-  defaultOopeneds: ['/index'],
+  defaultOopeneds: ['/'],
   //需要加loading层的请求，防止重复提交
   debounce: ['doEdit'],
   //需要自动注入并加载的模块

@@ -215,9 +215,11 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item label="部门" prop="departmentname" v-if="form.id">
+        <el-form-item v-if="form.id" label="部门" prop="departmentname">
           <el-cascader
             ref="cascader"
+            :key="form.departmentname"
+            v-model="form.departmentname"
             :options="option"
             :props="{
               checkStrictly: true,
@@ -225,16 +227,15 @@
               value: 'name',
               emitPath: false,
             }"
-            :key="form.departmentname"
             :show-all-levels="false"
             placeholder="请选择工作部门"
-            v-model="form.departmentname"
-            @change="changeDepartment"
             style="width: 100%"
+            @change="changeDepartment"
           ></el-cascader>
         </el-form-item>
-        <el-form-item label="部门" prop="departmentname" v-else>
+        <el-form-item v-else label="部门" prop="departmentname">
           <el-cascader
+            v-model="form.departmentname"
             :options="option"
             :props="{
               checkStrictly: true,
@@ -244,7 +245,6 @@
             }"
             :show-all-levels="false"
             placeholder="请选择工作部门"
-            v-model="form.departmentname"
             style="width: 100%"
           ></el-cascader>
         </el-form-item>

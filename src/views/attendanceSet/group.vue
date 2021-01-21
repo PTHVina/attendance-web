@@ -171,7 +171,7 @@
 
 <script>
   export default {
-    name: 'classes',
+    name: 'Classes',
     data() {
       return {
         list: [],

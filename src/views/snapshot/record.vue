@@ -296,6 +296,7 @@
         </el-form-item>
         <el-form-item label="部门" prop="departmentname">
           <el-cascader
+            v-model="form.departmentname"
             :options="option"
             :props="{
               checkStrictly: true,
@@ -305,7 +306,6 @@
             }"
             :show-all-levels="false"
             placeholder="请选择工作部门"
-            v-model="form.departmentname"
             style="width: 100%"
           ></el-cascader>
         </el-form-item>
@@ -376,7 +376,7 @@
   import { getTypeList, getDeviceList, openImg, setData } from '@/api/personnel'
   import { getRecordList, delRecord, BatchXport } from '@/api/record'
   export default {
-    name: 'record',
+    name: 'Record',
     data() {
       return {
         list: [],

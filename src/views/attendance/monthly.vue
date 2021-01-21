@@ -110,7 +110,7 @@
 <script>
   import { getMonthlyList, exportData } from '@/api/attendance'
   export default {
-    name: 'monthly',
+    name: 'Monthly',
     data() {
       return {
         list: [],
