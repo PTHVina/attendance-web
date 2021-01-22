@@ -88,6 +88,10 @@ export function editData(data) {
 export function openImg() {
   return window.top.myExtension.openImgeUrl()
 }
+//拍照
+export function photograph() {
+  return window.top.myExtension.OpenCamera()
+}
 //删除人员
 export function delData(data) {
   let type = false

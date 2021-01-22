@@ -29,27 +29,27 @@
               @change="checkTime"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item v-if="false">
+          <el-form-item>
             <span>陌生人</span>
             <el-select
               v-model="queryForm.stranger"
               clearable
-              placeholder="是/否"
-              style="width: 80px"
+              placeholder="请选择"
+              style="width: 90px"
             >
-              <el-option key="0" label="否" value="0"></el-option>
+              <!-- <el-option key="0" label="否" value="0"></el-option> -->
               <el-option key="1" label="是" value="1"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item v-if="false">
+          <el-form-item>
             <span>健康码状态</span>
             <el-select
               v-model="queryForm.codestus"
               clearable
-              placeholder=""
-              style="width: 80px"
+              placeholder="请选择"
+              style="width: 90px"
             >
-              <el-option key="3" label="" value="3"></el-option>
+              <!-- <el-option key="3" label="" value="3"></el-option> -->
               <el-option key="0" label="绿码" value="0">绿码</el-option>
               <el-option key="1" label="黄码" value="1">黄码</el-option>
               <el-option key="2" label="红码" value="2">红码</el-option>
@@ -191,10 +191,10 @@
       ></el-table-column>
       <el-table-column
         show-overflow-tooltip
-        label="是否陌生人"
+        label="是否佩戴口罩"
         prop="exist_mask"
         sortable
-        width="120"
+        width="140"
       >
         <template #default="{ row }">
           <span v-if="row.exist_mask == '0'">否</span>
@@ -333,8 +333,11 @@
               :preview-src-list="[form.picture]"
               fit="contain"
             ></el-image>
-            <i v-else class="el-icon-plus"></i>
-            <input type="button" @click="checkImg" />
+            <i v-else class="el-icon-picture-outline"></i>
+            <div class="add_box">
+              <span class="uploading" @click="checkImg">上传</span>
+              <span class="photo" @click="photograph">拍照</span>
+            </div>
           </div>
         </el-form-item>
       </el-form>
@@ -373,7 +376,13 @@
 </template>
 
 <script>
-  import { getTypeList, getDeviceList, openImg, setData } from '@/api/personnel'
+  import {
+    getTypeList,
+    getDeviceList,
+    openImg,
+    setData,
+    photograph,
+  } from '@/api/personnel'
   import { getRecordList, delRecord, BatchXport } from '@/api/record'
   export default {
     name: 'Record',
@@ -391,7 +400,7 @@
           accreditTime: [], //授权时间范围
           statime: '',
           endtime: '',
-          stranger: '0', //是否陌生人
+          stranger: '', //是否陌生人
           codestus: '', //健康码
         },
         page: {
@@ -489,6 +498,8 @@
       },
       init() {
         this.listLoading = true
+        this.queryForm.stranger ? this.queryForm.stranger : '0'
+        this.queryForm.codestus < 3 ? this.queryForm.codestus : '3'
         let { counts, list } = getRecordList(this.queryForm, this.page)
         this.page.total = counts
         this.list = list
@@ -598,7 +609,7 @@
           accreditTime: [],
           statime: '',
           endtime: '',
-          stranger: '0',
+          stranger: '',
           codestus: '',
         }
         this.page.pageNo = 1
@@ -624,8 +635,19 @@
         }
       },
       //选择图片
-      checkImg(event) {
+      checkImg() {
         let img = openImg()
+        if (!img) {
+          return
+        }
+        this.form.picture = img
+      },
+      //拍照
+      photograph() {
+        let img = photograph()
+        if (!img) {
+          return
+        }
         this.form.picture = img
       },
       //设置人员信息
@@ -749,7 +771,6 @@
     box-sizing: border-box;
     width: 146px;
     height: 146px;
-    cursor: pointer;
     position: relative;
     z-index: 0;
     .show_img {
@@ -768,23 +789,40 @@
       height: 100%;
       line-height: 146px;
       vertical-align: top;
-      font-size: 28px;
-      color: #8c939d;
+      font-size: 40px;
+      color: #ccc;
       text-align: center;
       position: absolute;
       top: 0;
       left: 0;
       z-index: 1;
     }
-    input {
-      outline: none;
+    .add_box {
       width: 100%;
       height: 100%;
       position: absolute;
       top: 0;
       left: 0;
       z-index: 2;
-      opacity: 0;
+      background: #666;
+      border-radius: 6px;
+      opacity: 0.6;
+      display: none;
+      // display: flex;
+      align-items: center;
+      justify-content: center;
+      span {
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 16px;
+      }
+      .uploading {
+        margin-right: 20px;
+      }
     }
+  }
+  .add_img:hover .add_box {
+    display: flex;
   }
 </style>

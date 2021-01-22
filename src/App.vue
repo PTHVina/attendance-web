@@ -26,3 +26,9 @@
     },
   }
 </script>
+
+<style lang="scss">
+  .btn_red {
+    color: red !important;
+  }
+</style>

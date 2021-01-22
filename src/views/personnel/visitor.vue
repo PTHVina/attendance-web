@@ -202,14 +202,17 @@
         <el-form-item label="照片" prop="img">
           <div class="add_img">
             <el-image
-              v-if="form.img"
+              v-if="form.picture"
               class="show_img"
-              :src="form.img"
-              :preview-src-list="[form.img]"
+              :src="form.picture"
+              :preview-src-list="[form.picture]"
               fit="contain"
             ></el-image>
-            <i v-else class="el-icon-plus"></i>
-            <input type="button" @click="checkImg" />
+            <i v-else class="el-icon-picture-outline"></i>
+            <div class="add_box">
+              <span class="uploading" @click="checkImg">上传</span>
+              <span class="photo" @click="photograph">拍照</span>
+            </div>
           </div>
         </el-form-item>
       </el-form>
@@ -230,6 +233,7 @@
     editVisitor,
     delVisitor,
     issueVisitor,
+    photograph,
   } from '@/api/personnel'
   export default {
     name: 'Visitor',
@@ -479,8 +483,19 @@
         }
       },
       //选择图片
-      checkImg(event) {
+      checkImg() {
         let img = openImg()
+        if (!img) {
+          return
+        }
+        this.form.img = img
+      },
+      //拍照
+      photograph() {
+        let img = photograph()
+        if (!img) {
+          return
+        }
         this.form.img = img
       },
       //添加/修改

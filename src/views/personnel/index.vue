@@ -272,8 +272,11 @@
               :preview-src-list="[form.picture]"
               fit="contain"
             ></el-image>
-            <i v-else class="el-icon-plus"></i>
-            <input type="button" @click="checkImg" />
+            <i v-else class="el-icon-picture-outline"></i>
+            <div class="add_box">
+              <span class="uploading" @click="checkImg">上传</span>
+              <span class="photo" @click="photograph">拍照</span>
+            </div>
           </div>
         </el-form-item>
       </el-form>
@@ -333,6 +336,7 @@
     download,
     importExcel,
     downList,
+    photograph,
   } from '@/api/personnel'
   export default {
     name: 'PersonnelList',
@@ -660,8 +664,19 @@
         this.departmentData = data.data
       },
       //选择图片
-      checkImg(event) {
+      checkImg() {
         let img = openImg()
+        if (!img) {
+          return
+        }
+        this.form.picture = img
+      },
+      //拍照
+      photograph() {
+        let img = photograph()
+        if (!img) {
+          return
+        }
         this.form.picture = img
       },
       //设置人员信息
@@ -769,7 +784,6 @@
     box-sizing: border-box;
     width: 146px;
     height: 146px;
-    cursor: pointer;
     position: relative;
     z-index: 0;
     .show_img {
@@ -788,23 +802,40 @@
       height: 100%;
       line-height: 146px;
       vertical-align: top;
-      font-size: 28px;
-      color: #8c939d;
+      font-size: 40px;
+      color: #ccc;
       text-align: center;
       position: absolute;
       top: 0;
       left: 0;
       z-index: 1;
     }
-    input {
-      outline: none;
+    .add_box {
       width: 100%;
       height: 100%;
       position: absolute;
       top: 0;
       left: 0;
       z-index: 2;
-      opacity: 0;
+      background: #666;
+      border-radius: 6px;
+      opacity: 0.6;
+      display: none;
+      // display: flex;
+      align-items: center;
+      justify-content: center;
+      span {
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 16px;
+      }
+      .uploading {
+        margin-right: 20px;
+      }
     }
+  }
+  .add_img:hover .add_box {
+    display: flex;
   }
 </style>

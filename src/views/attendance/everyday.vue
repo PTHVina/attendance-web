@@ -19,7 +19,7 @@
               v-model="queryForm.isAbsenteeism"
               clearable
               placeholder="请选择"
-              style="width: 80px"
+              style="width: 90px"
             >
               <!-- <el-option key="0" label=" " value="0"></el-option> -->
               <el-option key="1" label="是" value="1"></el-option>
@@ -31,7 +31,7 @@
               v-model="queryForm.late"
               clearable
               placeholder="请选择"
-              style="width: 80px"
+              style="width: 90px"
             >
               <!-- <el-option key="0" label=" " value="0"></el-option> -->
               <el-option key="1" label="是" value="1"></el-option>
@@ -43,7 +43,7 @@
               v-model="queryForm.Leaveearly"
               clearable
               placeholder="请选择"
-              style="width: 80px"
+              style="width: 90px"
             >
               <!-- <el-option key="0" label=" " value="0"></el-option> -->
               <el-option key="1" label="是" value="1"></el-option>
