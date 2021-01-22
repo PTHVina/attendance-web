@@ -23,6 +23,8 @@ VabProgress.configure({
 router.beforeResolve(async (to, from, next) => {
   if (progressBar) VabProgress.start()
   let hasToken = store.getters['user/accessToken']
+  let lang = store.getters['user/lang']
+  console.log('语言', lang)
 
   if (!loginInterception) hasToken = true
 

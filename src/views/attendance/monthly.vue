@@ -44,6 +44,7 @@
     <el-table
       ref="tableSort"
       v-loading="listLoading"
+      stripe
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"

@@ -10,11 +10,6 @@ import Layout from '@/layouts'
 Vue.use(VueRouter)
 export const constantRoutes = [
   {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true,
-  },
-  {
     path: '/401',
     name: '401',
     component: () => import('@/views/401'),

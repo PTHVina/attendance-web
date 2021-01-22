@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-  import { getDeviceList, play, setDome } from '@/api/device'
+  import { getDeviceList, play, setDome, closePage } from '@/api/device'
   export default {
     name: 'Online',
     data() {
@@ -50,17 +50,7 @@
       this.init()
     },
     beforeDestroy() {
-      console.log(111111)
-      let data = {
-        width: 0,
-        height: 0,
-        locationW: 0,
-        locationH: 0,
-      }
-      setDome(data)
-    },
-    destroyed() {
-      console.log(22222)
+      closePage()
     },
     methods: {
       init() {

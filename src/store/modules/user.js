@@ -16,12 +16,14 @@ const state = () => ({
   username: '',
   avatar: '',
   permissions: [],
+  lang: 'zh_CN',
 })
 const getters = {
   accessToken: (state) => state.accessToken,
   username: (state) => state.username,
   avatar: (state) => state.avatar,
   permissions: (state) => state.permissions,
+  lang: (state) => state.lang,
 }
 const mutations = {
   setAccessToken(state, accessToken) {
@@ -36,6 +38,9 @@ const mutations = {
   },
   setPermissions(state, permissions) {
     state.permissions = permissions
+  },
+  setLang(state, lang) {
+    state.lang = lang
   },
 }
 const actions = {
@@ -52,6 +57,7 @@ const actions = {
     const accessToken = data[tokenName]
     if (accessToken) {
       commit('setAccessToken', accessToken)
+      commit('setLang', myExtension.getlanguage())
       const hour = new Date().getHours()
       const thisTime =
         hour < 8

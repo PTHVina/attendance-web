@@ -19,7 +19,7 @@ const setting = {
   //简写
   abbreviation: 'FaceRASystem',
   //开发环境端口号
-  devPort: 'FaceRASystem',
+  devPort: '80',
   //版本号
   version: process.env.VUE_APP_VERSION,
   //这一项非常重要！请务必保留MIT协议下package.json及copyright作者信息 即可免费商用，不遵守此项约定你将无法使用该框架，如需自定义版权信息请联系QQ1204505056
@@ -33,7 +33,7 @@ const setting = {
   // 路由模式，可选值为 history 或 hash
   routerMode: 'hash',
   //不经过token校验的路由
-  routesWhiteList: ['/index', '/login', '/404', '/401'],
+  routesWhiteList: ['/index', '/404', '/401'],
   //加载时显示文字
   loadingText: '正在加载中...',
   //token名称

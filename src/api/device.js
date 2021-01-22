@@ -67,3 +67,7 @@ export function setDome(data) {
 export function play(ip) {
   myExtension.AppIp(ip)
 }
+//关闭在线视频界面
+export function closePage() {
+  myExtension.NodisplayPanel()
+}
