@@ -13,6 +13,9 @@
         >
           搜索设备
         </el-button>
+        <span class="tips">
+          注：设备列表会实时加载，如果遇到页面未显示列表请等待10秒。
+        </span>
       </div>
     </div>
 

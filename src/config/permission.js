@@ -13,6 +13,7 @@ import {
   recordRoute,
   routesWhiteList,
 } from '@/config'
+import { closePage } from '@/api/device'
 
 VabProgress.configure({
   easing: 'ease',
@@ -27,6 +28,10 @@ router.beforeResolve(async (to, from, next) => {
   console.log('语言', lang)
 
   if (!loginInterception) hasToken = true
+
+  if (to.path != '/device/online') {
+    closePage()
+  }
 
   if (hasToken) {
     if (to.path === '/login') {

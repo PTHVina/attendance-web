@@ -43,3 +43,108 @@ export function setClasses(data) {
 
   return res_json
 }
+
+//考勤组列表
+export function getGroupList() {
+  let res = window.top.myExtension.getGroup()
+  let data_json = JSON.parse(res)
+
+  return data_json
+}
+//获取班次列表
+export function getClassesList() {
+  let res = window.top.myExtension.getShiftData()
+  let data_json = JSON.parse(res)
+
+  return data_json
+}
+//设置默认
+export function setDefault(id) {
+  let res = window.top.myExtension.set_default(id.toString())
+
+  return res
+}
+//删除
+export function doDelete(id) {
+  let res = window.top.myExtension.DeleteGroup(id.toString())
+
+  return res
+}
+//人员列表
+export function getPersonnelList() {
+  let res = window.top.myExtension.getStaffData('0', '10000')
+  let data_json = JSON.parse(res)
+
+  return data_json
+}
+//打卡日期列表总数
+export function getDeteCount(type, editId) {
+  let res = window.top.myExtension.getSpecial_datecount(
+    editId.toString(),
+    type.toString()
+  )
+  let data_json = JSON.parse(res)[0].count
+
+  return data_json
+}
+//打卡日期列表
+export function getDeteList(type, page, editId) {
+  let res = window.top.myExtension.getSpecial_date(
+    editId.toString(),
+    type.toString(),
+    page.pageNo.toString(),
+    page.pageSize.toString()
+  )
+  let data_json = JSON.parse(res)
+
+  return data_json
+}
+//删除打卡日期
+export function delDeteData(id) {
+  let res
+  if (typeof id == 'object') {
+    res = window.top.myExtension.delSpecial_date(id.toString())
+    res = JSON.parse(res)
+  } else {
+    res = window.top.myExtension.delSpecial_date('(' + id + ')')
+  }
+
+  return res
+}
+//新增打卡日期
+export function addDete(type, editId, date, radio) {
+  let res = window.top.myExtension.saveSpecial_date(
+    editId.toString(),
+    type.toString(),
+    date.toString(),
+    radio.toString()
+  )
+
+  return res
+}
+//添加考勤组
+export function addGroup(attribute, data, ids, timestamp) {
+  var data = window.top.myExtension.setGroup(
+    JSON.stringify(attribute),
+    data.name,
+    data.isdefault,
+    ids.toString(),
+    timestamp.toString()
+  )
+  var re_json = JSON.parse(data)
+
+  return re_json
+}
+//编辑
+export function setGroup(attribute, data, ids, editId) {
+  var data = window.top.myExtension.editGroup(
+    JSON.stringify(attribute),
+    data.name,
+    data.isdefault,
+    ids.toString(),
+    editId.toString()
+  )
+  var re_json = JSON.parse(data)
+
+  return re_json
+}

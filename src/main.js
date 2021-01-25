@@ -5,6 +5,8 @@ import router from './router'
 import './plugins'
 import '@/layouts/export'
 
+Vue.prototype.$lang = 'zh_CN'
+
 Vue.config.productionTip = false
 
 new Vue({

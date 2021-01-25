@@ -18,13 +18,6 @@
         播放视屏
       </el-button>
     </div>
-    <div class="video_box row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-body"></div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -79,7 +72,7 @@
   .select {
     padding-bottom: 20px;
     position: relative;
-    z-index: 99999;
+    z-index: 99999 !important;
   }
   .btn {
     margin-left: 10px;
