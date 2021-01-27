@@ -9,60 +9,80 @@
           size="medium"
           @submit.native.prevent
         >
+          <!-- 姓名 -->
           <el-form-item>
-            <span>姓名</span>
-            <el-input v-model="queryForm.name" placeholder="人员姓名" />
+            <span>{{ $t('personnel.text_1') }}</span>
+            <el-input
+              v-model="queryForm.name"
+              :placeholder="$t('personnel.pl_1')"
+            />
+          </el-form-item>
+          <!-- 编号 -->
+          <el-form-item>
+            <span>{{ $t('personnel.text_2') }}</span>
+            <el-input
+              v-model="queryForm.no"
+              :placeholder="$t('personnel.title_5')"
+            />
+          </el-form-item>
+          <!-- 电话号码 -->
+          <el-form-item>
+            <span>{{ $t('personnel.text_3') }}</span>
+            <el-input
+              v-model="queryForm.qu_phone"
+              :placeholder="$t('personnel.text_3')"
+            />
           </el-form-item>
           <el-form-item>
-            <span>编号</span>
-            <el-input v-model="queryForm.no" placeholder="人员编号" />
-          </el-form-item>
-          <el-form-item>
-            <span>电话号码</span>
-            <el-input v-model="queryForm.qu_phone" placeholder="电话号码" />
-          </el-form-item>
-          <el-form-item>
+            <!-- 查询 -->
             <el-button
               icon="el-icon-search"
               type="primary"
               native-type="submit"
               @click="handleQuery('queryForm')"
             >
-              查询
+              {{ $t('operation_btn.btn_text_6') }}
             </el-button>
           </el-form-item>
         </el-form>
       </div>
       <div class="btn_group">
+        <!-- 新增 -->
         <el-button icon="el-icon-plus" type="primary" @click="openFormDialog">
-          新增
+          {{ $t('operation_btn.btn_text_7') }}
         </el-button>
+        <!-- 导出列表 -->
         <el-button icon="el-icon-upload2" type="primary" @click="downList">
-          导出列表
+          {{ $t('operation_btn.btn_text_8') }}
         </el-button>
+        <!-- 批量导入 -->
         <el-button
           icon="el-icon-folder-opened"
           type="primary"
           @click="importExcel"
         >
-          批量导入
+          {{ $t('operation_btn.btn_text_9') }}
         </el-button>
+        <!-- 下载模板 -->
         <el-button icon="el-icon-download" type="primary" @click="downDemo">
-          下载模板
+          {{ $t('operation_btn.btn_text_10') }}
         </el-button>
+        <!-- 批量下发 -->
         <el-button icon="el-icon-connection" type="primary" @click="issue">
-          批量下发
+          {{ $t('operation_btn.btn_text_11') }}
         </el-button>
+        <!-- 一键下发 -->
         <el-button icon="el-icon-thumb" type="primary" @click="oneClickIssue">
-          一键下发
+          {{ $t('operation_btn.btn_text_12') }}
         </el-button>
+        <!-- 批量删除 -->
         <el-button
           icon="el-icon-delete"
           type="danger"
           style="opacity: 0.6"
           @click="handleDelete"
         >
-          批量删除
+          {{ $t('operation_btn.btn_text_13') }}
         </el-button>
       </div>
     </div>
@@ -81,72 +101,88 @@
         type="selection"
         width="55"
       ></el-table-column>
-      <el-table-column show-overflow-tooltip label="头像">
+      <!-- 头像 -->
+      <el-table-column show-overflow-tooltip :label="$t('personnel.title_1')">
         <template #default="{ row }">
           <el-image :preview-src-list="imageList" :src="row.picture"></el-image>
         </template>
       </el-table-column>
+      <!-- 姓名 -->
       <el-table-column
         show-overflow-tooltip
         prop="name"
-        label="姓名"
+        :label="$t('personnel.text_1')"
         sortable
       ></el-table-column>
+      <!-- 电话号码 -->
       <el-table-column
         show-overflow-tooltip
-        label="电话号码"
+        :label="$t('personnel.text_3')"
         prop="phone"
         sortable
       ></el-table-column>
+      <!-- 部门 -->
       <el-table-column
         show-overflow-tooltip
-        label="部门"
+        :label="$t('personnel.title_4')"
         prop="departmentname"
         sortable
       ></el-table-column>
+      <!-- 人员编号 -->
       <el-table-column
         show-overflow-tooltip
-        label="人员编号"
+        :label="$t('personnel.title_5')"
         prop="Employee_code"
         sortable
       ></el-table-column>
+      <!-- 工作分类 -->
       <el-table-column
         show-overflow-tooltip
-        label="工作分类"
+        :label="$t('personnel.title_6')"
         prop="Employetypename"
         sortable
       ></el-table-column>
+      <!-- 已下发总数 -->
       <el-table-column
         show-overflow-tooltip
-        label="已下发总数"
+        :label="$t('personnel.title_7')"
         prop="eqcount"
         sortable
       ></el-table-column>
+      <!-- 相机总数 -->
       <el-table-column
         show-overflow-tooltip
-        label="相机总数"
+        :label="$t('personnel.title_8')"
         prop="decount"
         sortable
       ></el-table-column>
-      <el-table-column label="操作" min-width="200px" fixed="right">
+      <!-- 操作 -->
+      <el-table-column
+        :label="$t('personnel.title_9')"
+        min-width="200px"
+        fixed="right"
+      >
         <template #default="{ row }">
+          <!-- 编辑 -->
           <el-button
             type="text"
             icon="el-icon-edit"
             @click="openFormDialog(row)"
           >
-            编辑
+            {{ $t('operation_btn.btn_text_14') }}
           </el-button>
+          <!-- 下发 -->
           <el-button type="text" icon="el-icon-thumb" @click="issue(row)">
-            下发
+            {{ $t('operation_btn.btn_text_15') }}
           </el-button>
+          <!-- 删除 -->
           <el-button
             type="text"
             class="btn_red"
             icon="el-icon-delete"
             @click="handleDelete(row)"
           >
-            删除
+            {{ $t('operation_btn.btn_text_2') }}
           </el-button>
         </template>
       </el-table-column>
@@ -161,8 +197,9 @@
     ></el-pagination>
 
     <!-- 新增/修改弹窗 -->
+    <!-- 人员信息 -->
     <el-dialog
-      title="人员信息"
+      :title="$t('personnel.text_4')"
       :visible.sync="dialogFormVisible"
       width="600px"
       :destroy-on-close="true"
@@ -175,47 +212,57 @@
         :rules="rules"
         size="medium"
       >
-        <el-form-item label="姓名" prop="name">
+        <!-- 姓名 -->
+        <el-form-item :label="$t('personnel.text_1')" prop="name">
           <el-input
             v-model="form.name"
-            placeholder="人员姓名"
+            :placeholder="$t('personnel.pl_1')"
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item label="编号" prop="Employee_code">
+        <!-- 编号 -->
+        <el-form-item :label="$t('personnel.text_2')" prop="Employee_code">
           <el-input
             v-model="form.Employee_code"
-            placeholder="人员编号"
+            :placeholder="$t('personnel.title_5')"
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item label="电话号码" prop="phone">
+        <!-- 电话号码 -->
+        <el-form-item :label="$t('personnel.text_3')" prop="phone">
           <el-input
             v-model="form.phone"
-            placeholder="电话号码"
+            :placeholder="$t('personnel.text_3')"
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item label="门禁卡号">
+        <!-- 门禁卡号 -->
+        <el-form-item :label="$t('personnel.title_10')">
           <el-input
             v-model="form.face_idcard"
-            placeholder="门禁卡号"
+            :placeholder="$t('personnel.title_10')"
             autocomplete="off"
             style="width: 60%; margin-right: 20px"
           ></el-input>
           <el-radio-group v-model="form.idcardtype">
-            <el-radio label="32">32位</el-radio>
-            <el-radio label="64">64位</el-radio>
+            <el-radio label="32">32{{ $t('personnel.title_2') }}</el-radio>
+            <el-radio label="64">64{{ $t('personnel.title_2') }}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="邮箱" prop="Email">
+        <!-- 邮箱 -->
+        <el-form-item :label="$t('personnel.title_11')" prop="Email">
           <el-input
             v-model="form.Email"
-            placeholder="电子邮箱"
+            :placeholder="$t('personnel.pl_2')"
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item v-if="form.id" label="部门" prop="departmentname">
+        <!-- 部门 -->
+        <el-form-item
+          v-if="form.id"
+          :label="$t('personnel.title_4')"
+          prop="departmentname"
+        >
           <el-cascader
             ref="cascader"
             :key="form.departmentname"
@@ -228,12 +275,16 @@
               emitPath: false,
             }"
             :show-all-levels="false"
-            placeholder="请选择工作部门"
+            :placeholder="$t('personnel.pl_3')"
             style="width: 100%"
             @change="changeDepartment"
           ></el-cascader>
         </el-form-item>
-        <el-form-item v-else label="部门" prop="departmentname">
+        <el-form-item
+          v-else
+          :label="$t('personnel.title_4')"
+          prop="departmentname"
+        >
           <el-cascader
             v-model="form.departmentname"
             :options="option"
@@ -244,14 +295,15 @@
               emitPath: false,
             }"
             :show-all-levels="false"
-            placeholder="请选择工作部门"
+            :placeholder="$t('personnel.pl_3')"
             style="width: 100%"
           ></el-cascader>
         </el-form-item>
-        <el-form-item label="工作分类" prop="Employetypename">
+        <!-- 工作分类 -->
+        <el-form-item :label="$t('personnel.title_6')" prop="Employetypename">
           <el-select
             v-model="form.Employetypename"
-            placeholder="请选择工作分类"
+            :placeholder="$t('personnel.pl_4')"
             autocomplete="off"
             style="width: 100%"
           >
@@ -263,7 +315,8 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="照片" prop="picture">
+        <!-- 照片 -->
+        <el-form-item :label="$t('personnel.title_12')" prop="picture">
           <div class="add_img">
             <el-image
               v-if="form.picture"
@@ -274,47 +327,64 @@
             ></el-image>
             <i v-else class="el-icon-picture-outline"></i>
             <div class="add_box">
-              <span class="uploading" @click="checkImg">上传</span>
-              <span class="photo" @click="photograph">拍照</span>
+              <span class="uploading" @click="checkImg">
+                {{ $t('operation_btn.btn_text_16') }}
+              </span>
+              <span class="photo" @click="photograph">
+                {{ $t('operation_btn.btn_text_17') }}
+              </span>
             </div>
           </div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="closeFn">取 消</el-button>
+        <el-button @click="closeFn">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
         <el-button type="primary" @click="setFormData('setForm')">
-          确 定
+          {{ $t('operation_btn.btn_text_5') }}
         </el-button>
       </div>
     </el-dialog>
 
     <!-- 设备弹窗 -->
-    <el-dialog title="下发设备" :visible.sync="dialogTableVisible">
+    <!-- 下发设备 -->
+    <el-dialog
+      :title="$t('personnel.text_5')"
+      :visible.sync="dialogTableVisible"
+    >
       <el-table :data="gridData" @selection-change="getSelectRows">
         <el-table-column
           show-overflow-tooltip
           type="selection"
           width="55"
         ></el-table-column>
+        <!-- IP地址 -->
         <el-table-column
           property="IP"
           sortable
-          label="IP地址"
+          :label="$t('personnel.title_3')"
         ></el-table-column>
+        <!-- 设备名称 -->
         <el-table-column
           property="DeviceName"
           sortable
-          label="设备名称"
+          :label="$t('personnel.title_13')"
         ></el-table-column>
+        <!-- 设备编号 -->
         <el-table-column
           property="DeviceNo"
           sortable
-          label="设备编号"
+          :label="$t('personnel.title_14')"
         ></el-table-column>
       </el-table>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogTableVisible = false">取 消</el-button>
-        <el-button type="primary" @click="setIssue">下发</el-button>
+        <el-button @click="dialogTableVisible = false">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
+        <el-button type="primary" @click="setIssue">
+          {{ $t('operation_btn.btn_text_15') }}
+        </el-button>
       </div>
     </el-dialog>
   </div>
@@ -347,7 +417,7 @@
         listLoading: false, //列表加载
         layout: 'total, sizes, prev, pager, next, jumper',
         selectRows: '', //选中行
-        elementLoadingText: '正在加载...',
+        elementLoadingText: this.$t('operation_tips.tips_12'),
         // 查询表单
         queryForm: {
           name: '',
@@ -379,49 +449,71 @@
         departmentData: {}, //选中部门数据
         rules: {
           name: [
-            { required: true, message: '请输入人员姓名', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('operation_tips.tips_13'),
+              trigger: 'blur',
+            },
             {
               min: 1,
               max: 10,
-              message: '长度在 1 到 10 个字符',
+              message: this.$t('operation_tips.tips_2'),
               trigger: 'blur',
             },
           ],
           Employee_code: [
-            { required: true, message: '请输入人员编号', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('operation_tips.tips_14'),
+              trigger: 'blur',
+            },
             {
               min: 1,
               max: 18,
-              message: '长度在 1 到 18 个字符',
+              message: this.$t('operation_tips.tips_20'),
               trigger: 'blur',
             },
             {
               pattern: /^[A-Za-z0-9]*$/,
-              message: '人员编号只能为数字和字母',
+              message: this.$t('operation_tips.tips_15'),
               trigger: 'blur',
             },
           ],
           phone: [
             {
               pattern: /^1[3-9]\d{9}$/,
-              message: '请输入正确的11位电话号码',
+              message: this.$t('operation_tips.tips_3'),
               trigger: 'blur',
             },
           ],
           Email: [
             {
               pattern: /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/,
-              message: '请输入正确的邮箱',
+              message: this.$t('operation_tips.tips_16'),
               trigger: 'blur',
             },
           ],
           departmentname: [
-            { required: true, message: '请选择部门', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('operation_tips.tips_17'),
+              trigger: 'blur',
+            },
           ],
           Employetypename: [
-            { required: true, message: '请选择工作分类', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('operation_tips.tips_18'),
+              trigger: 'blur',
+            },
           ],
-          picture: [{ required: true, message: '请上传头像', trigger: 'blur' }],
+          picture: [
+            {
+              required: true,
+              message: this.$t('operation_tips.tips_19'),
+              trigger: 'blur',
+            },
+          ],
         },
         dialogTableVisible: false, //表格弹窗控制
         gridData: [], //设备列表
@@ -474,13 +566,13 @@
       // 删除
       handleDelete(row) {
         if (row.id) {
-          this.$baseConfirm('你确定要删除当前项吗', null, () => {
+          this.$baseConfirm(this.$t('operation_tips.tips_4'), null, () => {
             let res = delData([row.id])
             if (res) {
-              this.$baseMessage('删除成功！', 'success')
+              this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
               this.init()
             } else {
-              this.$baseMessage('删除失败！', 'warning')
+              this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
               this.init()
             }
           })
@@ -490,18 +582,18 @@
             this.selectRows.forEach((item) => {
               ids.push(item.id)
             })
-            this.$baseConfirm('你确定要删除选中项吗', null, () => {
+            this.$baseConfirm(this.$t('operation_tips.tips_21'), null, () => {
               let res = delData(ids)
               if (res) {
-                this.$baseMessage('删除成功！', 'success')
+                this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
                 this.init()
               } else {
-                this.$baseMessage('删除失败！', 'warning')
+                this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
                 this.init()
               }
             })
           } else {
-            this.$baseMessage('未选中任何行', 'error')
+            this.$baseMessage(this.$t('operation_tips.tips_22'), 'error')
             return false
           }
         }
@@ -511,7 +603,7 @@
         if (row.id) {
           let res = queryPerson(row.id)
           if (res.result == 'error') {
-            this.$baseMessage('请先上传头像', 'warning')
+            this.$baseMessage(this.$t('operation_tips.tips_19'), 'warning')
             return
           } else if (res.result == 'success') {
             this.deviceRows = []
@@ -527,7 +619,7 @@
             this.selectRows.forEach((item) => {
               let res = queryPerson(item.id)
               if (res.result == 'error') {
-                this.$baseMessage('请先上传头像', 'warning')
+                this.$baseMessage(this.$t('operation_tips.tips_19'), 'warning')
                 isFind = false
               } else if (res.result == 'success') {
                 this.issueUser.push(item)
@@ -541,7 +633,7 @@
               this.dialogTableVisible = fasle
             }
           } else {
-            this.$baseMessage('未选中任何行', 'error')
+            this.$baseMessage(this.$t('operation_tips.tips_22'), 'error')
             return false
           }
         }
@@ -561,7 +653,7 @@
         })
         let res = toIssue(data)
         if (res) {
-          this.$baseMessage('已下发', 'success')
+          this.$baseMessage(this.$t('operation_tips.tips_23'), 'success')
           this.dialogTableVisible = false
           this.init()
         }
@@ -571,9 +663,9 @@
         this.$baseConfirm('确定将全部人员下发到所有设备吗？', null, () => {
           oneClickIssue().then((res) => {
             if (res) {
-              this.$baseMessage('下发成功！', 'success')
+              this.$baseMessage(this.$t('operation_tips.tips_24'), 'success')
             } else {
-              this.$baseMessage('下发失败！', 'warning')
+              this.$baseMessage(this.$t('operation_tips.tips_25'), 'warning')
             }
             this.init()
           })
@@ -587,11 +679,11 @@
       importExcel() {
         importExcel().then((res) => {
           if (res.result == 2) {
-            this.$baseMessage('保存成功', 'success')
+            this.$baseMessage(this.$t('operation_tips.tips_26'), 'success')
           } else if (res.result == 1) {
             this.$baseMessage(res.data, 'warning')
           } else {
-            this.$baseMessage('保存失败', 'error')
+            this.$baseMessage(this.$t('operation_tips.tips_27'), 'error')
           }
           this.init()
         })
@@ -689,15 +781,12 @@
             }
             if (this.form.idcardtype == 32) {
               if (this.form.face_idcard > 4294967295) {
-                this.$baseMessage(
-                  '您的输入的卡号大于32位的最大值，请确认是否属于64位',
-                  'warning'
-                )
+                this.$baseMessage(this.$t('operation_tips.tips_28'), 'warning')
                 return
               }
             } else if (this.form.idcardtype == 64) {
               if (this.form.face_idcard > 18446744073709551615) {
-                this.$baseMessage('号超过系统支持的最大值', 'warning')
+                this.$baseMessage(this.$t('operation_tips.tips_29'), 'warning')
                 return
               }
             }

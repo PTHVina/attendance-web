@@ -2,8 +2,9 @@
   <div class="table-container">
     <div class="group">
       <div class="btn_group">
+        <!-- 新增 -->
         <el-button icon="el-icon-plus" type="primary" @click="openFormDialog">
-          新增
+          {{ $t('operation_btn.btn_text_7') }}
         </el-button>
       </div>
     </div>
@@ -15,66 +16,77 @@
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
     >
+      <!-- 创建时间 -->
       <el-table-column
         show-overflow-tooltip
-        label="创建时间"
+        :label="$t('attendanceSet.text_2')"
         prop="publish_time"
         sortable
       ></el-table-column>
+      <!-- 班次名称 -->
       <el-table-column
         show-overflow-tooltip
-        label="班次名称"
+        :label="$t('attendanceSet.text_3')"
         prop="name"
       ></el-table-column>
+      <!-- 班次时长 -->
       <el-table-column
         show-overflow-tooltip
-        label="班次时长"
+        :label="$t('attendanceSet.text_4')"
         prop="Duration"
       ></el-table-column>
+      <!-- 工作时段一 -->
       <el-table-column
         show-overflow-tooltip
-        label="工作时段一"
+        :label="$t('attendanceSet.text_5')"
         prop="gotowork1"
       ></el-table-column>
-      <!-- <el-table-column
+      <!-- 工作时段二
+        <el-table-column
         show-overflow-tooltip
-        label="工作时段二"
+        :label="$t('attendanceSet.text_6')"
         prop="gotowork2"
       ></el-table-column>
+      工作时段三
       <el-table-column
         show-overflow-tooltip
-        label="工作时段三"
+        :label="$t('attendanceSet.text_7')"
         prop="gooffwork3"
       ></el-table-column> -->
+      <!-- 休息时间段 -->
       <el-table-column
         show-overflow-tooltip
-        label="休息时间段"
+        :label="$t('attendanceSet.text_8')"
         prop="rest_time"
       ></el-table-column>
-      <el-table-column label="操作" fixed="right">
+      <!-- 操作 -->
+      <el-table-column :label="$t('attendanceSet.text_9')" fixed="right">
         <template #default="{ row }">
+          <!-- 编辑 -->
           <el-button
             type="text"
             icon="el-icon-edit"
             @click="openFormDialog(row)"
           >
-            编辑
+            {{ $t('operation_btn.btn_text_14') }}
           </el-button>
+          <!-- 删除 -->
           <el-button
             type="text"
             class="btn_red"
             icon="el-icon-delete"
             @click="handleDelete(row)"
           >
-            删除
+            {{ $t('operation_btn.btn_text_2') }}
           </el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <!-- 新增/修改弹窗 -->
+    <!-- 班次信息 -->
     <el-dialog
-      title="班次信息"
+      :title="$t('attendanceSet.text_10')"
       :visible.sync="dialogFormVisible"
       width="600px"
       :destroy-on-close="true"
@@ -87,82 +99,95 @@
         :rules="rules"
         size="medium"
       >
-        <el-form-item label="班次" prop="name">
+        <!-- 班次 -->
+        <el-form-item :label="$t('attendanceSet.text_12')" prop="name">
           <el-input
             v-model="form.name"
-            placeholder="班次名称"
+            :placeholder="$t('attendanceSet.text_3')"
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item label="时段数">
-          <el-radio v-model="form.radio" label="1" border>时段一</el-radio>
+        <!-- 时段数 -->
+        <el-form-item :label="$t('attendanceSet.text_2')">
+          <el-radio v-model="form.radio" label="1" border>
+            {{ $t('attendanceSet.text_13') }}
+          </el-radio>
           <el-radio v-if="false" v-model="form.radio" label="2" border>
-            时段二
+            {{ $t('attendanceSet.text_14') }}
           </el-radio>
           <el-radio v-if="false" v-model="form.radio" label="3" border>
-            时段三
+            {{ $t('attendanceSet.text_15') }}
           </el-radio>
         </el-form-item>
-        <el-form-item label="上下班时间段" prop="commuter">
+        <!-- 上下班时间段 -->
+        <el-form-item :label="$t('attendanceSet.text_16')" prop="commuter">
           <el-time-picker
             v-model="form.commuter"
             is-range
-            range-separator="至"
+            :range-separator="$t('attendanceSet.text_17')"
             value-format="HH:mm"
             format="HH:mm"
-            start-placeholder="开始时间"
-            end-placeholder="结束时间"
-            placeholder="选择时间范围"
+            :start-placeholder="$t('attendanceSet.text_18')"
+            :end-placeholder="$t('attendanceSet.text_19')"
+            :placeholder="$t('attendanceSet.text_20')"
             style="width: 100%"
           ></el-time-picker>
         </el-form-item>
-        <el-form-item label="休息时间段" prop="rest">
+        <!-- 休息时间段 -->
+        <el-form-item :label="$t('attendanceSet.text_8')" prop="rest">
           <el-time-picker
             v-model="form.rest"
             is-range
-            range-separator="至"
+            :range-separator="$t('attendanceSet.text_17')"
             value-format="HH:mm"
             format="HH:mm"
-            start-placeholder="开始时间"
-            end-placeholder="结束时间"
-            placeholder="选择时间范围"
+            :start-placeholder="$t('attendanceSet.text_18')"
+            :end-placeholder="$t('attendanceSet.text_19')"
+            :placeholder="$t('attendanceSet.text_20')"
             style="width: 100%"
           ></el-time-picker>
         </el-form-item>
-        <el-form-item label="出勤时长">
-          <el-tag size="medium">{{ timeLong }}小时</el-tag>
+        <!-- 出勤时长 -->
+        <el-form-item :label="$t('attendanceSet.text_21')">
+          <el-tag size="medium">
+            {{ timeLong }}{{ $t('attendanceSet.text_22') }}
+          </el-tag>
         </el-form-item>
-        <el-form-item label="上班有效打卡区间">
+        <!-- 上班有效打卡区间 -->
+        <el-form-item :label="$t('attendanceSet.text_23')">
           <el-time-picker
             v-model="form.punchCard1"
             is-range
-            range-separator="至"
+            :range-separator="$t('attendanceSet.text_17')"
             value-format="HH:mm"
             format="HH:mm"
-            start-placeholder="开始时间"
-            end-placeholder="结束时间"
-            placeholder="选择时间范围"
+            :start-placeholder="$t('attendanceSet.text_18')"
+            :end-placeholder="$t('attendanceSet.text_19')"
+            :placeholder="$t('attendanceSet.text_20')"
             style="width: 100%"
           ></el-time-picker>
         </el-form-item>
-        <el-form-item label="下班有效打卡区间">
+        <!-- 下班有效打卡区间 -->
+        <el-form-item :label="$t('attendanceSet.text_23')">
           <el-time-picker
             v-model="form.punchCard2"
             is-range
-            range-separator="至"
+            :range-separator="$t('attendanceSet.text_17')"
             value-format="HH:mm"
             format="HH:mm"
-            start-placeholder="开始时间"
-            end-placeholder="结束时间"
-            placeholder="选择时间范围"
+            :start-placeholder="$t('attendanceSet.text_18')"
+            :end-placeholder="$t('attendanceSet.text_19')"
+            :placeholder="$t('attendanceSet.text_20')"
             style="width: 100%"
           ></el-time-picker>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="closeFn">取 消</el-button>
+        <el-button @click="closeFn">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
         <el-button type="primary" @click="setFormData('formData')">
-          确 定
+          {{ $t('operation_btn.btn_text_5') }}
         </el-button>
       </div>
     </el-dialog>
@@ -178,7 +203,7 @@
         list: [],
         imageList: [],
         listLoading: false, //列表加载
-        elementLoadingText: '正在加载...',
+        elementLoadingText: this.$t('operation_tips.tips_12'),
         dialogFormVisible: false, //表单弹窗控制
         // 新增、编辑
         form: {
@@ -192,13 +217,25 @@
         },
         rules: {
           name: [
-            { required: true, message: '请输入班次名称', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('attendanceSet.text_25'),
+              trigger: 'blur',
+            },
           ],
           commuter: [
-            { required: true, message: '请选择上班时间段', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('attendanceSet.text_26'),
+              trigger: 'blur',
+            },
           ],
           rest: [
-            { required: true, message: '请选择休息时间段', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('attendanceSet.text_27'),
+              trigger: 'blur',
+            },
           ],
         },
       }
@@ -266,12 +303,12 @@
       },
       // 删除
       handleDelete(row) {
-        this.$baseConfirm('你确定要删除当前项吗', null, () => {
+        this.$baseConfirm(this.$t('operation_tips.tips_4'), null, () => {
           let res = delClasses(row.id)
           if (res) {
-            this.$baseMessage('删除成功', 'success')
+            this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
           } else {
-            this.$baseMessage('删除失败', 'warning')
+            this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
           }
           this.init()
         })
@@ -317,15 +354,15 @@
             let res = setClasses(this.form)
             if (this.form.id) {
               if (res.result == 2) {
-                this.$baseMessage('修改成功', 'success')
+                this.$baseMessage(this.$t('operation_tips.tips_10'), 'success')
               } else {
-                this.$baseMessage('修改失败', 'warning')
+                this.$baseMessage(this.$t('operation_tips.tips_11'), 'warning')
               }
             } else {
               if (res.result == 2) {
-                this.$baseMessage('保存成功', 'success')
+                this.$baseMessage(this.$t('operation_tips.tips_26'), 'success')
               } else {
-                this.$baseMessage('保存失败', 'warning')
+                this.$baseMessage(this.$t('operation_tips.tips_27'), 'warning')
               }
             }
             this.dialogFormVisible = false

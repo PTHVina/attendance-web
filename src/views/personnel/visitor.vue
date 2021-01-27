@@ -9,32 +9,42 @@
           size="medium"
           @submit.native.prevent
         >
+          <!-- 姓名 -->
           <el-form-item>
-            <span>姓名</span>
-            <el-input v-model="queryForm.name" placeholder="人员姓名" />
+            <span>{{ $t('personnel.text_1') }}</span>
+            <el-input
+              v-model="queryForm.name"
+              :placeholder="$t('personnel.pl_1')"
+            />
           </el-form-item>
+          <!-- 电话号码 -->
           <el-form-item>
-            <span>电话号码</span>
-            <el-input v-model="queryForm.phone" placeholder="电话号码" />
+            <span>{{ $t('personnel.text_3') }}</span>
+            <el-input
+              v-model="queryForm.phone"
+              :placeholder="$t('personnel.text_3')"
+            />
           </el-form-item>
+          <!-- 授权起止时间 -->
           <el-form-item>
-            <span>授权起止时间</span>
+            <span>{{ $t('personnel.text_6') }}</span>
             <el-date-picker
               v-model="queryForm.accreditTime"
               type="datetimerange"
-              range-separator="至"
-              start-placeholder="授权起始时间"
-              end-placeholder="授权结束时间"
+              :range-separator="$t('personnel.text_7')"
+              :start-placeholder="$t('personnel.text_8')"
+              :end-placeholder="$t('personnel.text_9')"
               style="width: 360px"
               @change="checkTime"
             ></el-date-picker>
           </el-form-item>
+          <!-- 是否下发 -->
           <el-form-item>
-            <span>是否下发</span>
+            <span>{{ $t('personnel.text_10') }}</span>
             <el-select
               v-model="queryForm.isDown"
               clearable
-              placeholder="是/否"
+              :placeholder="$t('personnel.text_11')"
               style="width: 80px"
             >
               <el-option
@@ -46,32 +56,39 @@
             </el-select>
           </el-form-item>
           <el-form-item>
+            <!-- 查询 -->
             <el-button
               icon="el-icon-search"
               type="primary"
               native-type="submit"
               @click="handleQuery('queryForm')"
             >
-              查询
+              {{ $t('operation_btn.btn_text_6') }}
             </el-button>
-            <el-button type="info" plain @click="reset">重置</el-button>
+            <!-- 重置 -->
+            <el-button type="info" plain @click="reset">
+              {{ $t('operation_btn.btn_text_18') }}
+            </el-button>
           </el-form-item>
         </el-form>
       </div>
       <div class="btn_group">
+        <!-- 新增 -->
         <el-button icon="el-icon-plus" type="primary" @click="openFormDialog">
-          新增
+          {{ $t('operation_btn.btn_text_7') }}
         </el-button>
+        <!-- 导出列表 -->
         <!-- <el-button icon="el-icon-upload2" type="primary" @click="downList">
-          导出列表
+          {{ $t('operation_btn.btn_text_8') }}
         </el-button> -->
+        <!-- 批量删除 -->
         <el-button
           icon="el-icon-delete"
           type="danger"
           style="opacity: 0.6"
           @click="handleDelete"
         >
-          批量删除
+          {{ $t('operation_btn.btn_text_13') }}
         </el-button>
       </div>
     </div>
@@ -90,63 +107,73 @@
         type="selection"
         width="55"
       ></el-table-column>
-      <el-table-column show-overflow-tooltip label="照片">
+      <!-- 照片 -->
+      <el-table-column show-overflow-tooltip :label="$t('personnel.title_12')">
         <template #default="{ row }">
           <el-image :preview-src-list="imageList" :src="row.imge"></el-image>
         </template>
       </el-table-column>
+      <!-- 姓名 -->
       <el-table-column
         show-overflow-tooltip
         prop="name"
-        label="姓名"
+        :label="$t('personnel.text_1')"
       ></el-table-column>
+      <!-- 电话号码 -->
       <el-table-column
         show-overflow-tooltip
-        label="电话号码"
+        :label="$t('personnel.text_3')"
         prop="phone"
       ></el-table-column>
+      <!-- 授权起始时间 -->
       <el-table-column
         show-overflow-tooltip
-        label="授权起始时间"
+        :label="$t('personnel.text_8')"
         prop="staTime"
         sortable
       ></el-table-column>
+      <!-- 授权结束时间 -->
       <el-table-column
         show-overflow-tooltip
-        label="授权结束时间"
+        :label="$t('personnel.text_9')"
         prop="endTime"
         sortable
       ></el-table-column>
+      <!-- 是否下发 -->
       <el-table-column
         show-overflow-tooltip
-        label="是否下发"
+        :label="$t('personnel.text_10')"
         prop="isDown"
         sortable
       >
         <template #default="{ row }">
-          <span v-if="row.isDown == 1">是</span>
+          <span v-if="row.isDown == 1">{{ $t('personnel.text_12') }}</span>
           <span v-else></span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right">
+      <!-- 操作 -->
+      <el-table-column :label="$t('personnel.title_9')" fixed="right">
         <template #default="{ row }">
+          <!-- 编辑 -->
           <el-button
             type="text"
             icon="el-icon-edit"
             @click="openFormDialog(row)"
           >
-            编辑
+            {{ $t('operation_btn.btn_text_14') }}
           </el-button>
+          <!-- 下发 -->
           <el-button type="text" icon="el-icon-thumb" @click="issue(row)">
-            下发
+            {{ $t('operation_btn.btn_text_15') }}
           </el-button>
+          <!-- 删除 -->
           <el-button
             type="text"
             class="btn_red"
             icon="el-icon-delete"
             @click="handleDelete(row)"
           >
-            删除
+            {{ $t('operation_btn.btn_text_2') }}
           </el-button>
         </template>
       </el-table-column>
@@ -161,8 +188,9 @@
     ></el-pagination>
 
     <!-- 新增/修改弹窗 -->
+    <!-- 人员信息 -->
     <el-dialog
-      title="人员信息"
+      :title="$t('personnel.text_4')"
       :visible.sync="dialogFormVisible"
       width="600px"
       :destroy-on-close="true"
@@ -175,31 +203,35 @@
         :rules="rules"
         size="medium"
       >
-        <el-form-item label="姓名" prop="name">
+        <!-- 姓名 -->
+        <el-form-item :label="$t('personnel.text_1')" prop="name">
           <el-input
             v-model="form.name"
-            placeholder="人员姓名"
+            :placeholder="$t('personnel.pl_1')"
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item label="电话号码" prop="phone">
+        <!-- 电话号码 -->
+        <el-form-item :label="$t('personnel.text_3')" prop="phone">
           <el-input
             v-model="form.phone"
-            placeholder="电话号码"
+            :placeholder="$t('personnel.text_3')"
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item label="授权时间区间" prop="date">
+        <!-- 授权时间区间 -->
+        <el-form-item :label="$t('personnel.text_13')" prop="date">
           <el-date-picker
             v-model="form.date"
             type="datetimerange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
+            :range-separator="$t('personnel.text_7')"
+            :start-placeholder="$t('personnel.text_8')"
+            :end-placeholder="$t('personnel.text_9')"
             @change="checkInfoTime"
           ></el-date-picker>
         </el-form-item>
-        <el-form-item label="照片" prop="img">
+        <!-- 照片 -->
+        <el-form-item :label="$t('personnel.title_12')" prop="img">
           <div class="add_img">
             <el-image
               v-if="form.picture"
@@ -210,15 +242,23 @@
             ></el-image>
             <i v-else class="el-icon-picture-outline"></i>
             <div class="add_box">
-              <span class="uploading" @click="checkImg">上传</span>
-              <span class="photo" @click="photograph">拍照</span>
+              <span class="uploading" @click="checkImg">
+                {{ $t('operation_btn.btn_text_16') }}
+              </span>
+              <span class="photo" @click="photograph">
+                {{ $t('operation_btn.btn_text_17') }}
+              </span>
             </div>
           </div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="closeFn">取 消</el-button>
-        <el-button type="primary" @click="setInfo('form')">确 定</el-button>
+        <el-button @click="closeFn">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
+        <el-button type="primary" @click="setInfo('form')">
+          {{ $t('operation_btn.btn_text_5') }}
+        </el-button>
       </div>
     </el-dialog>
   </div>
@@ -243,7 +283,7 @@
         imageList: [],
         listLoading: false, //列表加载
         layout: 'total, sizes, prev, pager, next, jumper',
-        elementLoadingText: '正在加载...',
+        elementLoadingText: this.$t('operation_tips.tips_12'),
         queryForm: {
           name: '',
           phone: '',
@@ -263,11 +303,11 @@
         issueOption: [
           {
             value: '1',
-            label: '是',
+            label: this.$t('operation_tips.tips_30'),
           },
           {
             value: '0',
-            label: '否',
+            label: this.$t('operation_tips.tips_31'),
           },
         ],
         dialogFormVisible: false, //表单弹窗控制
@@ -283,25 +323,39 @@
         },
         rules: {
           name: [
-            { required: true, message: '人员姓名不能为空', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('operation_tips.tips_32'),
+              trigger: 'blur',
+            },
             {
               min: 1,
               max: 10,
-              message: '长度在 1 到 10 个字符',
+              message: this.$t('operation_tips.tips_2'),
               trigger: 'blur',
             },
           ],
           phone: [
             {
               pattern: /^1[3-9]\d{9}$/,
-              message: '请输入正确的11位电话号码',
+              message: this.$t('operation_tips.tips_3'),
               trigger: 'blur',
             },
           ],
           date: [
-            { required: true, message: '请选择授权时间', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('operation_tips.tips_33'),
+              trigger: 'blur',
+            },
           ],
-          img: [{ required: true, message: '请上传头像', trigger: 'blur' }],
+          img: [
+            {
+              required: true,
+              message: this.$t('operation_tips.tips_19'),
+              trigger: 'blur',
+            },
+          ],
         },
       }
     },
@@ -412,15 +466,19 @@
       // 删除
       handleDelete(row) {
         if (row.id) {
-          this.$baseConfirm('你确定要删除当前项吗', null, async () => {
-            let res = delVisitor(row.id + ',')
-            if (res) {
-              this.$baseMessage('删除成功！', 'success')
-            } else {
-              this.$baseMessage('删除失败！', 'success')
+          this.$baseConfirm(
+            this.$t('operation_tips.tips_4'),
+            null,
+            async () => {
+              let res = delVisitor(row.id + ',')
+              if (res) {
+                this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
+              } else {
+                this.$baseMessage(this.$t('operation_tips.tips_5'), 'success')
+              }
+              this.init()
             }
-            this.init()
-          })
+          )
         } else {
           if (this.selectRows.length > 0) {
             let ids = ''
@@ -430,7 +488,7 @@
             let res = delVisitor(ids)
             this.init()
           } else {
-            this.$baseMessage('未选中任何行', 'error')
+            this.$baseMessage(this.$t('operation_tips.tips_22'), 'error')
             return false
           }
         }
@@ -439,9 +497,9 @@
       issue(row) {
         let res = issueVisitor(row)
         if (res) {
-          this.$baseMessage('下发成功！', 'success')
+          this.$baseMessage(this.$t('operation_tips.tips_24'), 'success')
         } else {
-          this.$baseMessage('下发失败！', 'error')
+          this.$baseMessage(this.$t('operation_tips.tips_25'), 'error')
         }
       },
       //导出
@@ -509,12 +567,12 @@
               res = addVisitor(this.form)
             }
             if (res.result == 2) {
-              this.$baseMessage('保存成功！', 'success')
+              this.$baseMessage(this.$t('operation_tips.tips_26'), 'success')
               this.dialogFormVisible = false
               this.page.pageNo = 1
               this.init()
             } else {
-              this.$baseMessage('保存失败！', 'warning')
+              this.$baseMessage(this.$t('operation_tips.tips_27'), 'warning')
             }
           } else {
             return false
@@ -579,7 +637,6 @@
     box-sizing: border-box;
     width: 146px;
     height: 146px;
-    cursor: pointer;
     position: relative;
     z-index: 0;
     .show_img {
@@ -593,28 +650,45 @@
       left: 0;
       z-index: 1;
     }
-    i {
+    > i {
       width: 100%;
       height: 100%;
       line-height: 146px;
       vertical-align: top;
-      font-size: 28px;
-      color: #8c939d;
+      font-size: 40px;
+      color: #ccc;
       text-align: center;
       position: absolute;
       top: 0;
       left: 0;
       z-index: 1;
     }
-    input {
-      outline: none;
+    .add_box {
       width: 100%;
       height: 100%;
       position: absolute;
       top: 0;
       left: 0;
       z-index: 2;
-      opacity: 0;
+      background: #666;
+      border-radius: 6px;
+      opacity: 0.6;
+      display: none;
+      // display: flex;
+      align-items: center;
+      justify-content: center;
+      span {
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 16px;
+      }
+      .uploading {
+        margin-right: 20px;
+      }
     }
+  }
+  .add_img:hover .add_box {
+    display: flex;
   }
 </style>

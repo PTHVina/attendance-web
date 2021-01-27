@@ -16,14 +16,12 @@ const state = () => ({
   username: '',
   avatar: '',
   permissions: [],
-  lang: 'zh_CN',
 })
 const getters = {
   accessToken: (state) => state.accessToken,
   username: (state) => state.username,
   avatar: (state) => state.avatar,
   permissions: (state) => state.permissions,
-  lang: (state) => state.lang,
 }
 const mutations = {
   setAccessToken(state, accessToken) {
@@ -39,9 +37,6 @@ const mutations = {
   setPermissions(state, permissions) {
     state.permissions = permissions
   },
-  setLang(state, lang) {
-    state.lang = lang
-  },
 }
 const actions = {
   setPermissions({ commit }, permissions) {
@@ -55,26 +50,39 @@ const actions = {
       permissions: ['admin'],
     }
     const accessToken = data[tokenName]
+    let lang = myExtension.getlanguage()
+    let a = '早上好'
+    let b = '上午好'
+    let c = '中午好'
+    let d = '下午好'
+    let e = '晚上好'
+    let tip1 = '欢迎登录智慧人脸考勤门禁系统'
+    let tip2 = '登录接口异常，未正确返回'
+    if (lang == 'en_US') {
+      a = 'good morning'
+      b = 'Good morning'
+      c = 'Good noon'
+      d = 'Good afternoon'
+      e = 'Good evening'
+      tip1 = 'Welcome to login Face Recognition System'
+      tip2 = 'Login interface exception, not returned correctly'
+    } else if (lang == 'Jan_JPN') {
+      a = 'おはよう'
+      b = 'おはようございます'
+      c = 'こんにちは'
+      d = 'こんにちは'
+      e = 'こんばんは'
+      tip1 = '知恵人の顔の勤務評定の門限システムに登録することを歓迎します。'
+      tip2 = 'ログインインターフェースが異常で、正しく戻りませんでした。'
+    }
     if (accessToken) {
       commit('setAccessToken', accessToken)
-      commit('setLang', myExtension.getlanguage())
       const hour = new Date().getHours()
       const thisTime =
-        hour < 8
-          ? '早上好'
-          : hour <= 11
-          ? '上午好'
-          : hour <= 13
-          ? '中午好'
-          : hour < 18
-          ? '下午好'
-          : '晚上好'
-      Vue.prototype.$baseNotify(`欢迎登录${title}`, `${thisTime}！`)
+        hour < 8 ? a : hour <= 11 ? b : hour <= 13 ? c : hour < 18 ? d : e
+      Vue.prototype.$baseNotify(tip1, `${thisTime}！`)
     } else {
-      Vue.prototype.$baseMessage(
-        `登录接口异常，未正确返回${tokenName}...`,
-        'error'
-      )
+      Vue.prototype.$baseMessage(tip2 + `${tokenName}...`, 'error')
     }
   },
   async getUserInfo({ commit, state }) {

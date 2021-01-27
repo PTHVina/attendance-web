@@ -9,77 +9,100 @@
           size="medium"
           @submit.native.prevent
         >
+          <!-- 姓名 -->
           <el-form-item>
-            <span>姓名</span>
-            <el-input v-model="queryForm.name" placeholder="人员姓名" />
+            <span>{{ $t('attendance.text_1') }}</span>
+            <el-input
+              v-model="queryForm.name"
+              :placeholder="$t('attendance.text_2')"
+            />
           </el-form-item>
+          <!-- 旷工 -->
           <el-form-item>
-            <span>旷工</span>
+            <span>{{ $t('attendance.text_3') }}</span>
             <el-select
               v-model="queryForm.isAbsenteeism"
               clearable
-              placeholder="请选择"
+              :placeholder="$t('attendance.text_4')"
               style="width: 90px"
             >
               <!-- <el-option key="0" label=" " value="0"></el-option> -->
-              <el-option key="1" label="是" value="1"></el-option>
+              <el-option
+                key="1"
+                :label="$t('attendance.text_5')"
+                value="1"
+              ></el-option>
             </el-select>
           </el-form-item>
+          <!-- 迟到 -->
           <el-form-item>
-            <span>迟到</span>
+            <span>{{ $t('attendance.text_6') }}</span>
             <el-select
               v-model="queryForm.late"
               clearable
-              placeholder="请选择"
+              :placeholder="$t('attendance.text_4')"
               style="width: 90px"
             >
               <!-- <el-option key="0" label=" " value="0"></el-option> -->
-              <el-option key="1" label="是" value="1"></el-option>
+              <el-option
+                key="1"
+                :label="$t('attendance.text_5')"
+                value="1"
+              ></el-option>
             </el-select>
           </el-form-item>
+          <!-- 早退 -->
           <el-form-item>
-            <span>早退</span>
+            <span>{{ $t('attendance.text_7') }}</span>
             <el-select
               v-model="queryForm.Leaveearly"
               clearable
-              placeholder="请选择"
+              :placeholder="$t('attendance.text_4')"
               style="width: 90px"
             >
               <!-- <el-option key="0" label=" " value="0"></el-option> -->
-              <el-option key="1" label="是" value="1"></el-option>
+              <el-option
+                key="1"
+                :label="$t('attendance.text_5')"
+                value="1"
+              ></el-option>
             </el-select>
           </el-form-item>
+          <!-- 考勤日期 -->
           <el-form-item>
-            <span>考勤日期</span>
+            <span>{{ $t('attendance.text_8') }}</span>
             <el-date-picker
               v-model="queryForm.daterangetime"
               type="daterange"
               value-format="yyyy-MM-dd"
               format="yyyy-MM-dd"
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :range-separator="$t('attendance.text_9')"
+              :start-placeholder="$t('attendance.text_10')"
+              :end-placeholder="$t('attendance.text_11')"
               style="width: 280px"
             ></el-date-picker>
           </el-form-item>
           <el-form-item>
+            <!-- 查询 -->
             <el-button
               icon="el-icon-search"
               type="primary"
               native-type="submit"
               @click="handleQuery()"
             >
-              查询
+              {{ $t('operation_btn.btn_text_6') }}
             </el-button>
+            <!-- 导出 -->
             <el-button
               icon="el-icon-upload2"
               type="primary"
               @click="exportList"
             >
-              导出
+              {{ $t('operation_btn.btn_text_30') }}
             </el-button>
+            <!-- 导出设置 -->
             <el-button icon="el-icon-setting" type="primary" @click="setExport">
-              导出设置
+              {{ $t('operation_btn.btn_text_31') }}
             </el-button>
           </el-form-item>
         </el-form>
@@ -94,46 +117,52 @@
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
     >
+      <!-- 姓名 -->
       <el-table-column
         show-overflow-tooltip
         prop="name"
-        label="姓名"
+        :label="$t('attendance.text_1')"
       ></el-table-column>
+      <!-- 部门 -->
       <el-table-column
         show-overflow-tooltip
-        label="部门"
+        :label="$t('attendance.text_12')"
         prop="department"
         sortable
       ></el-table-column>
+      <!-- 人员编号 -->
       <el-table-column
         show-overflow-tooltip
-        label="人员编号"
+        :label="$t('attendance.text_13')"
         prop="Employee_code"
         sortable
       ></el-table-column>
+      <!-- 考勤日期 -->
       <el-table-column
         show-overflow-tooltip
-        label="考勤日期"
+        :label="$t('attendance.text_8')"
         prop="Date"
         sortable
       ></el-table-column>
+      <!-- 班次信息 -->
       <el-table-column
         show-overflow-tooltip
-        label="班次信息"
+        :label="$t('attendance.text_14')"
         prop="Shiftinformation"
         width="160px"
         sortable
       ></el-table-column>
+      <!-- 打卡信息 -->
       <el-table-column
         show-overflow-tooltip
-        label="打卡信息"
+        :label="$t('attendance.text_15')"
         prop="Punchinformation"
         width="300px"
       >
         <template #default="{ row }">
           <div class="tab_box">
             <div>
-              <span>上班：</span>
+              <span>{{ $t('attendance.text_16') }}：</span>
               <span v-if="row.Punchinformation">
                 {{ row.Punchinformation }}
               </span>
@@ -145,7 +174,7 @@
                   round
                   @click="cardInfo(row, 1)"
                 >
-                  请假
+                  {{ $t('attendance.text_17') }}
                 </el-button>
                 <el-button
                   v-else
@@ -154,12 +183,12 @@
                   round
                   @click="cardInfo(row, 1)"
                 >
-                  缺卡
+                  {{ $t('attendance.text_18') }}
                 </el-button>
               </span>
             </div>
             <div>
-              <span>下班：</span>
+              <span>{{ $t('attendance.text_19') }}：</span>
               <span v-if="row.Punchinformation1">
                 {{ row.Punchinformation1 }}
               </span>
@@ -171,7 +200,7 @@
                   round
                   @click="cardInfo(row, 2)"
                 >
-                  请假
+                  {{ $t('attendance.text_17') }}
                 </el-button>
                 <el-button
                   v-else
@@ -180,16 +209,17 @@
                   round
                   @click="cardInfo(row, 2)"
                 >
-                  缺卡
+                  {{ $t('attendance.text_18') }}
                 </el-button>
               </span>
             </div>
           </div>
         </template>
       </el-table-column>
+      <!-- 体温(℃) -->
       <el-table-column
         show-overflow-tooltip
-        label="体温(℃)"
+        :label="$t('attendance.text_20')"
         prop="temperature"
         sortable
       >
@@ -205,9 +235,10 @@
           <span v-else>{{ row.temperature }}</span>
         </template>
       </el-table-column>
+      <!-- 迟到(分钟) -->
       <el-table-column
         show-overflow-tooltip
-        label="迟到(分钟)"
+        :label="$t('attendance.text_21')"
         prop="late"
         sortable
       >
@@ -215,9 +246,10 @@
           <span style="color: red">{{ row.late }}</span>
         </template>
       </el-table-column>
+      <!-- 早退 -->
       <el-table-column
         show-overflow-tooltip
-        label="早退"
+        :label="$t('attendance.text_7')"
         prop="Leaveearly"
         sortable
       >
@@ -225,9 +257,10 @@
           <span style="color: red">{{ row.Leaveearly }}</span>
         </template>
       </el-table-column>
+      <!-- 旷工 -->
       <el-table-column
         show-overflow-tooltip
-        label="旷工"
+        :label="$t('attendance.text_48')"
         prop="isAbsenteeism"
         sortable
       >
@@ -236,10 +269,10 @@
             v-if="row.isAbsenteeism == '0' && row.Remarks != '3'"
             style="color: red"
           >
-            旷工
+            {{ $t('attendance.text_3') }}
           </span>
           <span v-else-if="row.isAbsenteeism == ' ' && row.Remarks == '3'">
-            请假
+            {{ $t('attendance.text_17') }}
           </span>
           <span v-else></span>
         </template>
@@ -255,8 +288,9 @@
     ></el-pagination>
 
     <!-- 补卡弹窗 -->
+    <!-- 补卡信息 -->
     <el-dialog
-      title="补卡信息"
+      :title="$t('attendance.text_22')"
       :visible.sync="dialogFormVisible"
       width="400px"
       :destroy-on-close="true"
@@ -270,44 +304,62 @@
         size="medium"
         @submit.native.prevent
       >
-        <el-form-item label="补卡类型">
+        <!-- 补卡类型 -->
+        <el-form-item :label="$t('attendance.text_23')">
           <el-select v-model="cardForm.type" placeholder="请选择">
-            <el-option :key="0" label="正常" value="0"></el-option>
+            <!-- 正常 -->
+            <el-option
+              :key="0"
+              :label="$t('attendance.text_24')"
+              value="0"
+            ></el-option>
+            <!-- 迟到 -->
             <el-option
               v-if="cardForm.num == 1"
               :key="1"
-              label="迟到"
+              :label="$t('attendance.text_6')"
               value="1"
             ></el-option>
+            <!-- 早退 -->
             <el-option
               v-else-if="cardForm.num == 2"
               :key="2"
-              label="早退"
+              :label="$t('attendance.text_7')"
               value="2"
             ></el-option>
-            <el-option :key="3" label="请假" value="3"></el-option>
+            <!-- 请假 -->
+            <el-option
+              :key="3"
+              :label="$t('attendance.text_17')"
+              value="3"
+            ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="补卡时间">
+        <!-- 补卡时间 -->
+        <el-form-item :label="$t('attendance.text_25')">
           <el-time-picker
             v-model="cardForm.time"
             value-format="HH:mm"
             format="HH:mm"
             :clearable="false"
             :disabled="cardForm.type == 3"
-            placeholder="任意时间点"
+            :placeholder="$t('attendance.text_26')"
           ></el-time-picker>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="closeFn">取 消</el-button>
-        <el-button type="primary" @click="setCard()">保存</el-button>
+        <el-button @click="closeFn">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
+        <el-button type="primary" @click="setCard()">
+          {{ $t('operation_btn.btn_text_29') }}
+        </el-button>
       </div>
     </el-dialog>
 
     <!-- 补卡弹窗 -->
     <el-dialog
-      title="导出设置"
+      :title="$t('attendance.text_27')"
       :visible.sync="dialogVisible"
       width="650px"
       :destroy-on-close="true"
@@ -318,13 +370,17 @@
           key: 'value',
           label: 'title',
         }"
-        :titles="['默认', '设置']"
+        :titles="[$t('attendance.text_28'), $t('attendance.text_29')]"
         :data="setList"
         @change="changeSet"
       ></el-transfer>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveSet()">保存</el-button>
+        <el-button @click="dialogVisible = false">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
+        <el-button type="primary" @click="saveSet()">
+          {{ $t('operation_btn.btn_text_29') }}
+        </el-button>
       </div>
     </el-dialog>
   </div>
@@ -347,7 +403,7 @@
         list: [],
         listLoading: false, //列表加载
         layout: 'total, sizes, prev, pager, next, jumper',
-        elementLoadingText: '正在加载...',
+        elementLoadingText: this.$t('operation_tips.tips_12'),
         queryForm: {
           name: '',
           isAbsenteeism: '', //旷工
@@ -402,7 +458,7 @@
             this.list = JSON.parse(res)
             // console.log('res', this.list)
           } else {
-            this.$baseMessage('没有查询到考勤信息...', 'warning')
+            this.$baseMessage(this.$t('attendance.text_30'), 'warning')
           }
         })
         setTimeout(() => {
@@ -457,12 +513,11 @@
           { value: 'isAbsenteeism', title: 'Absenteeism' },
           { value: 'temperature', title: 'Body temperature(℃)' },
         ]
-        let lang = store.getters['user/lang']
-        if (lang == 'zh_CN') {
+        if (this.$lang == 'zh_CN') {
           this.setList = dataZn
-        } else if (lang == 'Jan_JPN') {
+        } else if (this.$lang == 'Jan_JPN') {
           this.setList = dataJpan
-        } else if (lang == 'en_US') {
+        } else if (this.$lang == 'en_US') {
           this.setList = dataEn
         }
       },
@@ -508,7 +563,7 @@
           } else if (data.type == '1') {
             //迟到
             if (data.time.replace(':', '') <= data.time1.replace(':', '')) {
-              this.$baseMessage('补卡时间不能小于上班时间', 'warning')
+              this.$baseMessage(this.$t('attendance.text_31'), 'warning')
               return
             }
           }
@@ -521,7 +576,7 @@
           } else if (data.type == '2') {
             //早退
             if (data.time.replace(':', '') >= data.time2.replace(':', '')) {
-              this.$baseMessage('下班时间不能小于补卡时间', 'warning')
+              this.$baseMessage(this.$t('attendance.text_32'), 'warning')
               return
             }
           }
@@ -532,11 +587,11 @@
         }
         let res = reissueACard(data)
         if (res) {
-          this.$baseMessage('补卡成功', 'success')
+          this.$baseMessage(this.$t('operation_tips.tips_47'), 'success')
           this.dialogFormVisible = false
           this.init()
         } else {
-          this.$baseMessage('补卡失败', 'warning')
+          this.$baseMessage(this.$t('operation_tips.tips_48'), 'warning')
         }
       },
       // 关闭弹窗
@@ -554,7 +609,7 @@
         this.queryForm.late ? this.queryForm.late : '0'
         this.queryForm.Leaveearly ? this.queryForm.Leaveearly : '0'
         if (this.list.length == 0) {
-          this.$baseMessage('当前时间没有打卡信息', 'warning')
+          this.$baseMessage(this.$t('attendance.text_33'), 'warning')
           return
         }
         exportList(this.queryForm)
@@ -599,10 +654,10 @@
         }
         let res = saveSetting(key, val)
         if (res) {
-          this.$baseMessage('设置成功', 'success')
+          this.$baseMessage(this.$t('operation_tips.tips_43'), 'success')
           this.dialogVisible = false
         } else {
-          this.$baseMessage('设置失败', 'warning')
+          this.$baseMessage(this.$t('operation_tips.tips_44'), 'warning')
         }
       },
     },

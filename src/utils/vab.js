@@ -96,12 +96,24 @@ const install = (Vue, opts = {}) => {
 
   /* 全局Confirm */
   Vue.prototype.$baseConfirm = (content, title, callback1, callback2) => {
-    MessageBox.confirm(content, title || '温馨提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      closeOnClickModal: false,
-      type: 'warning',
-    })
+    let lang = myExtension.getlanguage()
+    MessageBox.confirm(
+      content,
+      title ||
+        (lang == 'zh_CN'
+          ? '温馨提示'
+          : lang == 'en_US'
+          ? 'reminder'
+          : '暖かいヒント'),
+      {
+        confirmButtonText:
+          lang == 'zh_CN' ? '确定' : lang == 'en_US' ? 'OK' : 'を選択します',
+        cancelButtonText:
+          lang == 'zh_CN' ? '取消' : lang == 'en_US' ? 'Cancel' : 'キャンセル',
+        closeOnClickModal: false,
+        type: 'warning',
+      }
+    )
       .then(() => {
         if (callback1) {
           callback1()

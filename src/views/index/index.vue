@@ -6,11 +6,13 @@
           <!-- <i class="el-icon-s-custom"></i> -->
           <vab-icon :icon="['fas', 'user-friends']"></vab-icon>
         </div>
+        <!-- 注册人数 -->
         <div class="item_body">
           <span class="item_num">{{ list.reg }}</span>
-          <span class="item_tips">注册人数</span>
+          <span class="item_tips">{{ $t('home.text_1') }}</span>
         </div>
       </li>
+      <!-- 设备数量 -->
       <li class="box_item">
         <div class="item_title">
           <!-- <i class="el-icon-s-promotion"></i> -->
@@ -18,16 +20,17 @@
         </div>
         <div class="item_body">
           <span class="item_num">{{ list.device }}</span>
-          <span class="item_tips">设备数量</span>
+          <span class="item_tips">{{ $t('home.text_2') }}</span>
         </div>
       </li>
+      <!-- 在线设备数 -->
       <li class="box_item">
         <div class="item_title">
           <i class="el-icon-s-help"></i>
         </div>
         <div class="item_body">
           <span class="item_num">{{ list.online }}</span>
-          <span class="item_tips">在线设备数</span>
+          <span class="item_tips">{{ $t('home.text_3') }}</span>
         </div>
       </li>
       <li class="box_item">
@@ -35,14 +38,18 @@
           <i class="el-icon-s-claim"></i>
         </div>
         <div class="item_body">
+          <!-- 今日出勤数 -->
           <span class="item_num">{{ list.attendance.all }}</span>
-          <span class="item_tips">今日出勤数</span>
+          <span class="item_tips">{{ $t('home.text_4') }}</span>
           <div>
-            <span class="text-nowrap">迟到</span>
+            <!-- 迟到 -->
+            <span class="text-nowrap">{{ $t('home.text_5') }}</span>
             <span class="text-danger">{{ list.attendance.count1 }}</span>
-            <span class="text-nowrap">早退</span>
+            <!-- 早退 -->
+            <span class="text-nowrap">{{ $t('home.text_6') }}</span>
             <span class="text-danger">{{ list.attendance.count2 }}</span>
-            <span class="text-nowrap">请假</span>
+            <!-- 请假 -->
+            <span class="text-nowrap">{{ $t('home.text_7') }}</span>
             <span class="text-danger">{{ list.attendance.count3 }}</span>
           </div>
         </div>

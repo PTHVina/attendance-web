@@ -14,7 +14,6 @@
         this.setdata()
       }
     },
-    mounted() {},
     updated() {},
     methods: {
       setdata() {

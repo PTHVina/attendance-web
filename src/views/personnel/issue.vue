@@ -9,20 +9,29 @@
           size="medium"
           @submit.native.prevent
         >
+          <!-- 姓名 -->
           <el-form-item>
-            <span>姓名</span>
-            <el-input v-model="queryForm.name" placeholder="人员姓名" />
+            <span>{{ $t('personnel.text_1') }}</span>
+            <el-input
+              v-model="queryForm.name"
+              :placeholder="$t('personnel.pl_1')"
+            />
           </el-form-item>
+          <!-- IP地址 -->
           <el-form-item>
-            <span>IP地址</span>
-            <el-input v-model="queryForm.ip" placeholder="IP地址" />
+            <span>{{ $t('personnel.title_3') }}</span>
+            <el-input
+              v-model="queryForm.ip"
+              :placeholder="$t('personnel.title_3')"
+            />
           </el-form-item>
+          <!-- 状态 -->
           <el-form-item>
-            <span>状态</span>
+            <span>{{ $t('personnel.text_14') }}</span>
             <el-select
               v-model="queryForm.status"
               clearable
-              placeholder="全部"
+              :placeholder="$t('personnel.pl_5')"
               style="width: 80px"
             >
               <el-option
@@ -40,7 +49,7 @@
               native-type="submit"
               @click="handleQuery"
             >
-              查询
+              {{ $t('operation_btn.btn_text_6') }}
             </el-button>
           </el-form-item>
         </el-form>
@@ -55,45 +64,65 @@
       :element-loading-text="elementLoadingText"
       @sort-change="tableSortChange"
     >
-      <el-table-column show-overflow-tooltip label="序号" width="95">
+      <!-- 序号 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('personnel.title_15')"
+        width="95"
+      >
         <template #default="scope">
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
+      <!-- 设备名称 -->
       <el-table-column
         show-overflow-tooltip
         prop="DeviceName"
-        label="设备名称"
+        :label="$t('personnel.title_13')"
         sortable
       ></el-table-column>
+      <!-- 设备编号 -->
       <el-table-column
         show-overflow-tooltip
         prop="number"
-        label="设备编号"
+        :label="$t('personnel.title_14')"
         sortable
       ></el-table-column>
+      <!-- IP地址 -->
       <el-table-column
         show-overflow-tooltip
-        label="IP地址"
+        :label="$t('personnel.title_3')"
         prop="ipAddress"
         sortable
       ></el-table-column>
+      <!-- 人员姓名 -->
       <el-table-column
         show-overflow-tooltip
-        label="人员姓名"
+        :label="$t('personnel.pl_1')"
         prop="name"
         sortable
       ></el-table-column>
+      <!-- 状态 -->
       <el-table-column
         show-overflow-tooltip
-        label="状态"
+        :label="$t('personnel.text_14')"
         prop="status"
         sortable
       >
         <template #default="{ row }">
-          <span v-if="row.status === 'success'">成功</span>
-          <span v-else-if="row.status === 'fail'">失败</span>
-          <span v-else-if="row.status === 'inprogress'">下发中</span>
+          <el-tag v-if="row.status === 'success'" size="medium">
+            {{ $t('operation_btn.btn_text_19') }}
+          </el-tag>
+          <el-tag v-else-if="row.status === 'fail'" type="danger" size="medium">
+            {{ $t('operation_btn.btn_text_20') }}
+          </el-tag>
+          <el-tag
+            v-else-if="row.status === 'inprogress'"
+            type="success"
+            size="medium"
+          >
+            {{ $t('operation_btn.btn_text_21') }}
+          </el-tag>
         </template>
       </el-table-column>
     </el-table>
@@ -120,7 +149,7 @@
         listLoading: false, //列表加载
         layout: 'total, sizes, prev, pager, next, jumper',
         selectRows: '', //选中行
-        elementLoadingText: '正在加载...',
+        elementLoadingText: this.$t('operation_tips.tips_12'),
         queryForm: {
           name: '',
           ip: '',
@@ -135,19 +164,19 @@
         statusOption: [
           {
             value: '10',
-            label: '全部',
+            label: this.$t('operation_tips.tips_35'),
           },
           {
             value: '0',
-            label: '成功',
+            label: this.$t('operation_tips.tips_36'),
           },
           {
             value: '1',
-            label: '失败',
+            label: this.$t('operation_tips.tips_37'),
           },
           {
             value: '2',
-            label: '下发中',
+            label: this.$t('operation_tips.tips_38'),
           },
         ],
       }

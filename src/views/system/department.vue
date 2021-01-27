@@ -1,7 +1,8 @@
 <template>
   <div class="test-container">
     <div class="left_box">
-      <div class="tree_add">部门</div>
+      <!-- 部门 -->
+      <div class="tree_add">{{ $t('system.text_1') }}</div>
       <div class="tree_box">
         <el-tree
           class="tree_list"
@@ -16,17 +17,19 @@
           <span slot-scope="{ node, data }" class="custom-tree-node">
             <span>{{ node.label }}</span>
             <span class="tree_btn">
+              <!-- 添加 -->
               <i
                 class="el-icon-circle-plus-outline"
                 @click="() => appendNode(data)"
               >
-                添加
+                {{ $t('operation_btn.btn_text_1') }}
               </i>
+              <!-- 删除 -->
               <i
                 class="del_btn el-icon-remove-outline"
                 @click="() => removeNode(node, data)"
               >
-                删除
+                {{ $t('operation_btn.btn_text_2') }}
               </i>
             </span>
           </span>
@@ -34,7 +37,8 @@
       </div>
     </div>
     <div class="info_box">
-      <div class="tree_add">部门详情</div>
+      <!-- 部门详情 -->
+      <div class="tree_add">{{ $t('system.text_2') }}</div>
       <el-form
         ref="ruleForm"
         :model="ruleForm"
@@ -42,30 +46,37 @@
         label-width="80px"
         class="demo-ruleForm"
       >
-        <el-form-item label="编码" prop="code">
+        <!-- 编码 -->
+        <el-form-item :label="$t('system.title_1')" prop="code">
           <el-input v-model="ruleForm.no" disabled></el-input>
         </el-form-item>
-        <el-form-item label="部门名称" prop="name">
+        <!-- 部门名称 -->
+        <el-form-item :label="$t('system.title_2')" prop="name">
           <el-input v-model="ruleForm.name"></el-input>
         </el-form-item>
-        <el-form-item label="公司描述" prop="describe">
+        <!-- 公司描述 -->
+        <el-form-item :label="$t('system.title_3')" prop="describe">
           <el-input v-model="ruleForm.explain"></el-input>
         </el-form-item>
-        <el-form-item label="电话" prop="phone">
+        <!-- 电话 -->
+        <el-form-item :label="$t('system.title_4')" prop="phone">
           <el-input v-model="ruleForm.phone"></el-input>
         </el-form-item>
-        <el-form-item label="地址" prop="address">
+        <!-- 地址 -->
+        <el-form-item :label="$t('system.title_5')" prop="address">
           <el-input v-model="ruleForm.address"></el-input>
         </el-form-item>
         <el-form-item v-if="ruleForm.id">
+          <!-- 确认修改 -->
           <el-button type="primary" @click="submitForm('ruleForm')">
-            确认修改
+            {{ $t('operation_btn.btn_text_3') }}
           </el-button>
         </el-form-item>
       </el-form>
     </div>
     <div class="personnel">
-      <div class="tree_add">人员分类</div>
+      <!-- 人员分类 -->
+      <div class="tree_add">{{ $t('system.text_3') }}</div>
       <el-tag
         v-for="(tag, key) in dynamicTags"
         :key="tag"
@@ -83,12 +94,18 @@
         @keyup.enter.native="handleInputConfirm"
         @blur="handleInputConfirm"
       ></el-input>
+      <!-- 添加 -->
       <el-button v-else class="button-new-tag" size="small" @click="showInput">
-        + 添加
+        + {{ $t('operation_btn.btn_text_1') }}
       </el-button>
     </div>
 
-    <el-dialog title="添加部门" :visible.sync="dialogFormVisible" width="400px">
+    <!-- 添加部门 -->
+    <el-dialog
+      :title="$t('system.text_4')"
+      :visible.sync="dialogFormVisible"
+      width="400px"
+    >
       <el-form
         ref="form"
         :model="form"
@@ -96,25 +113,36 @@
         :rules="rules"
         style="padding: 0"
       >
-        <el-form-item v-if="form.no" label="部门编码" prop="no">
+        <!-- 部门编码 -->
+        <el-form-item v-if="form.no" :label="$t('system.title_6')" prop="no">
           <el-input v-model="form.no" autocomplete="off" disabled></el-input>
         </el-form-item>
-        <el-form-item label="部门名称" prop="name">
+        <!-- 部门名称 -->
+        <el-form-item :label="$t('system.title_2')" prop="name">
           <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="公司描述" prop="explain">
+        <!-- 公司描述 -->
+        <el-form-item :label="$t('system.title_3')" prop="explain">
           <el-input v-model="form.explain" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="电话" prop="phone">
+        <!-- 电话 -->
+        <el-form-item :label="$t('system.title_4')" prop="phone">
           <el-input v-model="form.phone" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="地址" prop="address">
+        <!-- 地址 -->
+        <el-form-item :label="$t('system.title_5')" prop="address">
           <el-input v-model="form.address" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addTree('form')">确 定</el-button>
+        <!-- 取 消 -->
+        <el-button @click="dialogFormVisible = false">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
+        <!-- 确 定 -->
+        <el-button type="primary" @click="addTree('form')">
+          {{ $t('operation_btn.btn_text_5') }}
+        </el-button>
       </div>
     </el-dialog>
   </div>
@@ -149,18 +177,22 @@
         },
         rules: {
           name: [
-            { required: true, message: '请输入部门名称', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('operation_tips.tips_1'),
+              trigger: 'blur',
+            },
             {
               min: 1,
               max: 10,
-              message: '长度在 1 到 10 个字符',
+              message: this.$t('operation_tips.tips_2'),
               trigger: 'blur',
             },
           ],
           phone: [
             {
               pattern: /^1[345789]\d{9}$/,
-              message: '请输入正确的11位电话号码',
+              message: this.$t('operation_tips.tips_3'),
               trigger: 'blur',
             },
           ],
@@ -196,7 +228,7 @@
       },
       // 删除节点
       removeNode(node, data) {
-        this.$baseConfirm('你确定要删除当前项吗', null, () => {
+        this.$baseConfirm(this.$t('operation_tips.tips_4'), null, () => {
           const parent = node.parent
           const children = parent.data.children || parent.data
           const index = children.findIndex((d) => d.id === data.id)
@@ -211,7 +243,7 @@
               address: '',
             }
           } else {
-            this.$baseMessage('删除失败！', 'warning')
+            this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
           }
         })
       },
@@ -221,7 +253,7 @@
         if (res[0].deparmentNo) {
           this.form.no = Number(res[0].deparmentNo) + 1
         } else {
-          this.$baseMessage('获取编码失败！', 'warning')
+          this.$baseMessage(this.$t('operation_tips.tips_7'), 'warning')
           return
         }
         this.treeData = data
@@ -234,7 +266,7 @@
           if (valid) {
             let res = addTree(this.form)
             if (res.result == 2) {
-              this.$baseMessage(res.data, 'success')
+              this.$baseMessage(this.$t('operation_tips.tips_8'), 'success')
               if (!this.treeData.children) {
                 this.$set(this.treeData, 'children', [])
               }
@@ -262,7 +294,7 @@
           if (valid) {
             let res = editTree(this.ruleForm)
             if (res.result == 2) {
-              this.$baseMessage(res.data, 'success')
+              this.$baseMessage(this.$t('operation_tips.tips_10'), 'success')
               this.datas = getList()
             } else {
               this.$baseMessage(res.data, 'warning')
@@ -275,10 +307,10 @@
 
       // 人员分类
       handleClose(tag, key) {
-        this.$baseConfirm('你确定要删除当前项吗', null, () => {
+        this.$baseConfirm(this.$t('operation_tips.tips_4'), null, () => {
           let res = delTag(tag.Employetype_name)
           if (!res) {
-            this.$baseMessage('删除失败', 'warning')
+            this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
           } else {
             this.dynamicTags.splice(key, 1)
           }
@@ -292,14 +324,18 @@
       },
       handleInputConfirm() {
         let inputValue = this.inputValue.replace(/\s*/g, '')
-        if (!inputValue) return
+        if (!inputValue) {
+          this.inputVisible = false
+          this.inputValue = ''
+          return
+        }
         let res = addTag(inputValue)
         if (res) {
           this.dynamicTags.push({ Employetype_name: inputValue })
           this.inputVisible = false
           this.inputValue = ''
         } else {
-          this.$baseMessage('添加失败', 'warning')
+          this.$baseMessage(this.$t('operation_tips.tips_9'), 'warning')
         }
       },
     },

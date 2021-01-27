@@ -9,32 +9,39 @@
           size="medium"
           @submit.native.prevent
         >
+          <!-- 考勤月份 -->
           <el-form-item>
-            <span>考勤月份</span>
+            <span>{{ $t('attendance.text_40') }}</span>
             <el-date-picker
               v-model="queryForm.date"
               type="month"
               format="yyyy-MM"
               value-format="yyyy-MM"
-              placeholder="选择月"
+              :placeholder="$t('attendance.text_41')"
               :clearable="false"
             ></el-date-picker>
           </el-form-item>
+          <!-- 姓名 -->
           <el-form-item>
-            <span>姓名</span>
-            <el-input v-model="queryForm.name" placeholder="人员姓名" />
+            <span>{{ $t('attendance.text_1') }}</span>
+            <el-input
+              v-model="queryForm.name"
+              :placeholder="$t('attendance.text_2')"
+            />
           </el-form-item>
           <el-form-item>
+            <!-- 查询 -->
             <el-button
               icon="el-icon-search"
               type="primary"
               native-type="submit"
               @click="handleQuery"
             >
-              查询
+              {{ $t('operation_btn.btn_text_6') }}
             </el-button>
+            <!-- 导出 -->
             <el-button icon="el-icon-folder" type="primary" @click="exportData">
-              导出
+              {{ $t('operation_btn.btn_text_30') }}
             </el-button>
           </el-form-item>
         </el-form>
@@ -49,55 +56,68 @@
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
     >
-      <el-table-column show-overflow-tooltip prop="name" label="姓名" sortable>
+      <!-- 姓名 -->
+      <el-table-column
+        show-overflow-tooltip
+        prop="name"
+        :label="$t('attendance.text_1')"
+        sortable
+      >
         <template #default="{ row }">
           <span style="color: red">{{ row.name }}</span>
         </template>
       </el-table-column>
+      <!-- 人员编号 -->
       <el-table-column
         show-overflow-tooltip
         prop="Employee_code"
-        label="人员编号"
+        :label="$t('attendance.text_13')"
         sortable
       ></el-table-column>
+      <!-- 部门 -->
       <el-table-column
         show-overflow-tooltip
         prop="department"
-        label="部门"
+        :label="$t('attendance.text_12')"
         sortable
       ></el-table-column>
+      <!-- 日期 -->
       <el-table-column
         show-overflow-tooltip
-        label="日期"
+        :label="$t('attendance.text_42')"
         prop="nowdate"
       ></el-table-column>
+      <!-- 出勤(天) -->
       <el-table-column
         show-overflow-tooltip
-        label="出勤(天)"
-        prop="Attendance"
+        :label="$t('attendance.text_43')"
+        prop="attendance"
         sortable
       ></el-table-column>
+      <!-- 迟到次数/总时长(分钟) -->
       <el-table-column
         show-overflow-tooltip
-        label="迟到次数/总时长(分钟)"
+        :label="$t('attendance.text_44')"
         prop="latedata"
       >
         <template #default="{ row }">
           <span style="color: red">{{ row.latedata }}</span>
         </template>
       </el-table-column>
+      <!-- 早退次数/总时长(分钟) -->
       <el-table-column
         show-overflow-tooltip
-        label="早退次数/总时长(分钟)"
+        :label="$t('attendance.text_45')"
         prop="Leaveearlydata"
       >
         <template #default="{ row }">
           <span style="color: red">{{ row.Leaveearlydata }}</span>
         </template>
       </el-table-column>
+      <!-- 旷工天数 -->
       <el-table-column
         show-overflow-tooltip
-        label="旷工天数"
+        :label="$t('attendance.text_46')"
         prop="AbsenteeismCount"
       >
         <template #default="{ row }">
@@ -117,7 +137,7 @@
         list: [],
         listLoading: false, //列表加载
         layout: 'total, sizes, prev, pager, next, jumper',
-        elementLoadingText: '正在加载...',
+        elementLoadingText: this.$t('operation_tips.tips_12'),
         queryForm: {
           name: '',
           date: '',
@@ -145,7 +165,7 @@
             this.listLoading = false
           }, 500)
         } else {
-          this.$baseMessage('请先选择查询年月', 'warning')
+          this.$baseMessage(this.$t('attendance.text_47'), 'warning')
         }
       },
       //查询
@@ -157,7 +177,7 @@
         if (this.queryForm.date) {
           exportData(this.queryForm)
         } else {
-          this.$baseMessage('请先选择查询年月', 'warning')
+          this.$baseMessage(this.$t('attendance.text_47'), 'warning')
         }
       },
     },

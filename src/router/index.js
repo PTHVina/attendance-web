@@ -8,6 +8,15 @@ import VueRouter from 'vue-router'
 import Layout from '@/layouts'
 
 Vue.use(VueRouter)
+let lang = myExtension.getlanguage()
+let i18
+if (lang == 'zh_CN') {
+  i18 = require('@/assets/languages/zh_CN')
+} else if (lang == 'Jan_JPN') {
+  i18 = require('@/assets/languages/Jan_JPN')
+} else if (lang == 'en_US') {
+  i18 = require('@/assets/languages/en_US')
+}
 export const constantRoutes = [
   {
     path: '/401',
@@ -34,7 +43,7 @@ export const asyncRoutes = [
         name: 'Index',
         component: () => import('@/views/index/index'),
         meta: {
-          title: '首页',
+          title: i18.router.title_1, // 首页
           icon: 'home',
           affix: true,
         },
@@ -47,13 +56,13 @@ export const asyncRoutes = [
     redirect: 'noRedirect',
     name: 'System',
     alwaysShow: true,
-    meta: { title: '系统设置', icon: 'cog' },
+    meta: { title: i18.router.title_2, icon: 'cog' }, //系统设置
     children: [
       {
         path: 'department',
         name: 'Department',
         component: () => import('@/views/system/department'),
-        meta: { title: '部门设置', permissions: ['admin'] },
+        meta: { title: i18.router.title_3, permissions: ['admin'] }, //部门设置
       },
     ],
   },
@@ -63,25 +72,25 @@ export const asyncRoutes = [
     redirect: 'noRedirect',
     name: 'Personnel',
     alwaysShow: true,
-    meta: { title: '人员管理', icon: 'user-friends' },
+    meta: { title: i18.router.title_4, icon: 'user-friends' }, //人员管理
     children: [
       {
         path: 'index',
         name: 'Index',
         component: () => import('@/views/personnel/index'),
-        meta: { title: '人员列表', permissions: ['admin'] },
+        meta: { title: i18.router.title_5, permissions: ['admin'] }, //人员列表
       },
       {
         path: 'visitor',
         name: 'Visitor',
         component: () => import('@/views/personnel/visitor'),
-        meta: { title: '访客管理', permissions: ['admin'] },
+        meta: { title: i18.router.title_6, permissions: ['admin'] }, //访客管理
       },
       {
         path: 'issue',
         name: 'Issue',
         component: () => import('@/views/personnel/issue'),
-        meta: { title: '下发记录', permissions: ['admin'] },
+        meta: { title: i18.router.title_7, permissions: ['admin'] }, //下发记录
       },
     ],
   },
@@ -91,19 +100,19 @@ export const asyncRoutes = [
     redirect: 'noRedirect',
     name: 'Device',
     alwaysShow: true,
-    meta: { title: '设备管理', icon: 'video' },
+    meta: { title: i18.router.title_8, icon: 'video' }, //设备管理
     children: [
       {
         path: 'index',
         name: 'Index',
         component: () => import('@/views/device/index'),
-        meta: { title: '设备列表', permissions: ['admin'] },
+        meta: { title: i18.router.title_9, permissions: ['admin'] }, //设备列表
       },
       {
         path: 'online',
         name: 'Online',
         component: () => import('@/views/device/online'),
-        meta: { title: '在线视频', permissions: ['admin'] },
+        meta: { title: i18.router.title_10, permissions: ['admin'] }, //在线视频
       },
     ],
   },
@@ -113,13 +122,13 @@ export const asyncRoutes = [
     redirect: 'noRedirect',
     name: 'Snapshot',
     alwaysShow: true,
-    meta: { title: '抓拍管理', icon: 'clipboard-list' },
+    meta: { title: i18.router.title_11, icon: 'clipboard-list' }, //抓拍管理
     children: [
       {
         path: 'record',
         name: 'Record',
         component: () => import('@/views/snapshot/record'),
-        meta: { title: '抓拍记录', permissions: ['admin'] },
+        meta: { title: i18.router.title_12, permissions: ['admin'] }, //抓拍记录
       },
     ],
   },
@@ -129,19 +138,19 @@ export const asyncRoutes = [
     redirect: 'noRedirect',
     name: 'AttendanceSet',
     alwaysShow: true,
-    meta: { title: '考勤设置', icon: 'cogs' },
+    meta: { title: i18.router.title_13, icon: 'cogs' }, //考勤设置
     children: [
       {
         path: 'classes',
         name: 'Classes',
         component: () => import('@/views/attendanceSet/classes'),
-        meta: { title: '考勤班次', permissions: ['admin'] },
+        meta: { title: i18.router.title_14, permissions: ['admin'] }, //考勤班次
       },
       {
         path: 'group',
         name: 'Group',
         component: () => import('@/views/attendanceSet/group'),
-        meta: { title: '考勤组', permissions: ['admin'] },
+        meta: { title: i18.router.title_15, permissions: ['admin'] }, //考勤组
       },
     ],
   },
@@ -151,19 +160,19 @@ export const asyncRoutes = [
     redirect: 'noRedirect',
     name: 'Attendance',
     alwaysShow: true,
-    meta: { title: '考勤管理', icon: 'history' },
+    meta: { title: i18.router.title_16, icon: 'history' }, //考勤管理
     children: [
       {
         path: 'everyday',
         name: 'Everyday',
         component: () => import('@/views/attendance/everyday'),
-        meta: { title: '每日考勤', permissions: ['admin'] },
+        meta: { title: i18.router.title_17, permissions: ['admin'] }, //每日考勤
       },
       {
         path: 'monthly',
         name: 'monthly',
         component: () => import('@/views/attendance/monthly'),
-        meta: { title: '月度考勤', permissions: ['admin'] },
+        meta: { title: i18.router.title_18, permissions: ['admin'] }, //月度考勤
       },
     ],
   },
@@ -185,7 +194,6 @@ export const asyncRoutes = [
     hidden: true,
   },
 ]
-
 const router = new VueRouter({
   routes: asyncRoutes,
 })

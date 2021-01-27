@@ -1,16 +1,21 @@
 <template>
   <div :class="'logo-container-' + layout">
-    <router-link to="/">
+    <router-link v-if="lang != 'Jan_JPN'" to="/">
       <!-- 这里是logo变更的位置 -->
       <!-- <vab-remix-icon v-if="logo" class="logo" :icon-class="logo" /> -->
       <img src="../../../assets/logo-2.png" class="logo" alt="" />
       <span
+        id="admin_title"
         class="title"
         :class="{ 'hidden-xs-only': layout === 'horizontal' }"
         :title="title"
       >
         {{ title }}
       </span>
+    </router-link>
+    <router-link v-else to="/">
+      <img src="@/assets/logo-3.png" alt="logo" class="img" />
+      <img src="@/assets/logo-2.png" class="logo img_box" alt="" />
     </router-link>
   </div>
 </template>
@@ -23,6 +28,17 @@
     data() {
       return {
         title: this.$baseTitle,
+        lang: this.$lang,
+      }
+    },
+    mounted() {
+      if (this.$lang == 'en_US') {
+        this.title = 'FaceRASystem'
+      } else if (this.$lang == 'Jan_JPN') {
+        // this.title = '知恵と顔の勤務評定の門限システム'
+        this.title = 'HEAT CHECK'
+      } else {
+        this.title = this.$baseTitle
       }
     },
     computed: {
@@ -92,5 +108,23 @@
 
       // max-width: calc(#{$base-left-menu-width} - 60px);
     }
+  }
+
+  .router-link-active .img_box {
+    display: none;
+    width: 30px;
+    height: 40px;
+  }
+  .router-link-active .img {
+    width: 230px;
+    height: 30px;
+    object-fit: unset;
+    margin-top: 25px;
+  }
+  .is-collapse .router-link-active .img {
+    display: none;
+  }
+  .is-collapse .router-link-active .img_box {
+    display: inline-block;
   }
 </style>

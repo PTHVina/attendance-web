@@ -1,7 +1,11 @@
 <template>
   <div id="content" ref="videoBox" class="test-container">
     <div class="select">
-      <el-select v-model="value" placeholder="请选择设备">
+      <el-select
+        v-model="value"
+        :placeholder="$t('device.text_25')"
+        style="width: 150px"
+      >
         <el-option
           v-for="item in options"
           :key="item.Deviceid"
@@ -15,7 +19,7 @@
         type="primary"
         @click="playVideo"
       >
-        播放视屏
+        {{ $t('device.text_26') }}
       </el-button>
     </div>
   </div>
@@ -36,10 +40,14 @@
     },
     created() {},
     mounted() {
-      this.box_width = this.$refs.videoBox.offsetWidth - 40
-      this.box_height = this.$refs.videoBox.offsetHeight - 60 - 53
-      this.box_left = this.$refs.videoBox.getBoundingClientRect().left + 20
-      this.box_top = this.$refs.videoBox.getBoundingClientRect().top + 93
+      // this.box_width = this.$refs.videoBox.offsetWidth - 40
+      // this.box_height = this.$refs.videoBox.offsetHeight - 60 - 53
+      // this.box_left = this.$refs.videoBox.getBoundingClientRect().left + 20
+      // this.box_top = this.$refs.videoBox.getBoundingClientRect().top + 93
+      this.box_width = this.$refs.videoBox.offsetWidth - 300
+      this.box_height = this.$refs.videoBox.offsetHeight
+      this.box_left = this.$refs.videoBox.getBoundingClientRect().left + 300
+      this.box_top = this.$refs.videoBox.getBoundingClientRect().top
       this.init()
     },
     beforeDestroy() {
@@ -59,7 +67,7 @@
       },
       playVideo() {
         if (!this.value) {
-          this.$baseMessage('请选择设备', 'warning')
+          this.$baseMessage(this.$t('device.text_25'), 'warning')
           return
         }
         play(this.value)

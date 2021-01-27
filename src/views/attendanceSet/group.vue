@@ -2,8 +2,9 @@
   <div class="table-container">
     <div class="group">
       <div class="btn_group">
+        <!-- 新增 -->
         <el-button icon="el-icon-plus" type="primary" @click="openFormDialog">
-          新增
+          {{ $t('operation_btn.btn_text_7') }}
         </el-button>
       </div>
     </div>
@@ -15,139 +16,158 @@
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
     >
+      <!-- 班组名 -->
       <el-table-column
         show-overflow-tooltip
-        label="班组名"
+        :label="$t('attendanceSet.text_30')"
         prop="name"
         sortable
       ></el-table-column>
-      <el-table-column show-overflow-tooltip label="类型">
-        <span>按周循环排班</span>
-      </el-table-column>
+      <!-- 类型 -->
       <el-table-column
         show-overflow-tooltip
-        label="排班详情"
+        :label="$t('attendanceSet.text_31')"
+      >
+        <span>{{ $t('attendanceSet.text_32') }}</span>
+      </el-table-column>
+      <!-- 排班详情 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendanceSet.text_33')"
         prop="pageViews"
         width="400px"
       >
         <template #default="{ row }">
           <div style="margin-bottom: 5px">
-            <span>工作：</span>
+            <span>{{ $t('attendanceSet.text_34') }}：</span>
             <el-tag v-if="JSON.parse(row.attribute).Monday != 0" size="mini">
-              周一
+              {{ $t('attendanceSet.text_35') }}
             </el-tag>
             <el-tag v-if="JSON.parse(row.attribute).Tuesday != 0" size="mini">
-              周二
+              {{ $t('attendanceSet.text_36') }}
             </el-tag>
             <el-tag v-if="JSON.parse(row.attribute).Wednesday != 0" size="mini">
-              周三
+              {{ $t('attendanceSet.text_37') }}
             </el-tag>
             <el-tag v-if="JSON.parse(row.attribute).Thursday != 0" size="mini">
-              周四
+              {{ $t('attendanceSet.text_38') }}
             </el-tag>
             <el-tag v-if="JSON.parse(row.attribute).Friday != 0" size="mini">
-              周五
+              {{ $t('attendanceSet.text_39') }}
             </el-tag>
             <el-tag v-if="JSON.parse(row.attribute).Saturday != 0" size="mini">
-              周六
+              {{ $t('attendanceSet.text_40') }}
             </el-tag>
             <el-tag v-if="JSON.parse(row.attribute).Sunday != 0" size="mini">
-              周日
+              {{ $t('attendanceSet.text_41') }}
             </el-tag>
           </div>
           <div>
-            <span>休息：</span>
+            <span>{{ $t('attendanceSet.text_42') }}：</span>
             <el-tag
               v-if="JSON.parse(row.attribute).Monday == 0"
               size="mini"
               type="success"
             >
-              周一
+              {{ $t('attendanceSet.text_35') }}
             </el-tag>
             <el-tag
               v-if="JSON.parse(row.attribute).Tuesday == 0"
               size="mini"
               type="success"
             >
-              周二
+              {{ $t('attendanceSet.text_36') }}
             </el-tag>
             <el-tag
               v-if="JSON.parse(row.attribute).Wednesday == 0"
               size="mini"
               type="success"
             >
-              周三
+              {{ $t('attendanceSet.text_37') }}
             </el-tag>
             <el-tag
               v-if="JSON.parse(row.attribute).Thursday == 0"
               size="mini"
               type="success"
             >
-              周四
+              {{ $t('attendanceSet.text_38') }}
             </el-tag>
             <el-tag
               v-if="JSON.parse(row.attribute).Friday == 0"
               size="mini"
               type="success"
             >
-              周五
+              {{ $t('attendanceSet.text_39') }}
             </el-tag>
             <el-tag
               v-if="JSON.parse(row.attribute).Saturday == 0"
               size="mini"
               type="success"
             >
-              周六
+              {{ $t('attendanceSet.text_40') }}
             </el-tag>
             <el-tag
               v-if="JSON.parse(row.attribute).Sunday == 0"
               size="mini"
               type="success"
             >
-              周日
+              {{ $t('attendanceSet.text_41') }}
             </el-tag>
           </div>
         </template>
       </el-table-column>
+      <!-- 人员数目 -->
       <el-table-column
         show-overflow-tooltip
-        label="人员数目"
+        :label="$t('attendanceSet.text_43')"
         prop="count"
         sortable
       ></el-table-column>
-      <el-table-column show-overflow-tooltip label="是否默认" prop="status">
+      <!-- 是否默认 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendanceSet.text_44')"
+        prop="status"
+      >
         <template #default="{ row }">
-          <span v-if="row.isdefault == '1'">是</span>
-          <span v-else>否</span>
+          <span v-if="row.isdefault == '1'">
+            {{ $t('attendanceSet.text_45') }}
+          </span>
+          <span v-else>{{ $t('attendanceSet.text_46') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right">
+      <!-- 操作 -->
+      <el-table-column :label="$t('attendanceSet.text_9')" fixed="right">
         <template #default="{ row }">
+          <!-- 编辑 -->
           <el-button
             type="text"
             icon="el-icon-edit"
             @click="openFormDialog(row)"
           >
-            编辑
+            {{ $t('operation_btn.btn_text_14') }}
           </el-button>
+          <!-- 默认 -->
           <el-button type="text" icon="el-icon-thumb" @click="setDefault(row)">
-            默认
+            {{ $t('operation_btn.btn_text_28') }}
           </el-button>
+          <!-- 删除 -->
           <el-button
             type="text"
             class="btn_red"
             icon="el-icon-delete"
             @click="handleDelete(row)"
           >
-            删除
+            {{ $t('operation_btn.btn_text_2') }}
           </el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <!-- 新增/修改弹窗 -->
+    <!-- 考勤组 -->
     <el-dialog
-      title="考勤组"
+      :title="$t('attendanceSet.text_47')"
       :visible.sync="dialogFormVisible"
       width="600px"
       :destroy-on-close="true"
@@ -160,14 +180,16 @@
         :rules="rules"
         size="medium"
       >
-        <el-form-item label="班组名" prop="name">
+        <!-- 班组名 -->
+        <el-form-item :label="$t('attendanceSet.text_30')" prop="name">
           <el-input
             v-model="form.name"
-            placeholder="班组名称"
+            :placeholder="$t('attendanceSet.text_48')"
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item label="选择人员">
+        <!-- 选择人员 -->
+        <el-form-item :label="$t('attendanceSet.text_49')">
           <el-tag v-for="(item, index) in selectRows" :key="index">
             {{ item.name }}
           </el-tag>
@@ -177,15 +199,19 @@
             style="margin-left: 10px; padding: 5px 15px"
             @click="openTabelDialog"
           >
-            选择
+            {{ $t('attendanceSet.text_54') }}
           </el-button>
           <span v-if="form.count" style="margin-left: 5px; color: #888">
-            {{ form.count }}人
+            {{ form.count }}{{ $t('attendanceSet.text_50') }}
           </span>
         </el-form-item>
-        <el-form-item label="周一" style="margin-bottom: 0px">
+        <!-- 周一 -->
+        <el-form-item
+          :label="$t('attendanceSet.text_35')"
+          style="margin-bottom: 0px"
+        >
           <el-radio-group v-model="form.Monday">
-            <el-radio label="0">休息</el-radio>
+            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -195,9 +221,13 @@
             </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="周二" style="margin-bottom: 0px">
+        <!-- 周二 -->
+        <el-form-item
+          :label="$t('attendanceSet.text_36')"
+          style="margin-bottom: 0px"
+        >
           <el-radio-group v-model="form.Tuesday">
-            <el-radio label="0">休息</el-radio>
+            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -207,9 +237,13 @@
             </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="周三" style="margin-bottom: 0px">
+        <!-- 周三 -->
+        <el-form-item
+          :label="$t('attendanceSet.text_37')"
+          style="margin-bottom: 0px"
+        >
           <el-radio-group v-model="form.Wednesday">
-            <el-radio label="0">休息</el-radio>
+            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -219,9 +253,13 @@
             </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="周四" style="margin-bottom: 0px">
+        <!-- 周四 -->
+        <el-form-item
+          :label="$t('attendanceSet.text_38')"
+          style="margin-bottom: 0px"
+        >
           <el-radio-group v-model="form.Thursday">
-            <el-radio label="0">休息</el-radio>
+            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -231,9 +269,13 @@
             </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="周五" style="margin-bottom: 0px">
+        <!-- 周五 -->
+        <el-form-item
+          :label="$t('attendanceSet.text_39')"
+          style="margin-bottom: 0px"
+        >
           <el-radio-group v-model="form.Friday">
-            <el-radio label="0">休息</el-radio>
+            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -243,9 +285,13 @@
             </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="周六" style="margin-bottom: 0px">
+        <!-- 周六 -->
+        <el-form-item
+          :label="$t('attendanceSet.text_40')"
+          style="margin-bottom: 0px"
+        >
           <el-radio-group v-model="form.Saturday">
-            <el-radio label="0">休息</el-radio>
+            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -255,9 +301,10 @@
             </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="周日">
+        <!-- 周日 -->
+        <el-form-item :label="$t('attendanceSet.text_41')">
           <el-radio-group v-model="form.Sunday">
-            <el-radio label="0">休息</el-radio>
+            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -267,20 +314,22 @@
             </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="是否默认">
+        <!-- 是否默认 -->
+        <el-form-item :label="$t('attendanceSet.text_44')">
           <el-radio-group v-model="form.isdefault">
-            <el-radio label="1">是</el-radio>
-            <el-radio label="0">否</el-radio>
+            <el-radio label="1">{{ $t('attendanceSet.text_45') }}</el-radio>
+            <el-radio label="0">{{ $t('attendanceSet.text_46') }}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="特殊日期">
+        <!-- 特殊日期 -->
+        <el-form-item :label="$t('attendanceSet.text_51')">
           <el-button
             type="primary"
             size="mini"
             plain
             @click="openDeteDialog(1)"
           >
-            必须打卡日期
+            {{ $t('attendanceSet.text_52') }}
           </el-button>
           <el-button
             type="primary"
@@ -288,20 +337,22 @@
             plain
             @click="openDeteDialog(0)"
           >
-            不用打卡日期
+            {{ $t('attendanceSet.text_53') }}
           </el-button>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="closeFn">取 消</el-button>
+        <el-button @click="closeFn">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
         <el-button type="primary" @click="saveForm('formData')">
-          确 定
+          {{ $t('operation_btn.btn_text_5') }}
         </el-button>
       </div>
     </el-dialog>
     <!-- 选择人员 -->
     <el-dialog
-      title="选择人员"
+      :title="$t('attendanceSet.text_49')"
       :visible.sync="dialogTableVisible"
       width="600px"
       :destroy-on-close="true"
@@ -316,39 +367,53 @@
         @selection-change="setSelectRows"
       >
         <el-table-column type="selection"></el-table-column>
-        <el-table-column prop="name" label="姓名"></el-table-column>
+        <!-- 姓名 -->
+        <el-table-column
+          prop="name"
+          :label="$t('attendanceSet.text_55')"
+        ></el-table-column>
+        <!-- 人员编号 -->
         <el-table-column
           prop="Employee_code"
-          label="人员编号"
+          :label="$t('attendanceSet.text_56')"
         ></el-table-column>
+        <!-- 部门 -->
         <el-table-column
           prop="departmentname"
-          label="部门"
+          :label="$t('attendanceSet.text_57')"
           show-overflow-tooltip
         ></el-table-column>
       </el-table>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="changeTabel">确 定</el-button>
+        <el-button type="primary" @click="changeTabel">
+          {{ $t('operation_btn.btn_text_5') }}
+        </el-button>
       </div>
     </el-dialog>
     <!-- 打卡日期 -->
     <el-dialog
-      :title="deteType == 1 ? '必须打卡日期' : '不用打卡日期'"
+      :title="
+        deteType == 1
+          ? $t('attendanceSet.text_52')
+          : $t('attendanceSet.text_53')
+      "
       :visible.sync="dialogDeteVisible"
       width="600px"
       :destroy-on-close="true"
     >
       <div style="margin-bottom: 20px">
+        <!-- 新增 -->
         <el-button icon="el-icon-plus" type="primary" @click="addDete">
-          新增
+          {{ $t('operation_btn.btn_text_7') }}
         </el-button>
+        <!-- 批量删除 -->
         <el-button
           icon="el-icon-delete"
           type="danger"
           style="opacity: 0.6"
           @click="delDete"
         >
-          批量删除
+          {{ $t('operation_btn.btn_text_13') }}
         </el-button>
       </div>
       <el-table
@@ -361,24 +426,38 @@
         @selection-change="setDeteRows"
       >
         <el-table-column type="selection"></el-table-column>
-        <el-table-column prop="date" label="考勤日期"></el-table-column>
-        <el-table-column prop="Employee_code" label="班次名称">
+        <!-- 考勤日期 -->
+        <el-table-column
+          prop="date"
+          :label="$t('attendanceSet.text_58')"
+        ></el-table-column>
+        <!-- 班次名称 -->
+        <el-table-column
+          prop="Employee_code"
+          :label="$t('attendanceSet.text_3')"
+        >
           <template #default="{ row }">
-            <span v-if="row.name == '0'">休息</span>
+            <span v-if="row.name == '0'">
+              {{ $t('attendanceSet.text_42') }}
+            </span>
             <span v-else>{{ row.name }}</span>
           </template>
         </el-table-column>
+        <!-- 日期类型 -->
         <el-table-column
           prop="departmentname"
-          label="日期类型"
+          :label="$t('attendanceSet.text_59')"
           show-overflow-tooltip
         >
           <template #default="{ row }">
-            <span v-if="row.type == '0'">不用打卡日期</span>
-            <span v-else>必须打卡日期</span>
+            <span v-if="row.type == '0'">
+              {{ $t('attendanceSet.text_52') }}
+            </span>
+            <span v-else>{{ $t('attendanceSet.text_53') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right">
+        <!-- 操作 -->
+        <el-table-column :label="$t('attendanceSet.text_9')" fixed="right">
           <template #default="{ row }">
             <el-button
               type="text"
@@ -386,7 +465,7 @@
               icon="el-icon-delete"
               @click="delDete(row)"
             >
-              删除
+              {{ $t('operation_btn.btn_text_2') }}
             </el-button>
           </template>
         </el-table-column>
@@ -402,7 +481,11 @@
     </el-dialog>
     <!-- 新增打卡日期 -->
     <el-dialog
-      :title="deteType == 1 ? '新增必须打卡日期' : '新增不用打卡日期'"
+      :title="
+        deteType == 1
+          ? $t('attendanceSet.text_52')
+          : $t('attendanceSet.text_53')
+      "
       :visible.sync="dialogDeteFormVisible"
       width="400px"
       :destroy-on-close="true"
@@ -414,18 +497,20 @@
         label-width="80px"
         size="medium"
       >
-        <el-form-item label="考勤日期" prop="date">
+        <!-- 考勤日期 -->
+        <el-form-item :label="$t('attendanceSet.text_58')" prop="date">
           <el-date-picker
             v-model="DeteForm.date"
             type="date"
             format="yyyy-MM-dd"
             value-format="yyyy-MM-dd"
-            placeholder="选择日期"
+            :placeholder="$t('attendanceSet.text_60')"
           ></el-date-picker>
         </el-form-item>
-        <el-form-item label="选择班次" prop="radio">
+        <!-- 选择班次 -->
+        <el-form-item :label="$t('attendanceSet.text_61')" prop="radio">
           <el-radio-group v-model="DeteForm.radio">
-            <el-radio label="0">休息</el-radio>
+            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -437,7 +522,9 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="saveAddDete('date')">确 定</el-button>
+        <el-button type="primary" @click="saveAddDete('date')">
+          {{ $t('operation_btn.btn_text_5') }}
+        </el-button>
       </div>
     </el-dialog>
   </div>
@@ -463,7 +550,7 @@
       return {
         list: [],
         listLoading: false, //列表加载
-        elementLoadingText: '正在加载...',
+        elementLoadingText: this.$t('operation_tips.tips_12'),
         classes: [], //班次信息
 
         dialogFormVisible: false, //表单弹窗控制
@@ -482,11 +569,15 @@
         timestamp: '',
         rules: {
           name: [
-            { required: true, message: '请输入班组名称', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('attendanceSet.text_62'),
+              trigger: 'blur',
+            },
             {
               min: 1,
               max: 10,
-              message: '长度在 1 到 10 个字符',
+              message: this.$t('operation_tips.tips_2'),
               trigger: 'blur',
             },
           ],
@@ -516,9 +607,19 @@
         },
         dateRules: {
           date: [
-            { required: true, message: '请选择考勤日期', trigger: 'change' },
+            {
+              required: true,
+              message: this.$t('attendanceSet.text_63'),
+              trigger: 'change',
+            },
           ],
-          radio: [{ required: true, message: '请选择班次', trigger: 'change' }],
+          radio: [
+            {
+              required: true,
+              message: this.$t('attendanceSet.text_64'),
+              trigger: 'change',
+            },
+          ],
         },
       }
     },
@@ -573,21 +674,21 @@
       setDefault(row) {
         let res = setDefault(row.id)
         if (res) {
-          this.$baseMessage('设置成功！', 'success')
+          this.$baseMessage(this.$t('operation_tips.tips_43'), 'success')
           this.init()
         } else {
-          this.$baseMessage('设置失败！', 'warning')
+          this.$baseMessage(this.$t('operation_tips.tips_44'), 'warning')
         }
       },
       // 删除
       handleDelete(row) {
-        this.$baseConfirm('你确定要删除当前项吗', null, async () => {
+        this.$baseConfirm(this.$t('operation_tips.tips_4'), null, async () => {
           let res = await doDelete(row.id)
           if (res) {
-            this.$baseMessage('删除成功！', 'success')
+            this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
             this.init()
           } else {
-            this.$baseMessage('删除失败！', 'warning')
+            this.$baseMessage(this.$t('operation_tips.tips_7'), 'warning')
           }
         })
       },
@@ -653,16 +754,16 @@
             if (this.form.id) {
               let res = setGroup(attribute, this.form, ids, this.form.id)
               if (res.result == 2) {
-                this.$baseMessage('修改考勤组成功！', 'success')
+                this.$baseMessage(this.$t('operation_tips.tips_10'), 'success')
                 this.init()
                 this.closeFn()
               } else {
-                this.$baseMessage('修改失败!', 'warning')
+                this.$baseMessage(this.$t('operation_tips.tips_11'), 'warning')
               }
             } else {
               let res = addGroup(attribute, this.form, ids, this.timestamp)
               if (res.result == 2) {
-                this.$baseMessage('添加考勤组成功！', 'success')
+                this.$baseMessage(this.$t('operation_tips.tips_8'), 'success')
                 this.init()
                 this.closeFn()
               } else {
@@ -719,33 +820,41 @@
       //删除打卡日期
       delDete(row) {
         if (row.id) {
-          this.$baseConfirm('你确定要删除当前项吗', null, async () => {
-            let res = await delDeteData(row.id)
-            if (res) {
-              this.$baseMessage('删除成功！', 'success')
-              this.getDeteList(this.deteType)
-            } else {
-              this.$baseMessage('删除失败！', 'warning')
+          this.$baseConfirm(
+            this.$t('operation_tips.tips_4'),
+            null,
+            async () => {
+              let res = await delDeteData(row.id)
+              if (res) {
+                this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
+                this.getDeteList(this.deteType)
+              } else {
+                this.$baseMessage(this.$t('operation_tips.tips_7'), 'warning')
+              }
             }
-          })
+          )
         } else {
           if (this.deteRows.length == 0) {
-            this.$baseMessage('请选择需要删除的日期', 'warning')
+            this.$baseMessage(this.$t('operation_tips.tips_45'), 'warning')
             return
           }
-          this.$baseConfirm('你确定要删除选中项吗', null, async () => {
-            let ids = []
-            this.deteRows.forEach((item) => {
-              ids.push(item.id)
-            })
-            let res = await delDeteData(ids)
-            if (res) {
-              this.$baseMessage('删除成功！', 'success')
-              this.getDeteList(this.deteType)
-            } else {
-              this.$baseMessage('删除失败！', 'warning')
+          this.$baseConfirm(
+            this.$t('operation_tips.tips_21'),
+            null,
+            async () => {
+              let ids = []
+              this.deteRows.forEach((item) => {
+                ids.push(item.id)
+              })
+              let res = await delDeteData(ids)
+              if (res) {
+                this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
+                this.getDeteList(this.deteType)
+              } else {
+                this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
+              }
             }
-          })
+          )
         }
       },
 
@@ -770,7 +879,7 @@
               this.DeteForm.radio
             )
             if (res) {
-              this.$baseMessage('保存成功！', 'success')
+              this.$baseMessage(this.$t('operation_tips.tips_26'), 'success')
               this.getDeteList(this.deteType)
               this.DeteForm = {
                 date: '',
@@ -778,7 +887,7 @@
               }
               this.dialogDeteFormVisible = false
             } else {
-              this.$baseMessage('该日期已被指定', 'warning')
+              this.$baseMessage(this.$t('operation_tips.tips_46'), 'warning')
             }
           } else {
             return false

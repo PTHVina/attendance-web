@@ -2,19 +2,21 @@
   <div class="table-container">
     <div class="group">
       <div class="btn_group">
+        <!-- 添加设备 -->
         <el-button icon="el-icon-plus" type="primary" @click="openFormDialog">
-          添加设备
+          {{ $t('operation_btn.btn_text_22') }}
         </el-button>
+        <!-- 搜索设备 -->
         <el-button
           icon="el-icon-search"
           type="primary"
           style="opacity: 0.7"
           @click="openTabelDialog"
         >
-          搜索设备
+          {{ $t('operation_btn.btn_text_23') }}
         </el-button>
         <span class="tips">
-          注：设备列表会实时加载，如果遇到页面未显示列表请等待10秒。
+          {{ $t('operation_tips.tips_39') }}
         </span>
       </div>
     </div>
@@ -27,59 +29,72 @@
       :element-loading-text="elementLoadingText"
       @sort-change="tableSortChange"
     >
-      <el-table-column show-overflow-tooltip label="序号" width="95">
+      <!-- 序号 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('device.text_1')"
+        width="95"
+      >
         <template #default="scope">
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
+      <!-- 设备编号 -->
       <el-table-column
         show-overflow-tooltip
-        label="设备编号"
+        :label="$t('device.text_2')"
         prop="DeviceNo"
         sortable
       ></el-table-column>
+      <!-- 设备名称 -->
       <el-table-column
         show-overflow-tooltip
-        label="设备名称"
+        :label="$t('device.text_3')"
         prop="DeviceName"
         sortable
       ></el-table-column>
+      <!-- IP地址 -->
       <el-table-column
         show-overflow-tooltip
-        label="IP地址"
+        :label="$t('device.text_4')"
         prop="IP"
         sortable
       ></el-table-column>
+      <!-- 状态 -->
       <el-table-column
         show-overflow-tooltip
-        label="状态"
+        :label="$t('device.text_5')"
         prop="IsConnected"
         sortable
       >
         <template #default="{ row }">
-          <el-tag v-if="row.IsConnected">在线</el-tag>
-          <el-tag v-else type="danger">离线</el-tag>
+          <el-tag v-if="row.IsConnected">{{ $t('device.text_7') }}</el-tag>
+          <el-tag v-else type="danger">{{ $t('device.text_8') }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right">
+      <!-- 操作 -->
+      <el-table-column :label="$t('device.text_6')" fixed="right">
         <template #default="{ row }">
+          <!-- 编辑 -->
           <el-button
             type="text"
             icon="el-icon-edit"
             @click="openFormDialog(row)"
           >
-            编辑
+            {{ $t('operation_btn.btn_text_14') }}
           </el-button>
+          <!-- 开闸 -->
           <el-button type="text" icon="el-icon-thumb" @click="openDoor(row)">
-            开闸
+            {{ $t('operation_btn.btn_text_24') }}
           </el-button>
+          <!-- 删除 -->
           <el-button
             type="text"
             class="btn_red"
             icon="el-icon-delete"
             @click="handleDelete(row)"
           >
-            删除
+            {{ $t('operation_btn.btn_text_2') }}
           </el-button>
         </template>
       </el-table-column>
@@ -93,7 +108,7 @@
 
     <!-- 新增/修改弹窗 -->
     <el-dialog
-      title="添加设备"
+      :title="form.editIp ? $t('device.text_9') : $t('device.text_10')"
       :visible.sync="dialogFormVisible"
       width="600px"
       :destroy-on-close="true"
@@ -106,31 +121,36 @@
         :rules="rules"
         size="medium"
       >
+        <!-- IP地址 -->
         <el-form-item label="IP" prop="IP">
           <el-input
             v-model="form.IP"
-            placeholder="IP地址"
+            :placeholder="$t('device.text_4')"
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item label="名称" prop="DeviceName">
+        <!-- 名称 -->
+        <el-form-item :label="$t('device.text_11')" prop="DeviceName">
           <el-input
             v-model="form.DeviceName"
-            placeholder="设备名称"
+            :placeholder="$t('device.text_3')"
             autocomplete="off"
           ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="closeFn">取 消</el-button>
+        <el-button @click="closeFn">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
         <el-button type="primary" @click="addDevice('formInfo')">
-          确 定
+          {{ $t('operation_btn.btn_text_5') }}
         </el-button>
       </div>
     </el-dialog>
     <!-- 设备列表 -->
+    <!-- 设备IP -->
     <el-dialog
-      title="设备IP"
+      :title="$t('device.text_12')"
       :visible.sync="dialogTableVisible"
       width="600px"
       :destroy-on-close="true"
@@ -143,23 +163,27 @@
         :highlight-current-row="true"
         :element-loading-text="elementLoadingText"
       >
+        <!-- IP地址 -->
         <el-table-column
           show-overflow-tooltip
-          label="IP地址"
+          :label="$t('device.text_4')"
           prop="Item2"
         ></el-table-column>
+        <!-- 设备型号 -->
         <el-table-column
           show-overflow-tooltip
-          label="设备型号"
+          :label="$t('device.text_13')"
           prop="Item4"
         ></el-table-column>
-        <el-table-column label="操作" fixed="right">
+        <!-- 操作 -->
+        <el-table-column :label="$t('device.text_6')" fixed="right">
           <template #default="{ row }">
             <el-button type="text" icon="el-icon-edit" @click="addIP(row)">
-              添加
+              {{ $t('operation_btn.btn_text_1') }}
             </el-button>
+            <!-- 修改IP -->
             <el-button type="text" icon="el-icon-thumb" @click="editIP(row)">
-              修改IP
+              {{ $t('operation_btn.btn_text_25') }}
             </el-button>
           </template>
         </el-table-column>
@@ -167,7 +191,7 @@
     </el-dialog>
     <!-- IP信息 -->
     <el-dialog
-      title="IP信息"
+      :title="$t('device.text_14')"
       :visible.sync="dialogIPVisible"
       width="350px"
       :destroy-on-close="true"
@@ -186,24 +210,30 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item label="子网掩码" prop="Netmask">
+        <!-- 子网掩码 -->
+        <el-form-item :label="$t('device.text_15')" prop="Netmask">
           <el-input
             v-model="ipForm.Netmask"
-            placeholder="子网掩码"
+            :placeholder="$t('device.text_15')"
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item label="默认网关" prop="gateway">
+        <!-- 默认网关 -->
+        <el-form-item :label="$t('device.text_16')" prop="gateway">
           <el-input
             v-model="ipForm.gateway"
-            placeholder="默认网关"
+            :placeholder="$t('device.text_16')"
             autocomplete="off"
           ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogIPVisible = false">取 消</el-button>
-        <el-button type="primary" @click="changeIP('IPform')">确 定</el-button>
+        <el-button @click="dialogIPVisible = false">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
+        <el-button type="primary" @click="changeIP('IPform')">
+          {{ $t('operation_btn.btn_text_5') }}
+        </el-button>
       </div>
     </el-dialog>
   </div>
@@ -226,7 +256,7 @@
         list: [],
         listLoading: false, //列表加载
         layout: 'total',
-        elementLoadingText: '正在加载...',
+        elementLoadingText: this.$t('operation_tips.tips_12'),
         page: {
           pageNo: 1,
           pageSize: 100,
@@ -241,29 +271,45 @@
         },
         rules: {
           IP: [
-            { required: true, message: 'IP地址不能为空!', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('device.text_17'),
+              trigger: 'blur',
+            },
             {
               pattern: /^((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d))|\*)((\/([012]\d|3[012]|\d))?)(,((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d))|\*)((\/([012]\d|3[012]|\d))?))*$/,
-              message: '请填写正确的ipv4地址',
+              message: this.$t('device.text_18'),
               trigger: 'blur',
             },
           ],
           DeviceName: [
-            { required: true, message: '请输入设备名称', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('device.text_19'),
+              trigger: 'blur',
+            },
           ],
           Netmask: [
-            { required: true, message: '子网掩码不能为空!', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('device.text_20'),
+              trigger: 'blur',
+            },
             {
               pattern: /^(254|252|248|240|224|192|128|0)\.0\.0\.0|255\.(254|252|248|240|224|192|128|0)\.0\.0|255\.255\.(254|252|248|240|224|192|128|0)\.0|255\.255\.255\.(254|252|248|240|224|192|128|0)$/,
-              message: '请填写正确的子网掩码',
+              message: this.$t('device.text_23'),
               trigger: 'blur',
             },
           ],
           gateway: [
-            { required: true, message: '默认网关不能为空!', trigger: 'blur' },
+            {
+              required: true,
+              message: this.$t('device.text_21'),
+              trigger: 'blur',
+            },
             {
               pattern: /^((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d))|\*)((\/([012]\d|3[012]|\d))?)(,((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d))|\*)((\/([012]\d|3[012]|\d))?))*$/,
-              message: '请填写正确的网关',
+              message: this.$t('device.text_22'),
               trigger: 'blur',
             },
           ],
@@ -315,20 +361,20 @@
       openDoor(row) {
         openDoor(row.IP).then((res) => {
           if (res) {
-            this.$baseMessage('开闸成功', 'success')
+            this.$baseMessage(this.$t('operation_tips.tips_40'), 'success')
           } else {
-            this.$baseMessage('开闸失败', 'warning')
+            this.$baseMessage(this.$t('operation_tips.tips_41'), 'warning')
           }
         })
       },
       // 删除
       handleDelete(row) {
-        this.$baseConfirm('你确定要删除当前项吗', null, () => {
+        this.$baseConfirm(this.$t('operation_tips.tips_4'), null, () => {
           let res = delDevice(row)
           if (res) {
-            this.$baseMessage('删除成功', 'success')
+            this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
           } else {
-            this.$baseMessage('删除失败', 'warning')
+            this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
           }
           this.update()
         })
@@ -350,22 +396,22 @@
             if (this.form.Deviceid) {
               res = editDevice(this.form)
               if (res.result == 2) {
-                this.$baseMessage('修改成功', 'success')
+                this.$baseMessage(this.$t('operation_tips.tips_10'), 'success')
                 this.dialogFormVisible = false
                 this.update()
               } else if (res.result == 0) {
-                this.$baseMessage('修改失败', 'warning')
+                this.$baseMessage(this.$t('operation_tips.tips_11'), 'warning')
               }
             } else {
               res = addDevice(this.form)
               if (res.result == 2) {
-                this.$baseMessage('添加成功', 'success')
+                this.$baseMessage(this.$t('operation_tips.tips_8'), 'success')
                 this.dialogFormVisible = false
                 this.update()
               } else if (res.result == 1) {
-                this.$baseMessage('IP地址已存在，不能重复添加！', 'warning')
+                this.$baseMessage(this.$t('device.text_24'), 'warning')
               } else if (res.result == 3) {
-                this.$baseMessage('添加失败', 'error')
+                this.$baseMessage(this.$t('operation_tips.tips_9'), 'error')
               }
             }
           } else {
@@ -397,22 +443,26 @@
       },
       //添加IP
       addIP(row) {
-        this.$prompt('请输入设备名称', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-        }).then(({ value }) => {
+        this.$prompt(
+          this.$t('device.text_19'),
+          this.$t('operation_tips.tips_42'),
+          {
+            confirmButtonText: this.$t('operation_btn.btn_text_5'),
+            cancelButtonText: this.$t('operation_btn.btn_text_4'),
+          }
+        ).then(({ value }) => {
           let res = addDevice({
             IP: row.Item2,
             DeviceName: value ? value : row.Item4,
           })
           if (res.result == 2) {
-            this.$baseMessage('添加成功', 'success')
+            this.$baseMessage(this.$t('operation_tips.tips_8'), 'success')
             this.openTabelDialog()
             this.update()
           } else if (res.result == 1) {
-            this.$baseMessage('IP地址已存在，不能重复添加！', 'warning')
+            this.$baseMessage(this.$t('device.text_24'), 'warning')
           } else if (res.result == 3) {
-            this.$baseMessage('添加失败', 'error')
+            this.$baseMessage(this.$t('operation_tips.tips_9'), 'error')
           }
         })
       },
