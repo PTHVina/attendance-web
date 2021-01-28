@@ -9,38 +9,39 @@
           size="medium"
           @submit.native.prevent
         >
-          <!-- 姓名 -->
           <el-form-item>
-            <span>{{ $t('personnel.text_1') }}</span>
-            <el-input
-              v-model="queryForm.name"
-              :placeholder="$t('personnel.pl_1')"
-            />
+            <span>ユーザー名</span>
+            <el-input v-model="queryForm.name" placeholder="ユーザー名" />
           </el-form-item>
-          <!-- IP地址 -->
           <el-form-item>
-            <span>{{ $t('personnel.title_3') }}</span>
-            <el-input
-              v-model="queryForm.ip"
-              :placeholder="$t('personnel.title_3')"
-            />
-          </el-form-item>
-          <!-- 状态 -->
-          <el-form-item>
-            <span>{{ $t('personnel.text_14') }}</span>
+            <span>早退</span>
             <el-select
               v-model="queryForm.status"
               clearable
-              :placeholder="$t('personnel.pl_5')"
-              style="width: 80px"
+              placeholder="すべて"
+              style="width: 120px"
             >
-              <el-option
-                v-for="item in statusOption"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              ></el-option>
+              <el-option :key="0" label="すべて" value="0">すべて</el-option>
+              <el-option :key="1" label="早退する" value="1">
+                早退する
+              </el-option>
+              <el-option :key="2" label="遅刻する" value="2">
+                遅刻する
+              </el-option>
+              <el-option :key="3" label="正常" value="3">正常</el-option>
             </el-select>
+          </el-form-item>
+          <el-form-item>
+            <span>{{ $t('personnel.text_14') }}</span>
+            <el-date-picker
+              v-model="queryForm.date"
+              type="daterange"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+              range-separator="に"
+              start-placeholder="開始日"
+              end-placeholder="終了日"
+            ></el-date-picker>
           </el-form-item>
           <el-form-item>
             <el-button
@@ -49,7 +50,7 @@
               native-type="submit"
               @click="handleQuery"
             >
-              {{ $t('operation_btn.btn_text_6') }}
+              検索
             </el-button>
           </el-form-item>
         </el-form>
@@ -65,65 +66,38 @@
       height="700"
       @sort-change="tableSortChange"
     >
-      <!-- 序号 -->
       <el-table-column
         show-overflow-tooltip
-        :label="$t('personnel.title_15')"
-        width="95"
-      >
-        <template #default="scope">
-          {{ scope.$index + 1 }}
-        </template>
-      </el-table-column>
-      <!-- 设备名称 -->
-      <el-table-column
-        show-overflow-tooltip
-        prop="DeviceName"
-        :label="$t('personnel.title_13')"
-        sortable
-      ></el-table-column>
-      <!-- 设备编号 -->
-      <el-table-column
-        show-overflow-tooltip
-        prop="number"
-        :label="$t('personnel.title_14')"
-        sortable
-      ></el-table-column>
-      <!-- IP地址 -->
-      <el-table-column
-        show-overflow-tooltip
-        :label="$t('personnel.title_3')"
-        prop="ipAddress"
-        sortable
-      ></el-table-column>
-      <!-- 人员姓名 -->
-      <el-table-column
-        show-overflow-tooltip
-        :label="$t('personnel.pl_1')"
         prop="name"
-        sortable
+        label="名前"
       ></el-table-column>
-      <!-- 状态 -->
       <el-table-column
         show-overflow-tooltip
-        :label="$t('personnel.text_14')"
-        prop="status"
+        prop="time"
+        label="時間"
         sortable
-      >
+      ></el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        label="遅刻（分）"
+        prop="late"
+        sortable
+      ></el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        label="早退（分）"
+        prop="Leaveearly"
+        sortable
+      ></el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        label="体温(℃)"
+        prop="temperature"
+        sortable
+      ></el-table-column>
+      <el-table-column label="操作" fixed="right">
         <template #default="{ row }">
-          <el-tag v-if="row.status === 'success'" size="medium">
-            {{ $t('operation_btn.btn_text_19') }}
-          </el-tag>
-          <el-tag v-else-if="row.status === 'fail'" type="danger" size="medium">
-            {{ $t('operation_btn.btn_text_20') }}
-          </el-tag>
-          <el-tag
-            v-else-if="row.status === 'inprogress'"
-            type="success"
-            size="medium"
-          >
-            {{ $t('operation_btn.btn_text_21') }}
-          </el-tag>
+          <el-button type="text" @click="sendOut(row)">送信</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -141,7 +115,7 @@
 </template>
 
 <script>
-  import { getIssueList } from '@/api/personnel'
+  import { getLineSendCount, getLineSendList, setSend } from '@/api/personnel'
   export default {
     name: 'Issue',
     data() {
@@ -149,40 +123,28 @@
         list: [],
         listLoading: false, //列表加载
         layout: 'total, sizes, prev, pager, next, jumper',
-        selectRows: '', //选中行
-        elementLoadingText: this.$t('operation_tips.tips_12'),
+        elementLoadingText: '読み込み中...',
         queryForm: {
           name: '',
-          ip: '',
-          status: '', //状态
+          status: '0',
+          date: [],
         },
         page: {
           pageNo: 1,
           pageSize: 10,
           total: 0, //总数
         },
-        // 状态option
-        statusOption: [
-          {
-            value: '10',
-            label: this.$t('operation_tips.tips_35'),
-          },
-          {
-            value: '0',
-            label: this.$t('operation_tips.tips_36'),
-          },
-          {
-            value: '1',
-            label: this.$t('operation_tips.tips_37'),
-          },
-          {
-            value: '2',
-            label: this.$t('operation_tips.tips_38'),
-          },
-        ],
       }
     },
     created() {
+      let date = new Date()
+      let YY = date.getFullYear()
+      let MM = date.getMonth() + 1
+      let DD = date.getDate()
+      MM = MM < 10 ? '0' + MM : MM
+      DD = DD < 10 ? '0' + DD : DD
+      let d = YY + '-' + MM + '-' + DD
+      this.queryForm.date = [d, d]
       this.init()
     },
     beforeDestroy() {},
@@ -190,15 +152,14 @@
     methods: {
       init() {
         this.listLoading = true
-        let list = getIssueList(this.page, this.queryForm)
-        this.list = list[0]
-        this.page.total = list[1][0].count >= 0 ? list[1][0].count : 0
+        let count = getLineSendCount(this.queryForm)
+        this.page.total = count
+        let list = getLineSendList(this.queryForm, this.page)
+        this.list = list
         setTimeout(() => {
           this.listLoading = false
         }, 500)
       },
-      //表格排序
-      tableSortChange() {},
       // 切换显示条数
       handleSizeChange(val) {
         this.page.pageSize = val
@@ -211,8 +172,29 @@
       },
       //查询
       handleQuery() {
+        if (this.queryForm.date.length != 2) {
+          this.$baseMessage('選択した時間が間違っています', 'warning')
+          return
+        }
         this.page.pageNo = 1
         this.init()
+      },
+      //送信
+      sendOut(row) {
+        const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.5)',
+        })
+        setSend(row.id).then((res) => {
+          loading.close()
+          if (res) {
+            this.$baseMessage('送信成功。', 'success')
+          } else {
+            this.$baseMessage('送信に失敗しました。', 'warning')
+          }
+        })
       },
     },
   }

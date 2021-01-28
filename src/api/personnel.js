@@ -55,8 +55,8 @@ export function setData(data) {
     data.departmentname.toString(),
     data.Employetypename.toString(),
     data.picture.toString(),
-    data.line_type ? data.line_type.toString() : '1',
-    data.line_userid ? data.line_userid.toString() : '',
+    data.line_type.toString(),
+    data.line_userid.toString(),
     data.face_idcard.toString(),
     data.idcardtype.toString()
   )
@@ -74,8 +74,8 @@ export function editData(data) {
     data.departmentname.toString(),
     data.Employetypename.toString(),
     data.picture.toString(),
-    data.line_userid ? data.line_userid.toString() : '',
-    data.line_type ? data.line_type.toString() : '1',
+    data.line_userid.toString(),
+    data.line_type.toString(),
     data.id.toString(),
     data.face_idcard.toString(),
     data.idcardtype.toString()
@@ -140,6 +140,21 @@ export function importExcel() {
 //导出
 export function downList() {
   myExtension.export()
+}
+//获取通知设置
+export function getInformList() {
+  let res = top.myExtension.getstaffforlineAdmin()
+  var datastr = top.myExtension.getstaffforlineAdminData()
+  let res_data = JSON.parse(res)
+  let data = JSON.parse(datastr)
+
+  return { res_data, data }
+}
+//通知设置
+export function setInform(str) {
+  var re = window.top.myExtension.setstaffforlineAdmin(str.toString())
+
+  return re
 }
 
 //访客管理
@@ -239,4 +254,37 @@ export function getIssueList(page, data) {
   var re_json_2 = JSON.parse(DevicedataStr)
 
   return [re_json_2, re_json]
+}
+
+//LINE送信
+export function getLineSendCount(data) {
+  var re = window.top.myExtension.getcountforLineFor_list(
+    data.name,
+    data.date[0].toString(),
+    data.date[1].toString(),
+    data.status.toString()
+  )
+  var re_json = JSON.parse(re)[0].count
+
+  return re_json
+}
+export function getLineSendList(data, page) {
+  var res = window.top.myExtension.getforLineFor_list(
+    data.name,
+    data.date[0].toString(),
+    data.date[1].toString(),
+    data.status.toString(),
+    page.pageNo.toString(),
+    page.total.toString()
+  )
+  let res_data = JSON.parse(res)
+
+  return res_data
+}
+export function setSend(id) {
+  return new Promise(function (resolve, reject) {
+    myExtension.sendOutforLine(function (param) {
+      resolve(param)
+    }, id.toString())
+  })
 }

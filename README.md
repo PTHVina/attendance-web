@@ -1,4 +1,4 @@
-<div align="center"><img width="200" src="https://gitee.com/chu1204505056/vue-admin-beautiful/raw/master/src/colorfulIcon/svg/vab.svg"/>
+<div align="center">
 <h1> vue-admin-beautiful（element-ui） </h1>
 </div>
 
@@ -51,8 +51,16 @@ cd vue-admin-beautiful
 npm i
 # 本地开发 启动项目
 npm run serve
+
+#智慧人脸系统
+
 #打包失败时执行以下代码
 cnpm i image-webpack-loader -D
+
+#dev分支为未加入多语言功能
+#lang分支为已加入多语言功能
+#JPN分支添加日语版独有页面
+#master主分支为最终结果
 ```
 
 ## 友情链接

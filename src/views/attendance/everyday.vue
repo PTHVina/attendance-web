@@ -113,7 +113,7 @@
       v-loading="listLoading"
       stripe
       :data="list"
-      height="720"
+      height="700"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
     >

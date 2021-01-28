@@ -27,9 +27,9 @@ router.beforeResolve(async (to, from, next) => {
 
   if (!loginInterception) hasToken = true
 
-  if (to.path != '/device/online') {
-    closePage()
-  }
+  // if (to.path != '/device/online') {
+  closePage()
+  // }
 
   if (hasToken) {
     if (to.path === '/login') {

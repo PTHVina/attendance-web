@@ -27,6 +27,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
+      height="700"
       @sort-change="tableSortChange"
     >
       <!-- 序号 -->
@@ -250,7 +251,7 @@
     changeIP,
   } from '@/api/device'
   export default {
-    name: 'Device',
+    name: 'DeviceIndex',
     data() {
       return {
         list: [],

@@ -15,6 +15,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
+      height="700"
     >
       <!-- 创建时间 -->
       <el-table-column

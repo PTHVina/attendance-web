@@ -31,6 +31,12 @@
         lang: this.$lang,
       }
     },
+    computed: {
+      ...mapGetters({
+        logo: 'settings/logo',
+        layout: 'settings/layout',
+      }),
+    },
     mounted() {
       if (this.$lang == 'en_US') {
         this.title = 'FaceRASystem'
@@ -40,12 +46,6 @@
       } else {
         this.title = this.$baseTitle
       }
-    },
-    computed: {
-      ...mapGetters({
-        logo: 'settings/logo',
-        layout: 'settings/layout',
-      }),
     },
   }
 </script>
@@ -60,7 +60,7 @@
 
   @mixin logo {
     display: inline-block;
-    width: 30px;
+    width: 40px;
     height: 40px;
     margin-right: 10px;
     color: $base-title-color;
@@ -112,7 +112,7 @@
 
   .router-link-active .img_box {
     display: none;
-    width: 30px;
+    width: 40px;
     height: 40px;
   }
   .router-link-active .img {

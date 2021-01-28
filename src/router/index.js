@@ -67,72 +67,6 @@ export const asyncRoutes = [
     ],
   },
   {
-    path: '/personnel',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: 'Personnel',
-    alwaysShow: true,
-    meta: { title: i18.router.title_4, icon: 'user-friends' }, //人员管理
-    children: [
-      {
-        path: 'index',
-        name: 'Index',
-        component: () => import('@/views/personnel/index'),
-        meta: { title: i18.router.title_5, permissions: ['admin'] }, //人员列表
-      },
-      {
-        path: 'visitor',
-        name: 'Visitor',
-        component: () => import('@/views/personnel/visitor'),
-        meta: { title: i18.router.title_6, permissions: ['admin'] }, //访客管理
-      },
-      {
-        path: 'issue',
-        name: 'Issue',
-        component: () => import('@/views/personnel/issue'),
-        meta: { title: i18.router.title_7, permissions: ['admin'] }, //下发记录
-      },
-    ],
-  },
-  {
-    path: '/device',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: 'Device',
-    alwaysShow: true,
-    meta: { title: i18.router.title_8, icon: 'video' }, //设备管理
-    children: [
-      {
-        path: 'index',
-        name: 'Index',
-        component: () => import('@/views/device/index'),
-        meta: { title: i18.router.title_9, permissions: ['admin'] }, //设备列表
-      },
-      {
-        path: 'online',
-        name: 'Online',
-        component: () => import('@/views/device/online'),
-        meta: { title: i18.router.title_10, permissions: ['admin'] }, //在线视频
-      },
-    ],
-  },
-  {
-    path: '/snapshot',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: 'Snapshot',
-    alwaysShow: true,
-    meta: { title: i18.router.title_11, icon: 'clipboard-list' }, //抓拍管理
-    children: [
-      {
-        path: 'record',
-        name: 'Record',
-        component: () => import('@/views/snapshot/record'),
-        meta: { title: i18.router.title_12, permissions: ['admin'] }, //抓拍记录
-      },
-    ],
-  },
-  {
     path: '/attendanceSet',
     component: Layout,
     redirect: 'noRedirect',
@@ -155,6 +89,72 @@ export const asyncRoutes = [
     ],
   },
   {
+    path: '/device',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'Device',
+    alwaysShow: true,
+    meta: { title: i18.router.title_8, icon: 'video' }, //设备管理
+    children: [
+      {
+        path: 'deviceIndex',
+        name: 'DeviceIndex',
+        component: () => import('@/views/device/index'),
+        meta: { title: i18.router.title_9, permissions: ['admin'] }, //设备列表
+      },
+      {
+        path: 'online',
+        name: 'Online',
+        component: () => import('@/views/device/online'),
+        meta: { title: i18.router.title_10, permissions: ['admin'] }, //在线视频
+      },
+    ],
+  },
+  {
+    path: '/personnel',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'Personnel',
+    alwaysShow: true,
+    meta: { title: i18.router.title_4, icon: 'user-friends' }, //人员管理
+    children: [
+      {
+        path: 'personnelIndex',
+        name: 'PersonnelIndex',
+        component: () => import('@/views/personnel/index'),
+        meta: { title: i18.router.title_5, permissions: ['admin'] }, //人员列表
+      },
+      {
+        path: 'visitor',
+        name: 'Visitor',
+        component: () => import('@/views/personnel/visitor'),
+        meta: { title: i18.router.title_6, permissions: ['admin'] }, //访客管理
+      },
+      {
+        path: 'issue',
+        name: 'Issue',
+        component: () => import('@/views/personnel/issue'),
+        meta: { title: i18.router.title_7, permissions: ['admin'] }, //下发记录
+      },
+    ],
+  },
+  {
+    path: '/snapshot',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'Snapshot',
+    alwaysShow: true,
+    meta: { title: i18.router.title_11, icon: 'clipboard-list' }, //抓拍管理
+    children: [
+      {
+        path: 'record',
+        name: 'Record',
+        component: () => import('@/views/snapshot/record'),
+        meta: { title: i18.router.title_12, permissions: ['admin'] }, //抓拍记录
+      },
+    ],
+  },
+  {
     path: '/attendance',
     component: Layout,
     redirect: 'noRedirect',
@@ -170,7 +170,7 @@ export const asyncRoutes = [
       },
       {
         path: 'monthly',
-        name: 'monthly',
+        name: 'Monthly',
         component: () => import('@/views/attendance/monthly'),
         meta: { title: i18.router.title_18, permissions: ['admin'] }, //月度考勤
       },
@@ -194,6 +194,38 @@ export const asyncRoutes = [
     hidden: true,
   },
 ]
+if (lang == 'Jan_JPN') {
+  asyncRoutes[1].children.push({
+    path: 'line',
+    name: 'Line',
+    component: () => import('@/views/system/line'),
+    meta: { title: 'LINE設定', permissions: ['admin'] }, //LINE设置
+  })
+  asyncRoutes[1].children.push({
+    path: 'pdf',
+    name: 'Pdf',
+    component: () => import('@/views/system/pdf'),
+    meta: { title: 'PDF設定', permissions: ['admin'] }, //PDF设置
+  })
+  asyncRoutes[1].children.push({
+    path: 'lineQR',
+    name: 'LineQR',
+    component: () => import('@/views/system/lineQR'),
+    meta: { title: 'LINE QRコー', permissions: ['admin'] }, //LINE QR编码
+  })
+  asyncRoutes[1].children.push({
+    path: 'edit',
+    name: 'Edit',
+    component: () => import('@/views/system/edit'),
+    meta: { title: 'Edit QRcode For Email', permissions: ['admin'] }, //编辑电子邮件的QRcode
+  })
+  asyncRoutes[4].children.push({
+    path: 'lineRecord',
+    name: 'LineRecord',
+    component: () => import('@/views/personnel/lineRecord'),
+    meta: { title: 'LINE送信記録', permissions: ['admin'] }, //LINE发送记录
+  })
+}
 const router = new VueRouter({
   routes: asyncRoutes,
 })

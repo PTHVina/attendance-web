@@ -121,7 +121,7 @@ module.exports = {
   system: {
     text_1: 'department',
     text_2: 'Department details',
-    text_3: 'Personnel classification',
+    text_3: 'Job classification',
     text_4: 'Add Department',
     text_5: 'department',
 
@@ -200,7 +200,7 @@ module.exports = {
     text_22: 'Please fill in the correct gateway',
     text_23: 'Please fill in the correct subnet mask',
     text_24: 'IP address already exists, cannot add repeatedly!',
-    text_25: 'Please select a device',
+    text_25: 'Device List',
     text_26: 'Play video',
   },
   //抓拍管理

@@ -15,7 +15,8 @@ const setting = {
   // 默认的接口地址 如果是开发环境和生产环境走vab-mock-server，当然你也可以选择自己配置成需要的接口地址
   baseURL: '',
   //标题 （包括初次加载雪花屏的标题 页面的标题 浏览器的标题）
-  title: '智慧人脸考勤门禁系统',
+  // title: '智慧人脸考勤门禁系统',
+  title: '人脸门禁系统',
   //简写
   abbreviation: 'FaceRASystem',
   //开发环境端口号

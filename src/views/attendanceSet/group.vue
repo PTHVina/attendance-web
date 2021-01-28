@@ -15,6 +15,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
+      height="700"
     >
       <!-- 班组名 -->
       <el-table-column

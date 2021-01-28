@@ -75,7 +75,7 @@
       </el-form>
     </div>
     <div class="personnel">
-      <!-- 人员分类 -->
+      <!-- 工作分类 -->
       <div class="tree_add">{{ $t('system.text_3') }}</div>
       <el-tag
         v-for="(tag, key) in dynamicTags"

@@ -47,6 +47,22 @@
         </el-form>
       </div>
       <div class="btn_group">
+        <el-button
+          v-if="lang == 'Jan_JPN'"
+          icon="el-icon-chat-line-round"
+          type="primary"
+          @click="lineDialogVisible = true"
+        >
+          Line ヘルプを使う
+        </el-button>
+        <el-button
+          v-if="lang == 'Jan_JPN'"
+          icon="el-icon-setting"
+          type="primary"
+          @click="openInform"
+        >
+          通知先設定
+        </el-button>
         <!-- 新增 -->
         <el-button icon="el-icon-plus" type="primary" @click="openFormDialog">
           {{ $t('operation_btn.btn_text_7') }}
@@ -93,6 +109,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
+      height="700"
       @selection-change="setSelectRows"
       @sort-change="tableSortChange"
     >
@@ -102,7 +119,11 @@
         width="55"
       ></el-table-column>
       <!-- 头像 -->
-      <el-table-column show-overflow-tooltip :label="$t('personnel.title_1')">
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('personnel.title_1')"
+        :width="lang == 'en_US' ? '120' : ''"
+      >
         <template #default="{ row }">
           <el-image :preview-src-list="imageList" :src="row.picture"></el-image>
         </template>
@@ -113,6 +134,7 @@
         prop="name"
         :label="$t('personnel.text_1')"
         sortable
+        :width="lang == 'en_US' ? '120' : ''"
       ></el-table-column>
       <!-- 电话号码 -->
       <el-table-column
@@ -120,6 +142,7 @@
         :label="$t('personnel.text_3')"
         prop="phone"
         sortable
+        :width="lang == 'en_US' ? '160' : ''"
       ></el-table-column>
       <!-- 部门 -->
       <el-table-column
@@ -127,6 +150,7 @@
         :label="$t('personnel.title_4')"
         prop="departmentname"
         sortable
+        :width="lang == 'en_US' ? '120' : ''"
       ></el-table-column>
       <!-- 人员编号 -->
       <el-table-column
@@ -134,6 +158,7 @@
         :label="$t('personnel.title_5')"
         prop="Employee_code"
         sortable
+        :width="lang == 'en_US' ? '160' : ''"
       ></el-table-column>
       <!-- 工作分类 -->
       <el-table-column
@@ -141,6 +166,7 @@
         :label="$t('personnel.title_6')"
         prop="Employetypename"
         sortable
+        :width="lang == 'en_US' ? '180' : ''"
       ></el-table-column>
       <!-- 已下发总数 -->
       <el-table-column
@@ -148,6 +174,7 @@
         :label="$t('personnel.title_7')"
         prop="eqcount"
         sortable
+        :width="lang == 'en_US' ? '140' : ''"
       ></el-table-column>
       <!-- 相机总数 -->
       <el-table-column
@@ -155,12 +182,13 @@
         :label="$t('personnel.title_8')"
         prop="decount"
         sortable
+        :width="lang == 'en_US' ? '210' : '140'"
       ></el-table-column>
       <!-- 操作 -->
       <el-table-column
         :label="$t('personnel.title_9')"
-        min-width="200px"
         fixed="right"
+        :width="lang == 'Jan_JPN' ? '550' : '240'"
       >
         <template #default="{ row }">
           <!-- 编辑 -->
@@ -175,11 +203,120 @@
           <el-button type="text" icon="el-icon-thumb" @click="issue(row)">
             {{ $t('operation_btn.btn_text_15') }}
           </el-button>
+          <span v-if="lang == 'Jan_JPN'" class="jan_btn">
+            <span v-if="row.line_type == '2'">
+              <el-button
+                v-if="
+                  row.line_codemail != null && row.line_codemail.length == 6
+                "
+                type="text"
+                icon="el-icon-message"
+                @click="addEmailforline(row)"
+              >
+                Email取得
+              </el-button>
+              <el-button
+                v-else
+                type="text"
+                icon="el-icon-pie-chart"
+                @click="generatecodemail(row)"
+              >
+                LINE認証
+              </el-button>
+              <el-button
+                type="text"
+                icon="el-icon-printer"
+                @click="Prinpdf(row.id, row.line_type)"
+              >
+                LINE印刷
+              </el-button>
+            </span>
+            <span v-if="row.line_type == '3'">
+              <span>
+                <el-button
+                  v-if="
+                    row.line_codemail != null && row.line_codemail.length == 6
+                  "
+                  type="text"
+                  icon="el-icon-message"
+                  @click="addEmailforline(row)"
+                >
+                  Email取得
+                </el-button>
+                <el-button
+                  v-else
+                  type="text"
+                  icon="el-icon-pie-chart"
+                  @click="generatecodemail(row)"
+                >
+                  メール認証
+                </el-button>
+              </span>
+              <span>
+                <el-button
+                  v-if="row.line_code != null && row.line_code.length == 6"
+                  type="text"
+                  icon="el-icon-connection"
+                  @click="addUserforline(row)"
+                >
+                  LINE ID取得
+                </el-button>
+                <el-button
+                  v-else
+                  type="text"
+                  icon="el-icon-pie-chart"
+                  @click="generatecode(row)"
+                >
+                  LINE認証
+                </el-button>
+              </span>
+              <el-button
+                type="text"
+                icon="el-icon-printer"
+                @click="Prinpdf(row.id, '1')"
+              >
+                LINE印刷
+              </el-button>
+              <el-button
+                type="text"
+                icon="el-icon-printer"
+                @click="Prinpdf(row.id, '2')"
+              >
+                メール印刷
+              </el-button>
+            </span>
+            <span v-else>
+              <el-button
+                v-if="row.line_code != null && row.line_code.length == 6"
+                type="text"
+                icon="el-icon-connection"
+                @click="addUserforline(row)"
+              >
+                LINE ID取得
+              </el-button>
+              <el-button
+                v-else
+                type="text"
+                icon="el-icon-pie-chart"
+                @click="generatecode(row)"
+              >
+                LINE認証
+              </el-button>
+              <el-button
+                type="text"
+                icon="el-icon-printer"
+                @click="Prinpdf(row.id, row.line_type)"
+              >
+                LINE印刷
+              </el-button>
+            </span>
+          </span>
           <!-- 删除 -->
           <el-button
             type="text"
             class="btn_red"
             icon="el-icon-delete"
+            style="margin-left: 10px"
             @click="handleDelete(row)"
           >
             {{ $t('operation_btn.btn_text_2') }}
@@ -201,14 +338,14 @@
     <el-dialog
       :title="$t('personnel.text_4')"
       :visible.sync="dialogFormVisible"
-      width="600px"
+      :width="lang == 'zh_CN' ? '600px' : '700px'"
       :destroy-on-close="true"
       :before-close="closeFn"
     >
       <el-form
         ref="setForm"
         :model="form"
-        label-width="80px"
+        :label-width="lang == 'Jan_JPN' ? '120px' : '80px'"
         :rules="rules"
         size="medium"
       >
@@ -219,6 +356,22 @@
             :placeholder="$t('personnel.pl_1')"
             autocomplete="off"
           ></el-input>
+        </el-form-item>
+        <!-- Line_ueserid -->
+        <el-form-item v-if="lang == 'Jan_JPN'" label="Line_ueserid">
+          <el-input
+            v-model="form.line_userid"
+            placeholder="Line_ueserid"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <!-- 送信モード -->
+        <el-form-item v-if="lang == 'Jan_JPN'" label="送信モード">
+          <el-radio-group v-model="form.line_type">
+            <el-radio label="1">Line</el-radio>
+            <el-radio label="2">メール</el-radio>
+            <el-radio label="3">Line メール</el-radio>
+          </el-radio-group>
         </el-form-item>
         <!-- 编号 -->
         <el-form-item :label="$t('personnel.text_2')" prop="Employee_code">
@@ -326,7 +479,10 @@
               fit="contain"
             ></el-image>
             <i v-else class="el-icon-picture-outline"></i>
-            <div class="add_box">
+            <div
+              class="add_box"
+              :style="lang == 'Jan_JPN' ? 'font-size:12px !important;' : ''"
+            >
               <span class="uploading" @click="checkImg">
                 {{ $t('operation_btn.btn_text_16') }}
               </span>
@@ -387,6 +543,72 @@
         </el-button>
       </div>
     </el-dialog>
+
+    <!-- 提示 -->
+    <el-dialog
+      :visible.sync="lineDialogVisible"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      :show-close="false"
+      center
+      width="400px"
+      class="line_dialog"
+    >
+      <div
+        style="
+          padding: 30px;
+          line-height: 22px;
+          background-color: #393d49;
+          color: #fff;
+          font-weight: 300;
+        "
+      >
+        【LINE連携の操作説明】
+        <div>①端末を登録。（学校管理者）</div>
+        <div>②QRコードを登録（学校管理者）</div>
+        <div>③ユーザーを登録（学校管理者）</div>
+        <div>
+          ④登録したいユーザー欄の”コードを生成”を押下する。（学校管理者）
+        </div>
+        <div>
+          ⑤登録したいユーザー欄の”プリント”を押下し、表示されたプリント用紙を印刷し対象の保護者へ渡す。（学校管理者）
+        </div>
+        <div>
+          ⑥使用するユーザーはプリント用紙に記載のQRコードをスマホで読み取り表示された公式アカウントとお友達登録を行う。（保護者）
+        </div>
+        <div>
+          ⑦使用するユーザーは公式アカウントのLINEで”認証コード入力”を押下しプリント用紙に記載された６桁の数字を入力する。
+        </div>
+        <div>
+          ⑧登録したいユーザー欄の”登録するLINE”を押下する。（学校管理者）成功すると該当ユーザーの編集画面内にある”LINE_USER_IDにサーバー側から取得されたIDが登録される。
+        </div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="lineDialogVisible = false">
+          了解済み
+        </el-button>
+      </span>
+    </el-dialog>
+
+    <!-- 设置 -->
+    <el-dialog
+      title="通知先設定"
+      :visible.sync="informDialogVisible"
+      width="650px"
+    >
+      <el-transfer
+        v-model="setData"
+        :props="{
+          key: 'value',
+          label: 'title',
+        }"
+        :titles="['デフォルト', '管理者']"
+        :data="setList"
+      ></el-transfer>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="setInform">保存</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -407,11 +629,14 @@
     importExcel,
     downList,
     photograph,
+    getInformList,
+    setInform,
   } from '@/api/personnel'
   export default {
-    name: 'PersonnelList',
+    name: 'PersonnelIndex',
     data() {
       return {
+        lang: this.$lang,
         list: [],
         imageList: [],
         listLoading: false, //列表加载
@@ -443,8 +668,8 @@
           departmentname: '', //部门
           Employetypename: '', //工作分类
           picture: '',
-          line_userid: '',
-          line_type: '',
+          line_userid: '', //Line_ueserid
+          line_type: '1', //送信モード
         },
         departmentData: {}, //选中部门数据
         rules: {
@@ -519,6 +744,10 @@
         gridData: [], //设备列表
         deviceRows: [], //设备选中列表
         issueUser: [], //选中人员
+        lineDialogVisible: false,
+        informDialogVisible: false,
+        setList: [],
+        setData: [],
       }
     },
     created() {
@@ -541,6 +770,7 @@
         this.listLoading = true
         let list = getDataList(this.page)
         this.list = list[0]
+        console.log('list', list)
         this.page.total = list[1]
         let imageList = []
         this.list.forEach((item, index) => {
@@ -825,8 +1055,126 @@
           departmentname: '',
           Employetypename: '',
           picture: '',
+          line_userid: '',
+          line_type: '1',
         }
         this.departmentData = {}
+      },
+
+      //打开通知设置
+      openInform() {
+        //通知设置列表
+        let { res_data, data } = getInformList()
+        this.setList = data
+        this.setData = []
+        res_data.forEach((item) => {
+          this.setData.push(item.value)
+        })
+        this.informDialogVisible = true
+      },
+      //保存通知设置
+      setInform() {
+        if (this.setData.length > 5) {
+          this.$baseMessage('管理者は5つを超えてはいけません。', 'warning')
+          return
+        }
+        let str = this.setData.join(',')
+        let res = setInform(str)
+        if (res) {
+          this.$baseMessage('保存しました', 'success')
+          this.informDialogVisible = false
+        } else {
+          this.$baseMessage('設定できませんでした!', 'warning')
+        }
+      },
+
+      // Email取得
+      addEmailforline(row) {
+        const loading = this.$loading({
+          lock: true,
+          text: '登録しています',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.5)',
+        })
+        myExtension.addEmailforline((param) => {
+          loading.close()
+          if (param.indexOf('success') >= 0) {
+            this.$baseMessage('登録成功', 'success')
+            this.init()
+          } else {
+            this.$baseMessage('登録に失敗しました。', 'warning')
+          }
+        }, row.id.toString())
+      },
+      // LINE認証\メール認証
+      generatecodemail(row) {
+        if (row.id) {
+          const loading = this.$loading({
+            lock: true,
+            text: '取得中',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.5)',
+          })
+          myExtension.generatecodemail((param) => {
+            loading.close()
+            if (param == 'success') {
+              this.$baseMessage('送信成功。', 'success')
+              this.init()
+              return
+            } else {
+              this.$baseMessage('獲得に失敗する。', 'warning')
+            }
+          }, row.id.toString())
+        }
+      },
+      // LINE印刷\メール印刷
+      Prinpdf(id, type) {
+        window.top.myExtension.Prinpdf(
+          JSON.stringify(id),
+          type ? JSON.stringify(type) : ''
+        )
+      },
+      // LINE ID取得
+      addUserforline(row) {
+        if (row.id) {
+          const loading = this.$loading({
+            lock: true,
+            text: '登録しています',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.5)',
+          })
+          myExtension.addUserforline((param) => {
+            loading.close()
+            if (param.indexOf('success') >= 0) {
+              this.$baseMessage('登録成功。', 'success')
+              this.init()
+              return
+            } else {
+              this.$baseMessage('登録に失敗しました。', 'warning')
+            }
+          }, row.id.toString())
+        }
+      },
+      // LINE認証
+      generatecode(row) {
+        if (row.id) {
+          const loading = this.$loading({
+            lock: true,
+            text: '取得中',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.5)',
+          })
+          myExtension.generatecode((param) => {
+            loading.close()
+            if (param == 'success') {
+              this.$baseMessage('送信成功。', 'success')
+              this.init()
+              return
+            } else {
+              this.$baseMessage('獲得に失敗する。', 'warning')
+            }
+          }, row.id.toString())
+        }
       },
     },
   }
@@ -926,5 +1274,19 @@
   }
   .add_img:hover .add_box {
     display: flex;
+  }
+
+  .line_dialog .el-dialog__header {
+    padding: 0 !important;
+  }
+  .line_dialog .el-dialog__body {
+    padding: 0 !important;
+    border: none;
+  }
+
+  .jan_btn {
+    .el-button {
+      margin-left: 10px !important;
+    }
   }
 </style>

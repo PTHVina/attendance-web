@@ -56,7 +56,7 @@ const actions = {
     let c = '中午好'
     let d = '下午好'
     let e = '晚上好'
-    let tip1 = '欢迎登录智慧人脸考勤门禁系统'
+    let tip1 = '欢迎登录人脸门禁系统'
     let tip2 = '登录接口异常，未正确返回'
     if (lang == 'en_US') {
       a = 'good morning'

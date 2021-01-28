@@ -35,7 +35,7 @@
         changeCollapse: 'settings/changeCollapse',
       }),
       handleCollapse() {
-        this.changeCollapse()
+        // this.changeCollapse()
       },
     },
   }
@@ -60,7 +60,7 @@
 
       .fold-unfold {
         color: $base-color-gray;
-        cursor: pointer;
+        cursor: default;
       }
 
       ::v-deep {
