@@ -34,7 +34,7 @@
               :range-separator="$t('snapshot.text_5')"
               :start-placeholder="$t('snapshot.text_6')"
               :end-placeholder="$t('snapshot.text_7')"
-              style="width: 350px"
+              style="width: 360px"
               @change="checkTime"
             ></el-date-picker>
           </el-form-item>
@@ -45,7 +45,7 @@
               v-model="queryForm.stranger"
               clearable
               :placeholder="$t('snapshot.text_9')"
-              style="width: 90px"
+              style="width: 140px"
             >
               <!-- <el-option key="0" label="否" value="0"></el-option> -->
               <el-option
@@ -62,7 +62,7 @@
               v-model="queryForm.codestus"
               clearable
               :placeholder="$t('snapshot.text_9')"
-              style="width: 90px"
+              style="width: 140px"
             >
               <!-- <el-option key="3" label="" value="3"></el-option> -->
               <el-option key="0" :label="$t('snapshot.text_12')" value="0">
@@ -121,7 +121,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
-      height="700"
+      :height="lang == 'zh_CN' ? '700' : '650'"
       @selection-change="setSelectRows"
       @sort-change="tableSortChange"
     >
@@ -131,7 +131,11 @@
         width="55"
       ></el-table-column>
       <!-- 特写图 -->
-      <el-table-column show-overflow-tooltip :label="$t('snapshot.text_15')">
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('snapshot.text_15')"
+        :width="lang == 'zh_CN' ? '' : '100px'"
+      >
         <template #default="{ row }">
           <el-image :preview-src-list="imageList" :src="row.closeup"></el-image>
         </template>
@@ -141,6 +145,7 @@
         show-overflow-tooltip
         prop="person_name"
         :label="$t('snapshot.text_1')"
+        :width="lang == 'zh_CN' ? '' : '100px'"
       ></el-table-column>
       <!-- 体温 -->
       <el-table-column
@@ -148,7 +153,7 @@
         :label="$t('snapshot.text_16')"
         prop="body_temp"
         sortable
-        width="100"
+        :width="lang == 'zh_CN' ? '100px' : '130px'"
       ></el-table-column>
       <!-- 设备编号 -->
       <el-table-column
@@ -156,7 +161,7 @@
         :label="$t('snapshot.text_3')"
         prop="device_sn"
         sortable
-        width="160"
+        :width="lang == 'Jan_JPN' ? '200px' : '160px'"
       ></el-table-column>
       <!-- 健康码 -->
       <el-table-column
@@ -164,6 +169,7 @@
         :label="$t('snapshot.text_38')"
         prop="QRcodestatus"
         sortable
+        :width="lang == 'zh_CN' ? '' : '130px'"
       >
         <template #default="{ row }">
           <el-tag v-if="row.QRcodestatus == '0'" type="success">
@@ -211,14 +217,14 @@
         show-overflow-tooltip
         :label="$t('snapshot.text_18')"
         prop="wg_card_id"
-        width="100"
+        :width="lang == 'zh_CN' ? '100px' : '150px'"
       ></el-table-column>
       <!-- 相机名称 -->
       <el-table-column
         show-overflow-tooltip
         :label="$t('snapshot.text_19')"
         prop="addr_name"
-        width="100"
+        :width="lang == 'zh_CN' ? '100px' : '130px'"
       ></el-table-column>
       <!-- 抓拍时间 -->
       <el-table-column
@@ -234,7 +240,7 @@
         :label="$t('snapshot.text_20')"
         prop="exist_mask"
         sortable
-        width="140"
+        :width="lang == 'zh_CN' ? '140px' : '190px'"
       >
         <template #default="{ row }">
           <span v-if="row.exist_mask == '0'">{{ $t('snapshot.text_21') }}</span>
@@ -244,7 +250,11 @@
         </template>
       </el-table-column>
       <!-- 头像 -->
-      <el-table-column show-overflow-tooltip :label="$t('snapshot.text_22')">
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('snapshot.text_22')"
+        :width="lang == 'zh_CN' ? '' : '120px'"
+      >
         <template #default="{ row }">
           <el-image
             v-if="row.TemplateImage"
@@ -255,7 +265,7 @@
       <!-- 操作 -->
       <el-table-column
         :label="$t('snapshot.text_23')"
-        min-width="150px"
+        :min-width="lang == 'zh_CN' ? '150px' : '170px'"
         fixed="right"
       >
         <template #default="{ row }">
@@ -293,14 +303,17 @@
     <el-dialog
       :title="$t('snapshot.text_24')"
       :visible.sync="dialogFormVisible"
-      width="600px"
+      :width="lang == 'zh_CN' ? '600px' : '710px'"
       :destroy-on-close="true"
       :before-close="closeFn"
+      top="50px"
     >
       <el-form
         ref="setForm"
         :model="form"
-        label-width="80px"
+        :label-width="
+          lang == 'zh_CN' ? '80px' : lang == 'Jan_JPN' ? '130px' : '160px'
+        "
         :rules="rules"
         size="medium"
       >
@@ -312,6 +325,22 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
+        <!-- Line_ueserid -->
+        <el-form-item v-if="lang == 'Jan_JPN'" label="Line_ueserid">
+          <el-input
+            v-model="form.line_userid"
+            placeholder="Line_ueserid"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <!-- 送信モード -->
+        <el-form-item v-if="lang == 'Jan_JPN'" label="送信モード">
+          <el-radio-group v-model="form.line_type">
+            <el-radio label="1">Line</el-radio>
+            <el-radio label="2">メール</el-radio>
+            <el-radio label="3">Line メール</el-radio>
+          </el-radio-group>
+        </el-form-item>
         <!-- 编号 -->
         <el-form-item :label="$t('snapshot.text_39')" prop="Employee_code">
           <el-input
@@ -321,7 +350,7 @@
           ></el-input>
         </el-form-item>
         <!-- 电话号码 -->
-        <el-form-item :label="$t('snapshot.text_26')" prop="phone">
+        <el-form-item :label="$t('snapshot.text_26')">
           <el-input
             v-model="form.phone"
             :placeholder="$t('snapshot.text_26')"
@@ -393,10 +422,18 @@
             ></el-image>
             <i v-else class="el-icon-picture-outline"></i>
             <div class="add_box">
-              <span class="uploading" @click="checkImg">
+              <span
+                class="uploading"
+                :style="lang == 'zh_CN' ? '' : 'font-size:12px !important;'"
+                @click="checkImg"
+              >
                 {{ $t('operation_btn.btn_text_16') }}
               </span>
-              <span class="photo" @click="photograph">
+              <span
+                class="photo"
+                :style="lang == 'zh_CN' ? '' : 'font-size:12px !important;'"
+                @click="photograph"
+              >
                 {{ $t('operation_btn.btn_text_17') }}
               </span>
             </div>
@@ -416,9 +453,9 @@
     <el-dialog
       :title="$t('snapshot.text_40')"
       :visible.sync="dialogTableVisible"
-      width="500px"
+      :width="lang == 'zh_CN' ? '500px' : '600px'"
     >
-      <el-form label-width="100px" size="medium">
+      <el-form :label-width="lang == 'zh_CN' ? '100px' : '160px'" size="medium">
         <el-form-item :label="$t('snapshot.text_41')">
           <el-date-picker
             v-model="exportData.exportTime"
@@ -456,6 +493,7 @@
     name: 'Record',
     data() {
       return {
+        lang: this.$lang,
         list: [],
         imageList: [],
         listLoading: false, //列表加载
@@ -492,7 +530,7 @@
           Employetypename: '', //工作分类
           picture: '',
           line_userid: '',
-          line_type: '',
+          line_type: '1',
         },
         rules: {
           name: [
@@ -523,13 +561,6 @@
             {
               pattern: /^[A-Za-z0-9]*$/,
               message: this.$t('operation_tips.tips_15'),
-              trigger: 'blur',
-            },
-          ],
-          phone: [
-            {
-              pattern: /^1[3-9]\d{9}$/,
-              message: this.$t('operation_tips.tips_3'),
               trigger: 'blur',
             },
           ],
@@ -721,6 +752,8 @@
             departmentname: '',
             Employetypename: '',
             picture: data.closeup,
+            line_userid: '',
+            line_type: '1',
           }
         }
       },
@@ -744,6 +777,11 @@
       setFormData(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            var myreg = /^1[345789]\d{9}$/
+            if (!myreg.test(this.form.phone) && this.lang == 'zh_CN') {
+              this.$baseMessage('请输入正确的11位电话号码', 'warning')
+              return
+            }
             if (this.form.face_idcard.length == 0) {
               this.form.idcardtype = ''
             }
@@ -787,6 +825,8 @@
           departmentname: '',
           Employetypename: '',
           picture: '',
+          line_userid: '',
+          line_type: '1',
         }
       },
 
@@ -891,9 +931,8 @@
       top: 0;
       left: 0;
       z-index: 2;
-      background: #666;
       border-radius: 6px;
-      opacity: 0.6;
+      background: rgba($color: #666, $alpha: 0.6);
       display: none;
       // display: flex;
       align-items: center;

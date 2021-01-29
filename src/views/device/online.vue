@@ -83,8 +83,8 @@
     width: 250px;
     height: 35px;
     border-radius: 5px 5px 0 0;
-    box-shadow: 0 0 10px #eee;
     border: 1px solid #eee;
+    border-bottom: none;
     text-align: center;
     line-height: 35px;
     font-size: 16px;
@@ -102,7 +102,7 @@
     list-style: none;
     overflow-y: scroll;
     background: white;
-    box-shadow: 0 0 10px #eee;
+    border: 1px solid #eee;
     border-radius: 0 0 5px 5px;
     li {
       width: calc(100% - 20px);

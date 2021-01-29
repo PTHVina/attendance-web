@@ -34,7 +34,7 @@
       <el-table-column
         show-overflow-tooltip
         :label="$t('device.text_1')"
-        width="95"
+        :width="lang == 'en_US' ? '120px' : '95px'"
       >
         <template #default="scope">
           {{ scope.$index + 1 }}
@@ -254,6 +254,7 @@
     name: 'DeviceIndex',
     data() {
       return {
+        lang: this.$lang,
         list: [],
         listLoading: false, //列表加载
         layout: 'total',

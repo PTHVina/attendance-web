@@ -24,7 +24,7 @@
               v-model="queryForm.isAbsenteeism"
               clearable
               :placeholder="$t('attendance.text_4')"
-              style="width: 90px"
+              :style="lang == 'zh_CN' ? 'width: 90px' : 'width: 160px'"
             >
               <!-- <el-option key="0" label=" " value="0"></el-option> -->
               <el-option
@@ -41,7 +41,7 @@
               v-model="queryForm.late"
               clearable
               :placeholder="$t('attendance.text_4')"
-              style="width: 90px"
+              :style="lang == 'zh_CN' ? 'width: 90px' : 'width: 160px'"
             >
               <!-- <el-option key="0" label=" " value="0"></el-option> -->
               <el-option
@@ -58,7 +58,7 @@
               v-model="queryForm.Leaveearly"
               clearable
               :placeholder="$t('attendance.text_4')"
-              style="width: 90px"
+              :style="lang == 'zh_CN' ? 'width: 90px' : 'width: 160px'"
             >
               <!-- <el-option key="0" label=" " value="0"></el-option> -->
               <el-option
@@ -113,7 +113,7 @@
       v-loading="listLoading"
       stripe
       :data="list"
-      height="700"
+      :height="lang == 'zh_CN' ? '700' : '650'"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
     >
@@ -122,6 +122,7 @@
         show-overflow-tooltip
         prop="name"
         :label="$t('attendance.text_1')"
+        :width="lang == 'en_US' ? '100px' : ''"
       ></el-table-column>
       <!-- 部门 -->
       <el-table-column
@@ -129,6 +130,7 @@
         :label="$t('attendance.text_12')"
         prop="department"
         sortable
+        :width="lang == 'en_US' ? '160px' : ''"
       ></el-table-column>
       <!-- 人员编号 -->
       <el-table-column
@@ -136,6 +138,7 @@
         :label="$t('attendance.text_13')"
         prop="Employee_code"
         sortable
+        :width="lang == 'en_US' ? '160px' : ''"
       ></el-table-column>
       <!-- 考勤日期 -->
       <el-table-column
@@ -143,21 +146,22 @@
         :label="$t('attendance.text_8')"
         prop="Date"
         sortable
+        :width="lang == 'en_US' ? '160px' : ''"
       ></el-table-column>
       <!-- 班次信息 -->
       <el-table-column
         show-overflow-tooltip
         :label="$t('attendance.text_14')"
         prop="Shiftinformation"
-        width="160px"
         sortable
+        :width="lang == 'en_US' ? '170px' : ''"
       ></el-table-column>
       <!-- 打卡信息 -->
       <el-table-column
         show-overflow-tooltip
         :label="$t('attendance.text_15')"
         prop="Punchinformation"
-        width="300px"
+        :width="lang == 'zh_CN' ? '300px' : '400px'"
       >
         <template #default="{ row }">
           <div class="tab_box">
@@ -222,6 +226,7 @@
         :label="$t('attendance.text_20')"
         prop="temperature"
         sortable
+        :width="lang == 'en_US' ? '160px' : ''"
       >
         <template #default="{ row }">
           <span
@@ -241,6 +246,7 @@
         :label="$t('attendance.text_21')"
         prop="late"
         sortable
+        :width="lang == 'en_US' ? '160px' : ''"
       >
         <template #default="{ row }">
           <span style="color: red">{{ row.late }}</span>
@@ -252,6 +258,7 @@
         :label="$t('attendance.text_7')"
         prop="Leaveearly"
         sortable
+        :width="lang == 'en_US' ? '160px' : ''"
       >
         <template #default="{ row }">
           <span style="color: red">{{ row.Leaveearly }}</span>
@@ -260,9 +267,10 @@
       <!-- 旷工 -->
       <el-table-column
         show-overflow-tooltip
-        :label="$t('attendance.text_48')"
+        :label="$t('attendance.text_3')"
         prop="isAbsenteeism"
         sortable
+        :width="lang == 'en_US' ? '170px' : ''"
       >
         <template #default="{ row }">
           <span
@@ -292,7 +300,7 @@
     <el-dialog
       :title="$t('attendance.text_22')"
       :visible.sync="dialogFormVisible"
-      width="400px"
+      :width="lang == 'zh_CN' ? '400px' : '500px'"
       :destroy-on-close="true"
       :before-close="closeFn"
     >
@@ -300,7 +308,7 @@
         ref="cardForm"
         :model="cardForm"
         :inline="true"
-        label-width="80px"
+        :label-width="lang == 'zh_CN' ? '80px' : '200px'"
         size="medium"
         @submit.native.prevent
       >
@@ -400,6 +408,7 @@
     name: 'Everyday',
     data() {
       return {
+        lang: this.$lang,
         list: [],
         listLoading: false, //列表加载
         layout: 'total, sizes, prev, pager, next, jumper',

@@ -32,7 +32,7 @@
               v-model="queryForm.status"
               clearable
               :placeholder="$t('personnel.pl_5')"
-              style="width: 80px"
+              :style="lang == 'en_US' ? 'width: 120px' : 'width: 80px'"
             >
               <el-option
                 v-for="item in statusOption"
@@ -69,7 +69,7 @@
       <el-table-column
         show-overflow-tooltip
         :label="$t('personnel.title_15')"
-        width="95"
+        :width="lang == 'en_US' ? '120' : '95'"
       >
         <template #default="scope">
           {{ scope.$index + 1 }}
@@ -146,6 +146,7 @@
     name: 'Issue',
     data() {
       return {
+        lang: this.$lang,
         list: [],
         listLoading: false, //列表加载
         layout: 'total, sizes, prev, pager, next, jumper',

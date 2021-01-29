@@ -177,7 +177,7 @@
       <el-form
         ref="formData"
         :model="form"
-        label-width="80px"
+        :label-width="lang == 'zh_CN' ? '80px' : '120px'"
         :rules="rules"
         size="medium"
       >
@@ -488,14 +488,16 @@
           : $t('attendanceSet.text_53')
       "
       :visible.sync="dialogDeteFormVisible"
-      width="400px"
+      :width="lang == 'zh_CN' ? '400px' : '450px'"
       :destroy-on-close="true"
     >
       <el-form
         ref="date"
         :model="DeteForm"
         :rules="dateRules"
-        label-width="80px"
+        :label-width="
+          lang == 'zh_CN' ? '80px' : lang == 'en_US' ? '130px' : '100px'
+        "
         size="medium"
       >
         <!-- 考勤日期 -->
@@ -549,6 +551,7 @@
     name: 'Classes',
     data() {
       return {
+        lang: this.$lang,
         list: [],
         listLoading: false, //列表加载
         elementLoadingText: this.$t('operation_tips.tips_12'),

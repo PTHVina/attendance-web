@@ -2,7 +2,7 @@
   <div class="test-container">
     <div class="left_box">
       <!-- 部门 -->
-      <div class="tree_add">{{ $t('system.text_1') }}</div>
+      <div class="tree_title">{{ $t('system.text_1') }}</div>
       <div class="tree_box">
         <el-tree
           class="tree_list"
@@ -10,8 +10,9 @@
           node-key="id"
           :props="defaultProps"
           :highlight-current="true"
-          :expand-on-click-node="false"
+          :expand-on-click-node="true"
           :check-on-click-node="true"
+          :default-expanded-keys="defaultKey"
           @node-click="handleNodeClick"
         >
           <span slot-scope="{ node, data }" class="custom-tree-node">
@@ -19,6 +20,7 @@
             <span class="tree_btn">
               <!-- 添加 -->
               <i
+                v-if="node.level < 5"
                 class="el-icon-circle-plus-outline"
                 @click="() => appendNode(data)"
               >
@@ -35,15 +37,20 @@
           </span>
         </el-tree>
       </div>
+      <div class="tree_add" @click="appendNode({ id: '0' })">
+        {{ $t('system.text_6') }}
+      </div>
     </div>
     <div class="info_box">
       <!-- 部门详情 -->
-      <div class="tree_add">{{ $t('system.text_2') }}</div>
+      <div class="tree_title">{{ $t('system.text_2') }}</div>
       <el-form
         ref="ruleForm"
         :model="ruleForm"
         :rules="rules"
-        label-width="80px"
+        :label-width="
+          lang == 'Jan_JPN' ? '110px' : lang == 'en_US' ? '170px' : '80px'
+        "
         class="demo-ruleForm"
       >
         <!-- 编码 -->
@@ -76,7 +83,7 @@
     </div>
     <div class="personnel">
       <!-- 工作分类 -->
-      <div class="tree_add">{{ $t('system.text_3') }}</div>
+      <div class="tree_title">{{ $t('system.text_3') }}</div>
       <el-tag
         v-for="(tag, key) in dynamicTags"
         :key="tag"
@@ -104,12 +111,12 @@
     <el-dialog
       :title="$t('system.text_4')"
       :visible.sync="dialogFormVisible"
-      width="400px"
+      :width="lang == 'en_US' ? '600px' : '500px'"
     >
       <el-form
         ref="form"
         :model="form"
-        label-width="80px"
+        :label-width="lang == 'en_US' ? '170px' : '90px'"
         :rules="rules"
         style="padding: 0"
       >
@@ -121,12 +128,12 @@
         <el-form-item :label="$t('system.title_2')" prop="name">
           <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
-        <!-- 公司描述 -->
+        <!-- 部门描述 -->
         <el-form-item :label="$t('system.title_3')" prop="explain">
           <el-input v-model="form.explain" autocomplete="off"></el-input>
         </el-form-item>
         <!-- 电话 -->
-        <el-form-item :label="$t('system.title_4')" prop="phone">
+        <el-form-item :label="$t('system.title_4')">
           <el-input v-model="form.phone" autocomplete="off"></el-input>
         </el-form-item>
         <!-- 地址 -->
@@ -162,7 +169,9 @@
     name: 'SystemDepartment',
     data() {
       return {
+        lang: this.$lang,
         datas: [], //公司列表
+        defaultKey: [],
         defaultProps: {
           children: 'children',
           label: 'name',
@@ -180,19 +189,6 @@
             {
               required: true,
               message: this.$t('operation_tips.tips_1'),
-              trigger: 'blur',
-            },
-            {
-              min: 1,
-              max: 10,
-              message: this.$t('operation_tips.tips_2'),
-              trigger: 'blur',
-            },
-          ],
-          phone: [
-            {
-              pattern: /^1[345789]\d{9}$/,
-              message: this.$t('operation_tips.tips_3'),
               trigger: 'blur',
             },
           ],
@@ -221,6 +217,9 @@
       init() {
         this.datas = getList()
         this.dynamicTags = getTag()
+        if (this.datas.length != 0) {
+          this.defaultKey = [this.datas[0].id]
+        }
       },
       // 点击节点
       handleNodeClick(data) {
@@ -256,7 +255,6 @@
           this.$baseMessage(this.$t('operation_tips.tips_7'), 'warning')
           return
         }
-        this.treeData = data
         this.form.ParentId = data.id
         this.dialogFormVisible = true
       },
@@ -264,14 +262,16 @@
       addTree(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            var myreg = /^1[345789]\d{9}$/
+            if (!myreg.test(this.form.phone) && this.lang == 'zh_CN') {
+              this.$baseMessage('请输入正确的11位电话号码', 'warning')
+              return
+            }
             let res = addTree(this.form)
             if (res.result == 2) {
               this.$baseMessage(this.$t('operation_tips.tips_8'), 'success')
-              if (!this.treeData.children) {
-                this.$set(this.treeData, 'children', [])
-              }
-              this.treeData.children.push(this.form)
               this.datas = getList()
+              this.defaultKey = [this.form.ParentId]
               this.form = {
                 no: '',
                 name: '',
@@ -386,8 +386,21 @@
         }
       }
     }
+    .tree_add {
+      width: auto;
+      min-width: 50%;
+      height: 30px;
+      margin: 10px auto 0;
+      background: #f8f8f8;
+      border: 1px solid #eee;
+      text-align: center;
+      line-height: 30px;
+      color: $base-color-default;
+      cursor: pointer;
+      border-radius: 5px;
+    }
   }
-  .tree_add {
+  .tree_title {
     width: 100%;
     height: 30px;
     // box-shadow: 1px 0 10px #eee;

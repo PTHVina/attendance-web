@@ -338,14 +338,17 @@
     <el-dialog
       :title="$t('personnel.text_4')"
       :visible.sync="dialogFormVisible"
-      :width="lang == 'zh_CN' ? '600px' : '700px'"
+      :width="lang == 'zh_CN' ? '600px' : '720px'"
       :destroy-on-close="true"
       :before-close="closeFn"
+      top="50px"
     >
       <el-form
         ref="setForm"
         :model="form"
-        :label-width="lang == 'Jan_JPN' ? '120px' : '80px'"
+        :label-width="
+          lang == 'zh_CN' ? '80px' : lang == 'Jan_JPN' ? '140px' : '160px'
+        "
         :rules="rules"
         size="medium"
       >
@@ -382,7 +385,7 @@
           ></el-input>
         </el-form-item>
         <!-- 电话号码 -->
-        <el-form-item :label="$t('personnel.text_3')" prop="phone">
+        <el-form-item :label="$t('personnel.text_3')">
           <el-input
             v-model="form.phone"
             :placeholder="$t('personnel.text_3')"
@@ -479,14 +482,19 @@
               fit="contain"
             ></el-image>
             <i v-else class="el-icon-picture-outline"></i>
-            <div
-              class="add_box"
-              :style="lang == 'Jan_JPN' ? 'font-size:12px !important;' : ''"
-            >
-              <span class="uploading" @click="checkImg">
+            <div class="add_box">
+              <span
+                class="uploading"
+                :style="lang == 'zh_CN' ? '' : 'font-size:12px !important;'"
+                @click="checkImg"
+              >
                 {{ $t('operation_btn.btn_text_16') }}
               </span>
-              <span class="photo" @click="photograph">
+              <span
+                class="photo"
+                :style="lang == 'zh_CN' ? '' : 'font-size:12px !important;'"
+                @click="photograph"
+              >
                 {{ $t('operation_btn.btn_text_17') }}
               </span>
             </div>
@@ -704,13 +712,6 @@
               trigger: 'blur',
             },
           ],
-          phone: [
-            {
-              pattern: /^1[3-9]\d{9}$/,
-              message: this.$t('operation_tips.tips_3'),
-              trigger: 'blur',
-            },
-          ],
           Email: [
             {
               pattern: /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/,
@@ -890,7 +891,7 @@
       },
       //一键下发
       oneClickIssue() {
-        this.$baseConfirm('确定将全部人员下发到所有设备吗？', null, () => {
+        this.$baseConfirm(this.$t('operation_tips.tips_49'), null, () => {
           oneClickIssue().then((res) => {
             if (res) {
               this.$baseMessage(this.$t('operation_tips.tips_24'), 'success')
@@ -1005,6 +1006,11 @@
       setFormData(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            var myreg = /^1[345789]\d{9}$/
+            if (!myreg.test(this.form.phone) && this.lang == 'zh_CN') {
+              this.$baseMessage('请输入正确的11位电话号码', 'warning')
+              return
+            }
             let res
             if (this.form.face_idcard.length == 0) {
               this.form.idcardtype = ''
@@ -1254,9 +1260,8 @@
       top: 0;
       left: 0;
       z-index: 2;
-      background: #666;
       border-radius: 6px;
-      opacity: 0.6;
+      background: rgba($color: #666, $alpha: 0.6);
       display: none;
       // display: flex;
       align-items: center;

@@ -56,6 +56,19 @@
       }
     },
     mounted() {
+      if (this.$lang == 'en_US') {
+        this.oops = 'Sorry!'
+        this.headline = "You don't have permission"
+        this.info =
+          'The current account does not have operation permissions, please contact the administrator.'
+        this.btn = 'Back'
+      } else if (this.$lang == 'Jan_JPN') {
+        this.oops = 'ごめんなさい!'
+        this.headline = 'あなたには許可がありません'
+        this.info =
+          '入力したURLが正しいか確認するか、下のボタンをクリックしてホームページに戻ってください。'
+        this.btn = '戻る'
+      }
       this.timeChange()
     },
     beforeDestroy() {

@@ -87,6 +87,7 @@
         show-overflow-tooltip
         :label="$t('attendance.text_42')"
         prop="nowdate"
+        :width="lang == 'en_US' ? '80px' : ''"
       ></el-table-column>
       <!-- 出勤(天) -->
       <el-table-column
@@ -100,6 +101,7 @@
         show-overflow-tooltip
         :label="$t('attendance.text_44')"
         prop="latedata"
+        :width="lang == 'en_US' ? '330px' : ''"
       >
         <template #default="{ row }">
           <span style="color: red">{{ row.latedata }}</span>
@@ -110,6 +112,7 @@
         show-overflow-tooltip
         :label="$t('attendance.text_45')"
         prop="Leaveearlydata"
+        :width="lang == 'en_US' ? '330px' : ''"
       >
         <template #default="{ row }">
           <span style="color: red">{{ row.Leaveearlydata }}</span>
@@ -135,6 +138,7 @@
     name: 'Monthly',
     data() {
       return {
+        lang: this.$lang,
         list: [],
         listLoading: false, //列表加载
         layout: 'total, sizes, prev, pager, next, jumper',

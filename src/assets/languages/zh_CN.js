@@ -104,6 +104,7 @@ module.exports = {
     tips_46: '该日期已被指定',
     tips_47: '补卡成功',
     tips_48: '补卡失败',
+    tips_49: '确定将全部人员下发到所有设备吗？',
   },
   // 首页
   home: {
@@ -122,15 +123,16 @@ module.exports = {
     text_3: '工作分类',
     text_4: '添加部门',
     text_5: '部门',
+    text_6: '添加一级部门',
 
     title_1: '编码',
     title_2: '部门名称',
-    title_3: '公司描述',
+    title_3: '部门描述',
     title_4: '电话',
     title_5: '地址',
     title_6: '部门编码',
     title_7: '部门名称',
-    title_8: '公司描述',
+    title_8: '部门描述',
     title_9: '电话',
   },
   //人员管理

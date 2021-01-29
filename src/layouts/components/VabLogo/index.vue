@@ -60,8 +60,8 @@
 
   @mixin logo {
     display: inline-block;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     margin-right: 10px;
     color: $base-title-color;
     vertical-align: middle;
@@ -112,8 +112,8 @@
 
   .router-link-active .img_box {
     display: none;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
   }
   .router-link-active .img {
     width: 230px;

@@ -56,6 +56,19 @@
       }
     },
     mounted() {
+      if (this.$lang == 'en_US') {
+        this.oops = 'Sorry!'
+        this.headline = 'The current page does not exist'
+        this.info =
+          'Please check whether the URL you entered is correct, or click the button below to return to the home page.'
+        this.btn = 'Back to homepage'
+      } else if (this.$lang == 'Jan_JPN') {
+        this.oops = 'ごめんなさい!'
+        this.headline = '現在のページは存在しません'
+        this.info =
+          '入力したURLが正しいか確認するか、下のボタンをクリックしてホームページに戻ってください。'
+        this.btn = 'ホームページに戻ります'
+      }
       this.timeChange()
     },
     beforeDestroy() {

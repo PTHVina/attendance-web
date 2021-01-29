@@ -96,7 +96,9 @@
       <el-form
         ref="formData"
         :model="form"
-        label-width="130px"
+        :label-width="
+          lang == 'zh_CN' ? '130px' : lang == 'Jan_JPN' ? '140px' : '210px'
+        "
         :rules="rules"
         size="medium"
       >
@@ -201,6 +203,7 @@
     name: 'Classes',
     data() {
       return {
+        lang: this.$lang,
         list: [],
         imageList: [],
         listLoading: false, //列表加载

@@ -15,6 +15,7 @@
             <el-input
               v-model="queryForm.name"
               :placeholder="$t('personnel.pl_1')"
+              :style="lang == 'en_US' ? 'width:150px;' : ''"
             />
           </el-form-item>
           <!-- 电话号码 -->
@@ -23,6 +24,7 @@
             <el-input
               v-model="queryForm.phone"
               :placeholder="$t('personnel.text_3')"
+              :style="lang == 'en_US' ? 'width:150px;' : ''"
             />
           </el-form-item>
           <!-- 授权起止时间 -->
@@ -34,7 +36,7 @@
               :range-separator="$t('personnel.text_7')"
               :start-placeholder="$t('personnel.text_8')"
               :end-placeholder="$t('personnel.text_9')"
-              style="width: 360px"
+              style="width: 370px"
               @change="checkTime"
             ></el-date-picker>
           </el-form-item>
@@ -45,7 +47,13 @@
               v-model="queryForm.isDown"
               clearable
               :placeholder="$t('personnel.text_11')"
-              style="width: 80px"
+              :style="
+                lang == 'zh_CN'
+                  ? 'width: 80px'
+                  : lang == 'en_US'
+                  ? 'width:90px;'
+                  : 'width:150px;'
+              "
             >
               <el-option
                 v-for="item in issueOption"
@@ -55,7 +63,7 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item>
+          <el-form-item style="margin-right: -10px !important">
             <!-- 查询 -->
             <el-button
               icon="el-icon-search"
@@ -66,7 +74,12 @@
               {{ $t('operation_btn.btn_text_6') }}
             </el-button>
             <!-- 重置 -->
-            <el-button type="info" plain @click="reset">
+            <el-button
+              type="info"
+              plain
+              style="margin-right: 0 !important"
+              @click="reset"
+            >
               {{ $t('operation_btn.btn_text_18') }}
             </el-button>
           </el-form-item>
@@ -193,14 +206,14 @@
     <el-dialog
       :title="$t('personnel.text_4')"
       :visible.sync="dialogFormVisible"
-      width="600px"
+      :width="lang == 'en_US' ? '700px' : '600px'"
       :destroy-on-close="true"
       :before-close="closeFn"
     >
       <el-form
         ref="form"
         :model="form"
-        label-width="120px"
+        :label-width="lang == 'en_US' ? '220px' : '120px'"
         :rules="rules"
         size="medium"
       >
@@ -213,7 +226,7 @@
           ></el-input>
         </el-form-item>
         <!-- 电话号码 -->
-        <el-form-item :label="$t('personnel.text_3')" prop="phone">
+        <el-form-item :label="$t('personnel.text_3')">
           <el-input
             v-model="form.phone"
             :placeholder="$t('personnel.text_3')"
@@ -228,6 +241,7 @@
             :range-separator="$t('personnel.text_7')"
             :start-placeholder="$t('personnel.text_8')"
             :end-placeholder="$t('personnel.text_9')"
+            style="width: 100%"
             @change="checkInfoTime"
           ></el-date-picker>
         </el-form-item>
@@ -243,10 +257,18 @@
             ></el-image>
             <i v-else class="el-icon-picture-outline"></i>
             <div class="add_box">
-              <span class="uploading" @click="checkImg">
+              <span
+                class="uploading"
+                :style="lang == 'zh_CN' ? '' : 'font-size:12px !important;'"
+                @click="checkImg"
+              >
                 {{ $t('operation_btn.btn_text_16') }}
               </span>
-              <span class="photo" @click="photograph">
+              <span
+                class="photo"
+                :style="lang == 'zh_CN' ? '' : 'font-size:12px !important;'"
+                @click="photograph"
+              >
                 {{ $t('operation_btn.btn_text_17') }}
               </span>
             </div>
@@ -280,6 +302,7 @@
     name: 'Visitor',
     data() {
       return {
+        lang: this.$lang,
         list: [],
         imageList: [],
         listLoading: false, //列表加载
@@ -333,13 +356,6 @@
               min: 1,
               max: 10,
               message: this.$t('operation_tips.tips_2'),
-              trigger: 'blur',
-            },
-          ],
-          phone: [
-            {
-              pattern: /^1[3-9]\d{9}$/,
-              message: this.$t('operation_tips.tips_3'),
               trigger: 'blur',
             },
           ],
@@ -561,6 +577,11 @@
       setInfo(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            var myreg = /^1[345789]\d{9}$/
+            if (!myreg.test(this.form.phone) && this.lang == 'zh_CN') {
+              this.$baseMessage('请输入正确的11位电话号码', 'warning')
+              return
+            }
             let res
             if (this.form.id) {
               res = editVisitor(this.form)
@@ -671,9 +692,8 @@
       top: 0;
       left: 0;
       z-index: 2;
-      background: #666;
       border-radius: 6px;
-      opacity: 0.6;
+      background: rgba($color: #666, $alpha: 0.6);
       display: none;
       // display: flex;
       align-items: center;
