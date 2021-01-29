@@ -30,7 +30,7 @@ if (lang == 'Jan_JPN') {
   locale = localeEn
 }
 
-Vue.use(ElementUI, { locale })
+Vue.use(ElementUI, { locale, size: 'small' })
 
 Vue.config.productionTip = false
 

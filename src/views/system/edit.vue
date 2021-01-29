@@ -146,108 +146,108 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-  }
-  .img {
-    width: 100%;
-    height: 300px;
-    border: 1px dashed #aaa;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .image {
+    .img {
       width: 100%;
-      height: 100%;
+      height: 300px;
+      border: 1px dashed #aaa;
       border-radius: 10px;
-      .image-slot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .image {
         width: 100%;
         height: 100%;
+        border-radius: 10px;
+        .image-slot {
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          line-height: 300px;
+          i {
+            font-size: 40px;
+            font-weight: 200;
+            color: #ccc;
+          }
+        }
+      }
+      > span {
+        font-size: 40px;
+        font-weight: 200;
+        color: #ccc;
+      }
+    }
+    .img_btn {
+      width: 150px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      background: #1890ff;
+      color: white;
+      border-radius: 5px;
+      margin-top: 40px;
+      cursor: pointer;
+    }
+
+    .add_img {
+      background-color: #fbfdff;
+      border: 1px dashed #c0ccda;
+      border-radius: 6px;
+      box-sizing: border-box;
+      width: 146px;
+      height: 146px;
+      position: relative;
+      z-index: 0;
+      .show_img {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #eee;
+        border-radius: 6px;
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+      > i {
+        width: 100%;
+        height: 100%;
+        line-height: 146px;
+        vertical-align: top;
+        font-size: 40px;
+        color: #ccc;
         text-align: center;
-        line-height: 300px;
-        i {
-          font-size: 40px;
-          font-weight: 200;
-          color: #ccc;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+      .add_box {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        border-radius: 6px;
+        background: rgba($color: #666, $alpha: 0.6);
+        display: none;
+        // display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        span {
+          color: white;
+          cursor: pointer;
+          font-size: 12px;
+          line-height: 16px;
+        }
+        .uploading {
+          margin-right: 20px;
         }
       }
     }
-    > span {
-      font-size: 40px;
-      font-weight: 200;
-      color: #ccc;
+    .add_img:hover .add_box {
+      display: flex;
     }
-  }
-  .img_btn {
-    width: 150px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    background: #1890ff;
-    color: white;
-    border-radius: 5px;
-    margin-top: 40px;
-    cursor: pointer;
-  }
-
-  .add_img {
-    background-color: #fbfdff;
-    border: 1px dashed #c0ccda;
-    border-radius: 6px;
-    box-sizing: border-box;
-    width: 146px;
-    height: 146px;
-    position: relative;
-    z-index: 0;
-    .show_img {
-      width: 100%;
-      height: 100%;
-      border: 1px solid #eee;
-      border-radius: 6px;
-      box-sizing: border-box;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-    }
-    > i {
-      width: 100%;
-      height: 100%;
-      line-height: 146px;
-      vertical-align: top;
-      font-size: 40px;
-      color: #ccc;
-      text-align: center;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-    }
-    .add_box {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 2;
-      border-radius: 6px;
-      background: rgba($color: #666, $alpha: 0.6);
-      display: none;
-      // display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      span {
-        color: white;
-        cursor: pointer;
-        font-size: 12px;
-        line-height: 16px;
-      }
-      .uploading {
-        margin-right: 20px;
-      }
-    }
-  }
-  .add_img:hover .add_box {
-    display: flex;
   }
 </style>

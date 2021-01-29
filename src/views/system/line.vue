@@ -6,7 +6,7 @@
         顔認証後、登録した LINE アカウントへのメッセージを設定します。
       </span>
     </div>
-    <el-form ref="ruleForm" :model="form" label-width="170px">
+    <el-form ref="ruleForm" :model="form" label-width="190px">
       <el-form-item label="警告する体温のしきい値">
         <el-input
           v-model="form.text1"
