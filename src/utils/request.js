@@ -52,9 +52,6 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    if (store.getters['user/accessToken']) {
-      config.headers[tokenName] = store.getters['user/accessToken']
-    }
     //这里会过滤所有为空、0、false的key，如果不需要请自行注释
     if (config.data)
       config.data = Vue.prototype.$baseLodash.pickBy(

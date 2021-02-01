@@ -15,7 +15,6 @@ const setting = {
   // 默认的接口地址 如果是开发环境和生产环境走vab-mock-server，当然你也可以选择自己配置成需要的接口地址
   baseURL: '',
   //标题 （包括初次加载雪花屏的标题 页面的标题 浏览器的标题）
-  // title: '智慧人脸考勤门禁系统',
   title: '人脸门禁系统',
   //简写
   abbreviation: 'FaceRASystem',
@@ -46,7 +45,8 @@ const setting = {
   //token失效回退到登录页时是否记录本次的路由
   recordRoute: true,
   //是否显示logo，不显示时设置false，显示时请填写remixIcon图标名称，暂时只支持设置remixIcon
-  logo: 'vuejs-fill',
+  // logo: 'vuejs-fill',
+  logo: false,
   //是否显示在页面高亮错误
   errorLog: ['development'],
   //是否开启登录拦截

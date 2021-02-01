@@ -15,67 +15,44 @@ import {
 } from '@/config'
 import { closePage } from '@/api/device'
 
+//顶部进度条
 VabProgress.configure({
   easing: 'ease',
   speed: 500,
   trickleSpeed: 200,
   showSpinner: false,
 })
+
 router.beforeResolve(async (to, from, next) => {
-  if (progressBar) VabProgress.start()
-  let hasToken = store.getters['user/accessToken']
-
-  if (!loginInterception) hasToken = true
-
-  // if (to.path != '/device/online') {
   closePage()
-  // }
+  if (progressBar) VabProgress.start()
 
-  if (hasToken) {
-    if (to.path === '/login') {
-      next({ path: '/' })
-      if (progressBar) VabProgress.done()
-    } else {
-      const hasPermissions =
-        store.getters['user/permissions'] &&
-        store.getters['user/permissions'].length > 0
-      if (hasPermissions) {
-        next()
-      } else {
-        try {
-          let permissions
-          if (!loginInterception) {
-            //settings.js loginInterception为false时，创建虚拟权限
-            await store.dispatch('user/setPermissions', ['admin'])
-            permissions = ['admin']
-          } else {
-            permissions = await store.dispatch('user/getUserInfo')
-          }
-
-          let accessRoutes = []
-          if (authentication === 'intelligence') {
-            accessRoutes = await store.dispatch('routes/setRoutes', permissions)
-          } else if (authentication === 'all') {
-            accessRoutes = await store.dispatch('routes/setAllRoutes')
-          }
-          router.addRoutes(accessRoutes)
-          next({ ...to, replace: true })
-        } catch {
-          await store.dispatch('user/resetAccessToken')
-          if (progressBar) VabProgress.done()
-        }
-      }
-    }
+  const hasPermissions =
+    store.getters['user/permissions'] &&
+    store.getters['user/permissions'].length > 0
+  if (hasPermissions) {
+    next()
   } else {
-    if (routesWhiteList.indexOf(to.path) !== -1) {
-      next()
-    } else {
-      if (recordRoute) {
-        next(`/login?redirect=${to.path}`)
+    try {
+      let permissions
+      if (!loginInterception) {
+        //settings.js loginInterception为false时，创建虚拟权限
+        await store.dispatch('user/setPermissions', ['admin'])
+        permissions = ['admin']
       } else {
-        next('/login')
+        permissions = await store.dispatch('user/getUserInfo')
       }
 
+      let accessRoutes = []
+      if (authentication === 'intelligence') {
+        accessRoutes = await store.dispatch('routes/setRoutes', permissions)
+      } else if (authentication === 'all') {
+        accessRoutes = await store.dispatch('routes/setAllRoutes')
+      }
+      router.addRoutes(accessRoutes)
+      next({ ...to, replace: true })
+    } catch {
+      await store.dispatch('user/resetAccessToken')
       if (progressBar) VabProgress.done()
     }
   }
