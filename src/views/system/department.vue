@@ -66,7 +66,10 @@
           <el-input v-model="ruleForm.explain"></el-input>
         </el-form-item>
         <!-- 电话 -->
-        <el-form-item :label="$t('system.title_4')" prop="phone">
+        <el-form-item
+          :label="$t('system.title_4')"
+          :prop="lang == 'zh_CN' ? 'phone' : ''"
+        >
           <el-input v-model="ruleForm.phone"></el-input>
         </el-form-item>
         <!-- 地址 -->
@@ -192,6 +195,13 @@
               trigger: 'blur',
             },
           ],
+          phone: [
+            {
+              pattern: /^1[345789]\d{9}$/,
+              message: this.$t('operation_tips.tips_3'),
+              trigger: 'blur',
+            },
+          ],
         },
         // 弹出框
         dialogFormVisible: false,
@@ -262,11 +272,6 @@
       addTree(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            var myreg = /^1[345789]\d{9}$/
-            if (!myreg.test(this.form.phone) && this.lang == 'zh_CN') {
-              this.$baseMessage('请输入正确的11位电话号码', 'warning')
-              return
-            }
             let res = addTree(this.form)
             if (res.result == 2) {
               this.$baseMessage(this.$t('operation_tips.tips_8'), 'success')

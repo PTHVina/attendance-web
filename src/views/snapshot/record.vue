@@ -15,6 +15,7 @@
             <el-input
               v-model="queryForm.name"
               :placeholder="$t('snapshot.text_2')"
+              style="width: 170px"
             />
           </el-form-item>
           <!-- 设备编号 -->
@@ -23,6 +24,7 @@
             <el-input
               v-model="queryForm.devname"
               :placeholder="$t('snapshot.text_3')"
+              style="width: 170px"
             />
           </el-form-item>
           <!-- 抓拍时间 -->
@@ -98,9 +100,17 @@
         <el-button
           icon="el-icon-folder-opened"
           type="primary"
-          @click="openTabelDialog"
+          @click="openTabelDialog('1')"
         >
-          {{ $t('operation_btn.btn_text_26') }}
+          {{ $t('operation_btn.btn_text_26') }}(Excel)
+        </el-button>
+        <!-- 批量导出 -->
+        <el-button
+          icon="el-icon-folder-opened"
+          type="primary"
+          @click="openTabelDialog('0')"
+        >
+          {{ $t('operation_btn.btn_text_26') }}(CSV)
         </el-button>
         <!-- <el-button icon="el-icon-upload2" type="primary">导出列表</el-button> -->
         <!-- 批量删除 -->
@@ -145,7 +155,7 @@
         show-overflow-tooltip
         prop="person_name"
         :label="$t('snapshot.text_1')"
-        :width="lang == 'zh_CN' ? '' : '100px'"
+        width="100px"
       ></el-table-column>
       <!-- 体温 -->
       <el-table-column
@@ -154,14 +164,28 @@
         prop="body_temp"
         sortable
         :width="lang == 'zh_CN' ? '100px' : '130px'"
-      ></el-table-column>
+      >
+        <template #default="{ row }">
+          <div
+            v-if="
+              row.QRcodestatus != null &&
+              row.QRcodestatus.toString().indexOf('体温异常') != -1
+            "
+          >
+            <span style="color: red">
+              {{ Number(row.body_temp).toFixed(2) }}
+            </span>
+          </div>
+          <span v-else>{{ Number(row.body_temp).toFixed(2) }}</span>
+        </template>
+      </el-table-column>
       <!-- 设备编号 -->
       <el-table-column
         show-overflow-tooltip
         :label="$t('snapshot.text_3')"
         prop="device_sn"
         sortable
-        :width="lang == 'Jan_JPN' ? '200px' : '160px'"
+        width="200px"
       ></el-table-column>
       <!-- 健康码 -->
       <el-table-column
@@ -169,7 +193,7 @@
         :label="$t('snapshot.text_38')"
         prop="QRcodestatus"
         sortable
-        :width="lang == 'zh_CN' ? '' : '130px'"
+        :width="lang == 'zh_CN' ? '90px' : '130px'"
       >
         <template #default="{ row }">
           <el-tag v-if="row.QRcodestatus == '0'" type="success">
@@ -183,19 +207,25 @@
           </el-tag>
           <div v-else-if="row.QRcodestatus != '' && row.QRcodestatus != null">
             <el-tag
-              v-if="row.QRcodestatus.split(';')[0] == '绿码'"
+              v-if="
+                row.QRcodestatus.split(':')[0].toString().indexOf('绿码') != -1
+              "
               type="success"
             >
               {{ $t('snapshot.text_12') }}
             </el-tag>
             <el-tag
-              v-else-if="row.QRcodestatus.split(';')[0] == '红码'"
+              v-else-if="
+                row.QRcodestatus.split(':')[0].toString().indexOf('红码') != -1
+              "
               type="danger"
             >
               {{ $t('snapshot.text_14') }}
             </el-tag>
             <el-tag
-              v-else-if="row.QRcodestatus.split(';')[0] == '黄码'"
+              v-else-if="
+                row.QRcodestatus.split(':')[0].toString().indexOf('黄码') != -1
+              "
               type="warning"
             >
               {{ $t('snapshot.text_13') }}
@@ -205,26 +235,114 @@
           <span v-else></span>
         </template>
       </el-table-column>
+      <!-- 健康码类型 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('snapshot.text_43')"
+        prop="QRcodestatus"
+        width="160px"
+      >
+        <template #default="{ row }">
+          <span
+            v-if="
+              row.QRcodestatus != '' &&
+              row.QRcodestatus != null &&
+              row.QRcodestatus.length > 1
+            "
+          >
+            <span v-if="row.QRcodestatus.split('(')[0].split(':').length > 1">
+              {{ row.QRcodestatus.split('(')[0].split(':')[1] }}
+            </span>
+          </span>
+        </template>
+      </el-table-column>
+      <!-- 健康码备注 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('snapshot.text_45')"
+        prop="QRcodestatus"
+        width="160px"
+      >
+        <template #default="{ row }">
+          <span
+            v-if="
+              row.QRcodestatus != '' &&
+              row.QRcodestatus != null &&
+              row.QRcodestatus.length > 1
+            "
+          >
+            <span v-if="row.QRcodestatus.split(';').length > 1">
+              {{ row.QRcodestatus.split(';')[1] }}
+            </span>
+          </span>
+        </template>
+      </el-table-column>
+      <!-- 行程信息 -->
+      <el-table-column
+        :label="$t('snapshot.text_44')"
+        prop="trip_infor"
+        width="160px"
+      >
+        <template #default="{ row }">
+          <el-popover placement="right" width="300" trigger="hover">
+            <ul v-if="row.trip_infor" class="stroke_tips">
+              <li
+                v-for="(item, index) in row.trip_infor
+                  .replace(/(^\s*)|(\s*$)/g, '')
+                  .split('*')"
+                :key="index"
+                class="tips_item"
+              >
+                <div v-if="item != null && item != ''">
+                  <span>{{ item.split(':')[0] }}</span>
+                  <span
+                    v-if="item.split(':')[1] == '绿码'"
+                    style="color: green"
+                  >
+                    {{ $t('snapshot.text_12') }}
+                  </span>
+                  <span
+                    v-else-if="item.split(':')[1] == '红码'"
+                    style="color: red"
+                  >
+                    {{ $t('snapshot.text_14') }}
+                  </span>
+                  <span
+                    v-else-if="item.split(':')[1] == '黄码'"
+                    style="color: rgb(182, 240, 46)"
+                  >
+                    {{ $t('snapshot.text_13') }}
+                  </span>
+                  <span v-else>{{ item.split(':')[1] }}</span>
+                </div>
+              </li>
+            </ul>
+            <span slot="reference" style="white-space: nowrap">
+              {{ row.trip_infor }}
+            </span>
+          </el-popover>
+        </template>
+      </el-table-column>
       <!-- 身份证号码 -->
       <el-table-column
         show-overflow-tooltip
         :label="$t('snapshot.text_17')"
         prop="idcard_number"
-        width="140"
+        width="160"
       ></el-table-column>
       <!-- 门禁卡号 -->
       <el-table-column
         show-overflow-tooltip
         :label="$t('snapshot.text_18')"
         prop="wg_card_id"
-        :width="lang == 'zh_CN' ? '100px' : '150px'"
+        width="160px"
       ></el-table-column>
       <!-- 相机名称 -->
       <el-table-column
         show-overflow-tooltip
         :label="$t('snapshot.text_19')"
         prop="addr_name"
-        :width="lang == 'zh_CN' ? '100px' : '130px'"
+        width="140px"
       ></el-table-column>
       <!-- 抓拍时间 -->
       <el-table-column
@@ -233,7 +351,11 @@
         prop="time"
         sortable
         width="200"
-      ></el-table-column>
+      >
+        <template #default="{ row }">
+          <span>{{ row.time.split('.')[0] }}</span>
+        </template>
+      </el-table-column>
       <!-- 是否佩戴口罩 -->
       <el-table-column
         show-overflow-tooltip
@@ -350,7 +472,10 @@
           ></el-input>
         </el-form-item>
         <!-- 电话号码 -->
-        <el-form-item :label="$t('snapshot.text_26')">
+        <el-form-item
+          :label="$t('snapshot.text_26')"
+          :prop="lang == 'zh_CN' ? 'phone' : ''"
+        >
           <el-input
             v-model="form.phone"
             :placeholder="$t('snapshot.text_26')"
@@ -453,26 +578,62 @@
     <el-dialog
       :title="$t('snapshot.text_40')"
       :visible.sync="dialogTableVisible"
-      :width="lang == 'zh_CN' ? '500px' : '600px'"
+      :width="lang == 'zh_CN' ? '530px' : '630px'"
     >
-      <el-form :label-width="lang == 'zh_CN' ? '100px' : '160px'" size="medium">
-        <el-form-item :label="$t('snapshot.text_41')">
+      <el-form
+        ref="export"
+        :model="exportData"
+        :rules="rule"
+        :label-width="lang == 'zh_CN' ? '110px' : '170px'"
+        size="medium"
+      >
+        <!-- 姓名 -->
+        <el-form-item :label="$t('snapshot.text_1')">
+          <el-input
+            v-model="exportData.name"
+            :placeholder="$t('snapshot.text_2')"
+          />
+        </el-form-item>
+        <!-- 设备编号 -->
+        <el-form-item :label="$t('snapshot.text_3')">
+          <el-input
+            v-model="exportData.no"
+            :placeholder="$t('snapshot.text_3')"
+          />
+        </el-form-item>
+        <!-- 时间范围 -->
+        <el-form-item :label="$t('snapshot.text_41')" prop="exportTime">
           <el-date-picker
             v-model="exportData.exportTime"
             type="datetimerange"
             :range-separator="$t('snapshot.text_5')"
             :start-placeholder="$t('snapshot.text_36')"
             :end-placeholder="$t('snapshot.text_37')"
-            style="width: 350px"
+            style="width: 100%"
             @change="exportTime"
           ></el-date-picker>
+        </el-form-item>
+        <!-- 陌生人 -->
+        <el-form-item :label="$t('snapshot.text_8')">
+          <el-select
+            v-model="exportData.stranger"
+            clearable
+            :placeholder="$t('snapshot.text_9')"
+            style="width: 100%"
+          >
+            <el-option
+              key="1"
+              :label="$t('snapshot.text_10')"
+              value="1"
+            ></el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogTableVisible = false">
           {{ $t('operation_btn.btn_text_4') }}
         </el-button>
-        <el-button type="primary" @click="exportList">
+        <el-button type="primary" @click="exportList('export')">
           {{ $t('operation_btn.btn_text_5') }}
         </el-button>
       </div>
@@ -564,6 +725,13 @@
               trigger: 'blur',
             },
           ],
+          phone: [
+            {
+              pattern: /^1[345789]\d{9}$/,
+              message: this.$t('operation_tips.tips_3'),
+              trigger: 'blur',
+            },
+          ],
           Email: [
             {
               pattern: /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/,
@@ -594,10 +762,23 @@
           ],
         },
         dialogTableVisible: false,
+        exportType: '',
         exportData: {
           exportTime: '',
           startTime: '',
           endTime: '',
+          name: '',
+          no: '',
+          stranger: '',
+        },
+        rule: {
+          exportTime: [
+            {
+              required: true,
+              message: this.$t('snapshot.text_42'),
+              trigger: 'blur',
+            },
+          ],
         },
       }
     },
@@ -777,11 +958,6 @@
       setFormData(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            var myreg = /^1[345789]\d{9}$/
-            if (!myreg.test(this.form.phone) && this.lang == 'zh_CN') {
-              this.$baseMessage('请输入正确的11位电话号码', 'warning')
-              return
-            }
             if (this.form.face_idcard.length == 0) {
               this.form.idcardtype = ''
             }
@@ -831,8 +1007,9 @@
       },
 
       //打开表格弹窗
-      openTabelDialog() {
+      openTabelDialog(type) {
         this.dialogTableVisible = true
+        this.exportType = type
       },
       exportTime(e) {
         if (e) {
@@ -845,13 +1022,15 @@
           this.exportData.endTime = ''
         }
       },
-      exportList() {
-        if (!this.exportData.startTime || !this.exportData.endTime) {
-          this.$baseMessage(this.$t('snapshot.text_42'), 'warning')
-          return
-        }
-        BatchXport(this.exportData)
-        this.dialogTableVisible = false
+      exportList(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            BatchXport(this.exportData, this.exportType)
+            this.dialogTableVisible = false
+          } else {
+            return false
+          }
+        })
       },
     },
   }
@@ -950,5 +1129,32 @@
   }
   .add_img:hover .add_box {
     display: flex;
+  }
+
+  .el-popover {
+    padding: 5px 10px !important;
+  }
+  .stroke_tips {
+    padding: 0;
+    margin: 0;
+    .tips_item {
+      list-style: none;
+      padding: 5px 10px;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+      color: #888;
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        span:nth-child(2) {
+          min-width: 30px;
+          margin-left: 10px;
+        }
+      }
+    }
+    .tips_item:last-child {
+      border: none;
+    }
   }
 </style>

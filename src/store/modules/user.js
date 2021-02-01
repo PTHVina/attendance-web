@@ -44,12 +44,9 @@ const actions = {
   },
   async login({ commit }, userInfo) {
     const data = {
-      username: 'admin',
       accessToken: 'test',
-      avatar: '',
-      permissions: ['admin'],
     }
-    const accessToken = data[tokenName]
+    const accessToken = data['accessToken']
     let lang = myExtension.getlanguage()
     let a = '早上好'
     let b = '上午好'

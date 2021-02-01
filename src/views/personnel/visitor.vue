@@ -226,7 +226,10 @@
           ></el-input>
         </el-form-item>
         <!-- 电话号码 -->
-        <el-form-item :label="$t('personnel.text_3')">
+        <el-form-item
+          :label="$t('personnel.text_3')"
+          :prop="lang == 'zh_CN' ? 'phone' : ''"
+        >
           <el-input
             v-model="form.phone"
             :placeholder="$t('personnel.text_3')"
@@ -356,6 +359,13 @@
               min: 1,
               max: 10,
               message: this.$t('operation_tips.tips_2'),
+              trigger: 'blur',
+            },
+          ],
+          phone: [
+            {
+              pattern: /^1[345789]\d{9}$/,
+              message: this.$t('operation_tips.tips_3'),
               trigger: 'blur',
             },
           ],
@@ -577,11 +587,6 @@
       setInfo(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            var myreg = /^1[345789]\d{9}$/
-            if (!myreg.test(this.form.phone) && this.lang == 'zh_CN') {
-              this.$baseMessage('请输入正确的11位电话号码', 'warning')
-              return
-            }
             let res
             if (this.form.id) {
               res = editVisitor(this.form)

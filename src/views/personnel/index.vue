@@ -385,7 +385,10 @@
           ></el-input>
         </el-form-item>
         <!-- 电话号码 -->
-        <el-form-item :label="$t('personnel.text_3')">
+        <el-form-item
+          :label="$t('personnel.text_3')"
+          :prop="lang == 'zh_CN' ? 'phone' : ''"
+        >
           <el-input
             v-model="form.phone"
             :placeholder="$t('personnel.text_3')"
@@ -712,6 +715,13 @@
               trigger: 'blur',
             },
           ],
+          phone: [
+            {
+              pattern: /^1[345789]\d{9}$/,
+              message: this.$t('operation_tips.tips_3'),
+              trigger: 'blur',
+            },
+          ],
           Email: [
             {
               pattern: /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/,
@@ -966,13 +976,13 @@
             Employee_code: data.Employee_code,
             phone: data.phone,
             face_idcard: data.face_idcard,
-            idcardtype: data.idcardtype,
+            idcardtype: data.idcardtype ? data.idcardtype : '32',
             Email: data.Email.replace(/\s*/g, ''),
             departmentname: data.departmentname,
             Employetypename: data.Employetype_id,
             picture: data.picture,
-            line_userid: data.line_userid,
-            line_type: data.line_type,
+            line_userid: data.line_userid ? data.line_userid : '',
+            line_type: data.line_type ? data.line_type : '1',
           }
           this.departmentData = {
             id: data.department_id,
@@ -1006,11 +1016,6 @@
       setFormData(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            var myreg = /^1[345789]\d{9}$/
-            if (!myreg.test(this.form.phone) && this.lang == 'zh_CN') {
-              this.$baseMessage('请输入正确的11位电话号码', 'warning')
-              return
-            }
             let res
             if (this.form.face_idcard.length == 0) {
               this.form.idcardtype = ''

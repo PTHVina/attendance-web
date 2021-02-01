@@ -27,6 +27,13 @@ export function delRecord(id) {
   return res
 }
 // 批量导出
-export function BatchXport(data) {
-  myExtension.BatchXportforCapture(data.startTime, data.endTime, '', '', '')
+export function BatchXport(data, type) {
+  myExtension.BatchXportforCapture(
+    data.startTime,
+    data.endTime,
+    data.name,
+    data.no,
+    data.stranger,
+    type
+  )
 }

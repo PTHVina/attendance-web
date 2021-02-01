@@ -249,6 +249,9 @@ module.exports = {
     text_40: 'Batch export',
     text_41: 'Export time range',
     text_42: 'Date range must be selected for exporting records.',
+    text_43: 'Health code type',
+    text_44: 'Itinerary information',
+    text_45: 'Health code notes',
   },
   //考勤管理
   attendance: {
