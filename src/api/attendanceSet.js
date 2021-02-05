@@ -15,15 +15,16 @@ export function setClasses(data) {
   let json = {
     name: data.name,
     Duration: data.time,
-    EffectiveTime: data.punchCard1
-      ? data.punchCard1[0] +
-        '-' +
-        data.punchCard1[1] +
-        ',' +
-        data.punchCard2[0] +
-        '-' +
-        data.punchCard2[1]
-      : '',
+    EffectiveTime:
+      data.punchCard1 && data.punchCard1[0] != ''
+        ? data.punchCard1[0] +
+          '-' +
+          data.punchCard1[1] +
+          ',' +
+          data.punchCard2[0] +
+          '-' +
+          data.punchCard2[1]
+        : '',
     gotowork1: data.commuter[0] + '-' + data.commuter[1],
     gotowork2: '',
     gooffwork3: '',
@@ -33,11 +34,11 @@ export function setClasses(data) {
   let res
   if (data.id) {
     res = window.top.myExtension.setShiftData_edit(
-      json_data.toString(),
-      data.id
+      json_data,
+      data.id.toString()
     )
   } else {
-    res = window.top.myExtension.setShiftData(json_data.toString())
+    res = window.top.myExtension.setShiftData(json_data)
   }
   let res_json = JSON.parse(res)
 

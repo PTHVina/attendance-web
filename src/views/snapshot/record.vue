@@ -920,7 +920,6 @@
 
       //打开弹窗
       register(data) {
-        this.dialogFormVisible = true
         if (data.id) {
           this.form = {
             id: data.id,
@@ -937,6 +936,10 @@
             line_type: '1',
           }
         }
+        if (!this.form.Employee_code) {
+          this.form.Employee_code = new Date().getTime().toString()
+        }
+        this.dialogFormVisible = true
       },
       //选择图片
       checkImg() {

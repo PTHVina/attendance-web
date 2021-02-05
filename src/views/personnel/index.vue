@@ -968,7 +968,6 @@
 
       //编辑打开弹窗
       openFormDialog(data) {
-        this.dialogFormVisible = true
         if (data.id) {
           this.form = {
             id: data.id,
@@ -990,6 +989,10 @@
             title: data.departmentname,
           }
         }
+        if (!this.form.Employee_code) {
+          this.form.Employee_code = new Date().getTime().toString()
+        }
+        this.dialogFormVisible = true
       },
       //部门切换
       changeDepartment(e) {
