@@ -417,11 +417,7 @@
           ></el-input>
         </el-form-item>
         <!-- 部门 -->
-        <el-form-item
-          v-if="form.id"
-          :label="$t('personnel.title_4')"
-          prop="departmentname"
-        >
+        <el-form-item v-if="form.id" :label="$t('personnel.title_4')">
           <el-cascader
             ref="cascader"
             :key="form.departmentname"
@@ -439,11 +435,7 @@
             @change="changeDepartment"
           ></el-cascader>
         </el-form-item>
-        <el-form-item
-          v-else
-          :label="$t('personnel.title_4')"
-          prop="departmentname"
-        >
+        <el-form-item v-else :label="$t('personnel.title_4')">
           <el-cascader
             v-model="form.departmentname"
             :options="option"
@@ -968,6 +960,9 @@
 
       //编辑打开弹窗
       openFormDialog(data) {
+        if (this.options.length != 0) {
+          this.form.Employetypename = this.options[0].value
+        }
         if (data.id) {
           this.form = {
             id: data.id,

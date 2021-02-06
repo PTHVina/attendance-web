@@ -504,7 +504,7 @@
           ></el-input>
         </el-form-item>
         <!-- 部门 -->
-        <el-form-item :label="$t('snapshot.text_30')" prop="departmentname">
+        <el-form-item :label="$t('snapshot.text_30')">
           <el-cascader
             v-model="form.departmentname"
             :options="option"
@@ -938,6 +938,9 @@
         }
         if (!this.form.Employee_code) {
           this.form.Employee_code = new Date().getTime().toString()
+        }
+        if (this.options.length != 0) {
+          this.form.Employetypename = this.options[0].value
         }
         this.dialogFormVisible = true
       },
