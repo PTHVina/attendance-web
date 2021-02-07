@@ -212,7 +212,7 @@
           style="margin-bottom: 0px"
         >
           <el-radio-group v-model="form.Monday">
-            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
+            <el-radio :label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -228,7 +228,7 @@
           style="margin-bottom: 0px"
         >
           <el-radio-group v-model="form.Tuesday">
-            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
+            <el-radio :label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -244,7 +244,7 @@
           style="margin-bottom: 0px"
         >
           <el-radio-group v-model="form.Wednesday">
-            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
+            <el-radio :label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -260,7 +260,7 @@
           style="margin-bottom: 0px"
         >
           <el-radio-group v-model="form.Thursday">
-            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
+            <el-radio :label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -276,7 +276,7 @@
           style="margin-bottom: 0px"
         >
           <el-radio-group v-model="form.Friday">
-            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
+            <el-radio :label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -292,7 +292,7 @@
           style="margin-bottom: 0px"
         >
           <el-radio-group v-model="form.Saturday">
-            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
+            <el-radio :label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -305,7 +305,7 @@
         <!-- 周日 -->
         <el-form-item :label="$t('attendanceSet.text_41')">
           <el-radio-group v-model="form.Sunday">
-            <el-radio label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
+            <el-radio :label="0">{{ $t('attendanceSet.text_42') }}</el-radio>
             <el-radio
               v-for="(item, index) in classes"
               :key="index"
@@ -561,13 +561,13 @@
         // 新增、编辑
         form: {
           name: '', //班组名
-          Monday: '0',
-          Tuesday: '0',
-          Wednesday: '0',
-          Thursday: '0',
-          Friday: '0',
-          Saturday: '0',
-          Sunday: '0',
+          Monday: 0,
+          Tuesday: 0,
+          Wednesday: 0,
+          Thursday: 0,
+          Friday: 0,
+          Saturday: 0,
+          Sunday: 0,
           isdefault: '0', //是否默认
         },
         timestamp: '',
@@ -706,13 +706,13 @@
           this.form = {
             id: data.id,
             name: data.name,
-            Monday: JSON.parse(data.attribute).Monday,
-            Tuesday: JSON.parse(data.attribute).Tuesday,
-            Wednesday: JSON.parse(data.attribute).Wednesday,
-            Thursday: JSON.parse(data.attribute).Thursday,
-            Friday: JSON.parse(data.attribute).Friday,
-            Saturday: JSON.parse(data.attribute).Saturday,
-            Sunday: JSON.parse(data.attribute).Sunday,
+            Monday: Number(JSON.parse(data.attribute).Monday),
+            Tuesday: Number(JSON.parse(data.attribute).Tuesday),
+            Wednesday: Number(JSON.parse(data.attribute).Wednesday),
+            Thursday: Number(JSON.parse(data.attribute).Thursday),
+            Friday: Number(JSON.parse(data.attribute).Friday),
+            Saturday: Number(JSON.parse(data.attribute).Saturday),
+            Sunday: Number(JSON.parse(data.attribute).Sunday),
             isdefault: data.isdefault,
             count: data.count,
           }
@@ -727,13 +727,13 @@
         }
         this.form = {
           name: '',
-          Monday: '0',
-          Tuesday: '0',
-          Wednesday: '0',
-          Thursday: '0',
-          Friday: '0',
-          Saturday: '0',
-          Sunday: '0',
+          Monday: 0,
+          Tuesday: 0,
+          Wednesday: 0,
+          Thursday: 0,
+          Friday: 0,
+          Saturday: 0,
+          Sunday: 0,
           isdefault: '0',
         }
         this.selectRows = []
@@ -743,13 +743,13 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             let attribute = {
-              Monday: this.form.Monday,
-              Tuesday: this.form.Tuesday,
-              Wednesday: this.form.Wednesday,
-              Thursday: this.form.Thursday,
-              Friday: this.form.Friday,
-              Saturday: this.form.Saturday,
-              Sunday: this.form.Sunday,
+              Monday: this.form.Monday.toString(),
+              Tuesday: this.form.Tuesday.toString(),
+              Wednesday: this.form.Wednesday.toString(),
+              Thursday: this.form.Thursday.toString(),
+              Friday: this.form.Friday.toString(),
+              Saturday: this.form.Saturday.toString(),
+              Sunday: this.form.Sunday.toString(),
             }
             let ids = []
             this.selectRows.forEach((item) => {
