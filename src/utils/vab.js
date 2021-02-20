@@ -91,7 +91,7 @@ const install = (Vue, opts = {}) => {
 
   /* 全局Confirm */
   Vue.prototype.$baseConfirm = (content, title, callback1, callback2) => {
-    let lang = myExtension.getlanguage()
+    let lang = window.top.myExtension.getlanguage()
     MessageBox.confirm(
       content,
       title ||

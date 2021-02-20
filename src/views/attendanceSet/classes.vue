@@ -15,7 +15,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
-      height="700"
+      height="790"
     >
       <!-- 创建时间 -->
       <el-table-column
@@ -29,7 +29,11 @@
         show-overflow-tooltip
         :label="$t('attendanceSet.text_3')"
         prop="name"
-      ></el-table-column>
+      >
+        <template #default="{ row }">
+          <div style="height: 40px; line-height: 40px">{{ row.name }}</div>
+        </template>
+      </el-table-column>
       <!-- 班次时长 -->
       <el-table-column
         show-overflow-tooltip

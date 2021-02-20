@@ -15,7 +15,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
-      height="700"
+      height="790"
     >
       <!-- 班组名 -->
       <el-table-column
@@ -36,7 +36,7 @@
         show-overflow-tooltip
         :label="$t('attendanceSet.text_33')"
         prop="pageViews"
-        width="400px"
+        width="410px"
       >
         <template #default="{ row }">
           <div style="margin-bottom: 5px">

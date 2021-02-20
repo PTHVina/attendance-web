@@ -12,7 +12,7 @@ import localeEn from '../node_modules/element-ui/lib/locale/lang/en'
 import localeJa from '../node_modules/element-ui/lib/locale/lang/ja'
 import localeCn from '../node_modules/element-ui/lib/locale/lang/zh-CN'
 
-let lang = myExtension.getlanguage()
+let lang = window.top.myExtension.getlanguage()
 Vue.use(VueI18n)
 const i18n = new VueI18n({
   locale: lang,

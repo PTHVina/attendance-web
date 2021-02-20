@@ -113,7 +113,7 @@
       v-loading="listLoading"
       stripe
       :data="list"
-      :height="lang == 'zh_CN' ? '700' : '650'"
+      :height="lang == 'zh_CN' ? '745' : lang == 'en_US' ? '700' : '650'"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
     >
@@ -138,7 +138,7 @@
         :label="$t('attendance.text_13')"
         prop="Employee_code"
         sortable
-        :width="lang == 'en_US' ? '160px' : ''"
+        :width="lang == 'en_US' ? '170px' : ''"
       ></el-table-column>
       <!-- 考勤日期 -->
       <el-table-column

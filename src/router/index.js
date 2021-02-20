@@ -8,7 +8,8 @@ import VueRouter from 'vue-router'
 import Layout from '@/layouts'
 
 Vue.use(VueRouter)
-let lang = myExtension.getlanguage()
+let lang = window.top.myExtension.getlanguage()
+
 let i18
 if (lang == 'zh_CN') {
   i18 = require('@/assets/languages/zh_CN')

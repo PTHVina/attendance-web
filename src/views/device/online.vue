@@ -16,7 +16,7 @@
         </li>
       </ul>
     </div>
-    <div class="videoPage">
+    <div v-if="false" class="videoPage">
       <div class="video_title">
         <span
           class="title_btn btn_1"
@@ -83,10 +83,7 @@
         <!-- 1 -->
         <div v-if="box_num == 1" class="box_1">
           <div class="num_1">
-            <video
-              src="https://www.w3school.com.cn/i/movie.ogg"
-              controls="controls"
-            ></video>
+            <video src="" controls="controls"></video>
             <div class="video_btn">
               <span class="el-icon-video-play"></span>
               <span v-if="false" class="el-icon-video-pause"></span>
@@ -97,10 +94,7 @@
         <!-- 2 -->
         <div v-if="box_num == 2" class="box_2">
           <div class="num_1">
-            <video
-              src="https://www.w3school.com.cn/i/movie.ogg"
-              controls="controls"
-            ></video>
+            <video src="" controls="controls"></video>
             <div class="video_btn">
               <span class="el-icon-video-play"></span>
               <span v-if="false" class="el-icon-video-pause"></span>
@@ -108,6 +102,7 @@
             </div>
           </div>
           <div class="num_2">
+            <video src="" controls="controls"></video>
             <div class="video_btn">
               <span class="el-icon-video-play"></span>
               <span v-if="false" class="el-icon-video-pause"></span>
@@ -120,92 +115,92 @@
           v-if="box_num == 3 || box_num == 4"
           :class="box_num == 3 ? 'box_3' : 'box_4'"
         >
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div class="num_1"></div>
+          <div class="num_2"></div>
+          <div class="num_3"></div>
+          <div class="num_4"></div>
         </div>
         <!-- 6 -->
         <div
           v-if="box_num == 5 || box_num == 6"
           :class="box_num == 5 ? 'box_5' : 'box_6'"
         >
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div class="num_1"></div>
+          <div class="num_2"></div>
+          <div class="num_3"></div>
+          <div class="num_4"></div>
+          <div class="num_5"></div>
+          <div class="num_6"></div>
         </div>
         <!-- 8 -->
         <div v-if="box_num == 7" class="box_7">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div class="num_1"></div>
+          <div class="num_2"></div>
+          <div class="num_3"></div>
+          <div class="num_4"></div>
+          <div class="num_5"></div>
+          <div class="num_6"></div>
+          <div class="num_7"></div>
+          <div class="num_8"></div>
         </div>
         <!-- 9 -->
         <div
           v-if="box_num == 8 || box_num == 9"
           :class="box_num == 8 ? 'box_8' : 'box_9'"
         >
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div class="num_1"></div>
+          <div class="num_2"></div>
+          <div class="num_3"></div>
+          <div class="num_4"></div>
+          <div class="num_5"></div>
+          <div class="num_6"></div>
+          <div class="num_7"></div>
+          <div class="num_8"></div>
+          <div class="num_9"></div>
         </div>
         <!-- 10 -->
         <div v-if="box_num == 10" class="box_10">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div class="num_1"></div>
+          <div class="num_2"></div>
+          <div class="num_3"></div>
+          <div class="num_4"></div>
+          <div class="num_5"></div>
+          <div class="num_6"></div>
+          <div class="num_7"></div>
+          <div class="num_8"></div>
+          <div class="num_9"></div>
+          <div class="num_10"></div>
         </div>
         <!-- 12 -->
         <div v-if="box_num == 11" class="box_11">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div class="num_1"></div>
+          <div class="num_2"></div>
+          <div class="num_3"></div>
+          <div class="num_4"></div>
+          <div class="num_5"></div>
+          <div class="num_6"></div>
+          <div class="num_7"></div>
+          <div class="num_8"></div>
+          <div class="num_9"></div>
+          <div class="num_10"></div>
+          <div class="num_11"></div>
+          <div class="num_12"></div>
         </div>
         <!-- 13 -->
         <div v-if="box_num == 12" class="box_12">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div>
+          <div class="num_1"></div>
+          <div class="num_2"></div>
+          <div class="num_3"></div>
+          <div class="num_4"></div>
+          <div class="num_5"></div>
+          <div class="num_6"></div>
+          <div class="num_7"></div>
+          <div class="num_8"></div>
+          <div class="num_9"></div>
+          <div class="num_10"></div>
+          <div class="num_11"></div>
+          <div class="num_12"></div>
+          <div class="num_13">
             <div class="video_btn">
               <span class="el-icon-video-play"></span>
               <span v-if="false" class="el-icon-video-pause"></span>
@@ -248,13 +243,14 @@
       init() {
         let list = getDeviceList()
         this.options = list
+        console.log(list, System, window)
         let data = {
           width: this.box_width,
           height: this.box_height,
           locationW: this.box_left,
           locationH: this.box_top,
         }
-        // setDome(data)
+        setDome(data)
       },
 
       changeVideoType(num) {

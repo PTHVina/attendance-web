@@ -31,5 +31,11 @@
         <!-- <h1 id="html_title"><%= VUE_APP_TITLE %>11</h1> -->
       </div>
     </div>
+    <script>
+      ;(async function () {
+        await CefSharp.BindObjectAsync('myExtension1')
+        window.top.myExtension = myExtension1
+      })()
+    </script>
   </body>
 </html>

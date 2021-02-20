@@ -119,7 +119,7 @@ export function toIssue(data) {
 //一键下发
 export function oneClickIssue() {
   return new Promise(function (resolve, reject) {
-    myExtension.One_click_distribution((res) => {
+    window.top.myExtension.One_click_distribution((res) => {
       resolve(res)
     })
   })
@@ -131,7 +131,7 @@ export function download() {
 //批量导入
 export function importExcel() {
   return new Promise(function (resolve, reject) {
-    myExtension.BatchIimport((res) => {
+    window.top.myExtension.BatchIimport((res) => {
       var re_json = JSON.parse(res)
       resolve(re_json)
     })
@@ -139,12 +139,12 @@ export function importExcel() {
 }
 //导出
 export function downList() {
-  myExtension.export()
+  window.top.myExtension.export()
 }
 //获取通知设置
 export function getInformList() {
-  let res = top.myExtension.getstaffforlineAdmin()
-  var datastr = top.myExtension.getstaffforlineAdminData()
+  let res = window.top.myExtension.getstaffforlineAdmin()
+  var datastr = window.top.myExtension.getstaffforlineAdminData()
   let res_data = JSON.parse(res)
   let data = JSON.parse(datastr)
 
@@ -160,7 +160,7 @@ export function setInform(str) {
 //访客管理
 //访客列表
 export function getVisitorList(data, page) {
-  var res = myExtension.getVisitor(
+  var res = window.top.myExtension.getVisitor(
     data.startdate.toString(),
     data.startTime.toString(),
     data.endDate.toString(),
@@ -177,7 +177,7 @@ export function getVisitorList(data, page) {
 }
 //访客总数
 export function getVisitorCount(data) {
-  let res = myExtension.getVisitorcuont(
+  let res = window.top.myExtension.getVisitorcuont(
     data.startdate.toString(),
     data.startTime.toString(),
     data.endDate.toString(),
@@ -219,13 +219,13 @@ export function editVisitor(data) {
 }
 //删除访客
 export function delVisitor(id) {
-  let res = myExtension.delVisitorForid(id)
+  let res = window.top.myExtension.delVisitorForid(id)
 
   return res
 }
 // 下发访客
 export function issueVisitor(data) {
-  let res = myExtension.downVisitorForid(
+  let res = window.top.myExtension.downVisitorForid(
     data.name.toString(),
     data.imge.toString(),
     data.staTime.toString(),
@@ -283,7 +283,7 @@ export function getLineSendList(data, page) {
 }
 export function setSend(id) {
   return new Promise(function (resolve, reject) {
-    myExtension.sendOutforLine(function (param) {
+    window.top.myExtension.sendOutforLine(function (param) {
       resolve(param)
     }, id.toString())
   })

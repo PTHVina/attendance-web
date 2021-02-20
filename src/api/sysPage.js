@@ -40,19 +40,19 @@ export function addTree(data) {
   return datajson
 }
 export function getTag() {
-  var res = myExtension.getEmployetype()
+  var res = window.top.myExtension.getEmployetype()
   var json = JSON.parse(res)
 
   return json
 }
 export function delTag(value) {
   let val = value.replace(/\s/g, '')
-  myExtension.deleteEmployetype(val)
+  window.top.myExtension.deleteEmployetype(val)
 
   return true
 }
 export function addTag(value) {
-  myExtension.addEmployetype(value)
+  window.top.myExtension.addEmployetype(value)
 
   return true
 }

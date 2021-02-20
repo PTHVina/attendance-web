@@ -1,13 +1,13 @@
 //抓拍列表
 export function getRecordList(data, page) {
-  let count = myExtension.getCapture_Datacuont(
+  let count = window.top.myExtension.getCapture_Datacuont(
     data.startTime,
     data.endTime,
     data.name,
     data.devname,
     data.stranger
   )
-  let res = myExtension.getCapture_Data(
+  let res = window.top.myExtension.getCapture_Data(
     data.startTime,
     data.endTime,
     data.name,
@@ -23,12 +23,12 @@ export function getRecordList(data, page) {
 }
 //删除
 export function delRecord(id) {
-  let res = myExtension.delCapture_DataForid(id)
+  let res = window.top.myExtension.delCapture_DataForid(id)
   return res
 }
 // 批量导出
 export function BatchXport(data, type) {
-  myExtension.BatchXportforCapture(
+  window.top.myExtension.BatchXportforCapture(
     data.startTime,
     data.endTime,
     data.name,

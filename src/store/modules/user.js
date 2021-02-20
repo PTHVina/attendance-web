@@ -47,7 +47,7 @@ const actions = {
       accessToken: 'test',
     }
     const accessToken = data['accessToken']
-    let lang = myExtension.getlanguage()
+    let lang = window.top.myExtension.getlanguage()
     let a = '早上好'
     let b = '上午好'
     let c = '中午好'

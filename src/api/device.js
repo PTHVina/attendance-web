@@ -26,7 +26,7 @@ export function editDevice(data) {
 //开闸
 export function openDoor(ip) {
   return new Promise(function (resolve, reject) {
-    myExtension.Open((res) => {
+    window.top.myExtension.Open((res) => {
       resolve(res)
     }, ip)
   })
@@ -40,7 +40,7 @@ export function delDevice(data) {
 //获取局域网设备
 export function getDeviceByLocal() {
   return new Promise(function (resolve, reject) {
-    myExtension.getAllDeviceDiscover((res) => {
+    window.top.myExtension.getAllDeviceDiscover((res) => {
       var data_json = JSON.parse(res)
 
       resolve(data_json)
@@ -49,14 +49,19 @@ export function getDeviceByLocal() {
 }
 //修改IP
 export function changeIP(data) {
-  let res = myExtension.changeIP(data.mac, data.IP, data.Netmask, data.gateway)
+  let res = window.top.myExtension.changeIP(
+    data.mac,
+    data.IP,
+    data.Netmask,
+    data.gateway
+  )
 
   return true
 }
 
 //显示监控
 export function setDome(data) {
-  myExtension.displayPanel(
+  window.top.myExtension.displayPanel(
     data.width.toString(),
     data.height.toString(),
     data.locationW.toString(),
@@ -65,9 +70,9 @@ export function setDome(data) {
 }
 //播放视屏
 export function play(ip) {
-  myExtension.AppIp(ip)
+  window.top.myExtension.AppIp(ip)
 }
 //关闭在线视频界面
 export function closePage() {
-  myExtension.NodisplayPanel()
+  window.top.myExtension.nodisplayPanel()
 }

@@ -142,7 +142,7 @@
         :label="$t('personnel.text_3')"
         prop="phone"
         sortable
-        :width="lang == 'en_US' ? '160' : ''"
+        :width="lang == 'en_US' ? '175' : ''"
       ></el-table-column>
       <!-- 部门 -->
       <el-table-column
@@ -150,7 +150,7 @@
         :label="$t('personnel.title_4')"
         prop="departmentname"
         sortable
-        :width="lang == 'en_US' ? '120' : ''"
+        :width="lang == 'en_US' ? '130' : ''"
       ></el-table-column>
       <!-- 人员编号 -->
       <el-table-column
@@ -158,7 +158,7 @@
         :label="$t('personnel.title_5')"
         prop="Employee_code"
         sortable
-        :width="lang == 'en_US' ? '160' : ''"
+        :width="lang == 'en_US' ? '170' : ''"
       ></el-table-column>
       <!-- 工作分类 -->
       <el-table-column
@@ -182,7 +182,7 @@
         :label="$t('personnel.title_8')"
         prop="decount"
         sortable
-        :width="lang == 'en_US' ? '210' : '140'"
+        :width="lang == 'en_US' ? '220' : '140'"
       ></el-table-column>
       <!-- 操作 -->
       <el-table-column
@@ -1105,7 +1105,7 @@
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.5)',
         })
-        myExtension.addEmailforline((param) => {
+        window.top.myExtension.addEmailforline((param) => {
           loading.close()
           if (param.indexOf('success') >= 0) {
             this.$baseMessage('登録成功', 'success')
@@ -1124,7 +1124,7 @@
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.5)',
           })
-          myExtension.generatecodemail((param) => {
+          window.top.myExtension.generatecodemail((param) => {
             loading.close()
             if (param == 'success') {
               this.$baseMessage('送信成功。', 'success')
@@ -1152,7 +1152,7 @@
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.5)',
           })
-          myExtension.addUserforline((param) => {
+          window.top.myExtension.addUserforline((param) => {
             loading.close()
             if (param.indexOf('success') >= 0) {
               this.$baseMessage('登録成功。', 'success')
@@ -1173,7 +1173,7 @@
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.5)',
           })
-          myExtension.generatecode((param) => {
+          window.top.myExtension.generatecode((param) => {
             loading.close()
             if (param == 'success') {
               this.$baseMessage('送信成功。', 'success')

@@ -14,7 +14,7 @@ export function getEverydayCount(data) {
 //获取每日考勤列表
 export function getEverydayList(data, page) {
   return new Promise(function (resolve, reject) {
-    myExtension.queryAttendanceinformation(
+    window.top.myExtension.queryAttendanceinformation(
       function (param) {
         resolve(param)
       },
@@ -31,7 +31,7 @@ export function getEverydayList(data, page) {
 }
 //补卡
 export function reissueACard(data) {
-  var res = myExtension.CardReplacement(
+  var res = window.top.myExtension.CardReplacement(
     data.type.toString(),
     data.id.toString(),
     data.time.toString(),
@@ -41,7 +41,7 @@ export function reissueACard(data) {
 }
 //导出每日考勤数据
 export function exportList(data) {
-  myExtension.exportAttendanceinformation(
+  window.top.myExtension.exportAttendanceinformation(
     data.daterangetime[0].toString(),
     data.daterangetime[1].toString(),
     data.name.toString(),
@@ -52,7 +52,7 @@ export function exportList(data) {
 }
 //导出设置信息
 export function defaultSet() {
-  let res = top.myExtension.getCsvSettings()
+  let res = window.top.myExtension.getCsvSettings()
   let res_data = JSON.parse(res)
 
   return res_data
@@ -72,5 +72,5 @@ export function getMonthlyList(data) {
 }
 //导出数据
 export function exportData(data) {
-  myExtension.exportMonthlyData(data.date, data.name)
+  window.top.myExtension.exportMonthlyData(data.date, data.name)
 }

@@ -55,7 +55,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
-      height="700"
+      height="745"
     >
       <!-- 姓名 -->
       <el-table-column
@@ -73,6 +73,7 @@
         show-overflow-tooltip
         prop="Employee_code"
         :label="$t('attendance.text_13')"
+        :width="lang == 'en_US' ? '170px' : ''"
         sortable
       ></el-table-column>
       <!-- 部门 -->
@@ -88,7 +89,11 @@
         :label="$t('attendance.text_42')"
         prop="nowdate"
         :width="lang == 'en_US' ? '80px' : ''"
-      ></el-table-column>
+      >
+        <template #default="{ row }">
+          <div style="height: 40px; line-height: 40px">{{ row.nowdate }}</div>
+        </template>
+      </el-table-column>
       <!-- 出勤(天) -->
       <el-table-column
         show-overflow-tooltip
@@ -129,6 +134,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      :current-page="page.pageNo"
+      :layout="layout"
+      :page-size="page.pageSize"
+      :total="page.total"
+      @current-change="handleCurrentChange"
+      @size-change="handleSizeChange"
+    ></el-pagination>
   </div>
 </template>
 
@@ -146,6 +159,11 @@
         queryForm: {
           name: '',
           date: '',
+        },
+        page: {
+          pageNo: 1,
+          pageSize: 10,
+          total: 0, //总数
         },
       }
     },
@@ -175,6 +193,16 @@
       },
       //查询
       handleQuery() {
+        this.init()
+      },
+      // 切换显示条数
+      handleSizeChange(val) {
+        this.page.pageSize = val
+        this.init()
+      },
+      //切换页数
+      handleCurrentChange(val) {
+        this.page.pageNo = val
         this.init()
       },
       //导出数据
