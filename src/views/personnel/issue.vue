@@ -103,6 +103,13 @@
         prop="name"
         sortable
       ></el-table-column>
+      <!-- 时间 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('personnel.pl_6')"
+        prop="date"
+        sortable
+      ></el-table-column>
       <!-- 状态 -->
       <el-table-column
         show-overflow-tooltip

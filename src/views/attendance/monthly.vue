@@ -65,7 +65,9 @@
         sortable
       >
         <template #default="{ row }">
-          <span style="color: red">{{ row.name }}</span>
+          <span style="color: red">
+            {{ row.name }}
+          </span>
         </template>
       </el-table-column>
       <!-- 人员编号 -->
@@ -89,11 +91,7 @@
         :label="$t('attendance.text_42')"
         prop="nowdate"
         :width="lang == 'en_US' ? '80px' : ''"
-      >
-        <template #default="{ row }">
-          <div style="height: 40px; line-height: 40px">{{ row.nowdate }}</div>
-        </template>
-      </el-table-column>
+      ></el-table-column>
       <!-- 出勤(天) -->
       <el-table-column
         show-overflow-tooltip
@@ -109,7 +107,9 @@
         :width="lang == 'en_US' ? '330px' : ''"
       >
         <template #default="{ row }">
-          <span style="color: red">{{ row.latedata }}</span>
+          <span style="color: red; height: 40px; line-height: 40px">
+            {{ row.latedata }}
+          </span>
         </template>
       </el-table-column>
       <!-- 早退次数/总时长(分钟) -->
@@ -154,7 +154,8 @@
         lang: this.$lang,
         list: [],
         listLoading: false, //列表加载
-        layout: 'total, sizes, prev, pager, next, jumper',
+        // layout: 'total, sizes, prev, pager, next, jumper',
+        layout: 'total',
         elementLoadingText: this.$t('operation_tips.tips_12'),
         queryForm: {
           name: '',
@@ -184,6 +185,7 @@
           this.listLoading = true
           let list = getMonthlyList(this.queryForm)
           this.list = list
+          this.page.total = list.length
           setTimeout(() => {
             this.listLoading = false
           }, 500)
@@ -193,6 +195,7 @@
       },
       //查询
       handleQuery() {
+        this.page.pageNo = 1
         this.init()
       },
       // 切换显示条数

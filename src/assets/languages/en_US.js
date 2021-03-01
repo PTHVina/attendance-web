@@ -175,6 +175,7 @@ module.exports = {
     pl_3: 'Please select Work Department',
     pl_4: 'Please select job category',
     pl_5: 'whole',
+    pl_6: 'time',
   },
   //设备管理
   device: {

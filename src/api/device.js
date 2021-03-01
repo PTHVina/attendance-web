@@ -74,5 +74,5 @@ export function play(ip) {
 }
 //关闭在线视频界面
 export function closePage() {
-  window.top.myExtension.nodisplayPanel()
+  window.top.myExtension.NodisplayPanel()
 }
