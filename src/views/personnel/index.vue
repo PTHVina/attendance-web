@@ -418,9 +418,10 @@
         </el-form-item>
         <!-- 部门 -->
         <el-form-item v-if="form.id" :label="$t('personnel.title_4')">
+          <!-- 归属=>编辑 -->
           <el-cascader
             ref="cascader"
-            :key="form.departmentname"
+            key="cascader1"
             v-model="form.departmentname"
             :options="option"
             :props="{
@@ -436,7 +437,10 @@
           ></el-cascader>
         </el-form-item>
         <el-form-item v-else :label="$t('personnel.title_4')">
+          <!-- 归属=>新增 -->
           <el-cascader
+            ref="cascader"
+            key="cascader2"
             v-model="form.departmentname"
             :options="option"
             :props="{
@@ -448,6 +452,7 @@
             :show-all-levels="false"
             :placeholder="$t('personnel.pl_3')"
             style="width: 100%"
+            @change="changeDepartment"
           ></el-cascader>
         </el-form-item>
         <!-- 工作分类 -->
@@ -754,6 +759,7 @@
       }
     },
     created() {
+      console.log(22222)
       this.typeList()
       this.init()
     },
@@ -992,6 +998,15 @@
       //部门切换
       changeDepartment(e) {
         let data = this.$refs.cascader.panel.getNodeByValue(e)
+        if (data.level == 1) {
+          this.$baseMessage(this.$t('personnel.pl_7'), 'warning')
+          this.form.departmentname = ''
+          this.departmentData = {}
+          setTimeout(() => {
+            this.$refs.cascader.panel.clearCheckedNodes()
+          }, 300)
+          return
+        }
         this.departmentData = data.data
       },
       //选择图片

@@ -27,7 +27,7 @@
               :style="lang == 'en_US' ? 'width:150px;' : ''"
             />
           </el-form-item>
-          <!-- 授权起止时间 -->
+          <!-- 授权起始时间 -->
           <el-form-item>
             <span>{{ $t('personnel.text_6') }}</span>
             <el-date-picker
@@ -36,8 +36,25 @@
               :range-separator="$t('personnel.text_7')"
               :start-placeholder="$t('personnel.text_8')"
               :end-placeholder="$t('personnel.text_9')"
-              style="width: 370px"
+              value-format="yyyy-MM-dd HH:mm"
+              format="yyyy-MM-dd HH:mm"
+              style="width: 330px"
               @change="checkTime"
+            ></el-date-picker>
+          </el-form-item>
+          <!-- 授权结束时间 -->
+          <el-form-item>
+            <span>{{ $t('personnel.text_15') }}</span>
+            <el-date-picker
+              v-model="queryForm.accreditTime2"
+              type="datetimerange"
+              :range-separator="$t('personnel.text_7')"
+              :start-placeholder="$t('personnel.text_8')"
+              :end-placeholder="$t('personnel.text_9')"
+              value-format="yyyy-MM-dd HH:mm"
+              format="yyyy-MM-dd HH:mm"
+              style="width: 330px"
+              @change="checkTime2"
             ></el-date-picker>
           </el-form-item>
           <!-- 是否下发 -->
@@ -112,7 +129,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
-      height="700"
+      height="650"
       @selection-change="setSelectRows"
       @sort-change="tableSortChange"
     >
@@ -315,6 +332,7 @@
           name: '',
           phone: '',
           accreditTime: [], //授权时间范围
+          accreditTime2: [], //授权时间范围
           startdate: '',
           startTime: '',
           endDate: '',
@@ -409,39 +427,26 @@
       },
       //日期时间选择
       checkTime(e) {
-        if (e) {
-          let start = this.getTime(e[0])
-          let end = this.getTime(e[1])
-          this.queryForm.startdate = start[0]
-          this.queryForm.startTime = start[1]
-          this.queryForm.endDate = end[0]
-          this.queryForm.endTime = end[1]
+        if (e.length == 2) {
+          this.queryForm.startdate = e[0]
+          this.queryForm.startTime = e[1]
         } else {
           this.queryForm.startdate = ''
           this.queryForm.startTime = ''
+        }
+      },
+      checkTime2(e) {
+        if (e.length == 2) {
+          this.queryForm.endDate = e[0]
+          this.queryForm.endTime = e[1]
+        } else {
           this.queryForm.endDate = ''
           this.queryForm.endTime = ''
         }
       },
-      //处理时间
-      getTime(time) {
-        var date = new Date(time)
-        let Y = date.getFullYear()
-        let M = date.getMonth() + 1
-        let D = date.getDate()
-        let h = date.getHours()
-        let m = date.getMinutes()
-        let s = date.getSeconds()
-        M = M <= 9 ? '0' + M : M
-        D = D <= 9 ? '0' + D : D
-        h = h <= 9 ? '0' + h : h
-        m = m <= 9 ? '0' + m : m
-        s = s <= 9 ? '0' + s : s
-
-        return [Y + '-' + M + '-' + D, h + ':' + m + ':' + s]
-      },
       //查询
       handleQuery(formName) {
+        console.log(this.queryForm)
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.page.pageNo = 1
@@ -457,6 +462,7 @@
           name: '',
           phone: '',
           accreditTime: [],
+          accreditTime2: [],
           startdate: '',
           startTime: '',
           endDate: '',

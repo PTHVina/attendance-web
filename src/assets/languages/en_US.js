@@ -144,15 +144,16 @@ module.exports = {
     text_3: 'Telephone number',
     text_4: 'Personnel information',
     text_5: 'Distribution equipment',
-    text_6: 'Start and end time of authorization',
+    text_6: 'Authorization start time',
     text_7: 'To',
-    text_8: 'Authorization start time',
-    text_9: 'Authorization end time',
+    text_8: 'start time',
+    text_9: 'end time',
     text_10: 'Issue or not',
     text_11: 'Yes/No',
     text_12: 'Yes',
     text_13: 'Authorization time interval',
     text_14: 'state',
+    text_15: 'Authorization end time',
 
     title_1: 'head portrait',
     title_2: 'bit',
@@ -176,6 +177,7 @@ module.exports = {
     pl_4: 'Please select job category',
     pl_5: 'whole',
     pl_6: 'time',
+    pl_7: 'Please select the next level option',
   },
   //设备管理
   device: {

@@ -28,6 +28,7 @@
               </i>
               <!-- 删除 -->
               <i
+                v-if="node.level != 1"
                 class="del_btn el-icon-remove-outline"
                 @click="() => removeNode(node, data)"
               >
@@ -37,7 +38,8 @@
           </span>
         </el-tree>
       </div>
-      <div class="tree_add" @click="appendNode({ id: '0' })">
+      <!-- 去除添加一级部门 -->
+      <div v-if="false" class="tree_add" @click="appendNode({ id: '0' })">
         {{ $t('system.text_6') }}
       </div>
     </div>
@@ -59,22 +61,31 @@
         </el-form-item>
         <!-- 部门名称 -->
         <el-form-item :label="$t('system.title_2')" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
+          <el-input v-model="ruleForm.name" :disabled="!ruleForm.id"></el-input>
         </el-form-item>
         <!-- 公司描述 -->
         <el-form-item :label="$t('system.title_3')" prop="describe">
-          <el-input v-model="ruleForm.explain"></el-input>
+          <el-input
+            v-model="ruleForm.explain"
+            :disabled="!ruleForm.id"
+          ></el-input>
         </el-form-item>
         <!-- 电话 -->
         <el-form-item
           :label="$t('system.title_4')"
           :prop="lang == 'zh_CN' ? 'phone' : ''"
         >
-          <el-input v-model="ruleForm.phone"></el-input>
+          <el-input
+            v-model="ruleForm.phone"
+            :disabled="!ruleForm.id"
+          ></el-input>
         </el-form-item>
         <!-- 地址 -->
         <el-form-item :label="$t('system.title_5')" prop="address">
-          <el-input v-model="ruleForm.address"></el-input>
+          <el-input
+            v-model="ruleForm.address"
+            :disabled="!ruleForm.id"
+          ></el-input>
         </el-form-item>
         <el-form-item v-if="ruleForm.id">
           <!-- 确认修改 -->
@@ -87,14 +98,22 @@
     <div class="personnel">
       <!-- 工作分类 -->
       <div class="tree_title">{{ $t('system.text_3') }}</div>
-      <el-tag
-        v-for="(tag, key) in dynamicTags"
-        :key="tag"
-        closable
-        @close="handleClose(tag, key)"
-      >
-        {{ tag.Employetype_name }}
-      </el-tag>
+      <div v-for="(tag, key) in dynamicTags" :key="tag" class="tag_list">
+        <el-tag v-if="isChange != key" closable @close="handleClose(tag, key)">
+          <!-- @click="changeItem(tag, key)" -->
+          {{ tag.Employetype_name }}
+        </el-tag>
+        <!-- v-else-if="isChange == key" -->
+        <el-input
+          v-if="false"
+          ref="changeTagInput"
+          v-model="changeVal"
+          class="input-new-tag"
+          size="small"
+          @keyup.enter.native="changeTag"
+          @blur="changeTag"
+        ></el-input>
+      </div>
       <el-input
         v-if="inputVisible"
         ref="saveTagInput"
@@ -217,6 +236,9 @@
         dynamicTags: [],
         inputVisible: false,
         inputValue: '',
+
+        isChange: -1,
+        changeVal: '',
       }
     },
     created() {
@@ -343,6 +365,19 @@
           this.$baseMessage(this.$t('operation_tips.tips_9'), 'warning')
         }
       },
+      changeItem(tag, key) {
+        this.isChange = key
+        this.changeVal = tag.Employetype_name
+        setTimeout(() => {
+          this.$refs['changeTagInput'].focus()
+        }, 500)
+        console.log(tag)
+      },
+      changeTag() {
+        this.dynamicTags[this.isChange].Employetype_name = this.changeVal
+        this.isChange = -1
+        this.changeVal = ''
+      },
     },
   }
 </script>
@@ -468,6 +503,12 @@
       width: 100px;
       margin: 0 5px 10px;
       vertical-align: top;
+    }
+    .tag_list {
+      display: inline-block;
+      .input-new-tag {
+        vertical-align: unset;
+      }
     }
   }
 </style>

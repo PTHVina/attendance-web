@@ -113,7 +113,7 @@
       v-loading="listLoading"
       stripe
       :data="list"
-      :height="lang == 'zh_CN' ? '745' : lang == 'en_US' ? '700' : '650'"
+      :height="lang == 'zh_CN' ? '745' : '700'"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
     >

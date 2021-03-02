@@ -142,7 +142,7 @@ module.exports = {
     text_3: '电话号码',
     text_4: '人员信息',
     text_5: '下发设备',
-    text_6: '授权起止时间',
+    text_6: '授权起始时间',
     text_7: '至',
     text_8: '授权起始时间',
     text_9: '授权结束时间',
@@ -151,6 +151,7 @@ module.exports = {
     text_12: '是',
     text_13: '授权时间区间',
     text_14: '状态',
+    text_15: '授权结束时间',
 
     title_1: '头像',
     title_2: '位',
@@ -174,6 +175,7 @@ module.exports = {
     pl_4: '请选择工作分类',
     pl_5: '全部',
     pl_6: '时间',
+    pl_7: '请选择下一级选项',
   },
   //设备管理
   device: {
@@ -202,7 +204,7 @@ module.exports = {
     text_23: '请填写正确的子网掩码',
     text_24: 'IP地址已存在，不能重复添加！',
     text_25: '设备列表',
-    text_26: '播放视屏',
+    text_26: '播放视频',
   },
   //抓拍管理
   snapshot: {
