@@ -107,6 +107,25 @@ module.exports = {
     tips_47: 'Successful card replacement',
     tips_48: 'Card replacement failed',
     tips_49: 'Are you sure to distribute all personnel to all devices?',
+
+    tips_50:
+      'If face feature extraction fails, there must be only one face in the image',
+    tips_51: 'Failed to decode picture',
+    tips_52: 'Normalization image failed',
+    tips_53: 'Feature extraction failed',
+    tips_54:
+      'The face size is too small, the face contour must be greater than 96 * 96',
+    tips_55:
+      'The quality of the portrait is too poor to meet the registration requirements',
+    tips_56: 'The number of faces in the image is not 1',
+    tips_57: 'Incomplete face in image',
+    tips_58: 'The elevation angle of face is too large',
+    tips_59: 'The side angle of the face is too large',
+    tips_60: 'The face is not straight',
+    tips_61: 'Too much mouth opening',
+    tips_62: 'Uneven illumination',
+    tips_63: 'Pictures cannot exceed 4m',
+    tips_64: 'The face image does not meet the distribution conditions',
   },
   // 首页
   home: {
@@ -370,5 +389,7 @@ module.exports = {
     text_63: 'Please select attendance date',
     text_64: 'Please select a flight',
     text_65: 'Shift type',
+    text_66: 'More',
+    text_67: 'Enter name, number, department query',
   },
 }

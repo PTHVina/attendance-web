@@ -975,11 +975,64 @@
       },
       //选择图片
       checkImg() {
-        let img = openImg()
-        if (!img) {
+        let imageurl = openImg()
+        if (imageurl.length < 4) {
+          var re = this.showImgTip(imageurl)
+          this.$baseMessage(re, 'warning')
           return
         }
-        this.form.picture = img
+        this.form.picture = imageurl
+      },
+      // 图片上传失败提示
+      showImgTip(type) {
+        var re = ''
+        switch (type) {
+          case '-14':
+            re = this.$t('operation_tips.tips_50')
+            break
+          case '-17':
+            re = this.$t('operation_tips.tips_51')
+            break
+          case '-38':
+            re = this.$t('operation_tips.tips_52')
+            break
+          case '-39':
+            re = this.$t('operation_tips.tips_53')
+            break
+          case '-40':
+            re = this.$t('operation_tips.tips_54')
+            break
+          case '-41':
+            re = this.$t('operation_tips.tips_55')
+            break
+          case '-46':
+            re = this.$t('operation_tips.tips_56')
+            break
+          case '-47':
+            re = this.$t('operation_tips.tips_57')
+            break
+          case '-48':
+            re = this.$t('operation_tips.tips_58')
+            break
+          case '-49':
+            re = this.$t('operation_tips.tips_59')
+            break
+          case '-50':
+            re = this.$t('operation_tips.tips_60')
+            break
+          case '-51':
+            re = this.$t('operation_tips.tips_61')
+            break
+          case '-52':
+            re = this.$t('operation_tips.tips_62')
+            break
+          case '100':
+            re = this.$t('operation_tips.tips_63')
+            break
+          default:
+            re = this.$t('operation_tips.tips_64')
+        }
+        return re
       },
       //拍照
       photograph() {
