@@ -261,6 +261,8 @@
             :range-separator="$t('personnel.text_7')"
             :start-placeholder="$t('personnel.text_8')"
             :end-placeholder="$t('personnel.text_9')"
+            value-format="yyyy-MM-dd HH:mm"
+            format="yyyy-MM-dd HH:mm"
             style="width: 100%"
             @change="checkInfoTime"
           ></el-date-picker>
@@ -446,7 +448,7 @@
       },
       //查询
       handleQuery(formName) {
-        console.log(this.queryForm)
+        // console.log(this.queryForm)
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.page.pageNo = 1
@@ -514,12 +516,18 @@
           )
         } else {
           if (this.selectRows.length > 0) {
-            let ids = ''
-            this.selectRows.forEach((item) => {
-              ids += item.id + ','
-            })
-            let res = delVisitor(ids)
-            this.init()
+            this.$baseConfirm(
+              this.$t('operation_tips.tips_4'),
+              null,
+              async () => {
+                let ids = ''
+                this.selectRows.forEach((item) => {
+                  ids += item.id + ','
+                })
+                let res = delVisitor(ids)
+                this.init()
+              }
+            )
           } else {
             this.$baseMessage(this.$t('operation_tips.tips_22'), 'error')
             return false
@@ -564,10 +572,8 @@
       //选择授权时间
       checkInfoTime(e) {
         if (e) {
-          let start = this.getTime(e[0])
-          let end = this.getTime(e[1])
-          this.form.startTime = start[0] + ' ' + start[1]
-          this.form.endTime = end[0] + ' ' + end[1]
+          this.form.startTime = e[0]
+          this.form.endTime = e[1]
         } else {
           this.form.startTime = ''
           this.form.endTime = ''

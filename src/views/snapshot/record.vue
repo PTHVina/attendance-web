@@ -66,14 +66,18 @@
               :placeholder="$t('snapshot.text_9')"
               style="width: 140px"
             >
-              <!-- <el-option key="3" label="" value="3"></el-option> -->
-              <el-option key="0" :label="$t('snapshot.text_12')" value="0">
+              <el-option
+                key="0"
+                :label="$t('snapshot.text_46')"
+                value="0"
+              ></el-option>
+              <el-option key="1" :label="$t('snapshot.text_12')" value="1">
                 {{ $t('snapshot.text_12') }}
               </el-option>
-              <el-option key="1" :label="$t('snapshot.text_13')" value="1">
+              <el-option key="2" :label="$t('snapshot.text_13')" value="2">
                 {{ $t('snapshot.text_13') }}
               </el-option>
-              <el-option key="2" :label="$t('snapshot.text_14')" value="2">
+              <el-option key="3" :label="$t('snapshot.text_14')" value="3">
                 {{ $t('snapshot.text_14') }}
               </el-option>
             </el-select>
@@ -628,6 +632,30 @@
             ></el-option>
           </el-select>
         </el-form-item>
+        <!-- 健康码状态 -->
+        <el-form-item :label="$t('snapshot.text_11')">
+          <el-select
+            v-model="exportData.codestus"
+            clearable
+            :placeholder="$t('snapshot.text_9')"
+            style="width: 100%"
+          >
+            <el-option
+              key="0"
+              :label="$t('snapshot.text_46')"
+              value="0"
+            ></el-option>
+            <el-option key="1" :label="$t('snapshot.text_12')" value="1">
+              {{ $t('snapshot.text_12') }}
+            </el-option>
+            <el-option key="2" :label="$t('snapshot.text_13')" value="2">
+              {{ $t('snapshot.text_13') }}
+            </el-option>
+            <el-option key="3" :label="$t('snapshot.text_14')" value="3">
+              {{ $t('snapshot.text_14') }}
+            </el-option>
+          </el-select>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogTableVisible = false">
@@ -769,6 +797,7 @@
           endTime: '',
           name: '',
           no: '',
+          codestus: '',
           stranger: '',
         },
         rule: {
@@ -1002,7 +1031,7 @@
           Employee_code: '',
           phone: '',
           face_idcard: '',
-          idcardtype: '',
+          idcardtype: '32',
           Email: '',
           departmentname: '',
           Employetypename: '',

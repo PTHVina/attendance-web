@@ -107,7 +107,7 @@
         size="medium"
       >
         <!-- 班次 -->
-        <el-form-item :label="$t('attendanceSet.text_12')" prop="name">
+        <el-form-item :label="$t('attendanceSet.text_3')" prop="name">
           <el-input
             v-model="form.name"
             :placeholder="$t('attendanceSet.text_3')"
@@ -115,7 +115,7 @@
           ></el-input>
         </el-form-item>
         <!-- 时段数 -->
-        <el-form-item :label="$t('attendanceSet.text_2')">
+        <el-form-item :label="$t('attendanceSet.text_12')">
           <el-radio v-model="form.radio" label="1" border>
             {{ $t('attendanceSet.text_13') }}
           </el-radio>
@@ -160,8 +160,11 @@
             {{ timeLong }}{{ $t('attendanceSet.text_22') }}
           </el-tag>
         </el-form-item>
+        <div class="set_btn el-icon-thumb" @click="setShow">
+          &nbsp;{{ $t('attendanceSet.text_28') }}
+        </div>
         <!-- 上班有效打卡区间 -->
-        <el-form-item :label="$t('attendanceSet.text_23')">
+        <el-form-item v-if="isShow" :label="$t('attendanceSet.text_23')">
           <el-time-picker
             v-model="form.punchCard1"
             is-range
@@ -175,7 +178,7 @@
           ></el-time-picker>
         </el-form-item>
         <!-- 下班有效打卡区间 -->
-        <el-form-item :label="$t('attendanceSet.text_23')">
+        <el-form-item v-if="isShow" :label="$t('attendanceSet.text_24')">
           <el-time-picker
             v-model="form.punchCard2"
             is-range
@@ -246,11 +249,15 @@
             },
           ],
         },
+        isShow: false,
       }
     },
     computed: {
       //计算出勤时长
       timeLong() {
+        if (!this.dialogFormVisible) {
+          return ''
+        }
         if (!this.form.commuter || !this.form.rest) {
           return ''
         }
@@ -280,8 +287,12 @@
           let c = a - b
           time += c
         }
+        time = time.toFixed(1)
+        if (String(time).split('.')[1] == 0) {
+          time = String(time).split('.')[0]
+        }
 
-        return time.toFixed(2)
+        return time
       },
     },
     watch: {
@@ -293,6 +304,16 @@
       },
       timeLong(val, old) {
         this.form.time = val
+      },
+      'form.punchCard1'(val) {
+        if (val) {
+          this.isShow = true
+        }
+      },
+      'form.punchCard2'(val) {
+        if (val) {
+          this.isShow = true
+        }
       },
     },
     created() {
@@ -321,9 +342,13 @@
           this.init()
         })
       },
+      setShow() {
+        this.isShow = !this.isShow
+      },
       //打开弹窗
       openFormDialog(data) {
         this.dialogFormVisible = true
+        this.isShow = false
         if (data.id) {
           // console.log('选中参数', data)
           this.form = {
@@ -336,29 +361,32 @@
             ],
             rest: [data.rest_time.split('-')[0], data.rest_time.split('-')[1]],
             time: data.Duration,
-            punchCard1: [
-              data.EffectiveTime
-                ? data.EffectiveTime.split(',')[0].split('-')[0]
-                : '',
-              data.EffectiveTime
-                ? data.EffectiveTime.split(',')[0].split('-')[1]
-                : '',
-            ],
-            punchCard2: [
-              data.EffectiveTime
-                ? data.EffectiveTime.split(',')[1].split('-')[0]
-                : '',
-              data.EffectiveTime
-                ? data.EffectiveTime.split(',')[1].split('-')[1]
-                : '',
-            ],
+            punchCard1: data.EffectiveTime
+              ? [
+                  data.EffectiveTime.split(',')[0].split('-')[0],
+                  data.EffectiveTime.split(',')[0].split('-')[1],
+                ]
+              : '',
+            punchCard2: data.EffectiveTime
+              ? [
+                  data.EffectiveTime.split(',')[1].split('-')[0],
+                  data.EffectiveTime.split(',')[1].split('-')[1],
+                ]
+              : '',
           }
+          // console.log(this.form)
         }
       },
       //提交信息
       setFormData(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            if (this.form.punchCard1 == '') {
+              this.form.punchCard1 = ['00:01', '11:00']
+            }
+            if (this.form.punchCard2 == '') {
+              this.form.punchCard2 = ['16:00', '23:59']
+            }
             let res = setClasses(this.form)
             if (this.form.id) {
               if (res.result == 2) {
@@ -373,7 +401,7 @@
                 this.$baseMessage(this.$t('operation_tips.tips_27'), 'warning')
               }
             }
-            this.dialogFormVisible = false
+            this.closeFn()
             this.init()
           } else {
             return false
@@ -430,5 +458,12 @@
   }
   .el-form {
     padding: 0 !important;
+  }
+  .set_btn {
+    display: inline-block;
+    color: blueviolet;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 10px 20px;
   }
 </style>

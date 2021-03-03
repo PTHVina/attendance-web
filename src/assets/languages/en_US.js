@@ -332,6 +332,7 @@ module.exports = {
     text_25: 'Please enter the shift name',
     text_26: 'Please select the working time',
     text_27: 'Please select a rest period',
+    text_28: 'Effective punch-in interval',
 
     text_30: 'Team name',
     text_31: 'type',
@@ -355,8 +356,8 @@ module.exports = {
     text_49: 'Select people',
     text_50: 'people',
     text_51: 'Special date',
-    text_52: 'Must punch in date',
-    text_53: 'No clock in date',
+    text_52: 'No clock in date',
+    text_53: 'Must punch in date',
     text_54: 'choice',
     text_55: 'full name',
     text_56: 'Personnel number',
@@ -368,5 +369,6 @@ module.exports = {
     text_62: 'Please enter team name',
     text_63: 'Please select attendance date',
     text_64: 'Please select a flight',
+    text_65: 'Shift type',
   },
 }

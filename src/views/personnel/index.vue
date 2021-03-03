@@ -337,6 +337,7 @@
     <!-- 人员信息 -->
     <el-dialog
       :title="$t('personnel.text_4')"
+      :close-on-click-modal="false"
       :visible.sync="dialogFormVisible"
       :width="lang == 'zh_CN' ? '600px' : '720px'"
       :destroy-on-close="true"
@@ -687,12 +688,12 @@
               message: this.$t('operation_tips.tips_13'),
               trigger: 'blur',
             },
-            {
-              min: 1,
-              max: 10,
-              message: this.$t('operation_tips.tips_2'),
-              trigger: 'blur',
-            },
+            // {
+            //   min: 1,
+            //   max: 10,
+            //   message: this.$t('operation_tips.tips_2'),
+            //   trigger: 'blur',
+            // },
           ],
           Employee_code: [
             {
@@ -759,7 +760,6 @@
       }
     },
     created() {
-      console.log(22222)
       this.typeList()
       this.init()
     },
@@ -779,7 +779,7 @@
         this.listLoading = true
         let list = getDataList(this.page)
         this.list = list[0]
-        console.log('list', list)
+        // console.log('list', list)
         this.page.total = list[1]
         let imageList = []
         this.list.forEach((item, index) => {
@@ -1004,10 +1004,13 @@
           this.departmentData = {}
           setTimeout(() => {
             this.$refs.cascader.panel.clearCheckedNodes()
+            this.$refs.cascader.dropDownVisible = false
           }, 300)
           return
+        } else {
+          this.departmentData = data.data
+          this.$refs.cascader.dropDownVisible = false
         }
-        this.departmentData = data.data
       },
       //选择图片
       checkImg() {
@@ -1052,7 +1055,7 @@
             }
             if (res.result == 2) {
               this.$baseMessage(res.data, 'success')
-              this.dialogFormVisible = false
+              this.closeFn()
               this.init()
             } else {
               this.$baseMessage(res.data, 'warning')
@@ -1074,7 +1077,7 @@
           Employee_code: '',
           phone: '',
           face_idcard: '',
-          idcardtype: '',
+          idcardtype: '32',
           Email: '',
           departmentname: '',
           Employetypename: '',

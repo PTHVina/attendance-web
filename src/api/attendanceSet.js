@@ -14,7 +14,7 @@ export function delClasses(id) {
 export function setClasses(data) {
   let json = {
     name: data.name,
-    Duration: data.time,
+    Duration: data.time.toString(),
     EffectiveTime:
       data.punchCard1 && data.punchCard1[0] != ''
         ? data.punchCard1[0] +

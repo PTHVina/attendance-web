@@ -9,7 +9,7 @@
     name: 'App',
     created() {
       let token = this.$store.getters['user/accessToken']
-      console.log('token', token)
+      // console.log('token', token)
       if (!token) {
         this.setdata()
       }

@@ -371,7 +371,7 @@
         setTimeout(() => {
           this.$refs['changeTagInput'].focus()
         }, 500)
-        console.log(tag)
+        // console.log(tag)
       },
       changeTag() {
         this.dynamicTags[this.isChange].Employetype_name = this.changeVal

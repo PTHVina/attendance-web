@@ -84,7 +84,7 @@ export function setLineData(data) {
     data.text5.toString(),
     data.text4.toString()
   )
-  console.log(re)
+  // console.log(re)
   var re_json = JSON.parse(re)
   return re_json
 }

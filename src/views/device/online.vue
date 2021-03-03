@@ -243,7 +243,7 @@
       init() {
         let list = getDeviceList()
         this.options = list
-        console.log(list, System, window)
+        // console.log(list, System, window)
         let data = {
           width: this.box_width,
           height: this.box_height,

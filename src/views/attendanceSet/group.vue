@@ -180,6 +180,7 @@
         :label-width="lang == 'zh_CN' ? '80px' : '120px'"
         :rules="rules"
         size="medium"
+        class="dialog_size"
       >
         <!-- 班组名 -->
         <el-form-item :label="$t('attendanceSet.text_30')" prop="name">
@@ -190,21 +191,36 @@
           ></el-input>
         </el-form-item>
         <!-- 选择人员 -->
-        <el-form-item :label="$t('attendanceSet.text_49')">
-          <el-tag v-for="(item, index) in selectRows" :key="index">
-            {{ item.name }}
-          </el-tag>
-          <el-button
-            type="primary"
-            size="mini"
-            style="margin-left: 10px; padding: 5px 15px"
-            @click="openTabelDialog"
-          >
-            {{ $t('attendanceSet.text_54') }}
-          </el-button>
-          <span v-if="form.count" style="margin-left: 5px; color: #888">
-            {{ form.count }}{{ $t('attendanceSet.text_50') }}
-          </span>
+        <el-form-item :label="$t('attendanceSet.text_49')" class="tag_list">
+          <div class="tag_num">
+            <el-tag v-for="(item, index) in selectRows" :key="index">
+              {{ item.name }}
+            </el-tag>
+          </div>
+          <div class="tag_btn">
+            <el-button
+              type="primary"
+              size="mini"
+              style="margin-left: 10px; padding: 5px 15px"
+              @click="openTabelDialog"
+            >
+              {{
+                form.count > 0
+                  ? $t('attendanceSet.text_66')
+                  : $t('attendanceSet.text_54')
+              }}
+            </el-button>
+            <span v-if="form.count" style="margin-left: 5px; color: #888">
+              {{ form.count }}{{ $t('attendanceSet.text_50') }}
+            </span>
+          </div>
+        </el-form-item>
+        <!-- 排班类型 -->
+        <el-form-item
+          :label="$t('attendanceSet.text_65')"
+          style="margin-bottom: 10px"
+        >
+          <el-tag>{{ $t('attendanceSet.text_32') }}</el-tag>
         </el-form-item>
         <!-- 周一 -->
         <el-form-item
@@ -328,7 +344,7 @@
             type="primary"
             size="mini"
             plain
-            @click="openDeteDialog(1)"
+            @click="openDeteDialog(0)"
           >
             {{ $t('attendanceSet.text_52') }}
           </el-button>
@@ -336,7 +352,7 @@
             type="primary"
             size="mini"
             plain
-            @click="openDeteDialog(0)"
+            @click="openDeteDialog(1)"
           >
             {{ $t('attendanceSet.text_53') }}
           </el-button>
@@ -357,14 +373,30 @@
       :visible.sync="dialogTableVisible"
       width="600px"
       :destroy-on-close="true"
+      :before-close="changeTabel"
     >
+      <div class="people_search">
+        <el-input
+          v-model="peopleText"
+          :placeholder="$t('attendanceSet.text_67')"
+        />
+        <el-button
+          icon="el-icon-search"
+          type="primary"
+          native-type="submit"
+          @click="peopleQuery"
+        >
+          {{ $t('operation_btn.btn_text_6') }}
+        </el-button>
+      </div>
       <el-table
         ref="numTable"
         v-loading="listLoading2"
         :data="personnelData"
         :highlight-current-row="true"
-        style="width: 100%"
         :element-loading-text="elementLoadingText"
+        class="dialog_size"
+        style="width: 100%; max-height: 65vh"
         @selection-change="setSelectRows"
       >
         <el-table-column type="selection"></el-table-column>
@@ -394,7 +426,7 @@
     <!-- 打卡日期 -->
     <el-dialog
       :title="
-        deteType == 1
+        deteType == 0
           ? $t('attendanceSet.text_52')
           : $t('attendanceSet.text_53')
       "
@@ -483,7 +515,7 @@
     <!-- 新增打卡日期 -->
     <el-dialog
       :title="
-        deteType == 1
+        deteType == 0
           ? $t('attendanceSet.text_52')
           : $t('attendanceSet.text_53')
       "
@@ -590,7 +622,9 @@
         dialogTableVisible: false, //选择人员
         listLoading2: false, //列表加载
         personnelData: [], //人员列表
+        personnelData2: [], //人员列表
         selectRows: [], //选中人员列表
+        peopleText: '', //搜索信息
 
         dialogDeteVisible: false, //打卡日期
         deteType: 1, //日期类型
@@ -652,6 +686,7 @@
         this.listLoading2 = true
         let res = getPersonnelList()
         this.personnelData = res
+        this.personnelData2 = res
         setTimeout(() => {
           this.listLoading2 = false
         }, 500)
@@ -702,7 +737,7 @@
         this.dialogFormVisible = true
         this.timestamp = new Date().valueOf()
         if (data.id) {
-          console.log('选中参数', data)
+          // console.log('选中参数', data)
           this.form = {
             id: data.id,
             name: data.name,
@@ -783,9 +818,12 @@
       //选择人员
       openTabelDialog() {
         this.dialogTableVisible = true
-        if (this.personnelData.length == 0) {
+        if (this.personnelData2.length == 0) {
           this.getPersonnelList()
+        } else {
+          this.personnelData = this.personnelData2
         }
+        this.peopleText = ''
         this.selectRows.forEach((item) => {
           this.$refs.numTable.toggleRowSelection(item)
         })
@@ -798,7 +836,31 @@
       changeTabel() {
         this.dialogTableVisible = false
         this.form.count = this.selectRows.length
-        console.log('选择人员', this.selectRows)
+        // console.log('选择人员', this.selectRows)
+      },
+      //搜索人员
+      peopleQuery() {
+        this.listLoading2 = true
+        this.selectRows = []
+        if (!this.peopleText) {
+          this.getPersonnelList()
+          return
+        }
+        let list = []
+        let text = this.peopleText
+        this.personnelData2.forEach((item, index) => {
+          if (
+            String(item.name).indexOf(text) != -1 ||
+            String(item.Employee_code).indexOf(text) != -1 ||
+            String(item.departmentname).indexOf(text) != -1
+          ) {
+            list.push(item)
+          }
+        })
+        this.personnelData = list
+        setTimeout(() => {
+          this.listLoading2 = false
+        }, 500)
       },
 
       //打卡日期
@@ -993,5 +1055,63 @@
   }
   .add_img:hover .add_box {
     display: flex;
+  }
+
+  .el-dialog {
+    margin-top: 60px !important;
+  }
+  .dialog_size {
+    max-height: 70vh;
+    overflow-y: scroll;
+  }
+  .dialog_size::-webkit-scrollbar {
+    width: 13px;
+    height: 13px;
+  }
+  .dialog_size::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    background-clip: padding-box;
+    border: 3px solid transparent;
+    border-radius: 7px;
+  }
+  .dialog_size::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  .dialog_size::-webkit-scrollbar-track:hover {
+    background-color: #f8fafc;
+  }
+
+  .tag_list {
+    .el-form-item__content {
+      display: flex;
+      align-items: center;
+      height: 100% !important;
+      .tag_num {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .tag_btn {
+        flex: 1;
+        min-width: 115px;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .people_search {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    .el-input {
+      flex: 1;
+      input {
+        border-radius: 4px 0 0 4px;
+      }
+    }
+    button {
+      border-radius: 0 4px 4px 0;
+      height: 32px;
+    }
   }
 </style>
