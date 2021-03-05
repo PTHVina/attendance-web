@@ -397,7 +397,11 @@
         <template #default="{ row }">
           <!-- 注册 -->
           <el-button
-            v-if="row.person_id == 0 || row.person_id == null"
+            v-if="
+              String(row.person_id).length == 0 ||
+              row.person_id == null ||
+              row.person_id == 0
+            "
             type="text"
             icon="el-icon-edit"
             @click="register(row)"

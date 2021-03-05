@@ -251,7 +251,7 @@
     changeIP,
   } from '@/api/device'
   export default {
-    name: 'DeviceIndex',
+    name: 'Index',
     data() {
       return {
         lang: this.$lang,

@@ -642,7 +642,7 @@
     setInform,
   } from '@/api/personnel'
   export default {
-    name: 'PersonnelIndex',
+    name: 'Index',
     data() {
       return {
         lang: this.$lang,

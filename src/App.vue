@@ -35,4 +35,19 @@
     float: right;
     color: red;
   }
+
+  .svg-inline--fa {
+    .fa-w-12,
+    .fa-w-14,
+    .fa-w-16,
+    .fa-w-18,
+    .fa-w-20 {
+      width: 1.25em !important;
+    }
+  }
+  .el-submenu__title {
+    .vab-fas-icon {
+      width: 1.25em !important;
+    }
+  }
 </style>

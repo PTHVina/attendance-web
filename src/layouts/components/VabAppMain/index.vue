@@ -1,7 +1,7 @@
 <template>
   <div v-if="routerView" class="app-main-container">
     <!-- <vab-github-corner /> -->
-    <transition mode="out-in" name="fade-transform">
+    <transition name="fade-transform" mode="out-in">
       <keep-alive :include="cachedRoutes" :max="keepAliveMaxNum">
         <router-view :key="key" class="app-main-height" />
       </keep-alive>

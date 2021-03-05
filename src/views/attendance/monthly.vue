@@ -96,7 +96,7 @@
       <el-table-column
         show-overflow-tooltip
         :label="$t('attendance.text_43')"
-        prop="attendance"
+        prop="Attendance"
         sortable
       ></el-table-column>
       <!-- 迟到次数/总时长(分钟) -->

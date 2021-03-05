@@ -652,7 +652,7 @@
             }
             if (res.result == 2) {
               this.$baseMessage(this.$t('operation_tips.tips_26'), 'success')
-              this.dialogFormVisible = false
+              this.closeFn()
               this.page.pageNo = 1
               this.init()
             } else {
