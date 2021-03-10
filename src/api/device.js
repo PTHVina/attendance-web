@@ -58,6 +58,30 @@ export function changeIP(data) {
 
   return true
 }
+//获取相机参数
+export function getCameraParameters(ip) {
+  let res = window.top.myExtension.getCameraParameters(ip)
+  let data_json = JSON.parse(res)
+
+  return data_json
+}
+//设置相机参数
+export function setCameraParameters(data) {
+  let res = window.top.myExtension.setCameraParameters(
+    data.ip,
+    data.dereplication.toString(),
+    data.enableAlive.toString(),
+    data.enable.toString(),
+    data.limit.toString(),
+    data.fillLight.toString(),
+    data.brightness.toString(),
+    data.sensitivity,
+    data.screensaver
+  )
+  let data_json = JSON.parse(res)
+
+  return data_json
+}
 
 //显示监控
 export function setDome(data) {

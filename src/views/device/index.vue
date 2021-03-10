@@ -74,7 +74,11 @@
         </template>
       </el-table-column>
       <!-- 操作 -->
-      <el-table-column :label="$t('device.text_6')" fixed="right">
+      <el-table-column
+        :label="$t('device.text_6')"
+        fixed="right"
+        :width="lang == 'Jan_JPN' ? '400px' : lang == 'en_US' ? '350px' : ''"
+      >
         <template #default="{ row }">
           <!-- 编辑 -->
           <el-button
@@ -87,6 +91,10 @@
           <!-- 开闸 -->
           <el-button type="text" icon="el-icon-thumb" @click="openDoor(row)">
             {{ $t('operation_btn.btn_text_24') }}
+          </el-button>
+          <!-- 设置 -->
+          <el-button type="text" icon="el-icon-setting" @click="handleSet(row)">
+            {{ $t('device.text_27') }}
           </el-button>
           <!-- 删除 -->
           <el-button
@@ -237,6 +245,83 @@
         </el-button>
       </div>
     </el-dialog>
+    <!-- 设置 -->
+    <el-dialog
+      :title="$t('device.text_27')"
+      :visible.sync="dialogTypeVisible"
+      :width="lang == 'zh_CN' ? '600px' : '800px'"
+      :destroy-on-close="true"
+      class="set_form"
+    >
+      <el-form
+        ref="SetForm"
+        :model="setForm"
+        :rules="rules"
+        :label-width="lang == 'zh_CN' ? '160px' : '230px'"
+        size="medium"
+      >
+        <el-form-item :label="$t('device.text_29')">
+          <el-switch
+            v-model="setForm.dereplication"
+            :active-text="$t('device.text_28')"
+            :inactive-text="$t('device.text_44')"
+            :disabled="true"
+          ></el-switch>
+        </el-form-item>
+        <el-form-item :label="$t('device.text_30')">
+          <el-switch
+            v-model="setForm.enableAlive"
+            :active-text="$t('device.text_28')"
+            :inactive-text="$t('device.text_44')"
+          ></el-switch>
+        </el-form-item>
+        <el-form-item :label="$t('device.text_31')">
+          <el-switch
+            v-model="setForm.enable"
+            :active-text="$t('device.text_28')"
+            :inactive-text="$t('device.text_44')"
+          ></el-switch>
+        </el-form-item>
+        <el-form-item :label="$t('device.text_32')" prop="limit">
+          <el-input
+            v-model="setForm.limit"
+            :placeholder="$t('device.text_33')"
+          ></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('device.text_34')">
+          <el-radio-group v-model="setForm.fillLight">
+            <el-radio label="1">{{ $t('device.text_35') }}</el-radio>
+            <el-radio label="2">{{ $t('device.text_36') }}</el-radio>
+            <el-radio label="3">{{ $t('device.text_37') }}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item :label="$t('device.text_38')">
+          <el-radio-group v-model="setForm.sensitivity">
+            <el-radio label="low">{{ $t('device.text_39') }}</el-radio>
+            <el-radio label="mid">{{ $t('device.text_40') }}</el-radio>
+            <el-radio label="high">{{ $t('device.text_41') }}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item :label="$t('device.text_42')">
+          <el-slider v-model="setForm.brightness" show-input></el-slider>
+        </el-form-item>
+        <el-form-item :label="$t('device.text_43')">
+          <el-radio-group v-model="setForm.screensaver">
+            <el-radio label="none">{{ $t('device.text_44') }}</el-radio>
+            <!-- <el-radio label="extinguish">{{ $t('device.text_45') }}</el-radio>
+            <el-radio label="media">{{ $t('device.text_46') }}</el-radio> -->
+          </el-radio-group>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogTypeVisible = false">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
+        <el-button type="primary" @click="setting('SetForm')">
+          {{ $t('operation_btn.btn_text_5') }}
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -249,9 +334,11 @@
     delDevice,
     getDeviceByLocal,
     changeIP,
+    getCameraParameters,
+    setCameraParameters,
   } from '@/api/device'
   export default {
-    name: 'Index',
+    name: 'DeviceIndex',
     data() {
       return {
         lang: this.$lang,
@@ -315,6 +402,13 @@
               trigger: 'blur',
             },
           ],
+          limit: [
+            {
+              pattern: /^([1-9]\d*\.?\d*)|(0\.\d*[1-9])$/,
+              message: this.$t('device.text_50'),
+              trigger: 'blur',
+            },
+          ],
         },
         dialogTableVisible: false, //表格弹窗控制
         IPList: [], //IP列表
@@ -325,6 +419,18 @@
           Netmask: '',
           gateway: '',
         },
+
+        dialogTypeVisible: false, //表格弹窗控制
+        setForm: {
+          dereplication: '', //允许注册重复
+          enableAlive: '', //活体检测开关
+          enable: '', //体温监测
+          limit: '', //开闸体温限制数值
+          fillLight: '', //补光模式
+          sensitivity: '', //灵敏度
+          brightness: '', //led亮度
+          screensaver: '', //屏保模式
+        }, //设置
       }
     },
     created() {
@@ -468,6 +574,7 @@
           }
         })
       },
+
       // 打开ip信息弹窗
       editIP(row) {
         this.dialogIPVisible = true
@@ -491,6 +598,48 @@
             setTimeout(() => {
               this.openTabelDialog()
             }, 3000)
+          } else {
+            return false
+          }
+        })
+      },
+
+      //打开相机参数设置
+      handleSet(row) {
+        if (!row.IsConnected) {
+          this.$baseMessage(this.$t('device.text_47'), 'warning')
+          return
+        }
+        this.dialogTypeVisible = true
+        let res = getCameraParameters(row.IP)
+        // console.log('res', res)
+        this.setForm = {
+          ip: row.IP,
+          // dereplication: res.face.enable_dereplication, //允许注册重复
+          dereplication: 'false', //允许注册重复
+          enableAlive: res.face.enable_alive, //活体检测开关
+          enable: res.face.body_temperature.enable, //体温监测
+          limit: Number(res.face.body_temperature.limit).toFixed(2).toString(), //开闸体温限制数值
+          fillLight: res.led_control.led_mode.toString(), //补光模式
+          sensitivity: res.led_control.led_sensitivity, //灵敏度
+          brightness: res.led_control.led_brightness, //led亮度
+          screensaver: 'none', //屏保模式
+        }
+      },
+      // 设置相机参数
+      setting(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            // console.log('form', this.setForm)
+            let res = setCameraParameters(this.setForm)
+            // console.log('set', res)
+            if (res) {
+              this.$baseMessage(this.$t('device.text_48'), 'success')
+              this.dialogTypeVisible = false
+              this.update()
+            } else {
+              this.$baseMessage(this.$t('device.text_49'), 'warning')
+            }
           } else {
             return false
           }
@@ -529,5 +678,8 @@
   }
   .el-form {
     padding: 0 !important;
+  }
+  .set_form .el-form-item__label {
+    padding-right: 30px !important;
   }
 </style>
