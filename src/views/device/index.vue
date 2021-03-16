@@ -312,6 +312,22 @@
             <el-radio label="media">{{ $t('device.text_46') }}</el-radio> -->
           </el-radio-group>
         </el-form-item>
+        <el-form-item
+          v-if="setForm.output_not_matched != 'no'"
+          :label="$t('device.text_52')"
+        >
+          <el-switch
+            v-model="setForm.output_not_matched"
+            :active-text="$t('device.text_28')"
+            :inactive-text="$t('device.text_44')"
+          ></el-switch>
+        </el-form-item>
+        <el-form-item
+          v-if="setForm.volume != 'no'"
+          :label="$t('device.text_53')"
+        >
+          <el-slider v-model="setForm.volume" show-input></el-slider>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogTypeVisible = false">
@@ -430,6 +446,8 @@
           sensitivity: '', //灵敏度
           brightness: '', //led亮度
           screensaver: '', //屏保模式
+          output_not_matched: 'no', //是否输出对比失败图像
+          volume: 'no', //音量
         }, //设置
       }
     },
@@ -610,8 +628,12 @@
           this.$baseMessage(this.$t('device.text_47'), 'warning')
           return
         }
-        this.dialogTypeVisible = true
         let res = getCameraParameters(row.IP)
+        if (res == -1) {
+          this.$baseMessage(this.$t('device.text_51'), 'warning')
+          return
+        }
+        this.dialogTypeVisible = true
         // console.log('res', res)
         this.setForm = {
           ip: row.IP,
@@ -624,7 +646,12 @@
           sensitivity: res.led_control.led_sensitivity, //灵敏度
           brightness: res.led_control.led_brightness, //led亮度
           screensaver: 'none', //屏保模式
+          output_not_matched: res.face.output_not_matched
+            ? res.face.output_not_matched
+            : 'no',
+          volume: res.volume ? Number(res.volume) : 'no',
         }
+        // console.log(this.setForm)
       },
       // 设置相机参数
       setting(formName) {

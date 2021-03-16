@@ -250,6 +250,9 @@ module.exports = {
     text_48: 'Set successfully',
     text_49: 'Setup failed',
     text_50: 'Please enter the correct temperature',
+    text_51: 'This device does not support parameter settings',
+    text_52: 'Output comparison failed image',
+    text_53: 'volume',
   },
   //抓拍管理
   snapshot: {
