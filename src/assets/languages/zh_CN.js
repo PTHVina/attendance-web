@@ -131,6 +131,7 @@ module.exports = {
     text_5: '迟到',
     text_6: '早退',
     text_7: '请假',
+    text_8: '我的设备',
   },
   // 系统设置
   system: {

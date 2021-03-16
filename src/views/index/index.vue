@@ -8,7 +8,7 @@
         </div>
         <!-- 注册人数 -->
         <div class="item_body">
-          <span class="item_num">{{ list.reg }}</span>
+          <span class="item_num">{{ tag.reg }}</span>
           <span class="item_tips">{{ $t('home.text_1') }}</span>
         </div>
       </li>
@@ -19,7 +19,7 @@
           <vab-icon :icon="['fas', 'video']"></vab-icon>
         </div>
         <div class="item_body">
-          <span class="item_num">{{ list.device }}</span>
+          <span class="item_num">{{ tag.device }}</span>
           <span class="item_tips">{{ $t('home.text_2') }}</span>
         </div>
       </li>
@@ -29,7 +29,7 @@
           <i class="el-icon-s-help"></i>
         </div>
         <div class="item_body">
-          <span class="item_num">{{ list.online }}</span>
+          <span class="item_num">{{ tag.online }}</span>
           <span class="item_tips">{{ $t('home.text_3') }}</span>
         </div>
       </li>
@@ -39,38 +39,110 @@
         </div>
         <div class="item_body">
           <!-- 今日出勤数 -->
-          <span class="item_num">{{ list.attendance.all }}</span>
+          <span class="item_num">{{ tag.attendance.all }}</span>
           <span class="item_tips">{{ $t('home.text_4') }}</span>
           <div>
             <!-- 迟到 -->
             <span class="text-nowrap">{{ $t('home.text_5') }}</span>
-            <span class="text-danger">{{ list.attendance.count1 }}</span>
+            <span class="text-danger">{{ tag.attendance.count1 }}</span>
             <!-- 早退 -->
             <span class="text-nowrap">{{ $t('home.text_6') }}</span>
-            <span class="text-danger">{{ list.attendance.count2 }}</span>
+            <span class="text-danger">{{ tag.attendance.count2 }}</span>
             <!-- 请假 -->
             <span class="text-nowrap">{{ $t('home.text_7') }}</span>
-            <span class="text-danger">{{ list.attendance.count3 }}</span>
+            <span class="text-danger">{{ tag.attendance.count3 }}</span>
           </div>
         </div>
       </li>
     </ul>
+    <div class="device_list">
+      <div class="list_title">{{ $t('home.text_8') }}</div>
+      <el-table
+        ref="tableSort"
+        v-loading="listLoading"
+        :data="list"
+        :highlight-current-row="true"
+        :element-loading-text="elementLoadingText"
+        height="350"
+      >
+        <!-- 设备名称 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('device.text_3')"
+          prop="DeviceName"
+          sortable
+        ></el-table-column>
+        <!-- IP地址 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('device.text_4')"
+          prop="IP"
+          sortable
+        ></el-table-column>
+        <!-- 状态 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('device.text_5')"
+          prop="IsConnected"
+          sortable
+        >
+          <template #default="{ row }">
+            <el-tag v-if="row.IsConnected">{{ $t('device.text_7') }}</el-tag>
+            <el-tag v-else type="danger">{{ $t('device.text_8') }}</el-tag>
+          </template>
+        </el-table-column>
+        <!-- 操作 -->
+        <el-table-column :label="$t('device.text_6')">
+          <template #default="{ row }">
+            <!-- 开闸 -->
+            <el-button type="text" @click="openDoor(row)">
+              <i style="font-size: 18px" class="el-icon-thumb"></i>
+              {{ $t('operation_btn.btn_text_24') }}
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
   </div>
 </template>
 
 <script>
   import { getList } from '@/api/index'
+  import { getDeviceList, openDoor } from '@/api/device'
   export default {
     name: 'Index',
     data() {
       return {
-        list: '',
+        tag: '',
+        list: [],
+        listLoading: false, //列表加载
+        elementLoadingText: this.$t('operation_tips.tips_12'),
       }
     },
     created() {
-      this.list = getList()
+      this.tag = getList()
+      this.init()
     },
-    methods: {},
+    methods: {
+      init() {
+        this.listLoading = true
+        let list = getDeviceList()
+        this.list = list
+        setTimeout(() => {
+          this.listLoading = false
+        }, 500)
+      },
+      //开闸
+      openDoor(row) {
+        openDoor(row.IP).then((res) => {
+          if (res) {
+            this.$baseMessage(this.$t('operation_tips.tips_40'), 'success')
+          } else {
+            this.$baseMessage(this.$t('operation_tips.tips_41'), 'warning')
+          }
+        })
+      },
+    },
   }
 </script>
 <style scoped>
@@ -162,5 +234,29 @@
       height: 50px;
       line-height: 60px;
     }
+  }
+</style>
+<style scoped>
+  .device_list {
+    width: calc(50% - 10px);
+    height: 350px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow-y: auto;
+    margin-top: 30px;
+    position: relative;
+  }
+  .device_list .list_title {
+    width: 100%;
+    height: 47px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background: #f9f9f9;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    line-height: 47px;
+    font-size: 18px;
   }
 </style>

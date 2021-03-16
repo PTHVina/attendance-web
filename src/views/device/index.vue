@@ -28,7 +28,6 @@
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
       height="745"
-      @sort-change="tableSortChange"
     >
       <!-- 序号 -->
       <el-table-column
@@ -302,9 +301,6 @@
             <el-radio label="high">{{ $t('device.text_41') }}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item :label="$t('device.text_42')">
-          <el-slider v-model="setForm.brightness" show-input></el-slider>
-        </el-form-item>
         <el-form-item :label="$t('device.text_43')">
           <el-radio-group v-model="setForm.screensaver">
             <el-radio label="none">{{ $t('device.text_44') }}</el-radio>
@@ -321,6 +317,9 @@
             :active-text="$t('device.text_28')"
             :inactive-text="$t('device.text_44')"
           ></el-switch>
+        </el-form-item>
+        <el-form-item :label="$t('device.text_42')">
+          <el-slider v-model="setForm.brightness" show-input></el-slider>
         </el-form-item>
         <el-form-item
           v-if="setForm.volume != 'no'"
@@ -474,14 +473,6 @@
           this.page.total = list.length
           this.listLoading = false
         }, 5000)
-      },
-      //表格排序
-      tableSortChange() {
-        const imageList = []
-        this.$refs.tableSort.tableData.forEach((item, index) => {
-          imageList.push(item.img)
-        })
-        this.imageList = imageList
       },
       //开闸
       openDoor(row) {

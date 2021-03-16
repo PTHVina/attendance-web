@@ -136,6 +136,7 @@ module.exports = {
     text_5: 'late',
     text_6: 'Leave early',
     text_7: 'leave',
+    text_8: 'My device',
   },
   // 系统设置
   system: {
