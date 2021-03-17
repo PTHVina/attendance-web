@@ -131,6 +131,10 @@
         setTimeout(() => {
           this.listLoading = false
         }, 500)
+        setInterval(() => {
+          let list = getDeviceList()
+          this.list = list
+        }, 10000)
       },
       //开闸
       openDoor(row) {

@@ -464,6 +464,11 @@
         setTimeout(() => {
           this.listLoading = false
         }, 500)
+        setInterval(() => {
+          let list = getDeviceList()
+          this.list = list
+          this.page.total = list.length
+        }, 10000)
       },
       update() {
         this.listLoading = true
@@ -472,7 +477,7 @@
           this.list = list
           this.page.total = list.length
           this.listLoading = false
-        }, 5000)
+        }, 1000)
       },
       //开闸
       openDoor(row) {
