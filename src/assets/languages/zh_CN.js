@@ -249,6 +249,10 @@ module.exports = {
     text_51: '此设备不支持参数设置',
     text_52: '输出对比失败图像',
     text_53: '音量大小',
+    text_54: 'DNS地址',
+    text_55: 'DNS地址不能为空!',
+    text_56: '请填写正确的DNS地址',
+    text_57: '编辑设备IP信息',
   },
   //抓拍管理
   snapshot: {

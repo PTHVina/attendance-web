@@ -254,6 +254,10 @@ module.exports = {
     text_51: 'This device does not support parameter settings',
     text_52: 'Output comparison failed image',
     text_53: 'volume',
+    text_54: 'DNS',
+    text_55: 'DNS address cannot be empty!',
+    text_56: 'Please fill in the correct DNS address',
+    text_57: 'Edit device IP information',
   },
   //抓拍管理
   snapshot: {

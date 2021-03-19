@@ -59,7 +59,24 @@
         :label="$t('device.text_4')"
         prop="IP"
         sortable
-      ></el-table-column>
+      >
+        <template #default="{ row }">
+          <el-tooltip
+            class="item"
+            effect="dark"
+            content="点击修改"
+            placement="top"
+          >
+            <el-button
+              type="text"
+              icon="el-icon-edit"
+              @click="openFormDialog(row)"
+            >
+              {{ row.IP }}
+            </el-button>
+          </el-tooltip>
+        </template>
+      </el-table-column>
       <!-- 状态 -->
       <el-table-column
         show-overflow-tooltip
@@ -83,9 +100,9 @@
           <el-button
             type="text"
             icon="el-icon-edit"
-            @click="openFormDialog(row)"
+            @click="openIPSetting(row)"
           >
-            {{ $t('operation_btn.btn_text_14') }}
+            IP{{ $t('operation_btn.btn_text_14') }}
           </el-button>
           <!-- 开闸 -->
           <el-button type="text" icon="el-icon-thumb" @click="openDoor(row)">
@@ -118,7 +135,7 @@
     <el-dialog
       :title="form.editIp ? $t('device.text_9') : $t('device.text_10')"
       :visible.sync="dialogFormVisible"
-      width="600px"
+      width="400px"
       :destroy-on-close="true"
       :before-close="closeFn"
     >
@@ -170,6 +187,8 @@
         :data="IPList"
         :highlight-current-row="true"
         :element-loading-text="elementLoadingText"
+        class="dialog_size"
+        style="width: 100%; max-height: 65vh"
       >
         <!-- IP地址 -->
         <el-table-column
@@ -337,6 +356,51 @@
         </el-button>
       </div>
     </el-dialog>
+    <!-- 相机IP编辑 -->
+    <el-dialog
+      :title="$t('device.text_57')"
+      :visible.sync="dialogCameraVisible"
+      :width="lang == 'zh_CN' ? '400px' : '500px'"
+      :destroy-on-close="true"
+    >
+      <el-form
+        ref="Cameraform"
+        :model="ipParameters"
+        :label-width="lang == 'zh_CN' ? '90px' : '180px'"
+        :rules="rules"
+        size="medium"
+      >
+        <el-form-item :label="$t('device.text_4')" prop="ip">
+          <el-input v-model="ipParameters.ip" placeholder="IP"></el-input>
+        </el-form-item>
+        <!-- 子网掩码 -->
+        <el-form-item :label="$t('device.text_15')" prop="netmask">
+          <el-input
+            v-model="ipParameters.netmask"
+            :placeholder="$t('device.text_15')"
+          ></el-input>
+        </el-form-item>
+        <!-- 默认网关 -->
+        <el-form-item :label="$t('device.text_16')" prop="gateway">
+          <el-input
+            v-model="ipParameters.gateway"
+            :placeholder="$t('device.text_16')"
+          ></el-input>
+        </el-form-item>
+        <!-- DNS -->
+        <el-form-item :label="$t('device.text_54')" prop="dns">
+          <el-input v-model="ipParameters.dns" placeholder="dns"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogCameraVisible = false">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
+        <el-button type="primary" @click="settingCameraIP('Cameraform')">
+          {{ $t('operation_btn.btn_text_5') }}
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -351,6 +415,8 @@
     changeIP,
     getCameraParameters,
     setCameraParameters,
+    getCameraIp,
+    setCameraIP,
   } from '@/api/device'
   export default {
     name: 'DeviceIndex',
@@ -417,6 +483,42 @@
               trigger: 'blur',
             },
           ],
+          ip: [
+            {
+              required: true,
+              message: this.$t('device.text_17'),
+              trigger: 'blur',
+            },
+            {
+              pattern: /^((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d))|\*)((\/([012]\d|3[012]|\d))?)(,((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d))|\*)((\/([012]\d|3[012]|\d))?))*$/,
+              message: this.$t('device.text_18'),
+              trigger: 'blur',
+            },
+          ],
+          netmask: [
+            {
+              required: true,
+              message: this.$t('device.text_20'),
+              trigger: 'blur',
+            },
+            {
+              pattern: /^(254|252|248|240|224|192|128|0)\.0\.0\.0|255\.(254|252|248|240|224|192|128|0)\.0\.0|255\.255\.(254|252|248|240|224|192|128|0)\.0|255\.255\.255\.(254|252|248|240|224|192|128|0)$/,
+              message: this.$t('device.text_23'),
+              trigger: 'blur',
+            },
+          ],
+          dns: [
+            {
+              required: true,
+              message: this.$t('device.text_55'),
+              trigger: 'blur',
+            },
+            {
+              pattern: /^((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d))|\*)((\/([012]\d|3[012]|\d))?)(,((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d))|\*)((\/([012]\d|3[012]|\d))?))*$/,
+              message: this.$t('device.text_56'),
+              trigger: 'blur',
+            },
+          ],
           limit: [
             {
               pattern: /^([1-9]\d*\.?\d*)|(0\.\d*[1-9])$/,
@@ -448,6 +550,10 @@
           output_not_matched: 'no', //是否输出对比失败图像
           volume: 'no', //音量
         }, //设置
+
+        ipParameters: {}, //相机ip参数
+        cameraIp: '',
+        dialogCameraVisible: false,
       }
     },
     created() {
@@ -477,7 +583,7 @@
           this.list = list
           this.page.total = list.length
           this.listLoading = false
-        }, 1000)
+        }, 3000)
       },
       //开闸
       openDoor(row) {
@@ -505,12 +611,18 @@
       //打开弹窗
       openFormDialog(data) {
         this.dialogFormVisible = true
+        console.log(data)
         if (data.Deviceid) {
           this.form = data
           this.form.editIp = data.IP
+        } else {
+          this.form = {
+            IP: '',
+            DeviceName: '',
+          }
         }
       },
-      //添加设备
+      //添加/编辑设备
       addDevice(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -668,6 +780,53 @@
           }
         })
       },
+
+      //打开相机ip设置
+      openIPSetting(row) {
+        if (!row.IsConnected) {
+          this.$baseMessage(this.$t('device.text_47'), 'warning')
+          return
+        }
+        this.dialogCameraVisible = true
+        let res = getCameraIp(row.IP)
+        this.ipParameters = res
+        this.cameraIp = row.IP
+
+        this.form = row
+      },
+      // 设置相机ip
+      settingCameraIP(formName) {
+        const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(255, 255, 255, 0.9)',
+        })
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            let res = setCameraIP(this.ipParameters, this.cameraIp)
+            // console.log(res)
+            this.form.editIp = this.form.IP
+            this.form.IP = this.ipParameters.ip
+            console.log(this.form)
+            setTimeout(() => {
+              if (res) {
+                let result = editDevice(this.form)
+                console.log('edit', result)
+                this.$baseMessage(this.$t('device.text_48'), 'success')
+                this.dialogCameraVisible = false
+                this.update()
+              } else {
+                this.$baseMessage(this.$t('device.text_49'), 'warning')
+              }
+              loading.close()
+            }, 1500)
+          } else {
+            loading.close()
+            return false
+          }
+        })
+      },
     },
   }
 </script>
@@ -704,5 +863,25 @@
   }
   .set_form .el-form-item__label {
     padding-right: 30px !important;
+  }
+  .dialog_size {
+    max-height: 70vh;
+    overflow-y: scroll;
+  }
+  .dialog_size::-webkit-scrollbar {
+    width: 13px;
+    height: 13px;
+  }
+  .dialog_size::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    background-clip: padding-box;
+    border: 3px solid transparent;
+    border-radius: 7px;
+  }
+  .dialog_size::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  .dialog_size::-webkit-scrollbar-track:hover {
+    background-color: #f8fafc;
   }
 </style>
