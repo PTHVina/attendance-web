@@ -258,6 +258,9 @@ module.exports = {
     text_55: 'DNS address cannot be empty!',
     text_56: 'Please fill in the correct DNS address',
     text_57: 'Edit device IP information',
+    text_58: 'Whether to synchronize time',
+    text_59: 'synchronised time',
+    text_60: 'Out of sync time',
   },
   //抓拍管理
   snapshot: {

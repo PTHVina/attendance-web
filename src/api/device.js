@@ -104,6 +104,20 @@ export function setCameraIP(data, ip) {
 
   return data_json
 }
+//获取同步时间开关
+export function getSwitch() {
+  let res = window.top.myExtension.gettime_syn()
+  let data_json = JSON.parse(res)
+
+  return data_json
+}
+//设置同步时间
+export function setSwitch(type) {
+  let res = window.top.myExtension.setSystem_setting(type.toString())
+  let data_json = JSON.parse(res)
+
+  return data_json
+}
 
 //显示监控
 export function setDome(data) {

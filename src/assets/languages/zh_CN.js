@@ -253,6 +253,9 @@ module.exports = {
     text_55: 'DNS地址不能为空!',
     text_56: '请填写正确的DNS地址',
     text_57: '编辑设备IP信息',
+    text_58: '是否同步时间',
+    text_59: '同步时间',
+    text_60: '不同步时间',
   },
   //抓拍管理
   snapshot: {

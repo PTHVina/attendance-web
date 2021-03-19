@@ -10,11 +10,25 @@
         <el-button
           icon="el-icon-search"
           type="primary"
-          style="opacity: 0.7"
           @click="openTabelDialog"
         >
           {{ $t('operation_btn.btn_text_23') }}
         </el-button>
+        <!-- 是否同步时间 -->
+        <div style="margin-left: 30px; display: inline-block">
+          <span style="margin-right: 10px">{{ $t('device.text_58') }}</span>
+          <el-tooltip
+            :content="
+              synchronizationTime ? $t('device.text_59') : $t('device.text_60')
+            "
+            placement="top"
+          >
+            <el-switch
+              v-model="synchronizationTime"
+              @change="setSynchronizationTime"
+            ></el-switch>
+          </el-tooltip>
+        </div>
         <span class="tips">
           {{ $t('operation_tips.tips_39') }}
         </span>
@@ -417,6 +431,8 @@
     setCameraParameters,
     getCameraIp,
     setCameraIP,
+    getSwitch,
+    setSwitch,
   } from '@/api/device'
   export default {
     name: 'DeviceIndex',
@@ -554,10 +570,13 @@
         ipParameters: {}, //相机ip参数
         cameraIp: '',
         dialogCameraVisible: false,
+
+        synchronizationTime: true, //是否同步时间
       }
     },
     created() {
       this.init()
+      this.synchronizationTime = getSwitch()
     },
     beforeDestroy() {},
     mounted() {},
@@ -611,7 +630,6 @@
       //打开弹窗
       openFormDialog(data) {
         this.dialogFormVisible = true
-        console.log(data)
         if (data.Deviceid) {
           this.form = data
           this.form.editIp = data.IP
@@ -808,11 +826,11 @@
             // console.log(res)
             this.form.editIp = this.form.IP
             this.form.IP = this.ipParameters.ip
-            console.log(this.form)
+            // console.log(this.form)
             setTimeout(() => {
               if (res) {
                 let result = editDevice(this.form)
-                console.log('edit', result)
+                // console.log('edit', result)
                 this.$baseMessage(this.$t('device.text_48'), 'success')
                 this.dialogCameraVisible = false
                 this.update()
@@ -826,6 +844,17 @@
             return false
           }
         })
+      },
+
+      //设置同步时间
+      setSynchronizationTime(e) {
+        let res = setSwitch(e)
+        if (res) {
+          this.$baseMessage(this.$t('device.text_48'), 'success')
+        } else {
+          this.synchronizationTime = !this.synchronizationTime
+          this.$baseMessage(this.$t('device.text_49'), 'warning')
+        }
       },
     },
   }
