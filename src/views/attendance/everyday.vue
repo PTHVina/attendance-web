@@ -161,7 +161,7 @@
         show-overflow-tooltip
         :label="$t('attendance.text_15')"
         prop="Punchinformation"
-        :width="lang == 'zh_CN' ? '300px' : '400px'"
+        :width="lang == 'zh_CN' ? '340px' : '450px'"
       >
         <template #default="{ row }">
           <div class="tab_box">
@@ -192,7 +192,13 @@
               </span>
             </div>
             <div>
-              <span>{{ $t('attendance.text_19') }}：</span>
+              <span>
+                {{ $t('attendance.text_19') }}
+                <span v-if="row.IsAcrossNight">
+                  {{ $t('attendance.text_34') }}
+                </span>
+                ：
+              </span>
               <span v-if="row.Punchinformation1">
                 {{ row.Punchinformation1 }}
               </span>
@@ -627,7 +633,7 @@
       // 导出设置列表
       getSetting() {
         let res = defaultSet()[0]
-        let key = res.keyStr.split(',')
+        let key = res && res.keyStr ? res.keyStr.split(',') : ''
         if (key == '') {
           return
         }

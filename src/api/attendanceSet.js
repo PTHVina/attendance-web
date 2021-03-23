@@ -12,24 +12,50 @@ export function delClasses(id) {
 }
 //新增/修改班次
 export function setClasses(data) {
-  let json = {
-    name: data.name,
-    Duration: data.time.toString(),
-    EffectiveTime:
-      data.punchCard1 && data.punchCard1[0] != ''
-        ? data.punchCard1[0] +
-          '-' +
-          data.punchCard1[1] +
-          ',' +
-          data.punchCard2[0] +
-          '-' +
-          data.punchCard2[1]
-        : '',
-    gotowork1: data.commuter[0] + '-' + data.commuter[1],
-    gotowork2: '',
-    gooffwork3: '',
-    rest_time: data.rest[0] + '-' + data.rest[1],
+  let json = {}
+  if (!data.IsAcrossNight) {
+    // 白班数据
+    json = {
+      IsAcrossNight: data.IsAcrossNight,
+      name: data.name,
+      Duration: data.time.toString(),
+      EffectiveTime:
+        data.punchCard1 && data.punchCard1[0] != ''
+          ? data.punchCard1[0] +
+            '-' +
+            data.punchCard1[1] +
+            ',' +
+            data.punchCard2[0] +
+            '-' +
+            data.punchCard2[1]
+          : '',
+      gotowork1: data.commuter[0] + '-' + data.commuter[1],
+      gotowork2: '',
+      gooffwork3: '',
+      rest_time: data.rest[0] + '-' + data.rest[1],
+    }
+  } else {
+    // 夜班数据
+    json = {
+      IsAcrossNight: data.IsAcrossNight,
+      name: data.name,
+      Duration: data.time.toString(),
+      EffectiveTime:
+        data.CIARange1 +
+        '-' +
+        data.CIARange2 +
+        ',' +
+        data.CIBRange1 +
+        '-' +
+        data.CIBRange2,
+      gotowork1: data.clockIn1 + '-' + data.clockIn2,
+      gotowork2: '',
+      gooffwork3: '',
+      rest_time: data.repose1 + '-' + data.repose2,
+    }
   }
+  console.log('data', json)
+  return false
   let json_data = JSON.stringify(json)
   let res
   if (data.id) {

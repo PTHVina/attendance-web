@@ -348,6 +348,7 @@ module.exports = {
     text_32:
       'The off duty time cannot be less than the time of card replacement',
     text_33: 'There is no clock in information at the current time',
+    text_34: 'Next day',
 
     text_40: 'Attendance month',
     text_41: 'Select month',
@@ -389,6 +390,7 @@ module.exports = {
     text_26: 'Please select the working time',
     text_27: 'Please select a rest period',
     text_28: 'Effective punch-in interval',
+    text_29: 'Next day',
 
     text_30: 'Team name',
     text_31: 'type',
