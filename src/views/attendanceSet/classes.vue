@@ -61,14 +61,14 @@
         :label="$t('attendanceSet.text_5')"
         prop="gotowork1"
       ></el-table-column>
-      <!-- 工作时段二
-        <el-table-column
+      <!-- 工作时段二 -->
+      <!-- <el-table-column
         show-overflow-tooltip
         :label="$t('attendanceSet.text_6')"
         prop="gotowork2"
-      ></el-table-column>
-      工作时段三
-      <el-table-column
+      ></el-table-column> -->
+      <!-- 工作时段三 -->
+      <!-- <el-table-column
         show-overflow-tooltip
         :label="$t('attendanceSet.text_7')"
         prop="gooffwork3"
@@ -883,10 +883,11 @@
         this.dialogFormVisible = true
         this.isShow = false
         if (data.id) {
-          // console.log('选中参数', data)
+          console.log('选中参数', data)
           this.form = {
             id: data.id,
-            IsAcrossNight: data.IsAcrossNight == 'True' ? true : false,
+            IsAcrossNight:
+              data.IsAcrossNight && data.IsAcrossNight == 'true' ? true : false,
             name: data.name,
             radio: '1',
             commuter: [
