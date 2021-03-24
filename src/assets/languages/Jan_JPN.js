@@ -426,5 +426,26 @@ module.exports = {
     text_65: 'シフトタイプ',
     text_66: 'もっと',
     text_67: '名前、番号、部門のクエリを入力してください',
+
+    text_70: 'Please choose working time',
+    text_71: 'Please select an off-duty time',
+    text_72: 'Day shift',
+    text_73: 'night shift',
+    text_74: 'Shift type',
+    text_75: 'The start time of the break cannot be less than the working time',
+    text_76: 'The break start time cannot be after get off work hours',
+    text_77: 'The end of the break cannot be after get off work hours',
+    text_78:
+      'The end time of valid clock-in at get off work cannot exceed the off-duty time',
+    text_79:
+      'The start time of valid clock-in at work cannot exceed the working hours',
+    text_80:
+      'The start time of valid check-in after get off work cannot exceed the work time',
+    text_81:
+      'The end time of valid check-in after work cannot be earlier than the end of get off work time',
+    text_82:
+      'The start time of valid check-in after work cannot be later than the end of get off work time',
+    text_83:
+      'The end time of valid check-in at work cannot be earlier than work time',
   },
 }

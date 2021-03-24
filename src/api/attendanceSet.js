@@ -54,8 +54,6 @@ export function setClasses(data) {
       rest_time: data.repose1 + '-' + data.repose2,
     }
   }
-  console.log('data', json)
-  return false
   let json_data = JSON.stringify(json)
   let res
   if (data.id) {

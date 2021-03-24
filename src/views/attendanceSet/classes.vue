@@ -41,11 +41,11 @@
         prop="IsAcrossNight"
       >
         <template #default="{ row }">
-          <el-tag v-if="!row.IsAcrossNight">
-            {{ $t('attendanceSet.text_72') }}
-          </el-tag>
-          <el-tag v-else type="danger">
+          <el-tag v-if="row.IsAcrossNight == 'True'" type="danger">
             {{ $t('attendanceSet.text_73') }}
+          </el-tag>
+          <el-tag v-else>
+            {{ $t('attendanceSet.text_72') }}
           </el-tag>
         </template>
       </el-table-column>
@@ -127,6 +127,7 @@
             v-model="form.IsAcrossNight"
             :active-text="$t('attendanceSet.text_73')"
             :inactive-text="$t('attendanceSet.text_72')"
+            :disabled="form.id ? true : false"
           ></el-switch>
         </el-form-item>
         <!-- 班次 -->
@@ -274,8 +275,10 @@
             {{ timeLong }}{{ $t('attendanceSet.text_22') }}
           </el-tag>
         </el-form-item>
-        <div class="set_btn el-icon-thumb" @click="setShow">
-          &nbsp;{{ $t('attendanceSet.text_28') }}
+        <div class="set_btn" @click="setShow">
+          {{ $t('attendanceSet.text_28') }}
+          <i v-if="isShow" class="el-icon-open"></i>
+          <i v-if="!isShow" class="el-icon-turn-off"></i>
         </div>
         <!-- 上班有效打卡区间-白班 -->
         <el-form-item
@@ -389,6 +392,20 @@
 </template>
 
 <script>
+  //时间大小
+  function timeReplace(time) {
+    return parseInt(time.replace(':', ''))
+  }
+  // 分割时间 [时，分]
+  function timeSplit(time) {
+    let list = time.split(':')
+    let array = []
+    list.forEach((item) => {
+      array.push(parseInt(item))
+    })
+    return array
+  }
+
   import { getshiftlist, delClasses, setClasses } from '@/api/attendanceSet'
   export default {
     name: 'Classes',
@@ -409,15 +426,15 @@
           rest: ['12:00', '13:00'], //白班休息时间
           clockIn1: '20:00', //夜班上班打卡时间
           clockIn2: '08:00', //夜班下班打卡时间
-          repose1: '00:00', //夜班休息时间
-          repose2: '01:00', //夜班休息时间
+          repose1: '00:00', //夜班休息时间开始
+          repose2: '01:00', //夜班休息时间结婚时
           time: '',
-          punchCard1: '', //上班有效打卡区间
-          punchCard2: '', //下班有效打卡区间
-          CIARange1: '', //上班有效打卡区间-夜班
-          CIARange2: '', //上班有效打卡区间-夜班
-          CIBRange1: '', //下班有效打卡区间-夜班
-          CIBRange2: '', //下班有效打卡区间-夜班
+          punchCard1: '', //上班有效打卡区间-白班
+          punchCard2: '', //下班有效打卡区间-白班
+          CIARange1: '', //上班有效打卡区间开始-夜班
+          CIARange2: '', //上班有效打卡区间结束-夜班
+          CIBRange1: '', //下班有效打卡区间开始-夜班
+          CIBRange2: '', //下班有效打卡区间结束-夜班
         },
         rules: {
           name: [
@@ -585,7 +602,7 @@
             ]
           }
         }
-        if (Number(this.form.repose1.split(':')[0]) > 12) {
+        if (timeSplit(this.form.repose1)[0] > 12) {
           return [
             this.form.repose1 + ':00' + '-23:59:00',
             '00:00:00-' + this.form.clockIn2 + ':00',
@@ -599,7 +616,7 @@
         if (!this.form.IsAcrossNight || !this.form.clockIn1) {
           return '12:00:00-23:59:00'
         }
-        let start = Number(this.form.clockIn1.split(':')[0]) - 5
+        let start = timeSplit(this.form.clockIn1)[0] - 5
         start = start < 10 ? '0' + start : start
 
         return (
@@ -617,7 +634,7 @@
           return '12:00:00-23:59:00'
         }
         let time = ''
-        let end = Number(this.form.clockIn1.split(':')[0]) + 2
+        let end = timeSplit(this.form.clockIn1)[0] + 2
         if (end >= 24) {
           time = this.form.clockIn1 + ':00-23:59:00'
         } else {
@@ -636,7 +653,7 @@
         if (!this.form.IsAcrossNight || !this.form.clockIn2) {
           return '00:00:00-12:00:00'
         }
-        let start = Number(this.form.clockIn2.split(':')[0]) - 2
+        let start = timeSplit(this.form.clockIn2)[0] - 2
         if (start < 0) {
           return '00:00:00-' + this.form.clockIn2 + ':00'
         } else {
@@ -656,7 +673,7 @@
         if (!this.form.IsAcrossNight || !this.form.clockIn2) {
           return '00:00:00-12:00:00'
         }
-        let end = Number(this.form.clockIn2.split(':')[0]) + 5
+        let end = timeSplit(this.form.clockIn2)[0] + 5
         end = end < 10 ? '0' + end : end
 
         return (
@@ -695,11 +712,8 @@
         }
         this.form.clockIn1 = val
         //判断休息时间是否在有效时间之内
-        if (this.form.repose1 && Number(this.form.repose1.split(':')[0] > 12)) {
-          if (
-            Number(val.replace(':', '')) >
-            Number(this.form.repose1.replace(':', ''))
-          ) {
+        if (this.form.repose1 && timeSplit(this.form.repose1)[0] > 12) {
+          if (timeReplace(val) > timeReplace(this.form.repose1)) {
             this.form.repose1 = ''
             this.form.repose2 = ''
           }
@@ -707,22 +721,16 @@
         // 判断打卡有效区间开始结束时间是否在有效时间范围之内
         if (this.form.CIARange1) {
           if (
-            Number(this.form.CIARange1.replace(':', '')) >
-              Number(val.replace(':', '')) ||
-            Number(val.split(':')[0]) -
-              Number(this.form.CIARange1.split(':')[0]) >
-              5
+            timeReplace(this.form.CIARange1) > timeReplace(val) ||
+            timeSplit(val)[0] - timeSplit(this.form.CIARange1)[0] > 5
           ) {
             this.form.CIARange1 = ''
           }
         }
         if (this.form.CIARange2) {
           if (
-            Number(this.form.CIARange2.replace(':', '')) <
-              Number(val.replace(':', '')) ||
-            Number(this.form.CIARange2.split(':')[0]) -
-              Number(val.split(':')[0]) >
-              2
+            timeReplace(this.form.CIARange2) < timeReplace(val) ||
+            timeSplit(this.form.CIARange2)[0] - timeSplit(val)[0] > 2
           ) {
             this.form.CIARange2 = ''
           }
@@ -735,40 +743,28 @@
         this.form.clockIn2 = val
         //判断休息时间是否在有效时间之内
         if (this.form.repose1 && Number(this.form.repose1.split(':')[0] < 12)) {
-          if (
-            Number(val.replace(':', '')) <
-            Number(this.form.repose1.replace(':', ''))
-          ) {
+          if (timeReplace(val) < timeReplace(this.form.repose1)) {
             this.form.repose1 = ''
             this.form.repose2 = ''
           }
         }
-        if (
-          Number(val.replace(':', '')) <
-          Number(this.form.repose2.replace(':', ''))
-        ) {
+        if (timeReplace(val) < timeReplace(this.form.repose2)) {
           this.form.repose2 = ''
         }
 
         // 判断打卡有效区间开始结束时间是否在有效时间范围之内
         if (this.form.CIBRange1) {
           if (
-            Number(this.form.CIBRange1.replace(':', '')) >
-              Number(val.replace(':', '')) ||
-            Number(val.split(':')[0]) -
-              Number(this.form.CIBRange1.split(':')[0]) >
-              2
+            timeReplace(this.form.CIBRange1) > timeReplace(val) ||
+            timeSplit(val)[0] - timeSplit(this.form.CIBRange1)[0] > 2
           ) {
             this.form.CIBRange1 = ''
           }
         }
         if (this.form.CIBRange2) {
           if (
-            Number(this.form.CIBRange2.replace(':', '')) <
-              Number(val.replace(':', '')) ||
-            Number(this.form.CIBRange2.split(':')[0]) -
-              Number(val.split(':')[0]) >
-              5
+            timeReplace(this.form.CIBRange2) < timeReplace(val) ||
+            timeSplit(this.form.CIBRange2)[0] - timeSplit(val)[0] > 5
           ) {
             this.form.CIBRange2 = ''
           }
@@ -780,12 +776,11 @@
         }
         this.form.repose1 = val
         if (
-          Number(this.form.repose1.split(':')[0]) < 12 ||
-          Number(this.form.repose2.split(':')[0]) > 12
+          timeSplit(this.form.repose1)[0] < 12 ||
+          timeSplit(this.form.repose2)[0] > 12
         ) {
           if (
-            Number(this.form.repose2.replace(':', '')) -
-              Number(this.form.repose1.replace(':', '')) <
+            timeReplace(this.form.repose2) - timeReplace(this.form.repose1) <
             0
           ) {
             this.form.repose2 = ''
@@ -796,8 +791,6 @@
     created() {
       this.init()
     },
-    beforeDestroy() {},
-    mounted() {},
     methods: {
       init() {
         this.listLoading = true
@@ -825,26 +818,17 @@
       },
       //监控休息时间范围
       restChange(val) {
-        if (
-          Number(val[0].replace(':', '')) <
-          Number(this.form.commuter[0].replace(':', ''))
-        ) {
+        if (timeReplace(val[0]) < timeReplace(this.form.commuter[0])) {
           this.$baseMessage(this.$t('attendanceSet.text_75'), 'warning')
           this.form.rest = [this.form.commuter[0], val[1]]
           return
         }
-        if (
-          Number(val[0].replace(':', '')) >
-          Number(this.form.commuter[1].replace(':', ''))
-        ) {
+        if (timeReplace(val[0]) > timeReplace(this.form.commuter[1])) {
           this.$baseMessage(this.$t('attendanceSet.text_76'), 'warning')
           this.form.rest = ['12:00', this.form.commuter[1]]
           return
         }
-        if (
-          Number(val[1].replace(':', '')) >
-          Number(this.form.commuter[1].replace(':', ''))
-        ) {
+        if (timeReplace(val[1]) > timeReplace(this.form.commuter[1])) {
           this.$baseMessage(this.$t('attendanceSet.text_77'), 'warning')
           this.form.rest = [val[0], this.form.commuter[1]]
           return
@@ -856,26 +840,17 @@
           this.form.punchCard1 = ''
           return
         }
-        if (
-          Number(val[1].replace(':', '')) >
-          Number(this.form.commuter[1].replace(':', ''))
-        ) {
+        if (timeReplace(val[1]) > timeReplace(this.form.commuter[1])) {
           this.$baseMessage(this.$t('attendanceSet.text_78'), 'warning')
           this.form.punchCard1 = [val[0], this.form.commuter[1]]
           return
         }
-        if (
-          Number(val[1].replace(':', '')) <
-          Number(this.form.commuter[0].replace(':', ''))
-        ) {
+        if (timeReplace(val[1]) < timeReplace(this.form.commuter[0])) {
           this.$baseMessage(this.$t('attendanceSet.text_83'), 'warning')
           this.form.punchCard1 = [val[0], this.form.commuter[1]]
           return
         }
-        if (
-          Number(val[0].replace(':', '')) >
-          Number(this.form.commuter[0].replace(':', ''))
-        ) {
+        if (timeReplace(val[0]) > timeReplace(this.form.commuter[0])) {
           this.$baseMessage(this.$t('attendanceSet.text_79'), 'warning')
           this.form.punchCard1 = ['00:00', val[1]]
           return
@@ -887,26 +862,17 @@
           this.form.punchCard2 = ''
           return
         }
-        if (
-          Number(val[0].replace(':', '')) <
-          Number(this.form.commuter[0].replace(':', ''))
-        ) {
+        if (timeReplace(val[0]) < timeReplace(this.form.commuter[0])) {
           this.$baseMessage(this.$t('attendanceSet.text_80'), 'warning')
           this.form.punchCard2 = [this.form.commuter[0], val[1]]
           return
         }
-        if (
-          Number(val[0].replace(':', '')) >
-          Number(this.form.commuter[1].replace(':', ''))
-        ) {
+        if (timeReplace(val[0]) > timeReplace(this.form.commuter[1])) {
           this.$baseMessage(this.$t('attendanceSet.text_82'), 'warning')
           this.form.punchCard2 = [this.form.commuter[1], val[1]]
           return
         }
-        if (
-          Number(val[1].replace(':', '')) <
-          Number(this.form.commuter[1].replace(':', ''))
-        ) {
+        if (timeReplace(val[1]) < timeReplace(this.form.commuter[1])) {
           this.$baseMessage(this.$t('attendanceSet.text_81'), 'warning')
           this.form.punchCard2 = [val[0], '23:59']
           return
@@ -920,7 +886,7 @@
           // console.log('选中参数', data)
           this.form = {
             id: data.id,
-            IsAcrossNight: data.IsAcrossNight ? data.IsAcrossNight : false,
+            IsAcrossNight: data.IsAcrossNight == 'True' ? true : false,
             name: data.name,
             radio: '1',
             commuter: [
@@ -928,18 +894,10 @@
               data.gotowork1.split('-')[1],
             ],
             rest: [data.rest_time.split('-')[0], data.rest_time.split('-')[1]],
-            clockIn1: data.IsAcrossNight
-              ? data.gotowork1.split('-')[0]
-              : '20:00',
-            clockIn2: data.IsAcrossNight
-              ? data.gotowork1.split('-')[1]
-              : '08:00',
-            repose1: data.IsAcrossNight
-              ? data.rest_time.split('-')[0]
-              : '00:00',
-            repose2: data.IsAcrossNight
-              ? data.rest_time.split('-')[1]
-              : '01:00',
+            clockIn1: data.gotowork1.split('-')[0],
+            clockIn2: data.gotowork1.split('-')[1],
+            repose1: data.rest_time.split('-')[0],
+            repose2: data.rest_time.split('-')[1],
             time: data.Duration,
             punchCard1: data.EffectiveTime
               ? [
@@ -953,18 +911,10 @@
                   data.EffectiveTime.split(',')[1].split('-')[1],
                 ]
               : '',
-            CIARange1: data.IsAcrossNight
-              ? data.EffectiveTime.split(',')[0].split('-')[0]
-              : '',
-            CIARange2: data.IsAcrossNight
-              ? data.EffectiveTime.split(',')[0].split('-')[1]
-              : '',
-            CIBRange1: data.IsAcrossNight
-              ? data.EffectiveTime.split(',')[1].split('-')[0]
-              : '',
-            CIBRange2: data.IsAcrossNight
-              ? data.EffectiveTime.split(',')[1].split('-')[1]
-              : '',
+            CIARange1: data.EffectiveTime.split(',')[0].split('-')[0],
+            CIARange2: data.EffectiveTime.split(',')[0].split('-')[1],
+            CIBRange1: data.EffectiveTime.split(',')[1].split('-')[0],
+            CIBRange2: data.EffectiveTime.split(',')[1].split('-')[1],
           }
           // console.log(this.form)
         }
@@ -1101,10 +1051,15 @@
     padding: 0 !important;
   }
   .set_btn {
-    display: inline-block;
     color: blueviolet;
     font-size: 16px;
     cursor: pointer;
     margin: 0 10px 20px;
+    display: flex;
+    align-items: center;
+  }
+  .set_btn i {
+    font-size: 24px;
+    margin-left: 5px;
   }
 </style>
