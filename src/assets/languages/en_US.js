@@ -431,24 +431,25 @@ module.exports = {
     text_66: 'More',
     text_67: 'Enter name, number, department query',
 
-    text_70: '勤務時間をお選びください',
-    text_71: '勤務時間外を選択してください',
-    text_72: '日勤',
-    text_73: '夜勤',
-    text_74: 'シフトタイプ',
-    text_75: '休憩の開始時間は、作業時間より短くすることはできません',
-    text_76: '休憩開始時間は、勤務時間外にすることはできません',
-    text_77: '休憩の終わりは、勤務時間外にすることはできません',
+    text_70: 'Please choose working time',
+    text_71: 'Please select an off-duty time',
+    text_72: 'Day shift',
+    text_73: 'night shift',
+    text_74: 'Shift type',
+    text_75: 'The start time of the break cannot be less than the working time',
+    text_76: 'The break start time cannot be after get off work hours',
+    text_77: 'The end of the break cannot be after get off work hours',
     text_78:
-      '降車時の有効な出勤の終了時刻は、勤務時間外にすることはできません。',
-    text_79: '職場での有効な出勤の開始時間は、勤務時間を超えることはできません',
+      'The end time of valid clock-in at get off work cannot exceed the off-duty time',
+    text_79:
+      'The start time of valid clock-in at work cannot exceed the working hours',
     text_80:
-      '降車後の有効なチェックインの開始時間は、作業時間を超えることはできません。',
+      'The start time of valid check-in after get off work cannot exceed the work time',
     text_81:
-      '作業後の有効なチェックインの終了時間は、降車時間の終了よりも早くすることはできません。',
+      'The end time of valid check-in after work cannot be earlier than the end of get off work time',
     text_82:
-      '作業後の有効なチェックインの開始時刻は、降車時刻の終了時刻より遅くすることはできません。',
+      'The start time of valid check-in after work cannot be later than the end of get off work time',
     text_83:
-      '職場での有効なチェックインの終了時刻を勤務時間より前にすることはできません',
+      'The end time of valid check-in at work cannot be earlier than work time',
   },
 }

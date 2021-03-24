@@ -108,7 +108,7 @@
     <el-dialog
       :title="$t('attendanceSet.text_10')"
       :visible.sync="dialogFormVisible"
-      width="600px"
+      :width="lang == 'en_US' ? '650px' : '600px'"
       :destroy-on-close="true"
       :before-close="closeFn"
     >
