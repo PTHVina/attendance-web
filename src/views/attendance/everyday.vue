@@ -76,6 +76,8 @@
               type="daterange"
               value-format="yyyy-MM-dd"
               format="yyyy-MM-dd"
+              :clearable="false"
+              :editable="false"
               :range-separator="$t('attendance.text_9')"
               :start-placeholder="$t('attendance.text_10')"
               :end-placeholder="$t('attendance.text_11')"
@@ -550,6 +552,7 @@
         getEverydayList(this.queryForm, this.page).then((res) => {
           if (res) {
             this.list = JSON.parse(res)
+            // console.log('list', this.list)
           } else {
             this.$baseMessage(this.$t('attendance.text_30'), 'warning')
           }
