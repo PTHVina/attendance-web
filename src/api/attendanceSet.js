@@ -29,10 +29,22 @@ export function setClasses(data) {
             '-' +
             data.punchCard2[1]
           : '',
+      EffectiveTime2:
+        data.punchCardB1 && data.punchCardB1[0] != ''
+          ? data.punchCardB1[0] +
+            '-' +
+            data.punchCardB1[1] +
+            ',' +
+            data.punchCardB2[0] +
+            '-' +
+            data.punchCardB2[1]
+          : '',
+      EffectiveTime3: '',
       gotowork1: data.commuter[0] + '-' + data.commuter[1],
-      gotowork2: '',
+      gotowork2:
+        data.radio == '2' ? data.commuter2[0] + '-' + data.commuter2[1] : '',
       gooffwork3: '',
-      rest_time: data.rest[0] + '-' + data.rest[1],
+      rest_time: data.radio == '1' ? data.rest[0] + '-' + data.rest[1] : '',
     }
   } else {
     // 夜班数据
@@ -48,6 +60,8 @@ export function setClasses(data) {
         data.CIBRange1 +
         '-' +
         data.CIBRange2,
+      EffectiveTime2: '',
+      EffectiveTime3: '',
       gotowork1: data.clockIn1 + '-' + data.clockIn2,
       gotowork2: '',
       gooffwork3: '',

@@ -65,14 +65,14 @@ const install = (Vue, opts = {}) => {
     return loading
   }
   /* 全局Message */
-  Vue.prototype.$baseMessage = (message, type) => {
+  Vue.prototype.$baseMessage = (message, type, time) => {
     Message({
       offset: 60,
       showClose: true,
       message: message,
       type: type,
       dangerouslyUseHTMLString: true,
-      duration: messageDuration,
+      duration: time ? time * 1000 : messageDuration,
     })
   }
 
