@@ -1,4 +1,4 @@
-//获取每日考勤列表
+//获取每日考勤列表总条数
 export function getEverydayCount(data) {
   var res = window.top.myExtension.queryAttendanceinformationcount(
     data.daterangetime[0],
@@ -35,7 +35,9 @@ export function reissueACard(data) {
     data.type.toString(),
     data.id.toString(),
     data.time.toString(),
-    data.setTime.toString()
+    data.setTime.toString(),
+    data.timeInterval.toString(),
+    data.number.toString()
   )
   return res
 }

@@ -122,7 +122,9 @@
         show-overflow-tooltip
         prop="name"
         :label="$t('attendance.text_1')"
-        :width="lang == 'en_US' ? '100px' : ''"
+        :width="
+          lang == 'en_US' ? '130px' : lang == 'Jan_JPN' ? '120px' : '100px'
+        "
       ></el-table-column>
       <!-- 部门 -->
       <el-table-column
@@ -130,7 +132,9 @@
         :label="$t('attendance.text_12')"
         prop="department"
         sortable
-        :width="lang == 'en_US' ? '160px' : ''"
+        :width="
+          lang == 'en_US' ? '160px' : lang == 'Jan_JPN' ? '150px' : '140px'
+        "
       ></el-table-column>
       <!-- 人员编号 -->
       <el-table-column
@@ -138,7 +142,9 @@
         :label="$t('attendance.text_13')"
         prop="Employee_code"
         sortable
-        :width="lang == 'en_US' ? '170px' : ''"
+        :width="
+          lang == 'en_US' ? '170px' : lang == 'Jan_JPN' ? '170px' : '150px'
+        "
       ></el-table-column>
       <!-- 考勤日期 -->
       <el-table-column
@@ -146,7 +152,7 @@
         :label="$t('attendance.text_8')"
         prop="Date"
         sortable
-        :width="lang == 'en_US' ? '160px' : ''"
+        :width="lang == 'en_US' ? '160px' : '130px'"
       ></el-table-column>
       <!-- 班次信息 -->
       <el-table-column
@@ -154,14 +160,16 @@
         :label="$t('attendance.text_14')"
         prop="Shiftinformation"
         sortable
-        :width="lang == 'en_US' ? '170px' : ''"
+        :width="lang == 'en_US' ? '170px' : '170px'"
       ></el-table-column>
       <!-- 打卡信息 -->
       <el-table-column
         show-overflow-tooltip
         :label="$t('attendance.text_15')"
         prop="Punchinformation"
-        :width="lang == 'zh_CN' ? '340px' : '450px'"
+        :width="
+          lang == 'zh_CN' ? '300px' : lang == 'Jan_JPN' ? '450px' : '470px'
+        "
       >
         <template #default="{ row }">
           <div class="tab_box">
@@ -176,7 +184,7 @@
                   type="success"
                   size="mini"
                   round
-                  @click="cardInfo(row, 1)"
+                  @click="cardInfo(row, 1, 1)"
                 >
                   {{ $t('attendance.text_17') }}
                 </el-button>
@@ -185,7 +193,7 @@
                   type="danger"
                   size="mini"
                   round
-                  @click="cardInfo(row, 1)"
+                  @click="cardInfo(row, 1, 1)"
                 >
                   {{ $t('attendance.text_18') }}
                 </el-button>
@@ -195,7 +203,7 @@
               <span>
                 {{ $t('attendance.text_19') }}
                 <span v-if="row.IsAcrossNight">
-                  {{ $t('attendance.text_34') }}
+                  ({{ $t('attendance.text_34') }})
                 </span>
                 ：
               </span>
@@ -208,7 +216,7 @@
                   type="success"
                   size="mini"
                   round
-                  @click="cardInfo(row, 2)"
+                  @click="cardInfo(row, 2, 1)"
                 >
                   {{ $t('attendance.text_17') }}
                 </el-button>
@@ -217,7 +225,73 @@
                   type="danger"
                   size="mini"
                   round
-                  @click="cardInfo(row, 2)"
+                  @click="cardInfo(row, 2, 1)"
+                >
+                  {{ $t('attendance.text_18') }}
+                </el-button>
+              </span>
+            </div>
+          </div>
+        </template>
+      </el-table-column>
+      <!-- 打卡信息-时段二 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.text_35')"
+        prop="Punchinformation2"
+        :width="
+          lang == 'zh_CN' ? '300px' : lang == 'Jan_JPN' ? '450px' : '470px'
+        "
+      >
+        <template #default="{ row }">
+          <div v-if="row.Punchinformation2 != null" class="tab_box">
+            <div>
+              <span>{{ $t('attendance.text_16') }}：</span>
+              <span v-if="row.Punchinformation2">
+                {{ row.Punchinformation2 }}
+              </span>
+              <span v-else class="btn">
+                <el-button
+                  v-if="row.Remarks == '3'"
+                  type="success"
+                  size="mini"
+                  round
+                  @click="cardInfo(row, 1, 2)"
+                >
+                  {{ $t('attendance.text_17') }}
+                </el-button>
+                <el-button
+                  v-else
+                  type="danger"
+                  size="mini"
+                  round
+                  @click="cardInfo(row, 1, 2)"
+                >
+                  {{ $t('attendance.text_18') }}
+                </el-button>
+              </span>
+            </div>
+            <div>
+              <span>{{ $t('attendance.text_19') }}：</span>
+              <span v-if="row.Punchinformation22">
+                {{ row.Punchinformation22 }}
+              </span>
+              <span v-else class="btn">
+                <el-button
+                  v-if="row.Remarks == '3'"
+                  type="success"
+                  size="mini"
+                  round
+                  @click="cardInfo(row, 2, 2)"
+                >
+                  {{ $t('attendance.text_17') }}
+                </el-button>
+                <el-button
+                  v-else
+                  type="danger"
+                  size="mini"
+                  round
+                  @click="cardInfo(row, 2, 2)"
                 >
                   {{ $t('attendance.text_18') }}
                 </el-button>
@@ -232,7 +306,7 @@
         :label="$t('attendance.text_20')"
         prop="temperature"
         sortable
-        :width="lang == 'en_US' ? '160px' : ''"
+        :width="lang == 'en_US' ? '160px' : '100px'"
       >
         <template #default="{ row }">
           <span
@@ -252,7 +326,9 @@
         :label="$t('attendance.text_21')"
         prop="late"
         sortable
-        :width="lang == 'en_US' ? '160px' : ''"
+        :width="
+          lang == 'en_US' ? '130px' : lang == 'Jan_JPN' ? '100px' : '110px'
+        "
       >
         <template #default="{ row }">
           <span style="color: red">{{ row.late }}</span>
@@ -264,7 +340,7 @@
         :label="$t('attendance.text_7')"
         prop="Leaveearly"
         sortable
-        :width="lang == 'en_US' ? '160px' : ''"
+        :width="lang == 'en_US' ? '140px' : '80px'"
       >
         <template #default="{ row }">
           <span style="color: red">{{ row.Leaveearly }}</span>
@@ -276,7 +352,9 @@
         :label="$t('attendance.text_3')"
         prop="isAbsenteeism"
         sortable
-        :width="lang == 'en_US' ? '170px' : ''"
+        :width="
+          lang == 'en_US' ? '150px' : lang == 'Jan_JPN' ? '120px' : '80px'
+        "
       >
         <template #default="{ row }">
           <span
@@ -409,7 +487,6 @@
     defaultSet,
     saveSetting,
   } from '@/api/attendance'
-  import store from '@/store'
   export default {
     name: 'Everyday',
     data() {
@@ -439,6 +516,8 @@
           time1: '',
           time2: '',
           num: '',
+          timeInterval: '', //时段，'1':时段1，'2'：时段2
+          number: '0', //迟到早退时间数，默认0
         },
         //导出设置
         dialogVisible: false,
@@ -471,7 +550,6 @@
         getEverydayList(this.queryForm, this.page).then((res) => {
           if (res) {
             this.list = JSON.parse(res)
-            // console.log('res', this.list)
           } else {
             this.$baseMessage(this.$t('attendance.text_30'), 'warning')
           }
@@ -553,17 +631,30 @@
       },
 
       //补卡信息
-      cardInfo(row, type) {
+      cardInfo(row, type, timeType) {
+        // type 1:上班，2：下班
+        // timeType 1:时段1,2：时段2
+        // console.log('info', row)
         this.dialogFormVisible = true
         this.cardRow = row
-        let time = row.Shiftinformation.split('-')
+        let time = ''
+        if (timeType == 1) {
+          time = [
+            row.Shiftinformation.split('-')[1],
+            row.Shiftinformation.split('-')[2],
+          ]
+        } else if (timeType == 2) {
+          time = row.Shiftinformation.split(';')[1].split('-')
+        }
         this.cardForm = {
           id: row.id,
           type: row.Remarks ? row.Remarks : '0',
-          time: type == 1 ? time[1] : time[2],
-          time1: time[1],
-          time2: time[2],
+          time: type == 1 ? time[0] : time[1], //上下班时间
+          time1: time[0], //上班时间
+          time2: time[1], //下班时间
           num: type,
+          timeInterval: timeType.toString(),
+          number: '0',
         }
       },
       //补卡保存
@@ -581,6 +672,10 @@
               this.$baseMessage(this.$t('attendance.text_31'), 'warning')
               return
             }
+            //时段二补卡时传入迟到分钟数
+            if (data.timeInterval == '2') {
+              data.number = this.cardRow.late ? this.cardRow.late : '0'
+            }
           }
         } else {
           // 下班
@@ -594,12 +689,19 @@
               this.$baseMessage(this.$t('attendance.text_32'), 'warning')
               return
             }
+            //时段二补卡时传入早退分钟数
+            if (data.timeInterval == '2') {
+              data.number = this.cardRow.Leaveearly
+                ? this.cardRow.Leaveearly
+                : '0'
+            }
           }
         }
         if (data.type == '3') {
           data.time = ''
           data.setTime = ''
         }
+        // console.log('data', data)
         let res = reissueACard(data)
         if (res) {
           this.$baseMessage(this.$t('operation_tips.tips_47'), 'success')
@@ -607,6 +709,7 @@
           this.init()
         } else {
           this.$baseMessage(this.$t('operation_tips.tips_48'), 'warning')
+          data.type = Number(data.type).toString()
         }
       },
       // 关闭弹窗

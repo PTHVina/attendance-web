@@ -108,19 +108,20 @@
     <el-dialog
       :title="$t('attendanceSet.text_10')"
       :visible.sync="dialogFormVisible"
-      :width="lang == 'en_US' ? '660px' : '600px'"
+      :width="lang == 'zh_CN' ? '610px' : '670px'"
       :destroy-on-close="true"
       :before-close="closeFn"
     >
       <el-form
         ref="formData"
         :model="form"
-        :label-width="
-          lang == 'zh_CN' ? '140px' : lang == 'Jan_JPN' ? '150px' : '220px'
-        "
+        :label-width="lang == 'zh_CN' ? '140px' : '220px'"
         :rules="rules"
         size="medium"
         style="max-height: 60vh; overflow: auto"
+        :style="
+          form.radio == '2' && isShow ? 'padding-right:10px !important;' : ''
+        "
       >
         <!-- 班次类型 -->
         <el-form-item :label="$t('attendanceSet.text_74')">
@@ -952,14 +953,16 @@
           this.form.commuter = ''
           return
         }
-        if (timeReplace(val[1]) > timeReplace(this.form.commuter2[0])) {
-          // this.form.commuter2 = [val[1], '23:00']
-          this.$set(this.form, 'commuter2', [val[1], '23:00'])
+        if (this.form.radio == '2') {
+          if (timeReplace(val[1]) > timeReplace(this.form.commuter2[0])) {
+            // this.form.commuter2 = [val[0], this.form.commuter2[0]]
+            this.$set(this.form, 'commuter2', [val[0], this.form.commuter2[0]])
+          }
+          this.form.punchCard1 = ''
+          this.form.punchCard2 = ''
+          this.form.punchCardB1 = ''
+          this.form.punchCardB2 = ''
         }
-        this.form.punchCard1 = ''
-        this.form.punchCard2 = ''
-        this.form.punchCardB1 = ''
-        this.form.punchCardB2 = ''
       },
       //显示上下班有效打卡时间
       setShow() {
@@ -991,61 +994,8 @@
         }
         // this.form.commuter[0]--时段1上班时间
         // this.form.commuter[1]--时段1下班时间
-        // this.form.commuter2[0]--时段2上班时间
-        // this.form.commuter2[1]--时段2下班时间
         // val[0]--上班有效期开始时间
         // val[1]--上班有效期结束时间
-        if (this.form.radio == '1') {
-          this.punchCard1ChangeFn(val)
-        } else if (this.form.radio == '2') {
-          if (
-            timeReplace(this.form.commuter[1]) <
-            timeReplace(this.form.commuter2[0])
-          ) {
-            // 时段1在时段2之前
-            this.punchCard1ChangeFn(val)
-          } else {
-            // 时段1在时段2之后
-            let isFind = false
-            if (
-              timeReplace(val[0]) > timeReplace(this.form.commuter[0]) ||
-              timeReplace(val[0]) < timeReplace(this.form.commuter2[1])
-            ) {
-              this.$baseMessage(this.$t('attendanceSet.text_82'), 'warning', 5)
-              this.form.punchCard1 = [this.form.commuter2[1], val[1]]
-              isFind = true
-            }
-            if (
-              timeReplace(val[1]) > timeReplace(this.form.commuter[1]) ||
-              timeReplace(val[1]) < timeReplace(this.form.commuter[0])
-            ) {
-              this.$baseMessage(this.$t('attendanceSet.text_78'), 'warning', 5)
-              if (isFind) {
-                this.form.punchCard1 = [
-                  this.form.punchCard1[0],
-                  this.form.commuter[1],
-                ]
-              } else {
-                this.form.punchCard1 = [val[0], this.form.commuter[1]]
-              }
-            }
-          }
-        }
-        //预防上下班有效打卡时间重叠
-        if (this.form.punchCard2) {
-          if (
-            timeReplace(this.form.punchCard1[1]) >
-            timeReplace(this.form.punchCard2[0])
-          ) {
-            this.form.punchCard1 = [
-              this.form.punchCard1[0],
-              this.form.punchCard2[0],
-            ]
-          }
-        }
-      },
-      //代码复用
-      punchCard1ChangeFn(val) {
         let isFind = false
         if (timeReplace(val[0]) > timeReplace(this.form.commuter[0])) {
           this.$baseMessage(this.$t('attendanceSet.text_79'), 'warning')
@@ -1066,6 +1016,18 @@
             this.form.punchCard1 = [val[0], this.form.commuter[1]]
           }
         }
+        //预防上下班有效打卡时间重叠
+        if (this.form.punchCard2) {
+          if (
+            timeReplace(this.form.punchCard1[1]) >
+            timeReplace(this.form.punchCard2[0])
+          ) {
+            this.form.punchCard1 = [
+              this.form.punchCard1[0],
+              this.form.punchCard2[0],
+            ]
+          }
+        }
       },
       //监控白班时段1下班有效打卡时间范围
       punchCard2Change(val) {
@@ -1080,39 +1042,46 @@
         // val[0]--下班有效期开始时间
         // val[1]--下班有效期结束时间
         if (this.form.radio == '1') {
-          this.punchCard2ChangeFn(val)
-        } else if (this.form.radio == '2') {
+          let isFind = false
           if (
-            timeReplace(this.form.commuter[1]) <
-            timeReplace(this.form.commuter2[0])
+            timeReplace(val[0]) < timeReplace(this.form.commuter[0]) ||
+            timeReplace(val[0]) > timeReplace(this.form.commuter[1])
           ) {
-            // 时段1在时段2之前
-            let isFind = false
-            if (
-              timeReplace(val[0]) < timeReplace(this.form.commuter[0]) ||
-              timeReplace(val[0]) > timeReplace(this.form.commuter[1])
-            ) {
-              this.$baseMessage(this.$t('attendanceSet.text_80'), 'warning', 4)
-              this.form.punchCard2 = [this.form.commuter[0], val[1]]
-              isFind = true
+            this.$baseMessage(this.$t('attendanceSet.text_80'), 'warning', 4)
+            this.form.punchCard2 = [this.form.commuter[0], val[1]]
+            isFind = true
+          }
+          if (timeReplace(val[1]) < timeReplace(this.form.commuter[1])) {
+            this.$baseMessage(this.$t('attendanceSet.text_81'), 'warning', 5)
+            if (isFind) {
+              this.form.punchCard2 = [this.form.punchCard2[0], '23:59']
+            } else {
+              this.form.punchCard2 = [val[0], '23:59']
             }
-            if (
-              timeReplace(val[1]) < timeReplace(this.form.commuter[1]) ||
-              timeReplace(val[1]) > timeReplace(this.form.commuter2[0])
-            ) {
-              this.$baseMessage(this.$t('attendanceSet.text_83'), 'warning', 5)
-              if (isFind) {
-                this.form.punchCard2 = [
-                  this.form.punchCard2[0],
-                  this.form.commuter2[0],
-                ]
-              } else {
-                this.form.punchCard2 = [val[0], this.form.commuter2[0]]
-              }
+          }
+        } else if (this.form.radio == '2') {
+          let isFind = false
+          if (
+            timeReplace(val[0]) < timeReplace(this.form.commuter[0]) ||
+            timeReplace(val[0]) > timeReplace(this.form.commuter[1])
+          ) {
+            this.$baseMessage(this.$t('attendanceSet.text_80'), 'warning', 4)
+            this.form.punchCard2 = [this.form.commuter[0], val[1]]
+            isFind = true
+          }
+          if (
+            timeReplace(val[1]) < timeReplace(this.form.commuter[1]) ||
+            timeReplace(val[1]) > timeReplace(this.form.commuter2[0])
+          ) {
+            this.$baseMessage(this.$t('attendanceSet.text_83'), 'warning', 5)
+            if (isFind) {
+              this.form.punchCard2 = [
+                this.form.punchCard2[0],
+                this.form.commuter2[0],
+              ]
+            } else {
+              this.form.punchCard2 = [val[0], this.form.commuter2[0]]
             }
-          } else {
-            // 时段1在时段2之后
-            this.punchCard2ChangeFn(val)
           }
         }
         //预防上下班有效打卡时间重叠
@@ -1128,26 +1097,6 @@
           }
         }
       },
-      //代码复用
-      punchCard2ChangeFn(val) {
-        let isFind = false
-        if (
-          timeReplace(val[0]) < timeReplace(this.form.commuter[0]) ||
-          timeReplace(val[0]) > timeReplace(this.form.commuter[1])
-        ) {
-          this.$baseMessage(this.$t('attendanceSet.text_80'), 'warning', 4)
-          this.form.punchCard2 = [this.form.commuter[0], val[1]]
-          isFind = true
-        }
-        if (timeReplace(val[1]) < timeReplace(this.form.commuter[1])) {
-          this.$baseMessage(this.$t('attendanceSet.text_81'), 'warning', 5)
-          if (isFind) {
-            this.form.punchCard2 = [this.form.punchCard2[0], '23:59']
-          } else {
-            this.form.punchCard2 = [val[0], '23:59']
-          }
-        }
-      },
       //监控白班时段2上班有效打卡时间范围
       punchCardB1Change(val) {
         if (!val) {
@@ -1160,55 +1109,27 @@
         // this.form.commuter2[1]--时段2下班时间
         // val[0]--上班有效期开始时间
         // val[1]--上班有效期结束时间
+        let isFind = false
         if (
-          timeReplace(this.form.commuter2[0]) >
-          timeReplace(this.form.commuter[1])
+          timeReplace(val[0]) < timeReplace(this.form.commuter[1]) ||
+          timeReplace(val[0]) > timeReplace(this.form.commuter2[0])
         ) {
-          // 时段2在时段1之后
-          let isFind = false
-          if (
-            timeReplace(val[0]) < timeReplace(this.form.commuter[1]) ||
-            timeReplace(val[0]) > timeReplace(this.form.commuter2[0])
-          ) {
-            this.$baseMessage(this.$t('attendanceSet.text_85'), 'warning', 5)
-            this.form.punchCardB1 = [this.form.commuter[1], val[1]]
-            isFind = true
-          }
-          if (
-            timeReplace(val[1]) > timeReplace(this.form.commuter2[1]) ||
-            timeReplace(val[1]) < timeReplace(this.form.commuter2[0])
-          ) {
-            this.$baseMessage(this.$t('attendanceSet.text_86'), 'warning', 5)
-            if (isFind) {
-              this.form.punchCardB1 = [
-                this.form.punchCardB1[0],
-                this.form.commuter2[1],
-              ]
-            } else {
-              this.form.punchCardB1 = [val[0], this.form.commuter2[1]]
-            }
-          }
-        } else {
-          // 时段2在时段1之前
-          let isFind = false
-          if (timeReplace(val[0]) > timeReplace(this.form.commuter2[0])) {
-            this.$baseMessage(this.$t('attendanceSet.text_79'), 'warning')
-            this.form.punchCardB1 = ['00:00', val[1]]
-            isFind = true
-          }
-          if (
-            timeReplace(val[1]) < timeReplace(this.form.commuter2[0]) ||
-            timeReplace(val[1]) > timeReplace(this.form.commuter2[1])
-          ) {
-            this.$baseMessage(this.$t('attendanceSet.text_87'), 'warning', 5)
-            if (isFind) {
-              this.form.punchCardB1 = [
-                this.form.punchCardB1[0],
-                this.form.commuter2[1],
-              ]
-            } else {
-              this.form.punchCardB1 = [val[0], this.form.commuter2[1]]
-            }
+          this.$baseMessage(this.$t('attendanceSet.text_85'), 'warning', 5)
+          this.form.punchCardB1 = [this.form.commuter[1], val[1]]
+          isFind = true
+        }
+        if (
+          timeReplace(val[1]) > timeReplace(this.form.commuter2[1]) ||
+          timeReplace(val[1]) < timeReplace(this.form.commuter2[0])
+        ) {
+          this.$baseMessage(this.$t('attendanceSet.text_86'), 'warning', 5)
+          if (isFind) {
+            this.form.punchCardB1 = [
+              this.form.punchCardB1[0],
+              this.form.commuter2[1],
+            ]
+          } else {
+            this.form.punchCardB1 = [val[0], this.form.commuter2[1]]
           }
         }
         //预防上下班有效打卡时间重叠
@@ -1236,52 +1157,21 @@
         // this.form.commuter2[1]--时段2下班时间
         // val[0]--下班有效期开始时间
         // val[1]--下班有效期结束时间
+        let isFind = false
         if (
-          timeReplace(this.form.commuter2[0]) >
-          timeReplace(this.form.commuter[1])
+          timeReplace(val[0]) < timeReplace(this.form.commuter2[0]) ||
+          timeReplace(val[0]) > timeReplace(this.form.commuter2[1])
         ) {
-          // 时段2在时段1之后
-          let isFind = false
-          if (
-            timeReplace(val[0]) < timeReplace(this.form.commuter2[0]) ||
-            timeReplace(val[0]) > timeReplace(this.form.commuter2[1])
-          ) {
-            this.$baseMessage(this.$t('attendanceSet.text_88'), 'warning', 5)
-            this.form.punchCardB2 = [this.form.commuter2[0], val[1]]
-            isFind = true
-          }
-          if (timeReplace(val[1]) < timeReplace(this.form.commuter2[1])) {
-            this.$baseMessage(this.$t('attendanceSet.text_81'), 'warning', 4)
-            if (isFind) {
-              this.form.punchCardB2 = [this.form.punchCardB2[0], '23:59']
-            } else {
-              this.form.punchCardB2 = [val[0], '23:59']
-            }
-          }
-        } else {
-          // 时段2在时段1之前
-          let isFind = false
-          if (
-            timeReplace(val[0]) < timeReplace(this.form.commuter2[0]) ||
-            timeReplace(val[0]) > timeReplace(this.form.commuter2[1])
-          ) {
-            this.$baseMessage(this.$t('attendanceSet.text_88'), 'warning', 5)
-            this.form.punchCardB2 = [this.form.commuter2[0], val[1]]
-            isFind = true
-          }
-          if (
-            timeReplace(val[1]) < timeReplace(this.form.commuter2[1]) ||
-            timeReplace(val[1]) > timeReplace(this.form.commuter[0])
-          ) {
-            this.$baseMessage(this.$t('attendanceSet.text_89'), 'warning', 5)
-            if (isFind) {
-              this.form.punchCardB2 = [
-                this.form.punchCardB2[0],
-                this.form.commuter[0],
-              ]
-            } else {
-              this.form.punchCardB2 = [val[0], this.form.commuter[0]]
-            }
+          this.$baseMessage(this.$t('attendanceSet.text_88'), 'warning', 5)
+          this.form.punchCardB2 = [this.form.commuter2[0], val[1]]
+          isFind = true
+        }
+        if (timeReplace(val[1]) < timeReplace(this.form.commuter2[1])) {
+          this.$baseMessage(this.$t('attendanceSet.text_81'), 'warning', 4)
+          if (isFind) {
+            this.form.punchCardB2 = [this.form.punchCardB2[0], '23:59']
+          } else {
+            this.form.punchCardB2 = [val[0], '23:59']
           }
         }
         //预防上下班有效打卡时间重叠
