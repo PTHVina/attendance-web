@@ -12,6 +12,13 @@ import localeEn from '../node_modules/element-ui/lib/locale/lang/en'
 import localeJa from '../node_modules/element-ui/lib/locale/lang/ja'
 import localeCn from '../node_modules/element-ui/lib/locale/lang/zh-CN'
 
+// import IntroJs from 'intro.js'
+// import 'intro.js/introjs.css'
+// Vue.use(IntroJs)
+import VueIntro from 'vue-introjs'
+import 'intro.js/introjs.css'
+Vue.use(VueIntro)
+
 let lang = window.top.myExtension.getlanguage()
 Vue.use(VueI18n)
 const i18n = new VueI18n({

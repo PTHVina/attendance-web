@@ -76,7 +76,7 @@ export const asyncRoutes = [
     meta: { title: i18.router.title_8, icon: 'video' }, //设备管理
     children: [
       {
-        path: 'DeviceIndex',
+        path: 'deviceIndex',
         name: 'DeviceIndex',
         component: () => import('@/views/device/index'),
         meta: { title: i18.router.title_9, permissions: ['admin'] }, //设备列表
@@ -120,7 +120,7 @@ export const asyncRoutes = [
     meta: { title: i18.router.title_4, icon: 'user-friends' }, //人员管理
     children: [
       {
-        path: 'PersonnelIndex',
+        path: 'personnelIndex',
         name: 'PersonnelIndex',
         component: () => import('@/views/personnel/index'),
         meta: { title: i18.router.title_5, permissions: ['admin'] }, //人员列表
