@@ -73,24 +73,7 @@
         :label="$t('device.text_4')"
         prop="IP"
         sortable
-      >
-        <template #default="{ row }">
-          <el-tooltip
-            class="item"
-            effect="dark"
-            content="点击修改"
-            placement="top"
-          >
-            <el-button
-              type="text"
-              icon="el-icon-edit"
-              @click="openFormDialog(row)"
-            >
-              {{ row.IP }}
-            </el-button>
-          </el-tooltip>
-        </template>
-      </el-table-column>
+      ></el-table-column>
       <!-- 状态 -->
       <el-table-column
         show-overflow-tooltip
@@ -110,17 +93,17 @@
         :width="lang == 'Jan_JPN' ? '400px' : lang == 'en_US' ? '350px' : ''"
       >
         <template #default="{ row }">
+          <!-- 开闸 -->
+          <el-button type="text" icon="el-icon-thumb" @click="openDoor(row)">
+            {{ $t('operation_btn.btn_text_24') }}
+          </el-button>
           <!-- 编辑 -->
           <el-button
             type="text"
             icon="el-icon-edit"
             @click="openIPSetting(row)"
           >
-            IP{{ $t('operation_btn.btn_text_14') }}
-          </el-button>
-          <!-- 开闸 -->
-          <el-button type="text" icon="el-icon-thumb" @click="openDoor(row)">
-            {{ $t('operation_btn.btn_text_24') }}
+            {{ $t('operation_btn.btn_text_14') }}
           </el-button>
           <!-- 设置 -->
           <el-button type="text" icon="el-icon-setting" @click="handleSet(row)">
@@ -145,7 +128,7 @@
       :total="page.total"
     ></el-pagination>
 
-    <!-- 新增/修改弹窗 -->
+    <!-- 新增弹窗 -->
     <el-dialog
       :title="form.editIp ? $t('device.text_9') : $t('device.text_10')"
       :visible.sync="dialogFormVisible"
@@ -191,7 +174,7 @@
     <el-dialog
       :title="$t('device.text_12')"
       :visible.sync="dialogTableVisible"
-      width="600px"
+      :width="lang == 'zh_CN' ? '600px' : '700px'"
       :destroy-on-close="true"
       :before-close="closeFn"
     >
@@ -229,8 +212,24 @@
           </template>
         </el-table-column>
       </el-table>
+      <p
+        style="
+          margin-top: 20px;
+          color: red;
+          font-size: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        "
+      >
+        <span style="min-width: 60%">
+          {{ $t('device.text_63') }}：{{ localIP[0] }}
+          <span v-if="localIP[1]">/ {{ localIP[1] }}</span>
+        </span>
+        <span>{{ $t('device.text_61') }}</span>
+      </p>
     </el-dialog>
-    <!-- IP信息 -->
+    <!-- 搜索设备列表中修改IP信息 -->
     <el-dialog
       :title="$t('device.text_14')"
       :visible.sync="dialogIPVisible"
@@ -292,34 +291,23 @@
         :label-width="lang == 'zh_CN' ? '160px' : '230px'"
         size="medium"
       >
-        <el-form-item :label="$t('device.text_29')">
+        <!-- 允许注册重复 -->
+        <!-- <el-form-item :label="$t('device.text_29')">
           <el-switch
             v-model="setForm.dereplication"
             :active-text="$t('device.text_28')"
             :inactive-text="$t('device.text_44')"
             :disabled="true"
           ></el-switch>
-        </el-form-item>
-        <el-form-item :label="$t('device.text_30')">
-          <el-switch
-            v-model="setForm.enableAlive"
-            :active-text="$t('device.text_28')"
-            :inactive-text="$t('device.text_44')"
-          ></el-switch>
-        </el-form-item>
-        <el-form-item :label="$t('device.text_31')">
-          <el-switch
-            v-model="setForm.enable"
-            :active-text="$t('device.text_28')"
-            :inactive-text="$t('device.text_44')"
-          ></el-switch>
-        </el-form-item>
+        </el-form-item> -->
+        <!-- 开闸体温限制数值 -->
         <el-form-item :label="$t('device.text_32')" prop="limit">
           <el-input
             v-model="setForm.limit"
             :placeholder="$t('device.text_33')"
           ></el-input>
         </el-form-item>
+        <!-- 补光模式 -->
         <el-form-item :label="$t('device.text_34')">
           <el-radio-group v-model="setForm.fillLight">
             <el-radio label="1">{{ $t('device.text_35') }}</el-radio>
@@ -327,20 +315,23 @@
             <el-radio label="3">{{ $t('device.text_37') }}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item :label="$t('device.text_38')">
+        <!-- 补光灵敏度 -->
+        <!-- <el-form-item :label="$t('device.text_38')">
           <el-radio-group v-model="setForm.sensitivity">
             <el-radio label="low">{{ $t('device.text_39') }}</el-radio>
             <el-radio label="mid">{{ $t('device.text_40') }}</el-radio>
             <el-radio label="high">{{ $t('device.text_41') }}</el-radio>
           </el-radio-group>
-        </el-form-item>
-        <el-form-item :label="$t('device.text_43')">
+        </el-form-item> -->
+        <!-- 屏保模式 -->
+        <!-- <el-form-item :label="$t('device.text_43')">
           <el-radio-group v-model="setForm.screensaver">
-            <el-radio label="none">{{ $t('device.text_44') }}</el-radio>
-            <!-- <el-radio label="extinguish">{{ $t('device.text_45') }}</el-radio>
+            <el-radio label="none">{{ $t('device.text_44') }}</el-radio> -->
+        <!-- <el-radio label="extinguish">{{ $t('device.text_45') }}</el-radio>
             <el-radio label="media">{{ $t('device.text_46') }}</el-radio> -->
-          </el-radio-group>
-        </el-form-item>
+        <!-- </el-radio-group>
+        </el-form-item> -->
+        <!-- 输出对比失败图像 -->
         <el-form-item
           v-if="setForm.output_not_matched != 'no'"
           :label="$t('device.text_52')"
@@ -351,14 +342,32 @@
             :inactive-text="$t('device.text_44')"
           ></el-switch>
         </el-form-item>
+        <!-- 补光灯亮度 -->
         <el-form-item :label="$t('device.text_42')">
           <el-slider v-model="setForm.brightness" show-input></el-slider>
         </el-form-item>
+        <!-- 音量大小 -->
         <el-form-item
           v-if="setForm.volume != 'no'"
           :label="$t('device.text_53')"
         >
           <el-slider v-model="setForm.volume" show-input></el-slider>
+        </el-form-item>
+        <!-- 活体检测 -->
+        <el-form-item :label="$t('device.text_30')">
+          <el-switch
+            v-model="setForm.enableAlive"
+            :active-text="$t('device.text_28')"
+            :inactive-text="$t('device.text_44')"
+          ></el-switch>
+        </el-form-item>
+        <!-- 体温检测 -->
+        <el-form-item :label="$t('device.text_31')">
+          <el-switch
+            v-model="setForm.enable"
+            :active-text="$t('device.text_28')"
+            :inactive-text="$t('device.text_44')"
+          ></el-switch>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -372,7 +381,7 @@
     </el-dialog>
     <!-- 相机IP编辑 -->
     <el-dialog
-      :title="$t('device.text_57')"
+      :title="$t('operation_btn.btn_text_14')"
       :visible.sync="dialogCameraVisible"
       :width="lang == 'zh_CN' ? '400px' : '500px'"
       :destroy-on-close="true"
@@ -384,26 +393,50 @@
         :rules="rules"
         size="medium"
       >
+        <!-- 名称 -->
+        <el-form-item :label="$t('device.text_11')" prop="DeviceName">
+          <el-input
+            v-model="ipParameters.DeviceName"
+            :placeholder="$t('device.text_3')"
+          ></el-input>
+        </el-form-item>
+        <!-- IP -->
         <el-form-item :label="$t('device.text_4')" prop="ip">
           <el-input v-model="ipParameters.ip" placeholder="IP"></el-input>
         </el-form-item>
         <!-- 子网掩码 -->
-        <el-form-item :label="$t('device.text_15')" prop="netmask">
+        <el-form-item
+          :label="$t('device.text_15')"
+          :prop="form.IsConnected ? 'netmask' : ''"
+        >
           <el-input
             v-model="ipParameters.netmask"
             :placeholder="$t('device.text_15')"
+            :disabled="!form.IsConnected"
           ></el-input>
         </el-form-item>
         <!-- 默认网关 -->
-        <el-form-item :label="$t('device.text_16')" prop="gateway">
+        <el-form-item
+          :label="$t('device.text_16')"
+          :prop="form.IsConnected ? 'gateway' : ''"
+        >
           <el-input
             v-model="ipParameters.gateway"
             :placeholder="$t('device.text_16')"
+            :disabled="!form.IsConnected"
           ></el-input>
         </el-form-item>
         <!-- DNS -->
-        <el-form-item :label="$t('device.text_54')" prop="dns">
-          <el-input v-model="ipParameters.dns" placeholder="dns"></el-input>
+        <el-form-item
+          :label="$t('device.text_54')"
+          :prop="form.IsConnected ? 'dns' : ''"
+          style="color: #999"
+        >
+          <el-input
+            v-model="ipParameters.dns"
+            placeholder="dns"
+            :disabled="!form.IsConnected"
+          ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -433,6 +466,7 @@
     setCameraIP,
     getSwitch,
     setSwitch,
+    getLocalIp,
   } from '@/api/device'
   export default {
     name: 'DeviceIndex',
@@ -450,7 +484,7 @@
           total: 0, //总数
         },
         dialogFormVisible: false, //表单弹窗控制
-        // 新增、编辑
+        // 新增
         form: {
           IP: '',
           DeviceName: '',
@@ -567,16 +601,25 @@
           volume: 'no', //音量
         }, //设置
 
-        ipParameters: {}, //相机ip参数
-        cameraIp: '',
+        ipParameters: {
+          DeviceName: '',
+          ip: '',
+          netmask: '',
+          gateway: '',
+          dns: '',
+          cameraIp: '',
+        }, //相机ip参数
         dialogCameraVisible: false,
 
         synchronizationTime: true, //是否同步时间
+
+        localIP: [], //本地IP地址
       }
     },
     created() {
       this.init()
       this.synchronizationTime = getSwitch()
+      this.localIP = getLocalIp()
     },
     beforeDestroy() {},
     mounted() {},
@@ -627,44 +670,27 @@
         })
       },
 
-      //打开弹窗
-      openFormDialog(data) {
+      //打开弹窗 添加设备
+      openFormDialog() {
         this.dialogFormVisible = true
-        if (data.Deviceid) {
-          this.form = data
-          this.form.editIp = data.IP
-        } else {
-          this.form = {
-            IP: '',
-            DeviceName: '',
-          }
+        this.form = {
+          IP: '',
+          DeviceName: '',
         }
       },
-      //添加/编辑设备
+      //添加设备
       addDevice(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            let res
-            if (this.form.Deviceid) {
-              res = editDevice(this.form)
-              if (res.result == 2) {
-                this.$baseMessage(this.$t('operation_tips.tips_10'), 'success')
-                this.dialogFormVisible = false
-                this.update()
-              } else if (res.result == 0) {
-                this.$baseMessage(this.$t('operation_tips.tips_11'), 'warning')
-              }
-            } else {
-              res = addDevice(this.form)
-              if (res.result == 2) {
-                this.$baseMessage(this.$t('operation_tips.tips_8'), 'success')
-                this.dialogFormVisible = false
-                this.update()
-              } else if (res.result == 1) {
-                this.$baseMessage(this.$t('device.text_24'), 'warning')
-              } else if (res.result == 3) {
-                this.$baseMessage(this.$t('operation_tips.tips_9'), 'error')
-              }
+            let res = addDevice(this.form)
+            if (res.result == 2) {
+              this.$baseMessage(this.$t('operation_tips.tips_8'), 'success')
+              this.dialogFormVisible = false
+              this.update()
+            } else if (res.result == 1) {
+              this.$baseMessage(this.$t('device.text_24'), 'warning')
+            } else if (res.result == 3) {
+              this.$baseMessage(this.$t('operation_tips.tips_9'), 'error')
             }
           } else {
             return false
@@ -684,13 +710,17 @@
         }
       },
 
-      //打开表格弹窗
-      openTabelDialog() {
+      //打开表格弹窗 搜索设备
+      openTabelDialog(type) {
         this.dialogTableVisible = true
         this.listLoading2 = true
         getDeviceByLocal().then((res) => {
           this.IPList = res
           this.listLoading2 = false
+          //添加设备后没有搜索到设备关闭会话框
+          if (type == 'update' && this.IPList.length == 0) {
+            this.dialogTableVisible = false
+          }
         })
       },
       //添加IP
@@ -709,7 +739,7 @@
           })
           if (res.result == 2) {
             this.$baseMessage(this.$t('operation_tips.tips_8'), 'success')
-            this.openTabelDialog()
+            this.openTabelDialog('update')
             this.update()
           } else if (res.result == 1) {
             this.$baseMessage(this.$t('device.text_24'), 'warning')
@@ -719,7 +749,7 @@
         })
       },
 
-      // 打开ip信息弹窗
+      // 搜索设备列表修改ip
       editIP(row) {
         this.dialogIPVisible = true
         let a = row.Item2.split('.')
@@ -760,7 +790,7 @@
           return
         }
         this.dialogTypeVisible = true
-        // console.log('res', res)
+        console.log('res', res)
         this.setForm = {
           ip: row.IP,
           // dereplication: res.face.enable_dereplication, //允许注册重复
@@ -783,9 +813,7 @@
       setting(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            // console.log('form', this.setForm)
             let res = setCameraParameters(this.setForm)
-            // console.log('set', res)
             if (res) {
               this.$baseMessage(this.$t('device.text_48'), 'success')
               this.dialogTypeVisible = false
@@ -801,16 +829,27 @@
 
       //打开相机ip设置
       openIPSetting(row) {
-        if (!row.IsConnected) {
-          this.$baseMessage(this.$t('device.text_47'), 'warning')
-          return
-        }
         this.dialogCameraVisible = true
-        let res = getCameraIp(row.IP)
-        this.ipParameters = res
-        this.cameraIp = row.IP
-
         this.form = row
+        this.ipParameters = {
+          DeviceName: row.DeviceName,
+          ip: row.IP,
+          netmask: '',
+          gateway: '',
+          dns: '',
+          cameraIp: row.IP,
+        }
+        if (row.IsConnected) {
+          let res = getCameraIp(row.IP)
+          this.ipParameters = {
+            DeviceName: row.DeviceName,
+            ip: row.IP,
+            netmask: res.netmask,
+            gateway: res.gateway,
+            dns: res.dns,
+            cameraIp: row.IP,
+          }
+        }
       },
       // 设置相机ip
       settingCameraIP(formName) {
@@ -822,20 +861,32 @@
         })
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            let res = setCameraIP(this.ipParameters, this.cameraIp)
-            // console.log(res)
-            this.form.editIp = this.form.IP
-            this.form.IP = this.ipParameters.ip
-            // console.log(this.form)
+            let res = ''
+            if (this.form.IsConnected) {
+              res = setCameraIP(this.ipParameters)
+              // console.log('res', res)
+            }
+            let data = {
+              editIp: this.ipParameters.cameraIp,
+              IP: this.ipParameters.ip,
+              DeviceName: this.ipParameters.DeviceName,
+            }
+            // console.log('data', this.form, data, this.ipParameters)
             setTimeout(() => {
-              if (res) {
-                let result = editDevice(this.form)
-                // console.log('edit', result)
-                this.$baseMessage(this.$t('device.text_48'), 'success')
+              let result = editDevice(data)
+              // console.log('result', result)
+              if (!this.form.IsConnected) {
+                if (result && result.result == 2 && !this.form.IsConnected) {
+                  this.$baseMessage(this.$t('device.text_48'), 'success')
+                  this.dialogCameraVisible = false
+                  this.update()
+                } else {
+                  this.$baseMessage(this.$t('device.text_49'), 'warning')
+                }
+              } else {
+                this.$baseMessage(this.$t('device.text_62'), 'success')
                 this.dialogCameraVisible = false
                 this.update()
-              } else {
-                this.$baseMessage(this.$t('device.text_49'), 'warning')
               }
               loading.close()
             }, 1500)
