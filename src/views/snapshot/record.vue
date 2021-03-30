@@ -154,6 +154,19 @@
           <el-image :preview-src-list="imageList" :src="row.closeup"></el-image>
         </template>
       </el-table-column>
+      <!-- 头像 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('snapshot.text_22')"
+        :width="lang == 'zh_CN' ? '' : '120px'"
+      >
+        <template #default="{ row }">
+          <el-image
+            v-if="row.TemplateImage"
+            :src="row.TemplateImage"
+          ></el-image>
+        </template>
+      </el-table-column>
       <!-- 姓名 -->
       <el-table-column
         show-overflow-tooltip
@@ -183,13 +196,24 @@
           <span v-else>{{ Number(row.body_temp).toFixed(2) }}</span>
         </template>
       </el-table-column>
-      <!-- 设备编号 -->
+      <!-- 抓拍时间 -->
       <el-table-column
         show-overflow-tooltip
-        :label="$t('snapshot.text_3')"
-        prop="device_sn"
+        :label="$t('snapshot.text_4')"
+        prop="time"
         sortable
-        width="200px"
+        width="200"
+      >
+        <template #default="{ row }">
+          <span>{{ row.time.split('.')[0] }}</span>
+        </template>
+      </el-table-column>
+      <!-- 设备名称 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('snapshot.text_19')"
+        prop="addr_name"
+        width="140px"
       ></el-table-column>
       <!-- 健康码 -->
       <el-table-column
@@ -341,25 +365,6 @@
         prop="wg_card_id"
         width="160px"
       ></el-table-column>
-      <!-- 相机名称 -->
-      <el-table-column
-        show-overflow-tooltip
-        :label="$t('snapshot.text_19')"
-        prop="addr_name"
-        width="140px"
-      ></el-table-column>
-      <!-- 抓拍时间 -->
-      <el-table-column
-        show-overflow-tooltip
-        :label="$t('snapshot.text_4')"
-        prop="time"
-        sortable
-        width="200"
-      >
-        <template #default="{ row }">
-          <span>{{ row.time.split('.')[0] }}</span>
-        </template>
-      </el-table-column>
       <!-- 是否佩戴口罩 -->
       <el-table-column
         show-overflow-tooltip
@@ -375,19 +380,14 @@
           </span>
         </template>
       </el-table-column>
-      <!-- 头像 -->
+      <!-- 设备编号 -->
       <el-table-column
         show-overflow-tooltip
-        :label="$t('snapshot.text_22')"
-        :width="lang == 'zh_CN' ? '' : '120px'"
-      >
-        <template #default="{ row }">
-          <el-image
-            v-if="row.TemplateImage"
-            :src="row.TemplateImage"
-          ></el-image>
-        </template>
-      </el-table-column>
+        :label="$t('snapshot.text_3')"
+        prop="device_sn"
+        sortable
+        width="200px"
+      ></el-table-column>
       <!-- 操作 -->
       <el-table-column
         :label="$t('snapshot.text_23')"

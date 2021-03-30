@@ -128,7 +128,6 @@
           <el-switch
             v-model="form.IsAcrossNight"
             :active-text="$t('attendanceSet.text_73')"
-            :inactive-text="$t('attendanceSet.text_72')"
             :disabled="form.id ? true : false"
             @change="changeShift"
           ></el-switch>

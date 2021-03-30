@@ -87,15 +87,15 @@ export function setCameraParameters(data) {
 //获取相机ip参数
 export function getCameraIp(ip) {
   let res = window.top.myExtension.GetNetworkInfo(ip)
-  let data_json = JSON.parse(res)
+  let data_json = res ? JSON.parse(res) : ''
 
   return data_json
 }
 //设置相机ip参数
-export function setCameraIP(data, ip) {
+export function setCameraIP(data) {
   let res = window.top.myExtension.SetNetworkInfo(
     data.ip,
-    ip,
+    data.cameraIp,
     data.gateway,
     data.netmask,
     data.dns
@@ -117,6 +117,13 @@ export function setSwitch(type) {
   let data_json = JSON.parse(res)
 
   return data_json
+}
+//获取本机ip地址
+export function getLocalIp() {
+  let res = window.top.myExtension.GetIpforPC()
+  res = res.split(';')
+
+  return res
 }
 
 //显示监控
