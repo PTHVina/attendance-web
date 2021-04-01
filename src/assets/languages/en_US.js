@@ -28,7 +28,7 @@ module.exports = {
     btn_text_4: 'Cancel',
     btn_text_5: 'OK',
     btn_text_6: 'query',
-    btn_text_7: 'newly added',
+    btn_text_7: 'Add',
     btn_text_8: 'Export list',
     btn_text_9: 'Batch import',
     btn_text_10: 'Download template',
