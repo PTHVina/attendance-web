@@ -3,13 +3,19 @@
     <div class="group">
       <div class="btn_group">
         <!-- 添加设备 -->
-        <el-button icon="el-icon-plus" type="primary" @click="openFormDialog">
+        <el-button
+          icon="el-icon-plus"
+          type="primary"
+          class="btn_guide_a"
+          @click="openFormDialog"
+        >
           {{ $t('operation_btn.btn_text_22') }}
         </el-button>
         <!-- 搜索设备 -->
         <el-button
           icon="el-icon-search"
           type="primary"
+          class="btn_guide_b"
           @click="openTabelDialog"
         >
           {{ $t('operation_btn.btn_text_23') }}
@@ -621,9 +627,66 @@
       this.synchronizationTime = getSwitch()
       this.localIP = getLocalIp()
     },
-    beforeDestroy() {},
-    mounted() {},
+    mounted() {
+      let firstLogin = JSON.parse(localStorage.getItem('firstLogin'))
+      if (firstLogin) {
+        this.setGuide()
+      }
+    },
     methods: {
+      setGuide() {
+        try {
+          let dom = document.getElementsByClassName('el-menu')[0]
+          let children = dom.childNodes
+          children[5].lastChild.style.removeProperty('display')
+          let data = [
+            {
+              element: '.btn_guide_a',
+              intro: this.$t('operation_tips.tips_74'),
+              position: 'bottom',
+            },
+            {
+              element: '.btn_guide_b',
+              intro: this.$t('operation_tips.tips_75'),
+              position: 'bottom',
+            },
+            {
+              element: '.el-menu li:nth-child(4)>ul li:first-child',
+              intro: this.$t('operation_tips.tips_76'),
+              position: 'right',
+            },
+          ]
+          this.$intro()
+            .setOptions({
+              prevLabel: this.$t('operation_tips.tips_66'),
+              nextLabel: this.$t('operation_tips.tips_67'),
+              skipLabel: '',
+              doneLabel: this.$t('operation_tips.tips_68'),
+              steps: data,
+              exitOnOverlayClick: false, //是否允许点击空白处退出
+              overlayOpacity: 0.6, //遮罩层的透明度
+              showBullets: false, //是否使用点点点显示进度
+              showProgress: false, //是否显示进度条
+            })
+            .onchange((obj) => {
+              //已完成当前一步
+              console.log('已完成当前一步', obj)
+            })
+            .oncomplete(() => {
+              //点击结束按钮后执行的事件
+              console.log('结束')
+              this.$router.push('/attendanceSet/classes')
+            })
+            .onexit(() => {
+              //点击跳过按钮后执行的事件
+              console.log('跳过')
+            })
+            .start()
+        } catch {
+          //路由跳转过来无法调起引导，使用刷新页面调起引导
+          location.reload()
+        }
+      },
       init() {
         this.listLoading = true
         let list = getDeviceList()

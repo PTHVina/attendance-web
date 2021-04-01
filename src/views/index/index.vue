@@ -107,7 +107,7 @@
 </template>
 
 <script>
-  import { getList } from '@/api/index'
+  import { getList, isFirstStart } from '@/api/index'
   import { getDeviceList, openDoor } from '@/api/device'
   export default {
     name: 'Index',
@@ -122,67 +122,51 @@
     created() {
       this.tag = getList()
       this.init()
+      let firstStart = isFirstStart()
+      if (firstStart) {
+        this.$confirm(
+          this.$t('operation_tips.tips_65'),
+          this.$t('operation_tips.tips_42'),
+          {
+            confirmButtonText: this.$t('operation_btn.btn_text_5'),
+            cancelButtonText: this.$t('operation_btn.btn_text_4'),
+            type: 'warning',
+          }
+        )
+          .then(() => {
+            localStorage.setItem('firstLogin', true)
+            this.setGuide()
+          })
+          .catch(() => {
+            localStorage.setItem('firstLogin', false)
+          })
+      }
     },
-    mounted() {
-      // this.setGuide()
-    },
+    mounted() {},
     methods: {
       setGuide() {
         let dom = document.getElementsByClassName('el-menu')[0]
         let children = dom.childNodes
-        console.log(dom, children)
-        // children[6].className += ' is-opened'
-        // var pClass = document.createAttribute('aria-expanded')
-        // pClass.value = 'true'
-        // children[6].setAttributeNode(pClass)
-        children[6].lastChild.style.removeProperty('display')
+        children[3].lastChild.style.removeProperty('display')
         let data = [
           {
-            element: '.el-menu li:nth-child(5)>ul li:first-child',
-            intro: '步骤1：对应class为.step_1的元素进行选择提示。',
+            element: '.el-menu li:nth-child(2)>ul li:first-child',
+            intro: this.$t('operation_tips.tips_70'),
             position: 'right',
           },
         ]
-        // let data = [
-        //   {
-        //     element: '.home_list',
-        //     intro: '步骤1：对应class为.step_1的元素进行选择提示。',
-        //     position: 'right',
-        //   },
-        //   {
-        //     element: '.device_list',
-        //     intro: '步骤2：对应class为.step_1的元素进行选择提示。',
-        //     position: 'right',
-        //   },
-        // ]
-        let step = ''
         this.$intro()
           .setOptions({
-            prevLabel: '上一步',
-            nextLabel: '下一步',
             skipLabel: '',
-            doneLabel: '进入页面',
+            doneLabel: this.$t('operation_tips.tips_68'),
             steps: data,
             exitOnOverlayClick: false, //是否允许点击空白处退出
             overlayOpacity: 0.6, //遮罩层的透明度
             showBullets: false, //是否使用点点点显示进度
             showProgress: false, //是否显示进度条
           })
-          .onchange((obj) => {
-            //已完成当前一步
-            console.log('已完成当前一步', obj)
-          })
           .oncomplete(() => {
-            //点击结束按钮后执行的事件
-            console.log('结束')
-            if (!step) {
-              this.$router.push('/personnel/personnelIndex')
-            }
-          })
-          .onexit(() => {
-            //点击跳过按钮后执行的事件
-            console.log('跳过')
-            step = '跳过'
+            this.$router.push('/system/department')
           })
           .start()
       },

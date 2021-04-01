@@ -50,4 +50,11 @@
       width: 1.25em !important;
     }
   }
+  //新手引导层级100000000
+  .el-message {
+    z-index: 100000100 !important;
+  }
+  .el-dialog__wrapper {
+    z-index: 100000100 !important;
+  }
 </style>

@@ -38,3 +38,8 @@ export function getList() {
   }
   return datas
 }
+//判断是否是首次启动
+export function isFirstStart() {
+  let res = window.top.myExtension.IsNoNoviceGuide()
+  return JSON.parse(res)
+}

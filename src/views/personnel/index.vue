@@ -64,7 +64,12 @@
           通知先設定
         </el-button>
         <!-- 新增 -->
-        <el-button icon="el-icon-plus" type="primary" @click="openFormDialog">
+        <el-button
+          icon="el-icon-plus"
+          type="primary"
+          class="btn_guide_e"
+          @click="openFormDialog"
+        >
           {{ $t('operation_btn.btn_text_7') }}
         </el-button>
         <!-- 导出列表 -->
@@ -75,12 +80,18 @@
         <el-button
           icon="el-icon-folder-opened"
           type="primary"
+          class="btn_guide_g"
           @click="importExcel"
         >
           {{ $t('operation_btn.btn_text_9') }}
         </el-button>
         <!-- 下载模板 -->
-        <el-button icon="el-icon-download" type="primary" @click="downDemo">
+        <el-button
+          icon="el-icon-download"
+          type="primary"
+          class="btn_guide_f"
+          @click="downDemo"
+        >
           {{ $t('operation_btn.btn_text_10') }}
         </el-button>
         <!-- 批量下发 -->
@@ -763,9 +774,63 @@
       this.typeList()
       this.init()
     },
-    beforeDestroy() {},
-    mounted() {},
+    mounted() {
+      let firstLogin = JSON.parse(localStorage.getItem('firstLogin'))
+      if (firstLogin) {
+        this.setGuide()
+      }
+    },
     methods: {
+      setGuide() {
+        try {
+          let data = [
+            {
+              element: '.btn_guide_e',
+              intro: this.$t('operation_tips.tips_81'),
+              position: 'bottom',
+            },
+            {
+              element: '.btn_guide_f',
+              intro: this.$t('operation_tips.tips_82'),
+              position: 'bottom',
+            },
+            {
+              element: '.btn_guide_g',
+              intro: this.$t('operation_tips.tips_83'),
+              position: 'bottom',
+            },
+          ]
+          this.$intro()
+            .setOptions({
+              prevLabel: this.$t('operation_tips.tips_66'),
+              nextLabel: this.$t('operation_tips.tips_67'),
+              skipLabel: '',
+              doneLabel: this.$t('operation_tips.tips_69'),
+              steps: data,
+              exitOnOverlayClick: false, //是否允许点击空白处退出
+              overlayOpacity: 0.6, //遮罩层的透明度
+              showBullets: false, //是否使用点点点显示进度
+              showProgress: false, //是否显示进度条
+            })
+            .onchange((obj) => {
+              //已完成当前一步
+              console.log('已完成当前一步', obj)
+            })
+            .oncomplete(() => {
+              //点击结束按钮后执行的事件
+              console.log('结束')
+              localStorage.setItem('firstLogin', false)
+            })
+            .onexit(() => {
+              //点击跳过按钮后执行的事件
+              console.log('跳过')
+            })
+            .start()
+        } catch {
+          //路由跳转过来无法调起引导，使用刷新页面调起引导
+          location.reload()
+        }
+      },
       typeList() {
         // 人员分类、部门列表
         let list = getTypeList()

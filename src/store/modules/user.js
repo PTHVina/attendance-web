@@ -82,28 +82,28 @@ const actions = {
       Vue.prototype.$baseMessage(tip2 + `${tokenName}...`, 'error')
     }
   },
-  async getUserInfo({ commit, state }) {
-    const data = {
-      username: 'admin',
-      accessToken: 'test',
-      avatar: '',
-      permissions: ['admin'],
-    }
-    if (!data) {
-      Vue.prototype.$baseMessage('验证失败，请重新登录...', 'error')
-      return false
-    }
-    let { permissions, username, avatar } = data
-    if (permissions && username && Array.isArray(permissions)) {
-      commit('setPermissions', permissions)
-      commit('setUsername', username)
-      commit('setAvatar', avatar)
-      return permissions
-    } else {
-      Vue.prototype.$baseMessage('用户信息接口异常', 'error')
-      return false
-    }
-  },
+  // async getUserInfo({ commit, state }) {
+  //   const data = {
+  //     username: 'admin',
+  //     accessToken: 'test',
+  //     avatar: '',
+  //     permissions: ['admin'],
+  //   }
+  //   if (!data) {
+  //     Vue.prototype.$baseMessage('验证失败，请重新登录...', 'error')
+  //     return false
+  //   }
+  //   let { permissions, username, avatar } = data
+  //   if (permissions && username && Array.isArray(permissions)) {
+  //     commit('setPermissions', permissions)
+  //     commit('setUsername', username)
+  //     commit('setAvatar', avatar)
+  //     return permissions
+  //   } else {
+  //     Vue.prototype.$baseMessage('用户信息接口异常', 'error')
+  //     return false
+  //   }
+  // },
   async logout({ dispatch }) {
     await dispatch('resetAccessToken')
   },

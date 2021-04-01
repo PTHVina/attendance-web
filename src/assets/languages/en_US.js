@@ -126,6 +126,31 @@ module.exports = {
     tips_62: 'Uneven illumination',
     tips_63: 'Pictures cannot exceed 4m',
     tips_64: 'The face image does not meet the distribution conditions',
+
+    tips_65: 'Whether to start the novice guide?',
+    tips_66: 'Previous',
+    tips_67: 'Next step',
+    tips_68: 'Enter the page',
+    tips_69: 'consummation',
+    tips_70: 'Step 1: Enter the page to set department information.',
+    tips_71: 'Step 2: Click the "Add" button to add department information.',
+    tips_72: 'Step 3: Add work categories.',
+    tips_73: 'Step 4: Enter the page to add equipment.',
+    tips_74:
+      'Step 5: Click "Add Device" to manually enter the IP address to add the device.',
+    tips_75:
+      'Step 6: Or click "Search Device" to perform an automatic search, and then click the "Add" button to add a device.',
+    tips_76: 'Step 7: Enter the page to set attendance information.',
+    tips_77: 'Step 8: Click the "Add" button to add attendance shifts.',
+    tips_78: 'Step 9: Enter the page to set the attendance group information.',
+    tips_79: 'Step 10: Click the "Add" button to add attendance shifts.',
+    tips_80: 'Step 11: Enter the page to set personnel information.',
+    tips_81:
+      'Step 12: Click the "Add" button to add individual personnel information.',
+    tips_82:
+      'Step 13: Click the "Download Template" button to obtain the batch import template.',
+    tips_83:
+      'Step 14: Click the "Batch Import" button to add personnel information in batches.',
   },
   // 首页
   home: {
