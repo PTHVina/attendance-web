@@ -50,11 +50,26 @@
       width: 1.25em !important;
     }
   }
-  //新手引导层级100000000
-  .el-message {
-    z-index: 100000100 !important;
+  //新手引导原始层级100000000
+  .introjs-helperLayer {
+    z-index: 1098 !important;
   }
-  .el-dialog__wrapper {
-    z-index: 100000100 !important;
+  .introjs-overlay {
+    z-index: 1099 !important;
   }
+  .introjs-tooltipReferenceLayer {
+    z-index: 1100 !important;
+  }
+  .el-table--border:after,
+  .el-table--group:after,
+  .el-table:before,
+  .el-loading-mask {
+    z-index: 500 !important;
+  }
+  // .el-message {//原始层级2005
+  //   z-index: 100000100 !important;
+  // }
+  // .el-dialog__wrapper {
+  //   z-index: 100000100 !important;
+  // }
 </style>

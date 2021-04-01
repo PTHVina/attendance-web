@@ -57,9 +57,10 @@ npm run serve
 #打包失败时执行以下代码
 cnpm i image-webpack-loader -D
 
-#dev分支为未加入多语言功能
+#dev分支编辑常用分支
 #lang分支为已加入多语言功能
 #JPN分支添加日语版独有页面
+#guide分支添加新手引导功能
 #master主分支为最终结果
 ```
 
