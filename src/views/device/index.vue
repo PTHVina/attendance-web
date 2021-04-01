@@ -329,25 +329,6 @@
             <el-radio label="high">{{ $t('device.text_41') }}</el-radio>
           </el-radio-group>
         </el-form-item> -->
-        <!-- 屏保模式 -->
-        <!-- <el-form-item :label="$t('device.text_43')">
-          <el-radio-group v-model="setForm.screensaver">
-            <el-radio label="none">{{ $t('device.text_44') }}</el-radio> -->
-        <!-- <el-radio label="extinguish">{{ $t('device.text_45') }}</el-radio>
-            <el-radio label="media">{{ $t('device.text_46') }}</el-radio> -->
-        <!-- </el-radio-group>
-        </el-form-item> -->
-        <!-- 输出对比失败图像 -->
-        <el-form-item
-          v-if="setForm.output_not_matched != 'no'"
-          :label="$t('device.text_52')"
-        >
-          <el-switch
-            v-model="setForm.output_not_matched"
-            :active-text="$t('device.text_28')"
-            :inactive-text="$t('device.text_44')"
-          ></el-switch>
-        </el-form-item>
         <!-- 补光灯亮度 -->
         <el-form-item :label="$t('device.text_42')">
           <el-slider v-model="setForm.brightness" show-input></el-slider>
@@ -371,6 +352,27 @@
         <el-form-item :label="$t('device.text_31')">
           <el-switch
             v-model="setForm.enable"
+            :active-text="$t('device.text_28')"
+            :inactive-text="$t('device.text_44')"
+          ></el-switch>
+        </el-form-item>
+        <!-- 屏保模式 -->
+        <el-form-item :label="$t('device.text_43')">
+          <el-switch
+            v-model="setForm.screensaver_mode"
+            :active-text="$t('device.text_28')"
+            :inactive-text="$t('device.text_44')"
+            active-value="extinguish"
+            inactive-value="none"
+          ></el-switch>
+        </el-form-item>
+        <!-- 输出对比失败图像 -->
+        <el-form-item
+          v-if="setForm.output_not_matched != 'no'"
+          :label="$t('device.text_52')"
+        >
+          <el-switch
+            v-model="setForm.output_not_matched"
             :active-text="$t('device.text_28')"
             :inactive-text="$t('device.text_44')"
           ></el-switch>
@@ -602,7 +604,7 @@
           fillLight: '', //补光模式
           sensitivity: '', //灵敏度
           brightness: '', //led亮度
-          screensaver: '', //屏保模式
+          screensaver_mode: '', //屏保模式
           output_not_matched: 'no', //是否输出对比失败图像
           volume: 'no', //音量
         }, //设置
@@ -864,10 +866,14 @@
           fillLight: res.led_control.led_mode.toString(), //补光模式
           sensitivity: res.led_control.led_sensitivity, //灵敏度
           brightness: res.led_control.led_brightness, //led亮度
-          screensaver: 'none', //屏保模式
-          output_not_matched: res.face.output_not_matched
-            ? res.face.output_not_matched
-            : 'no',
+          screensaver_mode: res.screensaver_mode
+            ? res.screensaver_mode
+            : 'none', //屏保模式
+          output_not_matched:
+            res.face.output_not_matched == true ||
+            res.face.output_not_matched == false
+              ? res.face.output_not_matched
+              : 'no',
           volume: res.volume ? Number(res.volume) : 'no',
         }
         // console.log(this.setForm)

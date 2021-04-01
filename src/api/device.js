@@ -76,7 +76,7 @@ export function setCameraParameters(data) {
     data.fillLight.toString(),
     data.brightness.toString(),
     data.sensitivity,
-    data.screensaver,
+    data.screensaver_mode,
     data.output_not_matched.toString(),
     data.volume.toString()
   )
