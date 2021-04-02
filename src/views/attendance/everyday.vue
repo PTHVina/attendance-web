@@ -204,7 +204,13 @@
             <div>
               <span>
                 {{ $t('attendance.text_19') }}
-                <span v-if="row.IsAcrossNight">
+                <span
+                  v-if="
+                    row.IsAcrossNight &&
+                    row.IsAcrossNight != 'False' &&
+                    row.IsAcrossNight != 'false'
+                  "
+                >
                   ({{ $t('attendance.text_34') }})
                 </span>
                 ：
