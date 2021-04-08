@@ -120,7 +120,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
-      height="700"
+      height="calc(100vh - 305px)"
       @selection-change="setSelectRows"
       @sort-change="tableSortChange"
     >

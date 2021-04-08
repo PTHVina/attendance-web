@@ -62,7 +62,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
-      height="790"
+      height="calc(100vh - 206px)"
       @sort-change="tableSortChange"
     >
       <!-- 序号 -->

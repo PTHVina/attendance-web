@@ -20,7 +20,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
-      height="790"
+      height="calc(100vh - 205px)"
     >
       <!-- 创建时间 -->
       <el-table-column

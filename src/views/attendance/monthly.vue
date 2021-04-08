@@ -55,7 +55,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
-      height="745"
+      height="calc(100vh - 258px)"
     >
       <!-- 姓名 -->
       <el-table-column

@@ -47,7 +47,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
-      height="745"
+      height="calc(100vh - 258px)"
     >
       <!-- 序号 -->
       <el-table-column
@@ -981,6 +981,9 @@
 </script>
 
 <style lang="scss">
+  .tips {
+    margin-bottom: 0 !important;
+  }
   .form_group {
     height: auto;
     .el-form {

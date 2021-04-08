@@ -1,5 +1,5 @@
 // 人员列表
-export function getDataList(page) {
+export function Sync(page) {
   let list = window.top.myExtension.getStaffData(
     page.pageNo.toString(),
     page.pageSize.toString()
@@ -287,4 +287,17 @@ export function setSend(id) {
       resolve(param)
     }, id.toString())
   })
+}
+
+//数据同步列表
+export function getDataSyncList(data, page) {
+  let res = window.top.myExtension.getDataSyn(
+    data.name.toString(),
+    data.role.toString(),
+    data.stutas.toString(),
+    page.pageNo.toString(),
+    page.pageSize.toString()
+  )
+  var res_data = JSON.parse(res)
+  return { count: res_data.length, list: res_data }
 }

@@ -19,6 +19,7 @@ module.exports = {
     title_16: 'Attendance management',
     title_17: 'Daily attendance',
     title_18: 'Monthly attendance',
+    title_19: 'data synchronization',
   },
   //操作按钮
   operation_btn: {
@@ -199,6 +200,8 @@ module.exports = {
     text_13: 'Authorization time interval',
     text_14: 'state',
     text_15: 'Authorization end time',
+    text_16: 'Roles',
+    text_17: 'status',
 
     title_1: 'head portrait',
     title_2: 'bit',
@@ -215,6 +218,7 @@ module.exports = {
     title_13: 'Equipment name',
     title_14: 'Equipment number',
     title_15: 'Serial number',
+    title_16: 'synchronised time',
 
     pl_1: 'Name of personnel',
     pl_2: 'mail box',
@@ -223,6 +227,13 @@ module.exports = {
     pl_5: 'whole',
     pl_6: 'time',
     pl_7: 'Please select the next level option',
+    pl_8: 'Personnel role',
+    pl_9: 'Person status',
+    pl_10: 'Ordinary personnel',
+    pl_11: 'Whitelisted people',
+    pl_12: 'Blacklisted',
+    pl_13: 'All personnel',
+    pl_14: 'nothing',
   },
   //设备管理
   device: {

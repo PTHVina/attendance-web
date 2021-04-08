@@ -63,7 +63,7 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
-      height="700"
+      height="calc(100vh - 210px)"
       @sort-change="tableSortChange"
     >
       <el-table-column

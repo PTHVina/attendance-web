@@ -137,6 +137,12 @@ export const asyncRoutes = [
         component: () => import('@/views/personnel/issue'),
         meta: { title: i18.router.title_7, permissions: ['admin'] }, //下发记录
       },
+      {
+        path: 'dataSync',
+        name: 'DataSync',
+        component: () => import('@/views/personnel/dataSync'),
+        meta: { title: i18.router.title_19, permissions: ['admin'] }, //数据同步
+      },
     ],
   },
   {
