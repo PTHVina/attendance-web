@@ -20,6 +20,7 @@ module.exports = {
     title_17: 'Daily attendance',
     title_18: 'Monthly attendance',
     title_19: 'data synchronization',
+    title_20: 'parameter settings',
   },
   //操作按钮
   operation_btn: {
@@ -172,6 +173,11 @@ module.exports = {
     text_4: 'Add Department',
     text_5: 'department',
     text_6: 'Add a first-level department',
+    text_7: 'Delivery method',
+    text_8: 'Number issuance',
+    text_9: 'ID issuance',
+    text_10:
+      'When <number issuance>, the number of the new person must be filled in as the citizen identification number of the People’s Republic of China resident ID card',
 
     title_1: 'code',
     title_2: 'Department name',
@@ -234,6 +240,8 @@ module.exports = {
     pl_12: 'Blacklisted',
     pl_13: 'All personnel',
     pl_14: 'nothing',
+    pl_15: 'please enter the ID number',
+    pl_16: 'Please enter the correct ID number in the number',
   },
   //设备管理
   device: {

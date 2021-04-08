@@ -115,3 +115,16 @@ export function setPdfData(data) {
   var re_json = JSON.parse(re)
   return re_json
 }
+
+// 获取下发方式参数
+export function getParam() {
+  var data = window.top.myExtension.getIscode_syn()
+  var data_json = JSON.parse(data)
+  return data_json
+}
+// 设置下发方式参数
+export function setParam(data) {
+  var data = window.top.myExtension.setIscode_syn(data.toString())
+  var data_json = JSON.parse(data)
+  return data_json
+}

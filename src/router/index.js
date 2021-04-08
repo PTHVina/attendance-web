@@ -65,6 +65,12 @@ export const asyncRoutes = [
         component: () => import('@/views/system/department'),
         meta: { title: i18.router.title_3, permissions: ['admin'] }, //部门设置
       },
+      {
+        path: 'parameter',
+        name: 'Parameter',
+        component: () => import('@/views/system/parameter'),
+        meta: { title: i18.router.title_20, permissions: ['admin'] }, //参数设置
+      },
     ],
   },
   {
@@ -137,12 +143,12 @@ export const asyncRoutes = [
         component: () => import('@/views/personnel/issue'),
         meta: { title: i18.router.title_7, permissions: ['admin'] }, //下发记录
       },
-      {
-        path: 'dataSync',
-        name: 'DataSync',
-        component: () => import('@/views/personnel/dataSync'),
-        meta: { title: i18.router.title_19, permissions: ['admin'] }, //数据同步
-      },
+      // {
+      //   path: 'dataSync',
+      //   name: 'DataSync',
+      //   component: () => import('@/views/personnel/dataSync'),
+      //   meta: { title: i18.router.title_19, permissions: ['admin'] }, //数据同步
+      // },
     ],
   },
   {

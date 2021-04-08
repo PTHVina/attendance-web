@@ -150,9 +150,9 @@
             <el-radio label="1" border>
               {{ $t('attendanceSet.text_13') }}
             </el-radio>
-            <el-radio v-if="!form.IsAcrossNight" label="2" border>
+            <!-- <el-radio v-if="!form.IsAcrossNight" label="2" border>
               {{ $t('attendanceSet.text_14') }}
-            </el-radio>
+            </el-radio> -->
             <el-radio v-if="false" label="3" border>
               {{ $t('attendanceSet.text_15') }}
             </el-radio>

@@ -49,17 +49,19 @@
             </el-select>
           </el-form-item>
           <!-- 状态 -->
-          <el-form-item>
+          <!-- <el-form-item>
             <span>{{ $t('personnel.text_17') }}</span>
             <el-select
               v-model="queryForm.status"
               clearable
               :placeholder="$t('snapshot.text_9')"
             >
-              <el-option key="0" label="否" value="0"></el-option>
-              <el-option key="1" label="是" value="1"></el-option>
+              <el-option key="0" label="无状态" value="0"></el-option>
+              <el-option key="1" label="状态1" value="1"></el-option>
+              <el-option key="2" label="状态2" value="2"></el-option>
+              <el-option key="3" label="状态三" value="3"></el-option>
             </el-select>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item>
             <!-- 查询 -->
             <el-button
@@ -120,12 +122,12 @@
         </template>
       </el-table-column>
       <!-- 状态 -->
-      <el-table-column
+      <!-- <el-table-column
         show-overflow-tooltip
         :label="$t('personnel.text_17')"
         prop="status"
         sortable
-      ></el-table-column>
+      ></el-table-column> -->
       <!-- 设备名称 -->
       <el-table-column
         show-overflow-tooltip
@@ -154,14 +156,19 @@
             {{ $t('operation_btn.btn_text_27') }}
           </el-button>
           <!-- 删除 -->
-          <el-button
-            type="text"
-            class="btn_red"
-            icon="el-icon-delete"
-            @click="handleDelete(row)"
+          <el-popconfirm
+            title="确认删除此人员信息？"
+            @confirm="handleDelete(row)"
           >
-            {{ $t('operation_btn.btn_text_2') }}
-          </el-button>
+            <el-button
+              slot="reference"
+              type="text"
+              class="btn_red"
+              icon="el-icon-delete"
+            >
+              {{ $t('operation_btn.btn_text_2') }}
+            </el-button>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
@@ -339,6 +346,7 @@
     setData,
     photograph,
     getDataSyncList,
+    deleteDataSync,
   } from '@/api/personnel'
   export default {
     name: 'DataSync',
@@ -347,13 +355,12 @@
         lang: this.$lang,
         list: [],
         listLoading: false, //列表加载
-        // layout: 'total, sizes, prev, pager, next, jumper',
-        layout: 'total',
+        layout: 'total, sizes, prev, pager, next, jumper',
         elementLoadingText: this.$t('operation_tips.tips_12'),
         queryForm: {
-          name: '',
+          name: '', //人员姓名
           role: '', //0:普通人员\1:白名单人员\2:黑名单人员\-1:所有人员
-          stutas: '',
+          stutas: '', //状态
         },
         page: {
           pageNo: 1,
@@ -450,8 +457,8 @@
       this.init()
       this.typeList()
     },
-    mounted() {},
     methods: {
+      //获取设置数据
       typeList() {
         // 人员分类、部门列表
         let list = getTypeList()
@@ -635,6 +642,18 @@
         } else {
           this.dialogFormVisible = false
         }
+      },
+
+      //删除
+      handleDelete(data) {
+        let res = deleteDataSync(data)
+        console.log('删除', res)
+        if (res) {
+          this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
+        } else {
+          this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
+        }
+        this.init()
       },
     },
   }

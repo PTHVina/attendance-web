@@ -20,21 +20,6 @@
         >
           {{ $t('operation_btn.btn_text_23') }}
         </el-button>
-        <!-- 是否同步时间 -->
-        <div style="margin-left: 30px; display: inline-block">
-          <span style="margin-right: 10px">{{ $t('device.text_58') }}</span>
-          <el-tooltip
-            :content="
-              synchronizationTime ? $t('device.text_59') : $t('device.text_60')
-            "
-            placement="top"
-          >
-            <el-switch
-              v-model="synchronizationTime"
-              @change="setSynchronizationTime"
-            ></el-switch>
-          </el-tooltip>
-        </div>
         <span class="tips">
           {{ $t('operation_tips.tips_39') }}
         </span>
@@ -472,8 +457,6 @@
     setCameraParameters,
     getCameraIp,
     setCameraIP,
-    getSwitch,
-    setSwitch,
     getLocalIp,
   } from '@/api/device'
   export default {
@@ -619,14 +602,11 @@
         }, //相机ip参数
         dialogCameraVisible: false,
 
-        synchronizationTime: true, //是否同步时间
-
         localIP: [], //本地IP地址
       }
     },
     created() {
       this.init()
-      this.synchronizationTime = getSwitch()
       this.localIP = getLocalIp()
     },
     mounted() {
@@ -964,17 +944,6 @@
             return false
           }
         })
-      },
-
-      //设置同步时间
-      setSynchronizationTime(e) {
-        let res = setSwitch(e)
-        if (res) {
-          this.$baseMessage(this.$t('device.text_48'), 'success')
-        } else {
-          this.synchronizationTime = !this.synchronizationTime
-          this.$baseMessage(this.$t('device.text_49'), 'warning')
-        }
       },
     },
   }
