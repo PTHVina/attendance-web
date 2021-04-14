@@ -143,11 +143,11 @@
         sortable
       ></el-table-column>
       <!-- 操作 -->
-      <el-table-column :label="$t('personnel.title_9')" fixed="right">
+      <el-table-column :label="$t('personnel.title_9')">
         <template #default="{ row }">
           <!-- 注册 -->
           <el-button
-            v-if="row.role == 0"
+            v-if="row.role == 0 && Number(row.personid) != NaN"
             type="text"
             icon="el-icon-edit"
             style="margin-right: 10px"
@@ -228,7 +228,9 @@
         <el-form-item :label="$t('snapshot.text_39')" prop="Employee_code">
           <el-input
             v-model="form.Employee_code"
-            :placeholder="$t('snapshot.text_25')"
+            :placeholder="
+              deliveryMethod ? $t('personnel.pl_15') : $t('personnel.title_5')
+            "
             autocomplete="off"
           ></el-input>
         </el-form-item>
@@ -343,11 +345,12 @@
     getTypeList,
     getDeviceList,
     openImg,
-    setData,
     photograph,
     getDataSyncList,
     deleteDataSync,
+    registerDataSync,
   } from '@/api/personnel'
+  import { getParam } from '@/api/sysPage'
   export default {
     name: 'DataSync',
     data() {
@@ -388,12 +391,12 @@
               message: this.$t('operation_tips.tips_13'),
               trigger: 'blur',
             },
-            {
-              min: 1,
-              max: 10,
-              message: this.$t('operation_tips.tips_2'),
-              trigger: 'blur',
-            },
+            // {
+            //   min: 1,
+            //   max: 10,
+            //   message: this.$t('operation_tips.tips_2'),
+            //   trigger: 'blur',
+            // },
           ],
           Employee_code: [
             {
@@ -441,19 +444,22 @@
               trigger: 'blur',
             },
           ],
-          picture: [
-            {
-              required: true,
-              message: this.$t('operation_tips.tips_19'),
-              trigger: 'blur',
-            },
-          ],
+          // picture: [
+          //   {
+          //     required: true,
+          //     message: this.$t('operation_tips.tips_19'),
+          //     trigger: 'blur',
+          //   },
+          // ],
         },
         option: [], // 部门列表
         options: [], // 工作分类
+
+        deliveryMethod: false, //下发方式
       }
     },
     created() {
+      this.deliveryMethod = getParam()
       this.init()
       this.typeList()
     },
@@ -472,7 +478,7 @@
         let { count, list } = getDataSyncList(this.queryForm, this.page)
         this.page.total = count
         this.list = list
-        console.log('人员列表', this.list)
+        // console.log('人员列表', this.list)
         setTimeout(() => {
           this.listLoading = false
         }, 500)
@@ -496,7 +502,7 @@
       //注册弹窗
       openFormDialog(data) {
         this.form = {
-          id: data.id,
+          id: data.personid,
           name: data.name,
           Employee_code: '',
           phone: '',
@@ -510,7 +516,7 @@
           line_userid: '',
           line_type: '1',
         }
-        if (!this.form.Employee_code) {
+        if (!this.form.Employee_code && !this.deliveryMethod) {
           this.form.Employee_code = new Date().getTime().toString()
         }
         if (this.options.length != 0) {
@@ -591,6 +597,12 @@
       setFormData(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            if (this.deliveryMethod) {
+              if (!this.IdCodeValid(this.form.Employee_code)) {
+                this.$baseMessage(this.$t('personnel.pl_16'), 'warning')
+                return
+              }
+            }
             if (this.form.face_idcard.length == 0) {
               this.form.idcardtype = ''
             }
@@ -605,12 +617,19 @@
                 return
               }
             }
-            let res = setData(this.form)
-            if (res.result == 2) {
-              this.$baseMessage(res.data, 'success')
-              this.dialogFormVisible = false
-            } else {
-              this.$baseMessage(res.data, 'warning')
+            try {
+              let res = registerDataSync(this.form)
+              if (res.result == 2) {
+                this.$baseMessage(res.data, 'success')
+                this.dialogFormVisible = false
+              } else {
+                this.$baseMessage(res.data, 'warning')
+              }
+            } catch {
+              this.$baseMessage(this.$t('personnel.pl_17'), 'success')
+              if (!this.form.idcardtype) {
+                this.form.idcardtype = '32'
+              }
             }
           } else {
             return false
@@ -647,7 +666,6 @@
       //删除
       handleDelete(data) {
         let res = deleteDataSync(data)
-        console.log('删除', res)
         if (res) {
           this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
         } else {

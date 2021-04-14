@@ -3,19 +3,14 @@
     <div class="group">
       <div class="btn_group">
         <!-- 添加设备 -->
-        <el-button
-          icon="el-icon-plus"
-          type="primary"
-          class="btn_guide_a"
-          @click="openFormDialog"
-        >
+        <el-button icon="el-icon-plus" type="primary" @click="openFormDialog">
           {{ $t('operation_btn.btn_text_22') }}
         </el-button>
         <!-- 搜索设备 -->
         <el-button
           icon="el-icon-search"
           type="primary"
-          class="btn_guide_b"
+          class="btn_guide_a"
           @click="openTabelDialog"
         >
           {{ $t('operation_btn.btn_text_23') }}
@@ -291,13 +286,7 @@
             :disabled="true"
           ></el-switch>
         </el-form-item> -->
-        <!-- 开闸体温限制数值 -->
-        <el-form-item :label="$t('device.text_32')" prop="limit">
-          <el-input
-            v-model="setForm.limit"
-            :placeholder="$t('device.text_33')"
-          ></el-input>
-        </el-form-item>
+
         <!-- 补光模式 -->
         <el-form-item :label="$t('device.text_34')">
           <el-radio-group v-model="setForm.fillLight">
@@ -341,7 +330,7 @@
             :inactive-text="$t('device.text_44')"
           ></el-switch>
         </el-form-item>
-        <!-- 屏保模式 -->
+        <!-- 自动息屏 -->
         <el-form-item :label="$t('device.text_43')">
           <el-switch
             v-model="setForm.screensaver_mode"
@@ -351,7 +340,7 @@
             inactive-value="none"
           ></el-switch>
         </el-form-item>
-        <!-- 输出对比失败图像 -->
+        <!-- 陌生人上传 -->
         <el-form-item
           v-if="setForm.output_not_matched != 'no'"
           :label="$t('device.text_52')"
@@ -361,6 +350,13 @@
             :active-text="$t('device.text_28')"
             :inactive-text="$t('device.text_44')"
           ></el-switch>
+        </el-form-item>
+        <!-- 体温预警阀值 -->
+        <el-form-item :label="$t('device.text_32')" prop="limit">
+          <el-input
+            v-model="setForm.limit"
+            :placeholder="$t('device.text_33')"
+          ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -620,21 +616,18 @@
         try {
           let dom = document.getElementsByClassName('el-menu')[0]
           let children = dom.childNodes
-          children[5].lastChild.style.removeProperty('display')
+          children[3].lastChild.style.removeProperty('display')
           let data = [
             {
+              title: this.$t('operation_tips.tips_76'),
               element: '.btn_guide_a',
-              intro: this.$t('operation_tips.tips_74'),
+              intro: this.$t('operation_tips.tips_71'),
               position: 'bottom',
             },
             {
-              element: '.btn_guide_b',
-              intro: this.$t('operation_tips.tips_75'),
-              position: 'bottom',
-            },
-            {
-              element: '.el-menu li:nth-child(4)>ul li:first-child',
-              intro: this.$t('operation_tips.tips_76'),
+              title: this.$t('operation_tips.tips_76'),
+              element: '.el-menu li:nth-child(2)>ul li:first-child',
+              intro: this.$t('operation_tips.tips_72'),
               position: 'right',
             },
           ]
@@ -642,7 +635,7 @@
             .setOptions({
               prevLabel: this.$t('operation_tips.tips_66'),
               nextLabel: this.$t('operation_tips.tips_67'),
-              skipLabel: '',
+              skipLabel: this.$t('operation_tips.tips_75'),
               doneLabel: this.$t('operation_tips.tips_68'),
               steps: data,
               exitOnOverlayClick: false, //是否允许点击空白处退出
@@ -650,18 +643,14 @@
               showBullets: false, //是否使用点点点显示进度
               showProgress: false, //是否显示进度条
             })
-            .onchange((obj) => {
-              //已完成当前一步
-              console.log('已完成当前一步', obj)
-            })
             .oncomplete(() => {
               //点击结束按钮后执行的事件
               console.log('结束')
-              this.$router.push('/attendanceSet/classes')
+              this.$router.push('/personnel/personnelIndex')
             })
-            .onexit(() => {
-              //点击跳过按钮后执行的事件
+            .onskip(() => {
               console.log('跳过')
+              localStorage.setItem('firstLogin', false)
             })
             .start()
         } catch {

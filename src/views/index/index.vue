@@ -147,17 +147,18 @@
       setGuide() {
         let dom = document.getElementsByClassName('el-menu')[0]
         let children = dom.childNodes
-        children[3].lastChild.style.removeProperty('display')
+        children[4].lastChild.style.removeProperty('display')
         let data = [
           {
-            element: '.el-menu li:nth-child(2)>ul li:first-child',
+            title: this.$t('operation_tips.tips_76'),
+            element: '.el-menu li:nth-child(3)>ul li:first-child',
             intro: this.$t('operation_tips.tips_70'),
             position: 'right',
           },
         ]
         this.$intro()
           .setOptions({
-            skipLabel: '',
+            skipLabel: this.$t('operation_tips.tips_75'),
             doneLabel: this.$t('operation_tips.tips_68'),
             steps: data,
             exitOnOverlayClick: false, //是否允许点击空白处退出
@@ -166,7 +167,11 @@
             showProgress: false, //是否显示进度条
           })
           .oncomplete(() => {
-            this.$router.push('/system/department')
+            this.$router.push('/device/deviceIndex')
+          })
+          .onskip(() => {
+            console.log('跳过')
+            localStorage.setItem('firstLogin', false)
           })
           .start()
       },

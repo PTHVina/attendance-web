@@ -4,7 +4,8 @@ export function getDataList(page) {
     page.pageNo.toString(),
     page.pageSize.toString()
   )
-  let re_json1 = JSON.parse(list)
+  let d = list.replace(/\"id\":(\d+)/g, '"id": "$1"') //id长度超过53位转换为字符串
+  let re_json1 = JSON.parse(d)
   let count = window.top.myExtension.getStaffDatacount()
   let re_json2 = JSON.parse(count)
 
@@ -299,12 +300,41 @@ export function getDataSyncList(data, page) {
     page.pageSize.toString()
   )
   var res_data = JSON.parse(res)
-  console.log('数据同步result', res_data)
-  return { count: res_data.length, list: res_data }
+  let count = window.top.myExtension.getDataSynCount(
+    data.name.toString(),
+    data.role.toString(),
+    data.stutas.toString()
+  )
+  count = JSON.parse(count)
+
+  return { count: count[0].count, list: res_data }
 }
 //删除数据同步
 export function deleteDataSync(data) {
-  let res = window.top.myExtension.deleteDataSyn(data.personid, data.device_sn)
+  let res = window.top.myExtension.deleteDataSyn(
+    data.id.toString(),
+    data.device_sn
+  )
+  var res_data = JSON.parse(res)
+  return res_data
+}
+// 数据同步注册
+export function registerDataSync(data) {
+  let res = window.top.myExtension.setStaffForsynchronization(
+    data.id.toString(),
+    data.name,
+    data.Employee_code.toString(),
+    data.phone.toString(),
+    data.Email,
+    data.departmentname.toString(),
+    data.Employetypename.toString(),
+    data.picture.toString(),
+    data.line_type.toString(),
+    data.line_userid.toString(),
+    data.face_idcard.toString(),
+    data.idcardtype.toString()
+  )
+
   var res_data = JSON.parse(res)
   return res_data
 }

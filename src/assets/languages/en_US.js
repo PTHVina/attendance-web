@@ -134,25 +134,15 @@ module.exports = {
     tips_67: 'Next step',
     tips_68: 'Enter the page',
     tips_69: 'consummation',
-    tips_70: 'Step 1: Enter the page to set department information.',
-    tips_71: 'Step 2: Click the "Add" button to add department information.',
-    tips_72: 'Step 3: Add work categories.',
-    tips_73: 'Step 4: Enter the page to add equipment.',
-    tips_74:
-      'Step 5: Click "Add Device" to manually enter the IP address to add the device.',
-    tips_75:
-      'Step 6: Or click "Search Device" to perform an automatic search, and then click the "Add" button to add a device.',
-    tips_76: 'Step 7: Enter the page to set attendance information.',
-    tips_77: 'Step 8: Click the "Add" button to add attendance shifts.',
-    tips_78: 'Step 9: Enter the page to set the attendance group information.',
-    tips_79: 'Step 10: Click the "Add" button to add attendance shifts.',
-    tips_80: 'Step 11: Enter the page to set personnel information.',
-    tips_81:
-      'Step 12: Click the "Add" button to add individual personnel information.',
-    tips_82:
-      'Step 13: Click the "Download Template" button to obtain the batch import template.',
-    tips_83:
-      'Step 14: Click the "Batch Import" button to add personnel information in batches.',
+    tips_70: 'Step 1: Enter the page to add a device.',
+    tips_71:
+      'Step 2: Click "Search Device" to perform an automatic search, and then click the "Add" button to add a device.',
+    tips_72: 'Step 3: Enter the page to add personnel information.',
+    tips_73:
+      'Step 4: Click the "Add" button to add individual personnel information.',
+    tips_74: 'Step 5: Enter the page to view the device snapshot record.',
+    tips_75: 'jump over',
+    tips_76: "Beginner's guide",
   },
   // 首页
   home: {
@@ -242,6 +232,7 @@ module.exports = {
     pl_14: 'nothing',
     pl_15: 'please enter the ID number',
     pl_16: 'Please enter the correct ID number in the number',
+    pl_17: 'Program error',
   },
   //设备管理
   device: {
@@ -276,7 +267,7 @@ module.exports = {
     text_29: 'Allow duplicate registration',
     text_30: 'Live detection',
     text_31: 'Body temperature detection',
-    text_32: 'Limit value of body temperature when opening the gate',
+    text_32: 'Body temperature warning threshold',
     text_33: 'Please enter the body temperature value',
     text_34: 'Fill light mode',
     text_35: 'Normally open',
@@ -287,7 +278,7 @@ module.exports = {
     text_40: 'middle',
     text_41: 'high(Only used in automatic mode)',
     text_42: 'Fill light brightness',
-    text_43: 'Screensaver mode',
+    text_43: 'Automatic screen',
     text_44: 'off',
     text_45: 'Rest screen mode',
     text_46: 'Media display mode',
@@ -296,7 +287,7 @@ module.exports = {
     text_49: 'Setup failed',
     text_50: 'Please enter the correct temperature',
     text_51: 'This device does not support parameter settings',
-    text_52: 'Output comparison failed image',
+    text_52: 'Stranger upload',
     text_53: 'volume',
     text_54: 'DNS',
     text_55: 'DNS address cannot be empty!',

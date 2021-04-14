@@ -52,72 +52,6 @@ export const asyncRoutes = [
     ],
   },
   {
-    path: '/system',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: 'System',
-    alwaysShow: true,
-    meta: { title: i18.router.title_2, icon: 'cog' }, //系统设置
-    children: [
-      {
-        path: 'department',
-        name: 'Department',
-        component: () => import('@/views/system/department'),
-        meta: { title: i18.router.title_3, permissions: ['admin'] }, //部门设置
-      },
-      {
-        path: 'parameter',
-        name: 'Parameter',
-        component: () => import('@/views/system/parameter'),
-        meta: { title: i18.router.title_20, permissions: ['admin'] }, //参数设置
-      },
-    ],
-  },
-  {
-    path: '/device',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: 'Device',
-    alwaysShow: true,
-    meta: { title: i18.router.title_8, icon: 'video' }, //设备管理
-    children: [
-      {
-        path: 'deviceIndex',
-        name: 'DeviceIndex',
-        component: () => import('@/views/device/index'),
-        meta: { title: i18.router.title_9, permissions: ['admin'] }, //设备列表
-      },
-      {
-        path: 'online',
-        name: 'Online',
-        component: () => import('@/views/device/online'),
-        meta: { title: i18.router.title_10, permissions: ['admin'] }, //在线视频
-      },
-    ],
-  },
-  {
-    path: '/attendanceSet',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: 'AttendanceSet',
-    alwaysShow: true,
-    meta: { title: i18.router.title_13, icon: 'cogs' }, //考勤设置
-    children: [
-      {
-        path: 'classes',
-        name: 'Classes',
-        component: () => import('@/views/attendanceSet/classes'),
-        meta: { title: i18.router.title_14, permissions: ['admin'] }, //考勤班次
-      },
-      {
-        path: 'group',
-        name: 'Group',
-        component: () => import('@/views/attendanceSet/group'),
-        meta: { title: i18.router.title_15, permissions: ['admin'] }, //考勤组
-      },
-    ],
-  },
-  {
     path: '/personnel',
     component: Layout,
     redirect: 'noRedirect',
@@ -143,12 +77,34 @@ export const asyncRoutes = [
         component: () => import('@/views/personnel/issue'),
         meta: { title: i18.router.title_7, permissions: ['admin'] }, //下发记录
       },
-      // {
-      //   path: 'dataSync',
-      //   name: 'DataSync',
-      //   component: () => import('@/views/personnel/dataSync'),
-      //   meta: { title: i18.router.title_19, permissions: ['admin'] }, //数据同步
-      // },
+      {
+        path: 'dataSync',
+        name: 'DataSync',
+        component: () => import('@/views/personnel/dataSync'),
+        meta: { title: i18.router.title_19, permissions: ['admin'] }, //数据同步
+      },
+    ],
+  },
+  {
+    path: '/device',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'Device',
+    alwaysShow: true,
+    meta: { title: i18.router.title_8, icon: 'video' }, //设备管理
+    children: [
+      {
+        path: 'deviceIndex',
+        name: 'DeviceIndex',
+        component: () => import('@/views/device/index'),
+        meta: { title: i18.router.title_9, permissions: ['admin'] }, //设备列表
+      },
+      {
+        path: 'online',
+        name: 'Online',
+        component: () => import('@/views/device/online'),
+        meta: { title: i18.router.title_10, permissions: ['admin'] }, //在线视频
+      },
     ],
   },
   {
@@ -186,6 +142,50 @@ export const asyncRoutes = [
         name: 'Monthly',
         component: () => import('@/views/attendance/monthly'),
         meta: { title: i18.router.title_18, permissions: ['admin'] }, //月度考勤
+      },
+    ],
+  },
+  {
+    path: '/attendanceSet',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'AttendanceSet',
+    alwaysShow: true,
+    meta: { title: i18.router.title_13, icon: 'cogs' }, //考勤设置
+    children: [
+      {
+        path: 'classes',
+        name: 'Classes',
+        component: () => import('@/views/attendanceSet/classes'),
+        meta: { title: i18.router.title_14, permissions: ['admin'] }, //考勤班次
+      },
+      {
+        path: 'group',
+        name: 'Group',
+        component: () => import('@/views/attendanceSet/group'),
+        meta: { title: i18.router.title_15, permissions: ['admin'] }, //考勤组
+      },
+    ],
+  },
+  {
+    path: '/system',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'System',
+    alwaysShow: true,
+    meta: { title: i18.router.title_2, icon: 'cog' }, //系统设置
+    children: [
+      {
+        path: 'department',
+        name: 'Department',
+        component: () => import('@/views/system/department'),
+        meta: { title: i18.router.title_3, permissions: ['admin'] }, //部门设置
+      },
+      {
+        path: 'parameter',
+        name: 'Parameter',
+        component: () => import('@/views/system/parameter'),
+        meta: { title: i18.router.title_20, permissions: ['admin'] }, //参数设置
       },
     ],
   },

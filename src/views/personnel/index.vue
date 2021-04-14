@@ -67,7 +67,7 @@
         <el-button
           icon="el-icon-plus"
           type="primary"
-          class="btn_guide_e"
+          class="btn_guide_b"
           @click="openFormDialog"
         >
           {{ $t('operation_btn.btn_text_7') }}
@@ -80,18 +80,12 @@
         <el-button
           icon="el-icon-folder-opened"
           type="primary"
-          class="btn_guide_g"
           @click="importExcel"
         >
           {{ $t('operation_btn.btn_text_9') }}
         </el-button>
         <!-- 下载模板 -->
-        <el-button
-          icon="el-icon-download"
-          type="primary"
-          class="btn_guide_f"
-          @click="downDemo"
-        >
+        <el-button icon="el-icon-download" type="primary" @click="downDemo">
           {{ $t('operation_btn.btn_text_10') }}
         </el-button>
         <!-- 批量下发 -->
@@ -393,9 +387,7 @@
           <el-input
             v-model="form.Employee_code"
             :placeholder="
-              this.deliveryMethod
-                ? $t('personnel.pl_15')
-                : $t('personnel.title_5')
+              deliveryMethod ? $t('personnel.pl_15') : $t('personnel.title_5')
             "
             autocomplete="off"
           ></el-input>
@@ -757,13 +749,13 @@
               trigger: 'blur',
             },
           ],
-          picture: [
-            {
-              required: true,
-              message: this.$t('operation_tips.tips_19'),
-              trigger: 'blur',
-            },
-          ],
+          // picture: [
+          //   {
+          //     required: true,
+          //     message: this.$t('operation_tips.tips_19'),
+          //     trigger: 'blur',
+          //   },
+          // ],
         },
         dialogTableVisible: false, //表格弹窗控制
         gridData: [], //设备列表
@@ -791,47 +783,44 @@
     methods: {
       setGuide() {
         try {
+          let dom = document.getElementsByClassName('el-menu')[0]
+          let children = dom.childNodes
+          children[5].lastChild.style.removeProperty('display')
           let data = [
             {
-              element: '.btn_guide_e',
-              intro: this.$t('operation_tips.tips_81'),
+              title: this.$t('operation_tips.tips_76'),
+              element: '.btn_guide_b',
+              intro: this.$t('operation_tips.tips_73'),
               position: 'bottom',
             },
             {
-              element: '.btn_guide_f',
-              intro: this.$t('operation_tips.tips_82'),
-              position: 'bottom',
-            },
-            {
-              element: '.btn_guide_g',
-              intro: this.$t('operation_tips.tips_83'),
-              position: 'bottom',
+              title: this.$t('operation_tips.tips_76'),
+              element: '.el-menu li:nth-child(4)>ul li:first-child',
+              intro: this.$t('operation_tips.tips_74'),
+              position: 'right',
             },
           ]
           this.$intro()
             .setOptions({
               prevLabel: this.$t('operation_tips.tips_66'),
               nextLabel: this.$t('operation_tips.tips_67'),
-              skipLabel: '',
-              doneLabel: this.$t('operation_tips.tips_69'),
+              skipLabel: this.$t('operation_tips.tips_75'),
+              doneLabel: this.$t('operation_tips.tips_68'),
               steps: data,
               exitOnOverlayClick: false, //是否允许点击空白处退出
               overlayOpacity: 0.6, //遮罩层的透明度
               showBullets: false, //是否使用点点点显示进度
               showProgress: false, //是否显示进度条
             })
-            .onchange((obj) => {
-              //已完成当前一步
-              console.log('已完成当前一步', obj)
-            })
             .oncomplete(() => {
               //点击结束按钮后执行的事件
               console.log('结束')
+              this.$router.push('/snapshot/record')
               localStorage.setItem('firstLogin', false)
             })
-            .onexit(() => {
-              //点击跳过按钮后执行的事件
+            .onskip(() => {
               console.log('跳过')
+              localStorage.setItem('firstLogin', false)
             })
             .start()
         } catch {
@@ -852,7 +841,7 @@
         this.listLoading = true
         let list = getDataList(this.page)
         this.list = list[0]
-        // console.log('list', list)
+        // console.log('人员列表list', list)
         this.page.total = list[1]
         let imageList = []
         this.list.forEach((item, index) => {
@@ -1169,28 +1158,37 @@
               this.form.idcardtype = ''
             }
             if (this.form.idcardtype == 32) {
+              // Math.pow(2,32)=4294967296
               if (this.form.face_idcard > 4294967295) {
                 this.$baseMessage(this.$t('operation_tips.tips_28'), 'warning')
                 return
               }
             } else if (this.form.idcardtype == 64) {
+              // Math.pow(2,64)
               if (this.form.face_idcard > 18446744073709551615) {
                 this.$baseMessage(this.$t('operation_tips.tips_29'), 'warning')
                 return
               }
             }
-            if (this.form.id) {
-              this.form.departmentname = this.departmentData.id
-              res = editData(this.form)
-            } else {
-              res = setData(this.form)
-            }
-            if (res.result == 2) {
-              this.$baseMessage(res.data, 'success')
-              this.closeFn()
-              this.init()
-            } else {
-              this.$baseMessage(res.data, 'warning')
+            try {
+              if (this.form.id) {
+                this.form.departmentname = this.departmentData.id
+                res = editData(this.form)
+              } else {
+                res = setData(this.form)
+              }
+              if (res.result == 2) {
+                this.$baseMessage(res.data, 'success')
+                this.closeFn()
+                this.init()
+              } else {
+                this.$baseMessage(res.data, 'warning')
+              }
+            } catch {
+              this.$baseMessage(this.$t('personnel.pl_17'), 'success')
+              if (!this.form.idcardtype) {
+                this.form.idcardtype = '32'
+              }
             }
           } else {
             return false
@@ -1219,7 +1217,6 @@
         }
         this.departmentData = {}
       },
-
       // 验证身份证号是否正确
       IdCodeValid(code) {
         //身份证号合法性验证

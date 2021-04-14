@@ -476,9 +476,7 @@
           <el-input
             v-model="form.Employee_code"
             :placeholder="
-              this.deliveryMethod
-                ? $t('personnel.pl_15')
-                : $t('snapshot.text_25')
+              deliveryMethod ? $t('personnel.pl_15') : $t('snapshot.text_25')
             "
             autocomplete="off"
           ></el-input>
@@ -790,13 +788,13 @@
               trigger: 'blur',
             },
           ],
-          picture: [
-            {
-              required: true,
-              message: this.$t('operation_tips.tips_19'),
-              trigger: 'blur',
-            },
-          ],
+          // picture: [
+          //   {
+          //     required: true,
+          //     message: this.$t('operation_tips.tips_19'),
+          //     trigger: 'blur',
+          //   },
+          // ],
         },
         dialogTableVisible: false,
         exportType: '',
@@ -1077,12 +1075,19 @@
                 return
               }
             }
-            let res = setData(this.form)
-            if (res.result == 2) {
-              this.$baseMessage(res.data, 'success')
-              this.dialogFormVisible = false
-            } else {
-              this.$baseMessage(res.data, 'warning')
+            try {
+              let res = setData(this.form)
+              if (res.result == 2) {
+                this.$baseMessage(res.data, 'success')
+                this.dialogFormVisible = false
+              } else {
+                this.$baseMessage(res.data, 'warning')
+              }
+            } catch {
+              this.$baseMessage(this.$t('personnel.pl_17'), 'success')
+              if (!this.form.idcardtype) {
+                this.form.idcardtype = '32'
+              }
             }
           } else {
             return false

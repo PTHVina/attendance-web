@@ -375,12 +375,12 @@
               message: this.$t('operation_tips.tips_32'),
               trigger: 'blur',
             },
-            {
-              min: 1,
-              max: 10,
-              message: this.$t('operation_tips.tips_2'),
-              trigger: 'blur',
-            },
+            // {
+            //   min: 1,
+            //   max: 10,
+            //   message: this.$t('operation_tips.tips_2'),
+            //   trigger: 'blur',
+            // },
           ],
           phone: [
             {
