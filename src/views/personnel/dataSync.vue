@@ -72,6 +72,14 @@
             >
               {{ $t('operation_btn.btn_text_6') }}
             </el-button>
+            <!-- 一键注册 -->
+            <el-button
+              icon="el-icon-thumb"
+              type="success"
+              @click="registerAll()"
+            >
+              {{ $t('operation_btn.btn_text_32') }}
+            </el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -157,7 +165,7 @@
           </el-button>
           <!-- 删除 -->
           <el-popconfirm
-            title="确认删除此人员信息？"
+            :title="$t('operation_tips.tips_4')"
             @confirm="handleDelete(row)"
           >
             <el-button
@@ -349,6 +357,7 @@
     getDataSyncList,
     deleteDataSync,
     registerDataSync,
+    registerAll,
   } from '@/api/personnel'
   import { getParam } from '@/api/sysPage'
   export default {
@@ -672,6 +681,16 @@
           this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
         }
         this.init()
+      },
+
+      //一键注册
+      registerAll() {
+        try {
+          registerAll()
+          this.$baseMessage(this.$t('personnel.pl_18'), 'success')
+        } catch {
+          this.$baseMessage(this.$t('personnel.pl_17'), 'warning')
+        }
       },
     },
   }

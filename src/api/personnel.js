@@ -290,7 +290,7 @@ export function setSend(id) {
   })
 }
 
-//数据同步列表
+//设备人员列表
 export function getDataSyncList(data, page) {
   let res = window.top.myExtension.getDataSyn(
     data.name.toString(),
@@ -309,7 +309,7 @@ export function getDataSyncList(data, page) {
 
   return { count: count[0].count, list: res_data }
 }
-//删除数据同步
+//删除设备人员
 export function deleteDataSync(data) {
   let res = window.top.myExtension.deleteDataSyn(
     data.id.toString(),
@@ -318,7 +318,7 @@ export function deleteDataSync(data) {
   var res_data = JSON.parse(res)
   return res_data
 }
-// 数据同步注册
+// 设备人员注册
 export function registerDataSync(data) {
   let res = window.top.myExtension.setStaffForsynchronization(
     data.id.toString(),
@@ -337,4 +337,9 @@ export function registerDataSync(data) {
 
   var res_data = JSON.parse(res)
   return res_data
+}
+//一键注册
+export function registerAll() {
+  window.top.myExtension.registDataSynTostaff()
+  return true
 }

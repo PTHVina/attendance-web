@@ -19,8 +19,9 @@ module.exports = {
     title_16: '考勤管理',
     title_17: '每日考勤',
     title_18: '月度考勤',
-    title_19: '数据同步',
+    title_19: '设备人员',
     title_20: '参数设置',
+    title_21: '说明文档',
   },
   //操作按钮
   operation_btn: {
@@ -55,6 +56,7 @@ module.exports = {
     btn_text_29: '保存',
     btn_text_30: '导出',
     btn_text_31: '导出设置',
+    btn_text_32: '一键注册',
   },
   // 操作提示
   operation_tips: {
@@ -227,6 +229,7 @@ module.exports = {
     pl_15: '请输入身份证号',
     pl_16: '编号中请输入正确的身份证号',
     pl_17: '程序错误',
+    pl_18: '正在注册...',
   },
   //设备管理
   device: {

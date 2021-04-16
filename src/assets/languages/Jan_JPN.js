@@ -19,8 +19,9 @@ module.exports = {
     title_16: '勤務評定の管理',
     title_17: '毎日出勤する',
     title_18: '月次勤務評定',
-    title_19: 'データの同期',
+    title_19: '設備担当者',
     title_20: 'パラメータ設定',
+    title_21: 'ドキュメント',
   },
   //操作按钮
   operation_btn: {
@@ -55,6 +56,7 @@ module.exports = {
     btn_text_29: '保存',
     btn_text_30: 'エクスポート',
     btn_text_31: 'エクスポートの設定',
+    btn_text_32: 'ワンクリック登録',
   },
   // 操作提示
   operation_tips: {
@@ -232,6 +234,7 @@ module.exports = {
     pl_15: 'ID番号を入力してください',
     pl_16: '番号に正しいID番号を入力してください',
     pl_17: 'プログラムエラー',
+    pl_18: '登録中...',
   },
   //设备管理
   device: {

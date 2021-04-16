@@ -238,6 +238,25 @@ if (lang == 'Jan_JPN') {
     component: () => import('@/views/personnel/lineRecord'),
     meta: { title: 'LINE送信記録', permissions: ['admin'] }, //LINE发送记录
   })
+} else if (lang == 'zh_CN') {
+  asyncRoutes.splice(7, 0, {
+    path: '/documentation',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'Documentation',
+    children: [
+      {
+        path: 'documentationIndex',
+        name: 'DocumentationIndex',
+        component: () => import('@/views/documentation/index'),
+        meta: {
+          title: i18.router.title_21, // 说明文档
+          icon: 'atlas',
+          affix: true,
+        },
+      },
+    ],
+  })
 }
 const router = new VueRouter({
   routes: asyncRoutes,
