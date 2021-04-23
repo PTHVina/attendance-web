@@ -236,6 +236,8 @@ module.exports = {
     pl_16: 'Please enter the correct ID number in the number',
     pl_17: 'Program error',
     pl_18: 'Registering...',
+    pl_19: 'Whether to register all personnel information, a total of',
+    pl_20: 'people',
   },
   //设备管理
   device: {

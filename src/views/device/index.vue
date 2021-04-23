@@ -171,7 +171,7 @@
         :highlight-current-row="true"
         :element-loading-text="elementLoadingText"
         class="dialog_size"
-        style="width: 100%; max-height: 65vh"
+        max-height="65vh"
       >
         <!-- IP地址 -->
         <el-table-column
@@ -186,7 +186,7 @@
           prop="Item4"
         ></el-table-column>
         <!-- 操作 -->
-        <el-table-column :label="$t('device.text_6')" fixed="right">
+        <el-table-column :label="$t('device.text_6')">
           <template #default="{ row }">
             <el-button type="text" icon="el-icon-edit" @click="addIP(row)">
               {{ $t('operation_btn.btn_text_1') }}
@@ -824,7 +824,7 @@
           return
         }
         this.dialogTypeVisible = true
-        console.log('res', res)
+        // console.log('res', res)
         this.setForm = {
           ip: row.IP,
           // dereplication: res.face.enable_dereplication, //允许注册重复

@@ -131,6 +131,8 @@
             confirmButtonText: this.$t('operation_btn.btn_text_5'),
             cancelButtonText: this.$t('operation_btn.btn_text_4'),
             type: 'warning',
+            closeOnClickModal: false,
+            closeOnPressEscape: false,
           }
         )
           .then(() => {

@@ -62,7 +62,11 @@
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
-      height="calc(100vh - 206px)"
+      :height="
+        page.total <= page.pageSize
+          ? 'calc(100vh - 206px)'
+          : 'calc(100vh - 255px)'
+      "
       @sort-change="tableSortChange"
     >
       <!-- 序号 -->
@@ -166,7 +170,7 @@
         },
         page: {
           pageNo: 1,
-          pageSize: 10,
+          pageSize: 20,
           total: 0, //总数
         },
         // 状态option

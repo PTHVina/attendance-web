@@ -296,6 +296,7 @@ export function getDataSyncList(data, page) {
     data.name.toString(),
     data.role.toString(),
     data.stutas.toString(),
+    data.addr_name.toString(),
     page.pageNo.toString(),
     page.pageSize.toString()
   )
@@ -303,7 +304,8 @@ export function getDataSyncList(data, page) {
   let count = window.top.myExtension.getDataSynCount(
     data.name.toString(),
     data.role.toString(),
-    data.stutas.toString()
+    data.stutas.toString(),
+    data.addr_name.toString()
   )
   count = JSON.parse(count)
 
@@ -339,7 +341,12 @@ export function registerDataSync(data) {
   return res_data
 }
 //一键注册
-export function registerAll() {
-  window.top.myExtension.registDataSynTostaff()
+export function registerAll(data) {
+  window.top.myExtension.registDataSynTostaff(
+    data.name.toString(),
+    data.role.toString(),
+    data.stutas.toString(),
+    data.addr_name.toString()
+  )
   return true
 }

@@ -62,6 +62,27 @@
               <el-option key="3" label="状态三" value="3"></el-option>
             </el-select>
           </el-form-item> -->
+          <!-- 设备名称 -->
+          <el-form-item>
+            <span>{{ $t('personnel.title_13') }}</span>
+            <el-select
+              v-model="queryForm.addr_name"
+              clearable
+              :placeholder="$t('snapshot.text_9')"
+            >
+              <el-option
+                key="0"
+                :label="$t('personnel.pl_14')"
+                value=""
+              ></el-option>
+              <el-option
+                v-for="(item, index) in deviceList"
+                :key="index + 2"
+                :label="item.DeviceName"
+                :value="item.DeviceName"
+              ></el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item>
             <!-- 查询 -->
             <el-button
@@ -155,7 +176,6 @@
         <template #default="{ row }">
           <!-- 注册 -->
           <el-button
-            v-if="row.role == 0 && Number(row.personid) != NaN"
             type="text"
             icon="el-icon-edit"
             style="margin-right: 10px"
@@ -360,6 +380,7 @@
     registerAll,
   } from '@/api/personnel'
   import { getParam } from '@/api/sysPage'
+  import { getDeviceList as getDeviceList2 } from '@/api/device'
   export default {
     name: 'DataSync',
     data() {
@@ -373,12 +394,14 @@
           name: '', //人员姓名
           role: '', //0:普通人员\1:白名单人员\2:黑名单人员\-1:所有人员
           stutas: '', //状态
+          addr_name: '', //设备名称
         },
         page: {
           pageNo: 1,
           pageSize: 10,
           total: 0, //总数
         },
+        deviceList: [], //设备列表
         dialogFormVisible: false, //表单弹窗控制
         form: {
           name: '',
@@ -484,6 +507,9 @@
       },
       init() {
         this.listLoading = true
+        let deviceList = getDeviceList2()
+        this.deviceList = deviceList
+        console.log('设备列表', this.deviceList)
         let { count, list } = getDataSyncList(this.queryForm, this.page)
         this.page.total = count
         this.list = list
@@ -626,6 +652,7 @@
                 return
               }
             }
+
             try {
               let res = registerDataSync(this.form)
               if (res.result == 2) {
@@ -685,12 +712,26 @@
 
       //一键注册
       registerAll() {
-        try {
-          registerAll()
-          this.$baseMessage(this.$t('personnel.pl_18'), 'success')
-        } catch {
-          this.$baseMessage(this.$t('personnel.pl_17'), 'warning')
-        }
+        this.$confirm(
+          this.$t('personnel.pl_19') +
+            this.page.total +
+            this.$t('personnel.pl_20'),
+          this.$t('operation_tips.tips_42'),
+          {
+            confirmButtonText: this.$t('operation_btn.btn_text_5'),
+            cancelButtonText: this.$t('operation_btn.btn_text_4'),
+            type: 'warning',
+          }
+        )
+          .then(() => {
+            try {
+              registerAll(this.queryForm)
+              this.$baseMessage(this.$t('personnel.pl_18'), 'success')
+            } catch {
+              this.$baseMessage(this.$t('personnel.pl_17'), 'warning')
+            }
+          })
+          .catch(() => {})
       },
     },
   }
