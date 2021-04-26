@@ -155,6 +155,7 @@ module.exports = {
     text_6: '早退',
     text_7: '休暇',
     text_8: '私のデバイス',
+    text_9: 'スナップショットレコード',
   },
   // 系统设置
   system: {

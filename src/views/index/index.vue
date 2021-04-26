@@ -1,5 +1,5 @@
 <template>
-  <div class="index-container">
+  <div v-cloak class="index-container">
     <ul class="home_list">
       <li class="box_item">
         <div class="item_title">
@@ -103,24 +103,128 @@
         </el-table-column>
       </el-table>
     </div>
+
+    <div class="capture_box">
+      <div class="list_title">{{ $t('home.text_9') }}</div>
+      <el-table
+        ref="tableSort"
+        v-loading="capture_Loading"
+        :data="capture_list"
+        :highlight-current-row="true"
+        :element-loading-text="elementLoadingText"
+        height="680"
+      >
+        <!-- 特写图 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('snapshot.text_15')"
+          width="100px"
+        >
+          <template #default="{ row }">
+            <el-image
+              :preview-src-list="imageList"
+              :src="row.closeup"
+            ></el-image>
+          </template>
+        </el-table-column>
+        <!-- 头像 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('snapshot.text_22')"
+          width="100px"
+        >
+          <template #default="{ row }">
+            <el-image
+              v-if="row.TemplateImage"
+              :src="row.TemplateImage"
+            ></el-image>
+          </template>
+        </el-table-column>
+        <!-- 姓名 -->
+        <el-table-column
+          show-overflow-tooltip
+          prop="person_name"
+          :label="$t('snapshot.text_1')"
+        ></el-table-column>
+        <!-- 体温 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('snapshot.text_16')"
+          prop="body_temp"
+          sortable
+        >
+          <template #default="{ row }">
+            <div
+              v-if="
+                row.QRcodestatus != null &&
+                row.QRcodestatus.toString().indexOf('体温异常') != -1
+              "
+            >
+              <span style="color: red">
+                {{ Number(row.body_temp).toFixed(2) }}
+              </span>
+            </div>
+            <span v-else>{{ Number(row.body_temp).toFixed(2) }}</span>
+          </template>
+        </el-table-column>
+        <!-- 抓拍时间 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('snapshot.text_4')"
+          prop="time"
+          sortable
+        >
+          <template #default="{ row }">
+            <span>{{ row.time.split('.')[0] }}</span>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+
+    <div class="echart_box">
+      <div id="echarts" style="width: 100%; height: 100%"></div>
+    </div>
   </div>
 </template>
 
 <script>
-  import { getList, isFirstStart } from '@/api/index'
+  import { getList, isFirstStart, chartData } from '@/api/index'
   import { getDeviceList, openDoor } from '@/api/device'
+  import { getRecordList } from '@/api/record'
   export default {
     name: 'Index',
     data() {
       return {
+        interval: '',
+        interval2: '',
         tag: '',
         list: [],
+        imageList: [],
         listLoading: false, //列表加载
         elementLoadingText: this.$t('operation_tips.tips_12'),
+
+        queryForm: {
+          name: '',
+          devname: '',
+          accreditTime: [], //授权时间范围
+          statime: '',
+          endtime: '',
+          stranger: '', //是否陌生人
+          codestus: '', //健康码
+        },
+        page: {
+          pageNo: 1,
+          pageSize: 20,
+        },
+        capture_Loading: false,
+        capture_list: [],
+
+        chartData: '',
       }
     },
     created() {
       this.tag = getList()
+      this.chartData = chartData()
       this.init()
       let firstStart = isFirstStart()
       if (firstStart) {
@@ -144,8 +248,38 @@
           })
       }
     },
-    mounted() {},
+    destroyed() {
+      clearInterval(this.interval)
+      clearInterval(this.interval2)
+    },
+    mounted() {
+      let myEchart = this.$echarts.init(document.getElementById('echarts'))
+      let option = {
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: Object.keys(this.chartData).reverse(),
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: [
+          {
+            data: Object.values(this.chartData).reverse(),
+            type: 'line',
+            areaStyle: {},
+            label: {
+              show: true,
+              position: 'top',
+            },
+            smooth: true,
+          },
+        ],
+      }
+      myEchart.setOption(option)
+    },
     methods: {
+      // 新手引导
       setGuide() {
         let dom = document.getElementsByClassName('el-menu')[0]
         let children = dom.childNodes
@@ -177,17 +311,34 @@
           })
           .start()
       },
-      init() {
+      async init() {
         this.listLoading = true
-        let list = getDeviceList()
-        this.list = list
-        setTimeout(() => {
-          this.listLoading = false
-        }, 500)
-        setInterval(() => {
-          let list = getDeviceList()
-          this.list = list
+        // 设备列表
+        this.list = await getDeviceList()
+        //抓拍记录
+        this.capture_Loading = true
+        let list2 = await getRecordList(this.queryForm, this.page)
+        this.capture_list = list2.list
+        let imageList = []
+        list2.list.forEach((item, index) => {
+          imageList.push(item.closeup)
+        })
+        this.imageList = imageList
+
+        this.listLoading = false
+        this.capture_Loading = false
+
+        this.interval = setInterval(() => {
+          this.list = getDeviceList()
         }, 10000)
+        this.interval2 = setInterval(() => {
+          let list2 = getRecordList(this.queryForm, this.page)
+          this.capture_list = list2.list
+          list2.list.forEach((item, index) => {
+            imageList.push(item.closeup)
+          })
+          this.imageList = imageList
+        }, 60000)
       },
       //开闸
       openDoor(row) {
@@ -209,6 +360,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 0;
+    margin: 0;
   }
   .home_list .box_item {
     background: white;
@@ -292,18 +444,18 @@
       line-height: 60px;
     }
   }
-</style>
-<style scoped>
+
   .device_list {
     width: calc(50% - 10px);
     height: 350px;
     border: 1px solid #eee;
     border-radius: 10px;
     overflow-y: auto;
-    margin-top: 30px;
+    margin-top: 20px;
     position: relative;
+    float: left;
   }
-  .device_list .list_title {
+  .list_title {
     width: 100%;
     height: 47px;
     position: absolute;
@@ -315,5 +467,25 @@
     text-align: center;
     line-height: 47px;
     font-size: 18px;
+  }
+
+  .capture_box {
+    width: calc(50% - 10px);
+    height: 680px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow-y: auto;
+    margin-top: 20px;
+    position: relative;
+    float: right;
+  }
+
+  .echart_box {
+    width: calc(50% - 10px);
+    height: 308px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    margin-top: 20px;
+    float: left;
   }
 </style>

@@ -156,6 +156,7 @@ module.exports = {
     text_6: 'Leave early',
     text_7: 'Leave',
     text_8: 'My device',
+    text_9: 'Snapshot record',
   },
   // 系统设置
   system: {

@@ -43,3 +43,8 @@ export function isFirstStart() {
   let res = window.top.myExtension.IsNoNoviceGuide()
   return JSON.parse(res)
 }
+//获取进出闸机数据
+export function chartData() {
+  let res = window.top.myExtension.getCapture_Data7day()
+  return JSON.parse(res)
+}

@@ -1,5 +1,5 @@
 <template>
-  <div id="vue-admin-beautiful">
+  <div v-cloak id="vue-admin-beautiful">
     <router-view />
   </div>
 </template>
@@ -27,6 +27,9 @@
 </script>
 
 <style lang="scss">
+  [v-cloak] {
+    display: none;
+  }
   .btn_red {
     color: red !important;
   }

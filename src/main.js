@@ -5,19 +5,19 @@ import router from './router'
 import './plugins'
 import '@/layouts/export'
 import VueI18n from 'vue-i18n'
-
 import ElementUI from 'element-ui'
+
+import VueIntro from './utils/intro.js'
+import './styles/intro.css'
+Vue.prototype.$intro = VueIntro
+
+import * as echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
 import 'element-ui/lib/theme-chalk/index.css'
 import localeEn from '../node_modules/element-ui/lib/locale/lang/en'
 import localeJa from '../node_modules/element-ui/lib/locale/lang/ja'
 import localeCn from '../node_modules/element-ui/lib/locale/lang/zh-CN'
-
-// import VueIntro from 'vue-introjs'
-// import 'intro.js/introjs.css'
-// Vue.use(VueIntro)
-import VueIntro from './utils/intro.js'
-import './styles/intro.css'
-Vue.prototype.$intro = VueIntro
 
 let lang = window.top.myExtension.getlanguage()
 Vue.use(VueI18n)

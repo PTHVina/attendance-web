@@ -150,6 +150,7 @@ module.exports = {
     text_6: '早退',
     text_7: '请假',
     text_8: '我的设备',
+    text_9: '抓拍记录',
   },
   // 系统设置
   system: {
