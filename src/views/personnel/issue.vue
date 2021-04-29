@@ -25,6 +25,22 @@
               :placeholder="$t('personnel.title_3')"
             />
           </el-form-item>
+          <!-- 设备名称 -->
+          <el-form-item>
+            <span>{{ $t('personnel.title_13') }}</span>
+            <el-select
+              v-model="queryForm.DeviceName"
+              clearable
+              :placeholder="$t('personnel.pl_5')"
+            >
+              <el-option
+                v-for="item in deviceList"
+                :key="item.DeviceNo"
+                :label="item.DeviceName"
+                :value="item.DeviceName"
+              ></el-option>
+            </el-select>
+          </el-form-item>
           <!-- 状态 -->
           <el-form-item>
             <span>{{ $t('personnel.text_14') }}</span>
@@ -32,7 +48,7 @@
               v-model="queryForm.status"
               clearable
               :placeholder="$t('personnel.pl_5')"
-              :style="lang == 'en_US' ? 'width: 120px' : 'width: 80px'"
+              :style="lang == 'en_US' ? 'width: 170px' : 'width: 150px'"
             >
               <el-option
                 v-for="item in statusOption"
@@ -153,6 +169,7 @@
 
 <script>
   import { getIssueList } from '@/api/personnel'
+  import { getDeviceList } from '@/api/device'
   export default {
     name: 'Issue',
     data() {
@@ -167,6 +184,7 @@
           name: '',
           ip: '',
           status: '', //状态
+          DeviceName: '',
         },
         page: {
           pageNo: 1,
@@ -192,10 +210,13 @@
             label: this.$t('operation_tips.tips_38'),
           },
         ],
+        //设备列表
+        deviceList: [],
       }
     },
     created() {
       this.init()
+      this.deviceList = getDeviceList()
     },
     beforeDestroy() {},
     mounted() {},

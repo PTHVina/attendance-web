@@ -55,6 +55,7 @@
         </div>
       </li>
     </ul>
+
     <div class="device_list">
       <div class="list_title">{{ $t('home.text_8') }}</div>
       <el-table
@@ -118,12 +119,13 @@
         <el-table-column
           show-overflow-tooltip
           :label="$t('snapshot.text_15')"
-          width="100px"
+          width="90px"
         >
           <template #default="{ row }">
             <el-image
               :preview-src-list="imageList"
               :src="row.closeup"
+              style="width: 68px; height: 68px"
             ></el-image>
           </template>
         </el-table-column>
@@ -136,7 +138,9 @@
           <template #default="{ row }">
             <el-image
               v-if="row.TemplateImage"
+              :preview-src-list="imageList2"
               :src="row.TemplateImage"
+              style="width: 68px; height: 68px"
             ></el-image>
           </template>
         </el-table-column>
@@ -167,12 +171,19 @@
             <span v-else>{{ Number(row.body_temp).toFixed(2) }}</span>
           </template>
         </el-table-column>
+        <!-- 设备名称 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('snapshot.text_19')"
+          prop="addr_name"
+        ></el-table-column>
         <!-- 抓拍时间 -->
         <el-table-column
           show-overflow-tooltip
           :label="$t('snapshot.text_4')"
           prop="time"
           sortable
+          width="180px"
         >
           <template #default="{ row }">
             <span>{{ row.time.split('.')[0] }}</span>
@@ -188,9 +199,8 @@
 </template>
 
 <script>
-  import { getList, isFirstStart, chartData } from '@/api/index'
+  import { getList, isFirstStart, chartData, getUserList } from '@/api/index'
   import { getDeviceList, openDoor } from '@/api/device'
-  import { getRecordList } from '@/api/record'
   export default {
     name: 'Index',
     data() {
@@ -200,6 +210,7 @@
         tag: '',
         list: [],
         imageList: [],
+        imageList2: [],
         listLoading: false, //列表加载
         elementLoadingText: this.$t('operation_tips.tips_12'),
 
@@ -214,7 +225,7 @@
         },
         page: {
           pageNo: 1,
-          pageSize: 20,
+          pageSize: 7,
         },
         capture_Loading: false,
         capture_list: [],
@@ -255,6 +266,18 @@
     mounted() {
       let myEchart = this.$echarts.init(document.getElementById('echarts'))
       let option = {
+        title: {
+          text: this.$t('home.text_10'),
+          textStyle: {
+            fontSize: 18,
+            fontWeight: 'normal',
+          },
+          top: 10,
+          left: 20,
+        },
+        grid: {
+          bottom: 40,
+        },
         xAxis: {
           type: 'category',
           boundaryGap: false,
@@ -317,13 +340,24 @@
         this.list = await getDeviceList()
         //抓拍记录
         this.capture_Loading = true
-        let list2 = await getRecordList(this.queryForm, this.page)
-        this.capture_list = list2.list
-        let imageList = []
-        list2.list.forEach((item, index) => {
-          imageList.push(item.closeup)
-        })
-        this.imageList = imageList
+        await getUserList(this.queryForm, this.page)
+          .then((res) => {
+            this.capture_list = res
+
+            let imageList = []
+            let imageList2 = []
+            res.forEach((item, index) => {
+              imageList.push(item.closeup)
+              if (item.TemplateImage) {
+                imageList2.push(item.TemplateImage)
+              }
+            })
+            this.imageList = imageList
+            this.imageList2 = imageList2
+          })
+          .catch((res) => {
+            this.$baseMessage(this.$t('personnel.pl_17'), 'warning')
+          })
 
         this.listLoading = false
         this.capture_Loading = false
@@ -332,13 +366,25 @@
           this.list = getDeviceList()
         }, 10000)
         this.interval2 = setInterval(() => {
-          let list2 = getRecordList(this.queryForm, this.page)
-          this.capture_list = list2.list
-          list2.list.forEach((item, index) => {
-            imageList.push(item.closeup)
-          })
-          this.imageList = imageList
-        }, 60000)
+          getUserList(this.queryForm, this.page)
+            .then((res) => {
+              this.capture_list = res
+
+              let imageList = []
+              let imageList2 = []
+              res.forEach((item, index) => {
+                imageList.push(item.closeup)
+                if (item.TemplateImage) {
+                  imageList2.push(item.TemplateImage)
+                }
+              })
+              this.imageList = imageList
+              this.imageList2 = imageList2
+            })
+            .catch((res) => {
+              this.$baseMessage(this.$t('personnel.pl_17'), 'warning')
+            })
+        }, 5000)
       },
       //开闸
       openDoor(row) {

@@ -139,6 +139,8 @@ module.exports = {
     tips_74: '步骤5：进入页面查看设备抓拍记录。',
     tips_75: '跳过',
     tips_76: '新手引导',
+
+    tips_77: '必须有一个默认考勤组',
   },
   // 首页
   home: {
@@ -151,6 +153,7 @@ module.exports = {
     text_7: '请假',
     text_8: '我的设备',
     text_9: '抓拍记录',
+    text_10: '七日通勤量',
   },
   // 系统设置
   system: {
@@ -396,6 +399,14 @@ module.exports = {
     text_46: '旷工天数',
     text_47: '请先选择查询年月',
     text_48: '状态',
+
+    text_50: '星期天',
+    text_51: '星期一',
+    text_52: '星期二',
+    text_53: '星期三',
+    text_54: '星期四',
+    text_55: '星期五',
+    text_56: '星期六',
   },
   //考勤设置
   attendanceSet: {

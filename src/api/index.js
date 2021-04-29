@@ -48,3 +48,26 @@ export function chartData() {
   let res = window.top.myExtension.getCapture_Data7day()
   return JSON.parse(res)
 }
+//抓拍人员
+export function getUserList(data, page) {
+  return new Promise(function (resolve, reject) {
+    try {
+      window.top.myExtension.getCapture_Dataforindex(
+        (res) => {
+          var re_json = JSON.parse(res)
+          resolve(re_json)
+        },
+        data.startTime,
+        data.endTime,
+        data.name,
+        data.devname,
+        data.stranger,
+        data.codestus,
+        page.pageNo.toString(),
+        page.pageSize.toString()
+      )
+    } catch {
+      reject(false)
+    }
+  })
+}

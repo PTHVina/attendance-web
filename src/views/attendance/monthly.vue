@@ -1,5 +1,5 @@
 <template>
-  <div class="table-container">
+  <div class="table-container monthly">
     <div class="group">
       <div class="form_group">
         <el-form
@@ -65,7 +65,10 @@
         sortable
       >
         <template #default="{ row }">
-          <span style="color: red">
+          <span
+            style="color: red; cursor: pointer; border-bottom: 1px solid red"
+            @click="openDialog(row)"
+          >
             {{ row.name }}
           </span>
         </template>
@@ -142,11 +145,228 @@
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
     ></el-pagination>
+
+    <!-- 每日考勤 -->
+    <el-dialog
+      title="每日考勤"
+      :visible.sync="dialogTableVisible"
+      :destroy-on-close="true"
+      width="80vw"
+    >
+      <el-table
+        ref="table"
+        v-loading="listLoading2"
+        :data="everydayList"
+        :highlight-current-row="true"
+        :element-loading-text="elementLoadingText"
+        class="dialog_size"
+        height="68vh"
+      >
+        <!-- 姓名 -->
+        <el-table-column
+          show-overflow-tooltip
+          prop="name"
+          :label="$t('attendance.text_1')"
+          :width="
+            lang == 'en_US' ? '130px' : lang == 'Jan_JPN' ? '120px' : '100px'
+          "
+        ></el-table-column>
+        <!-- 部门 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('attendance.text_12')"
+          prop="department"
+          sortable
+          :width="
+            lang == 'en_US' ? '160px' : lang == 'Jan_JPN' ? '150px' : '140px'
+          "
+        ></el-table-column>
+        <!-- 人员编号 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('attendance.text_13')"
+          prop="Employee_code"
+          sortable
+          :width="
+            lang == 'en_US' ? '170px' : lang == 'Jan_JPN' ? '170px' : '150px'
+          "
+        ></el-table-column>
+        <!-- 考勤日期 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('attendance.text_8')"
+          prop="Date"
+          sortable
+          :width="lang == 'en_US' ? '200px' : '160px'"
+        >
+          <template #default="{ row }">
+            <div>{{ row.Date }}（{{ setWeek(row.Date) }}）</div>
+          </template>
+        </el-table-column>
+        <!-- 班次信息 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('attendance.text_14')"
+          prop="Shiftinformation"
+          sortable
+          :width="lang == 'en_US' ? '170px' : '170px'"
+        ></el-table-column>
+        <!-- 打卡信息 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('attendance.text_15')"
+          prop="Punchinformation"
+          :width="
+            lang == 'zh_CN' ? '200px' : lang == 'Jan_JPN' ? '400px' : '420px'
+          "
+        >
+          <template #default="{ row }">
+            <div class="tab_box">
+              <div>
+                <span>{{ $t('attendance.text_16') }}：</span>
+                <span v-if="row.Punchinformation">
+                  {{ row.Punchinformation }}
+                </span>
+                <span v-else style="color: red">
+                  {{ $t('attendance.text_18') }}
+                </span>
+              </div>
+              <div>
+                <span>
+                  {{ $t('attendance.text_19') }}
+                  <span
+                    v-if="
+                      row.IsAcrossNight &&
+                      row.IsAcrossNight != 'False' &&
+                      row.IsAcrossNight != 'false'
+                    "
+                  >
+                    ({{ $t('attendance.text_34') }})
+                  </span>
+                  ：
+                </span>
+                <span v-if="row.Punchinformation1">
+                  {{ row.Punchinformation1 }}
+                </span>
+                <span v-else style="color: red">
+                  {{ $t('attendance.text_18') }}
+                </span>
+              </div>
+            </div>
+          </template>
+        </el-table-column>
+        <!-- 打卡信息-时段二 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('attendance.text_35')"
+          prop="Punchinformation2"
+          :width="
+            lang == 'zh_CN' ? '200px' : lang == 'Jan_JPN' ? '400px' : '420px'
+          "
+        >
+          <template #default="{ row }">
+            <div v-if="row.Punchinformation2 != null" class="tab_box">
+              <div>
+                <span>{{ $t('attendance.text_16') }}：</span>
+                <span v-if="row.Punchinformation2">
+                  {{ row.Punchinformation2 }}
+                </span>
+                <span v-else style="color: red">
+                  {{ $t('attendance.text_18') }}
+                </span>
+              </div>
+              <div>
+                <span>{{ $t('attendance.text_19') }}：</span>
+                <span v-if="row.Punchinformation22">
+                  {{ row.Punchinformation22 }}
+                </span>
+                <span v-else style="color: red">
+                  {{ $t('attendance.text_18') }}
+                </span>
+              </div>
+            </div>
+          </template>
+        </el-table-column>
+        <!-- 体温(℃) -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('attendance.text_20')"
+          prop="temperature"
+          sortable
+          :width="lang == 'en_US' ? '160px' : '100px'"
+        >
+          <template #default="{ row }">
+            <span
+              v-if="
+                Number(row.temperature) > 37.3 || Number(row.temperature) < 36.3
+              "
+              style="color: red"
+            >
+              {{ row.temperature }}
+            </span>
+            <span v-else>{{ row.temperature }}</span>
+          </template>
+        </el-table-column>
+        <!-- 迟到(分钟) -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('attendance.text_21')"
+          prop="late"
+          sortable
+          :width="
+            lang == 'en_US' ? '130px' : lang == 'Jan_JPN' ? '100px' : '110px'
+          "
+        >
+          <template #default="{ row }">
+            <span style="color: red">{{ row.late }}</span>
+          </template>
+        </el-table-column>
+        <!-- 早退 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('attendance.text_7')"
+          prop="Leaveearly"
+          sortable
+          :width="lang == 'en_US' ? '140px' : '80px'"
+        >
+          <template #default="{ row }">
+            <span style="color: red">{{ row.Leaveearly }}</span>
+          </template>
+        </el-table-column>
+        <!-- 旷工 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('attendance.text_3')"
+          prop="isAbsenteeism"
+          sortable
+          :width="
+            lang == 'en_US' ? '150px' : lang == 'Jan_JPN' ? '120px' : '80px'
+          "
+        >
+          <template #default="{ row }">
+            <span
+              v-if="row.isAbsenteeism == '0' && row.Remarks != '3'"
+              style="color: red"
+            >
+              {{ $t('attendance.text_3') }}
+            </span>
+            <span v-else-if="row.isAbsenteeism == ' ' && row.Remarks == '3'">
+              {{ $t('attendance.text_17') }}
+            </span>
+            <span v-else></span>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-  import { getMonthlyList, exportData } from '@/api/attendance'
+  import {
+    getMonthlyList,
+    exportData,
+    getEverydayAllList,
+  } from '@/api/attendance'
   export default {
     name: 'Monthly',
     data() {
@@ -154,7 +374,7 @@
         lang: this.$lang,
         list: [],
         listLoading: false, //列表加载
-        // layout: 'total, sizes, prev, pager, next, jumper',
+        listLoading2: false,
         layout: 'total',
         elementLoadingText: this.$t('operation_tips.tips_12'),
         queryForm: {
@@ -166,6 +386,9 @@
           pageSize: 10,
           total: 0, //总数
         },
+
+        dialogTableVisible: false,
+        everydayList: [],
       }
     },
     created() {
@@ -216,6 +439,30 @@
           this.$baseMessage(this.$t('attendance.text_47'), 'warning')
         }
       },
+
+      //单人每日数据
+      openDialog(row) {
+        this.dialogTableVisible = true
+        this.listLoading2 = true
+        getEverydayAllList(row).then((res) => {
+          this.everydayList = res
+          this.listLoading2 = false
+        })
+      },
+      //获取星期
+      setWeek(date) {
+        var weekDay = [
+          this.$t('attendance.text_50'),
+          this.$t('attendance.text_51'),
+          this.$t('attendance.text_52'),
+          this.$t('attendance.text_53'),
+          this.$t('attendance.text_54'),
+          this.$t('attendance.text_55'),
+          this.$t('attendance.text_56'),
+        ]
+        var myDate = new Date(Date.parse(date))
+        return weekDay[myDate.getDay()]
+      },
     },
   }
 </script>
@@ -244,5 +491,36 @@
   }
   .el-form {
     padding: 0 !important;
+  }
+
+  .dialog_size {
+    overflow-y: scroll;
+  }
+  .dialog_size::-webkit-scrollbar {
+    width: 13px;
+    height: 13px;
+  }
+  .dialog_size::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    background-clip: padding-box;
+    border: 3px solid transparent;
+    border-radius: 7px;
+  }
+  .dialog_size::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  .dialog_size::-webkit-scrollbar-track:hover {
+    background-color: #f8fafc;
+  }
+
+  .tab_box {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    div {
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+    }
   }
 </style>

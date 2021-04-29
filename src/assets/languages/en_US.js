@@ -145,6 +145,8 @@ module.exports = {
     tips_74: 'Step 5: Enter the page to view the device snapshot record.',
     tips_75: 'jump over',
     tips_76: "Beginner's guide",
+
+    tips_77: 'There must be a default attendance group',
   },
   // 首页
   home: {
@@ -157,6 +159,7 @@ module.exports = {
     text_7: 'Leave',
     text_8: 'My device',
     text_9: 'Snapshot record',
+    text_10: 'Seven-day commute',
   },
   // 系统设置
   system: {
@@ -405,6 +408,14 @@ module.exports = {
     text_46: 'Absenteeism days',
     text_47: 'Please select the query date first',
     text_48: 'status',
+
+    text_50: 'Sunday',
+    text_51: 'Monday',
+    text_52: 'Tuesday',
+    text_53: 'Wednesday',
+    text_54: 'Thursday',
+    text_55: 'Friday',
+    text_56: 'Saturday',
   },
   //考勤设置
   attendanceSet: {

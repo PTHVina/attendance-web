@@ -76,3 +76,11 @@ export function getMonthlyList(data) {
 export function exportData(data) {
   window.top.myExtension.exportMonthlyData(data.date, data.name)
 }
+//获取单个人员每天数据
+export function getEverydayAllList(data) {
+  return new Promise(function (resolve, reject) {
+    window.top.myExtension.queryAttendanceinByid((res) => {
+      resolve(JSON.parse(res))
+    }, data.personId)
+  })
+}

@@ -154,6 +154,7 @@
           </el-button>
           <!-- 删除 -->
           <el-button
+            v-if="row.isdefault != '1'"
             type="text"
             class="btn_red"
             icon="el-icon-delete"
@@ -794,6 +795,8 @@
                 this.$baseMessage(this.$t('operation_tips.tips_10'), 'success')
                 this.init()
                 this.closeFn()
+              } else if (res.result == 0) {
+                this.$baseMessage(this.$t('operation_tips.tips_77'), 'warning')
               } else {
                 this.$baseMessage(this.$t('operation_tips.tips_11'), 'warning')
               }
@@ -804,7 +807,7 @@
                 this.init()
                 this.closeFn()
               } else {
-                this.$baseMessage(res.data, 'warning')
+                this.$baseMessage(this.$t('operation_tips.tips_9'), 'warning')
               }
             }
           } else {

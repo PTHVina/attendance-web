@@ -242,7 +242,8 @@ export function getIssueList(page, data) {
   var res = window.top.myExtension.getcountforEquipment_distribution(
     data.name,
     data.ip,
-    data.status
+    data.status,
+    data.DeviceName
   )
   var re_json = JSON.parse(res)
   var DevicedataStr = window.top.myExtension.getforEquipment_distribution(
@@ -250,7 +251,8 @@ export function getIssueList(page, data) {
     page.pageSize.toString(),
     data.name,
     data.ip,
-    data.status
+    data.status,
+    data.DeviceName
   )
   var re_json_2 = JSON.parse(DevicedataStr)
 
