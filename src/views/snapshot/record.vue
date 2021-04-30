@@ -180,7 +180,7 @@
         :label="$t('snapshot.text_16')"
         prop="body_temp"
         sortable
-        :width="lang == 'zh_CN' ? '100px' : '130px'"
+        :width="lang == 'zh_CN' ? '100px' : lang == 'Fr_fr' ? '210px' : '130px'"
       >
         <template #default="{ row }">
           <div
@@ -221,7 +221,7 @@
         :label="$t('snapshot.text_38')"
         prop="QRcodestatus"
         sortable
-        :width="lang == 'zh_CN' ? '90px' : '130px'"
+        :width="lang == 'zh_CN' ? '90px' : lang == 'Fr_fr' ? '150px' : '130px'"
       >
         <template #default="{ row }">
           <el-tag v-if="row.QRcodestatus == '0'" type="success">
@@ -268,7 +268,7 @@
         show-overflow-tooltip
         :label="$t('snapshot.text_43')"
         prop="QRcodestatus"
-        width="160px"
+        :width="lang == 'Fr_fr' ? '180px' : '160px'"
       >
         <template #default="{ row }">
           <span
@@ -289,7 +289,7 @@
         show-overflow-tooltip
         :label="$t('snapshot.text_45')"
         prop="QRcodestatus"
-        width="160px"
+        :width="lang == 'Fr_fr' ? '220px' : '160px'"
       >
         <template #default="{ row }">
           <span
@@ -309,7 +309,7 @@
       <el-table-column
         :label="$t('snapshot.text_44')"
         prop="trip_infor"
-        width="160px"
+        :width="lang == 'Fr_fr' ? '200px' : '160px'"
       >
         <template #default="{ row }">
           <el-popover placement="right" width="300" trigger="hover">
@@ -356,14 +356,14 @@
         show-overflow-tooltip
         :label="$t('snapshot.text_17')"
         prop="idcard_number"
-        width="160"
+        :width="lang == 'Fr_fr' ? '240px' : '160px'"
       ></el-table-column>
       <!-- 门禁卡号 -->
       <el-table-column
         show-overflow-tooltip
         :label="$t('snapshot.text_18')"
         prop="wg_card_id"
-        width="160px"
+        :width="lang == 'Fr_fr' ? '200px' : '160px'"
       ></el-table-column>
       <!-- 是否佩戴口罩 -->
       <el-table-column
@@ -371,7 +371,7 @@
         :label="$t('snapshot.text_20')"
         prop="exist_mask"
         sortable
-        :width="lang == 'zh_CN' ? '140px' : '190px'"
+        :width="lang == 'zh_CN' ? '140px' : lang == 'Fr_fr' ? '260px' : '190px'"
       >
         <template #default="{ row }">
           <span v-if="row.exist_mask == '0'">{{ $t('snapshot.text_21') }}</span>
@@ -391,7 +391,9 @@
       <!-- 操作 -->
       <el-table-column
         :label="$t('snapshot.text_23')"
-        :min-width="lang == 'zh_CN' ? '150px' : '170px'"
+        :min-width="
+          lang == 'zh_CN' ? '150px' : lang == 'Fr_fr' ? '200px' : '170px'
+        "
         fixed="right"
       >
         <template #default="{ row }">
@@ -442,7 +444,13 @@
         ref="setForm"
         :model="form"
         :label-width="
-          lang == 'zh_CN' ? '80px' : lang == 'Jan_JPN' ? '130px' : '160px'
+          lang == 'zh_CN'
+            ? '80px'
+            : lang == 'Jan_JPN'
+            ? '130px'
+            : lang == 'Fr_fr'
+            ? '180px'
+            : '160px'
         "
         :rules="rules"
         size="medium"
@@ -559,7 +567,11 @@
             <div class="add_box">
               <span
                 class="uploading"
-                :style="lang == 'zh_CN' ? '' : 'font-size:12px !important;'"
+                :style="
+                  lang == 'zh_CN'
+                    ? ''
+                    : 'font-size:12px !important;margin-right:10px;'
+                "
                 @click="checkImg"
               >
                 {{ $t('operation_btn.btn_text_16') }}

@@ -117,7 +117,7 @@
       <el-table-column
         show-overflow-tooltip
         :label="$t('personnel.title_15')"
-        :width="lang == 'en_US' ? '120px' : '95px'"
+        :width="lang == 'en_US' ? '120px' : lang == 'Fr_fr' ? '150' : '95'"
       >
         <template #default="scope">
           {{ scope.$index + 1 }}

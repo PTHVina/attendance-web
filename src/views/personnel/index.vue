@@ -127,7 +127,7 @@
       <el-table-column
         show-overflow-tooltip
         :label="$t('personnel.title_1')"
-        :width="lang == 'en_US' ? '120' : ''"
+        :width="lang == 'en_US' ? '120' : lang == 'Fr_fr' ? '90' : ''"
       >
         <template #default="{ row }">
           <el-image :preview-src-list="imageList" :src="row.picture"></el-image>
@@ -139,7 +139,7 @@
         prop="name"
         :label="$t('personnel.text_1')"
         sortable
-        :width="lang == 'en_US' ? '120' : ''"
+        :width="lang == 'en_US' ? '120' : lang == 'Fr_fr' ? '180' : ''"
       ></el-table-column>
       <!-- 电话号码 -->
       <el-table-column
@@ -147,7 +147,7 @@
         :label="$t('personnel.text_3')"
         prop="phone"
         sortable
-        :width="lang == 'en_US' ? '175' : ''"
+        :width="lang == 'en_US' ? '175' : lang == 'Fr_fr' ? '200' : ''"
       ></el-table-column>
       <!-- 部门 -->
       <el-table-column
@@ -155,7 +155,7 @@
         :label="$t('personnel.title_4')"
         prop="departmentname"
         sortable
-        :width="lang == 'en_US' ? '130' : ''"
+        :width="lang == 'en_US' ? '130' : lang == 'Fr_fr' ? '140' : ''"
       ></el-table-column>
       <!-- 人员编号 -->
       <el-table-column
@@ -163,7 +163,7 @@
         :label="$t('personnel.title_5')"
         prop="Employee_code"
         sortable
-        :width="lang == 'en_US' ? '170' : ''"
+        :width="lang == 'en_US' ? '170' : lang == 'Fr_fr' ? '180' : ''"
       ></el-table-column>
       <!-- 工作分类 -->
       <el-table-column
@@ -171,7 +171,7 @@
         :label="$t('personnel.title_6')"
         prop="Employetypename"
         sortable
-        :width="lang == 'en_US' ? '180' : ''"
+        :width="lang == 'en_US' ? '180' : lang == 'Fr_fr' ? '210' : ''"
       ></el-table-column>
       <!-- 已下发总数 -->
       <el-table-column
@@ -179,7 +179,7 @@
         :label="$t('personnel.title_7')"
         prop="eqcount"
         sortable
-        :width="lang == 'en_US' ? '140' : ''"
+        :width="lang == 'en_US' ? '140' : lang == 'Fr_fr' ? '200' : ''"
       ></el-table-column>
       <!-- 相机总数 -->
       <el-table-column
@@ -187,13 +187,13 @@
         :label="$t('personnel.title_8')"
         prop="decount"
         sortable
-        :width="lang == 'en_US' ? '220' : '140'"
+        :width="lang == 'en_US' ? '220' : lang == 'Fr_fr' ? '220' : '140'"
       ></el-table-column>
       <!-- 操作 -->
       <el-table-column
         :label="$t('personnel.title_9')"
         fixed="right"
-        :width="lang == 'Jan_JPN' ? '550' : '240'"
+        :width="lang == 'Jan_JPN' ? '550' : lang == 'Fr_fr' ? '330' : '240'"
       >
         <template #default="{ row }">
           <!-- 编辑 -->
@@ -353,7 +353,13 @@
         ref="setForm"
         :model="form"
         :label-width="
-          lang == 'zh_CN' ? '80px' : lang == 'Jan_JPN' ? '140px' : '160px'
+          lang == 'zh_CN'
+            ? '80px'
+            : lang == 'Jan_JPN'
+            ? '140px'
+            : lang == 'en_US'
+            ? '160px'
+            : '180px'
         "
         :rules="rules"
         size="medium"
@@ -366,8 +372,8 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <!-- Line_ueserid -->
-        <el-form-item v-if="lang == 'Jan_JPN'" label="Line_ueserid">
+        <!-- Line_userid -->
+        <el-form-item v-if="lang == 'Jan_JPN'" label="Line_userid">
           <el-input
             v-model="form.line_userid"
             placeholder="Line_ueserid"
@@ -410,6 +416,7 @@
             :placeholder="$t('personnel.title_10')"
             autocomplete="off"
             style="width: 60%; margin-right: 20px"
+            :style="lang == 'Fr_fr' ? 'width:50%;' : ''"
           ></el-input>
           <el-radio-group v-model="form.idcardtype">
             <el-radio label="32">32{{ $t('personnel.title_2') }}</el-radio>
@@ -493,7 +500,11 @@
             <div class="add_box">
               <span
                 class="uploading"
-                :style="lang == 'zh_CN' ? '' : 'font-size:12px !important;'"
+                :style="
+                  lang == 'zh_CN'
+                    ? ''
+                    : 'font-size:12px !important;margin-right:10px;'
+                "
                 @click="checkImg"
               >
                 {{ $t('operation_btn.btn_text_16') }}

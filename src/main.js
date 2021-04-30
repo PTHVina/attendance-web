@@ -18,6 +18,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import localeEn from '../node_modules/element-ui/lib/locale/lang/en'
 import localeJa from '../node_modules/element-ui/lib/locale/lang/ja'
 import localeCn from '../node_modules/element-ui/lib/locale/lang/zh-CN'
+import localeFr from '../node_modules/element-ui/lib/locale/lang/fr'
 
 let lang = window.top.myExtension.getlanguage()
 Vue.use(VueI18n)
@@ -27,6 +28,7 @@ const i18n = new VueI18n({
     zh_CN: require('@/assets/languages/zh_CN'),
     Jan_JPN: require('@/assets/languages/Jan_JPN'),
     en_US: require('@/assets/languages/en_US'),
+    Fr_fr: require('@/assets/languages/Fr_fr'),
   },
 })
 Vue.prototype.$lang = lang
@@ -35,6 +37,8 @@ if (lang == 'Jan_JPN') {
   locale = localeJa
 } else if (lang == 'en_US') {
   locale = localeEn
+} else if (lang == 'Fr_fr') {
+  locale = localeFr
 }
 
 Vue.use(ElementUI, { locale, size: 'small' })

@@ -51,7 +51,13 @@
         :model="ruleForm"
         :rules="rules"
         :label-width="
-          lang == 'Jan_JPN' ? '110px' : lang == 'en_US' ? '170px' : '80px'
+          lang == 'Jan_JPN'
+            ? '110px'
+            : lang == 'en_US'
+            ? '170px'
+            : lang == 'Fr_fr'
+            ? '210px'
+            : '80px'
         "
         class="demo-ruleForm"
       >
@@ -138,7 +144,9 @@
       <el-form
         ref="form"
         :model="form"
-        :label-width="lang == 'en_US' ? '170px' : '90px'"
+        :label-width="
+          lang == 'en_US' ? '170px' : lang == 'Fr_fr' ? '210px' : '90px'
+        "
         :rules="rules"
         style="padding: 0"
       >

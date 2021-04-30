@@ -39,8 +39,15 @@
         </div>
         <div class="item_body">
           <!-- 今日出勤数 -->
-          <span class="item_num">{{ tag.attendance.all }}</span>
-          <span class="item_tips">{{ $t('home.text_4') }}</span>
+          <span
+            class="item_num"
+            :style="lang == 'Fr_fr' ? 'line-height:70px;' : ''"
+          >
+            {{ tag.attendance.all }}
+          </span>
+          <span class="item_tips">
+            {{ $t('home.text_4') }}
+          </span>
           <div>
             <!-- 迟到 -->
             <span class="text-nowrap">{{ $t('home.text_5') }}</span>
@@ -116,11 +123,7 @@
         height="680"
       >
         <!-- 特写图 -->
-        <el-table-column
-          show-overflow-tooltip
-          :label="$t('snapshot.text_15')"
-          width="90px"
-        >
+        <el-table-column show-overflow-tooltip label="" width="90px">
           <template #default="{ row }">
             <el-image
               :preview-src-list="imageList"
@@ -130,11 +133,7 @@
           </template>
         </el-table-column>
         <!-- 头像 -->
-        <el-table-column
-          show-overflow-tooltip
-          :label="$t('snapshot.text_22')"
-          width="100px"
-        >
+        <el-table-column show-overflow-tooltip label="" width="100px">
           <template #default="{ row }">
             <el-image
               v-if="row.TemplateImage"
@@ -148,12 +147,12 @@
         <el-table-column
           show-overflow-tooltip
           prop="person_name"
-          :label="$t('snapshot.text_1')"
+          label=""
         ></el-table-column>
         <!-- 体温 -->
         <el-table-column
           show-overflow-tooltip
-          :label="$t('snapshot.text_16')"
+          label=""
           prop="body_temp"
           sortable
         >
@@ -174,13 +173,13 @@
         <!-- 设备名称 -->
         <el-table-column
           show-overflow-tooltip
-          :label="$t('snapshot.text_19')"
+          label=""
           prop="addr_name"
         ></el-table-column>
         <!-- 抓拍时间 -->
         <el-table-column
           show-overflow-tooltip
-          :label="$t('snapshot.text_4')"
+          label=""
           prop="time"
           sortable
           width="180px"
@@ -205,6 +204,7 @@
     name: 'Index',
     data() {
       return {
+        lang: this.$lang,
         interval: '',
         interval2: '',
         tag: '',
@@ -459,6 +459,7 @@
   .home_list .box_item .item_body .item_tips {
     font-size: 15px;
     color: #98a6ad;
+    text-align: center;
   }
   .home_list .box_item .item_body div {
     display: flex;

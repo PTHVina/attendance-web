@@ -78,7 +78,7 @@
         show-overflow-tooltip
         prop="Employee_code"
         :label="$t('attendance.text_13')"
-        :width="lang == 'en_US' ? '170px' : ''"
+        :width="lang == 'en_US' ? '170px' : lang == 'Fr_fr' ? '200px' : ''"
         sortable
       ></el-table-column>
       <!-- 部门 -->
@@ -87,6 +87,7 @@
         prop="department"
         :label="$t('attendance.text_12')"
         sortable
+        :width="lang == 'Fr_fr' ? '170px' : ''"
       ></el-table-column>
       <!-- 日期 -->
       <el-table-column
@@ -101,13 +102,14 @@
         :label="$t('attendance.text_43')"
         prop="Attendance"
         sortable
+        :width="lang == 'Fr_fr' ? '230px' : ''"
       ></el-table-column>
       <!-- 迟到次数/总时长(分钟) -->
       <el-table-column
         show-overflow-tooltip
         :label="$t('attendance.text_44')"
         prop="latedata"
-        :width="lang == 'en_US' ? '330px' : ''"
+        :width="lang == 'en_US' ? '330px' : lang == 'Fr_fr' ? '370px' : ''"
       >
         <template #default="{ row }">
           <span style="color: red; height: 40px; line-height: 40px">
@@ -120,7 +122,7 @@
         show-overflow-tooltip
         :label="$t('attendance.text_45')"
         prop="Leaveearlydata"
-        :width="lang == 'en_US' ? '330px' : ''"
+        :width="lang == 'en_US' ? '330px' : lang == 'Fr_fr' ? '390px' : ''"
       >
         <template #default="{ row }">
           <span style="color: red">{{ row.Leaveearlydata }}</span>
@@ -131,6 +133,7 @@
         show-overflow-tooltip
         :label="$t('attendance.text_46')"
         prop="AbsenteeismCount"
+        :width="lang == 'Fr_fr' ? '330px' : ''"
       >
         <template #default="{ row }">
           <span style="color: red">{{ row.AbsenteeismCount }}</span>
@@ -188,7 +191,13 @@
           prop="Employee_code"
           sortable
           :width="
-            lang == 'en_US' ? '170px' : lang == 'Jan_JPN' ? '170px' : '150px'
+            lang == 'en_US'
+              ? '170px'
+              : lang == 'Jan_JPN'
+              ? '170px'
+              : lang == 'Fr_fr'
+              ? '170px'
+              : '150px'
           "
         ></el-table-column>
         <!-- 考勤日期 -->
@@ -197,7 +206,9 @@
           :label="$t('attendance.text_8')"
           prop="Date"
           sortable
-          :width="lang == 'en_US' ? '200px' : '160px'"
+          :width="
+            lang == 'en_US' ? '200px' : lang == 'Fr_fr' ? '170px' : '160px'
+          "
         >
           <template #default="{ row }">
             <div>{{ row.Date }}（{{ setWeek(row.Date) }}）</div>
@@ -209,7 +220,9 @@
           :label="$t('attendance.text_14')"
           prop="Shiftinformation"
           sortable
-          :width="lang == 'en_US' ? '170px' : '170px'"
+          :width="
+            lang == 'en_US' ? '170px' : lang == 'Fr_fr' ? '190px' : '170px'
+          "
         ></el-table-column>
         <!-- 打卡信息 -->
         <el-table-column
@@ -217,7 +230,13 @@
           :label="$t('attendance.text_15')"
           prop="Punchinformation"
           :width="
-            lang == 'zh_CN' ? '200px' : lang == 'Jan_JPN' ? '400px' : '420px'
+            lang == 'zh_CN'
+              ? '200px'
+              : lang == 'Jan_JPN'
+              ? '400px'
+              : lang == 'Fr_fr'
+              ? '520px'
+              : '420px'
           "
         >
           <template #default="{ row }">
@@ -261,7 +280,13 @@
           :label="$t('attendance.text_35')"
           prop="Punchinformation2"
           :width="
-            lang == 'zh_CN' ? '200px' : lang == 'Jan_JPN' ? '400px' : '420px'
+            lang == 'zh_CN'
+              ? '200px'
+              : lang == 'Jan_JPN'
+              ? '400px'
+              : lang == 'Fr_fr'
+              ? '520px'
+              : '420px'
           "
         >
           <template #default="{ row }">
@@ -293,7 +318,9 @@
           :label="$t('attendance.text_20')"
           prop="temperature"
           sortable
-          :width="lang == 'en_US' ? '160px' : '100px'"
+          :width="
+            lang == 'en_US' ? '160px' : lang == 'Fr_fr' ? '240px' : '100px'
+          "
         >
           <template #default="{ row }">
             <span
@@ -314,7 +341,13 @@
           prop="late"
           sortable
           :width="
-            lang == 'en_US' ? '130px' : lang == 'Jan_JPN' ? '100px' : '110px'
+            lang == 'en_US'
+              ? '130px'
+              : lang == 'Jan_JPN'
+              ? '100px'
+              : lang == 'Fr_fr'
+              ? '180px'
+              : '110px'
           "
         >
           <template #default="{ row }">
@@ -327,7 +360,9 @@
           :label="$t('attendance.text_7')"
           prop="Leaveearly"
           sortable
-          :width="lang == 'en_US' ? '140px' : '80px'"
+          :width="
+            lang == 'en_US' ? '140px' : lang == 'Fr_fr' ? '170px' : '80px'
+          "
         >
           <template #default="{ row }">
             <span style="color: red">{{ row.Leaveearly }}</span>
@@ -340,7 +375,13 @@
           prop="isAbsenteeism"
           sortable
           :width="
-            lang == 'en_US' ? '150px' : lang == 'Jan_JPN' ? '120px' : '80px'
+            lang == 'en_US'
+              ? '150px'
+              : lang == 'Jan_JPN'
+              ? '120px'
+              : lang == 'Fr_fr'
+              ? '170px'
+              : '80px'
           "
         >
           <template #default="{ row }">

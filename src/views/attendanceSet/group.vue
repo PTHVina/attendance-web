@@ -138,7 +138,11 @@
         </template>
       </el-table-column>
       <!-- 操作 -->
-      <el-table-column :label="$t('attendanceSet.text_9')" fixed="right">
+      <el-table-column
+        :label="$t('attendanceSet.text_9')"
+        fixed="right"
+        :width="lang == 'Fr_fr' ? '280px' : ''"
+      >
         <template #default="{ row }">
           <!-- 编辑 -->
           <el-button
@@ -171,14 +175,16 @@
     <el-dialog
       :title="$t('attendanceSet.text_47')"
       :visible.sync="dialogFormVisible"
-      width="600px"
+      width="640px"
       :destroy-on-close="true"
       :before-close="closeFn"
     >
       <el-form
         ref="formData"
         :model="form"
-        :label-width="lang == 'zh_CN' ? '80px' : '120px'"
+        :label-width="
+          lang == 'zh_CN' ? '80px' : lang == 'Fr_fr' ? '160px' : '120px'
+        "
         :rules="rules"
         size="medium"
         class="dialog_size"
@@ -410,6 +416,7 @@
         <el-table-column
           prop="Employee_code"
           :label="$t('attendanceSet.text_56')"
+          :width="lang == 'Fr_fr' ? '170px' : ''"
         ></el-table-column>
         <!-- 部门 -->
         <el-table-column
@@ -432,7 +439,7 @@
           : $t('attendanceSet.text_53')
       "
       :visible.sync="dialogDeteVisible"
-      width="600px"
+      :width="lang == 'Fr_fr' ? '650px' : '600px'"
       :destroy-on-close="true"
     >
       <div style="margin-bottom: 20px">
@@ -464,6 +471,7 @@
         <el-table-column
           prop="date"
           :label="$t('attendanceSet.text_58')"
+          :width="lang == 'Fr_fr' ? '150px' : ''"
         ></el-table-column>
         <!-- 班次名称 -->
         <el-table-column
@@ -521,7 +529,7 @@
           : $t('attendanceSet.text_53')
       "
       :visible.sync="dialogDeteFormVisible"
-      :width="lang == 'zh_CN' ? '400px' : '450px'"
+      :width="lang == 'zh_CN' ? '400px' : lang == 'Fr_fr' ? '500px' : '450px'"
       :destroy-on-close="true"
     >
       <el-form
@@ -529,7 +537,13 @@
         :model="DeteForm"
         :rules="dateRules"
         :label-width="
-          lang == 'zh_CN' ? '80px' : lang == 'en_US' ? '130px' : '100px'
+          lang == 'zh_CN'
+            ? '80px'
+            : lang == 'en_US'
+            ? '130px'
+            : lang == 'Fr_fr'
+            ? '180px'
+            : '100px'
         "
         size="medium"
       >

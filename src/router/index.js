@@ -9,7 +9,6 @@ import Layout from '@/layouts'
 
 Vue.use(VueRouter)
 let lang = window.top.myExtension.getlanguage()
-
 let i18
 if (lang == 'zh_CN') {
   i18 = require('@/assets/languages/zh_CN')
@@ -17,6 +16,8 @@ if (lang == 'zh_CN') {
   i18 = require('@/assets/languages/Jan_JPN')
 } else if (lang == 'en_US') {
   i18 = require('@/assets/languages/en_US')
+} else if (lang == 'Fr_fr') {
+  i18 = require('@/assets/languages/Fr_fr')
 }
 export const constantRoutes = [
   {

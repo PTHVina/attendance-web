@@ -162,6 +162,7 @@
         :label="$t('personnel.text_8')"
         prop="staTime"
         sortable
+        :width="lang == 'Fr_fr' ? '270px' : ''"
       ></el-table-column>
       <!-- 授权结束时间 -->
       <el-table-column
@@ -169,6 +170,7 @@
         :label="$t('personnel.text_9')"
         prop="endTime"
         sortable
+        :width="lang == 'Fr_fr' ? '240px' : ''"
       ></el-table-column>
       <!-- 是否下发 -->
       <el-table-column
@@ -183,7 +185,11 @@
         </template>
       </el-table-column>
       <!-- 操作 -->
-      <el-table-column :label="$t('personnel.title_9')" fixed="right">
+      <el-table-column
+        :label="$t('personnel.title_9')"
+        fixed="right"
+        :width="lang == 'Fr_fr' ? '280px' : ''"
+      >
         <template #default="{ row }">
           <!-- 编辑 -->
           <el-button
@@ -223,14 +229,16 @@
     <el-dialog
       :title="$t('personnel.text_4')"
       :visible.sync="dialogFormVisible"
-      :width="lang == 'en_US' ? '700px' : '600px'"
+      :width="lang == 'en_US' ? '700px' : lang == 'Fr_fr' ? '740px' : '600px'"
       :destroy-on-close="true"
       :before-close="closeFn"
     >
       <el-form
         ref="form"
         :model="form"
-        :label-width="lang == 'en_US' ? '220px' : '120px'"
+        :label-width="
+          lang == 'en_US' ? '220px' : lang == 'Fr_fr' ? '260px' : '120px'
+        "
         :rules="rules"
         size="medium"
       >
@@ -281,7 +289,11 @@
             <div class="add_box">
               <span
                 class="uploading"
-                :style="lang == 'zh_CN' ? '' : 'font-size:12px !important;'"
+                :style="
+                  lang == 'zh_CN'
+                    ? ''
+                    : 'font-size:12px !important;margin-right:10px;'
+                "
                 @click="checkImg"
               >
                 {{ $t('operation_btn.btn_text_16') }}

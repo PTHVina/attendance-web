@@ -71,6 +71,15 @@ const actions = {
       e = 'こんばんは'
       tip1 = '知恵人の顔の勤務評定の門限システムに登録することを歓迎します。'
       tip2 = 'ログインインターフェースが異常で、正しく戻りませんでした。'
+    } else if (lang == 'Fr_fr') {
+      a = 'Bonjour'
+      b = 'Bonjour'
+      c = 'bonne après-midi'
+      d = 'bonne après-midi'
+      e = 'bonne soirée'
+      tip1 = "Bienvenue dans le système de contrôle d'accès face à la connexion"
+      tip2 =
+        "L'interface de connexion est anormale et ne retourne pas correctement"
     }
     if (accessToken) {
       commit('setAccessToken', accessToken)

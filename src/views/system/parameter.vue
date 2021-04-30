@@ -3,7 +3,16 @@
     <ul>
       <!-- 下发方式 -->
       <li class="setting_row">
-        <div class="set_item" :style="lang == 'en_US' ? 'width:700px' : ''">
+        <div
+          class="set_item"
+          :style="
+            lang == 'en_US'
+              ? 'width:700px'
+              : lang == 'Fr_fr'
+              ? 'width:800px'
+              : ''
+          "
+        >
           <span class="item_title">{{ $t('system.text_7') }}</span>
           <el-switch
             v-model="value"
@@ -16,7 +25,16 @@
       </li>
       <!-- 时间同步 -->
       <li class="setting_row">
-        <div class="set_item" :style="lang == 'en_US' ? 'width:700px' : ''">
+        <div
+          class="set_item"
+          :style="
+            lang == 'en_US'
+              ? 'width:700px'
+              : lang == 'Fr_fr'
+              ? 'width:800px'
+              : ''
+          "
+        >
           <span class="item_title">{{ $t('device.text_58') }}</span>
           <el-tooltip
             :content="
@@ -105,6 +123,7 @@
       box-shadow: 1px 1px 5px rgb(32, 160, 255, 0.6);
     }
     .item_tips {
+      flex: 1;
       color: red;
     }
   }

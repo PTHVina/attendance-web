@@ -33,7 +33,7 @@
       <el-table-column
         show-overflow-tooltip
         :label="$t('device.text_1')"
-        :width="lang == 'en_US' ? '120px' : '95px'"
+        :width="lang == 'en_US' ? '120px' : lang == 'Fr_fr' ? '150' : '95'"
       >
         <template #default="scope">
           {{ scope.$index + 1 }}
@@ -76,7 +76,15 @@
       <el-table-column
         :label="$t('device.text_6')"
         fixed="right"
-        :width="lang == 'Jan_JPN' ? '400px' : lang == 'en_US' ? '350px' : ''"
+        :width="
+          lang == 'Jan_JPN'
+            ? '400px'
+            : lang == 'en_US'
+            ? '350px'
+            : lang == 'Fr_fr'
+            ? '400'
+            : ''
+        "
       >
         <template #default="{ row }">
           <!-- 开闸 -->
@@ -171,7 +179,7 @@
         :highlight-current-row="true"
         :element-loading-text="elementLoadingText"
         class="dialog_size"
-        max-height="65vh"
+        max-height="60vh"
       >
         <!-- IP地址 -->
         <el-table-column
@@ -378,7 +386,7 @@
       <el-form
         ref="Cameraform"
         :model="ipParameters"
-        :label-width="lang == 'zh_CN' ? '90px' : '180px'"
+        :label-width="lang == 'zh_CN' ? '90px' : '190px'"
         :rules="rules"
         size="medium"
       >

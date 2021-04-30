@@ -145,7 +145,13 @@
         prop="Employee_code"
         sortable
         :width="
-          lang == 'en_US' ? '170px' : lang == 'Jan_JPN' ? '170px' : '150px'
+          lang == 'en_US'
+            ? '170px'
+            : lang == 'Jan_JPN'
+            ? '170px'
+            : lang == 'Fr_fr'
+            ? '170px'
+            : '150px'
         "
       ></el-table-column>
       <!-- 考勤日期 -->
@@ -154,7 +160,7 @@
         :label="$t('attendance.text_8')"
         prop="Date"
         sortable
-        :width="lang == 'en_US' ? '160px' : '130px'"
+        :width="lang == 'en_US' ? '160px' : lang == 'Fr_fr' ? '170px' : '130px'"
       ></el-table-column>
       <!-- 班次信息 -->
       <el-table-column
@@ -162,7 +168,7 @@
         :label="$t('attendance.text_14')"
         prop="Shiftinformation"
         sortable
-        :width="lang == 'en_US' ? '170px' : '170px'"
+        :width="lang == 'en_US' ? '170px' : lang == 'Fr_fr' ? '190px' : '170px'"
       ></el-table-column>
       <!-- 打卡信息 -->
       <el-table-column
@@ -170,7 +176,13 @@
         :label="$t('attendance.text_15')"
         prop="Punchinformation"
         :width="
-          lang == 'zh_CN' ? '300px' : lang == 'Jan_JPN' ? '450px' : '470px'
+          lang == 'zh_CN'
+            ? '300px'
+            : lang == 'Jan_JPN'
+            ? '450px'
+            : lang == 'Fr_fr'
+            ? '540px'
+            : '470px'
         "
       >
         <template #default="{ row }">
@@ -248,7 +260,13 @@
         :label="$t('attendance.text_35')"
         prop="Punchinformation2"
         :width="
-          lang == 'zh_CN' ? '300px' : lang == 'Jan_JPN' ? '450px' : '470px'
+          lang == 'zh_CN'
+            ? '300px'
+            : lang == 'Jan_JPN'
+            ? '450px'
+            : lang == 'Fr_fr'
+            ? '540px'
+            : '470px'
         "
       >
         <template #default="{ row }">
@@ -314,7 +332,7 @@
         :label="$t('attendance.text_20')"
         prop="temperature"
         sortable
-        :width="lang == 'en_US' ? '160px' : '100px'"
+        :width="lang == 'en_US' ? '160px' : lang == 'Fr_fr' ? '230px' : '100px'"
       >
         <template #default="{ row }">
           <span
@@ -335,7 +353,13 @@
         prop="late"
         sortable
         :width="
-          lang == 'en_US' ? '130px' : lang == 'Jan_JPN' ? '100px' : '110px'
+          lang == 'en_US'
+            ? '130px'
+            : lang == 'Jan_JPN'
+            ? '100px'
+            : lang == 'Fr_fr'
+            ? '170px'
+            : '110px'
         "
       >
         <template #default="{ row }">
@@ -348,7 +372,7 @@
         :label="$t('attendance.text_7')"
         prop="Leaveearly"
         sortable
-        :width="lang == 'en_US' ? '140px' : '80px'"
+        :width="lang == 'en_US' ? '140px' : lang == 'Fr_fr' ? '170px' : '80px'"
       >
         <template #default="{ row }">
           <span style="color: red">{{ row.Leaveearly }}</span>
@@ -361,7 +385,13 @@
         prop="isAbsenteeism"
         sortable
         :width="
-          lang == 'en_US' ? '150px' : lang == 'Jan_JPN' ? '120px' : '80px'
+          lang == 'en_US'
+            ? '150px'
+            : lang == 'Jan_JPN'
+            ? '120px'
+            : lang == 'Fr_fr'
+            ? '170px'
+            : '80px'
         "
       >
         <template #default="{ row }">
@@ -392,7 +422,7 @@
     <el-dialog
       :title="$t('attendance.text_22')"
       :visible.sync="dialogFormVisible"
-      :width="lang == 'zh_CN' ? '400px' : '500px'"
+      :width="lang == 'zh_CN' ? '400px' : lang == 'Fr_fr' ? '550px' : '500px'"
       :destroy-on-close="true"
       :before-close="closeFn"
     >
@@ -400,7 +430,9 @@
         ref="cardForm"
         :model="cardForm"
         :inline="true"
-        :label-width="lang == 'zh_CN' ? '80px' : '200px'"
+        :label-width="
+          lang == 'zh_CN' ? '80px' : lang == 'Fr_fr' ? '250px' : '200px'
+        "
         size="medium"
         @submit.native.prevent
       >
@@ -457,11 +489,11 @@
       </div>
     </el-dialog>
 
-    <!-- 补卡弹窗 -->
+    <!-- 导出设置弹窗 -->
     <el-dialog
       :title="$t('attendance.text_27')"
       :visible.sync="dialogVisible"
-      width="650px"
+      :width="lang != 'zh_CN' && lang != 'Jan_JPN' ? '870px' : '650px'"
       :destroy-on-close="true"
     >
       <el-transfer
@@ -615,12 +647,35 @@
           { value: 'isAbsenteeism', title: 'Absenteeism' },
           { value: 'temperature', title: 'Body temperature(℃)' },
         ]
+        var dataFr = [
+          { value: 'name', title: 'Nom' },
+          { value: 'department', title: 'département' },
+          { value: 'Employee_code', title: "identifiant d'employé" },
+          { value: 'Date', title: 'Date de présence' },
+          { value: 'Punchinformation', title: 'carte perforée' },
+          {
+            value: 'Punchinformation1',
+            title: 'Pointer après avoir quitté le travail',
+          },
+          {
+            value: 'Shiftinformation',
+            title: 'Information sur les quarts de travail',
+          },
+          { value: 'Duration', title: 'Temps de présence (heures)' },
+          { value: 'late', title: 'Tardif (minutes)' },
+          { value: 'Leaveearly', title: 'Partez tôt (minutes)' },
+          { value: 'workOvertime', title: 'Heures supplémentaires (minutes)' },
+          { value: 'isAbsenteeism', title: 'Absentéisme' },
+          { value: 'temperature', title: 'Température corporelle (℃)' },
+        ]
         if (this.$lang == 'zh_CN') {
           this.setList = dataZn
         } else if (this.$lang == 'Jan_JPN') {
           this.setList = dataJpan
         } else if (this.$lang == 'en_US') {
           this.setList = dataEn
+        } else if (this.$lang == 'Fr_fr') {
+          this.setList = dataFr
         }
       },
       // 切换显示条数
@@ -755,6 +810,14 @@
       setExport() {
         this.getSetting()
         this.dialogVisible = true
+        if (this.lang != 'zh_CN' || this.lang != 'Jan_JPN') {
+          setTimeout(() => {
+            var element = document.getElementsByClassName('el-transfer-panel')
+            console.log(element)
+            element[0].style.width = '330px'
+            element[1].style.width = '330px'
+          }, 100)
+        }
       },
       changeSet(e, type, direction) {
         // console.log('e', e, type, direction)

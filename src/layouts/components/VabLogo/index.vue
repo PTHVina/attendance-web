@@ -43,6 +43,8 @@
       } else if (this.$lang == 'Jan_JPN') {
         // this.title = '知恵と顔の勤務評定の門限システム'
         this.title = 'HEAT CHECK'
+      } else if (this.$lang == 'Fr_fr') {
+        this.title = 'Système de visage'
       } else {
         this.title = this.$baseTitle
       }
