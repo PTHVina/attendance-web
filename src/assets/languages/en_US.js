@@ -83,7 +83,7 @@ module.exports = {
     tips_21: 'Are you sure you want to delete the selected item?',
     tips_22: 'No rows selected',
     tips_23: 'Issued',
-    tips_24: 'Successful distribution!',
+    tips_24: 'Issuing, please wait...',
     tips_25: 'Distribution failed!',
     tips_26: 'Saved successfully!',
     tips_27: 'Save failed!',

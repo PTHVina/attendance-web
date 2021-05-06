@@ -68,6 +68,12 @@
         this.info =
           '入力したURLが正しいか確認するか、下のボタンをクリックしてホームページに戻ってください。'
         this.btn = '戻る'
+      } else if (this.$lang == 'Fr_fr') {
+        this.oops = 'Pardon!'
+        this.headline = "Tu n'as pas la permission..."
+        this.info =
+          "Le compte actuel ne dispose pas des autorisations de fonctionnement, veuillez contacter l'administrateur."
+        this.btn = 'revenir'
       }
       this.timeChange()
     },

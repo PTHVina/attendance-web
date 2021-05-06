@@ -85,7 +85,7 @@ module.exports = {
     tips_21: "Êtes-vous sûr de supprimer l'élément sélectionné?",
     tips_22: 'Aucune ligne sélectionnée',
     tips_23: 'Distribué',
-    tips_24: 'Reussi à distribuer',
+    tips_24: 'Émission, veuillez patienter ...',
     tips_25: 'Échoué à distribuer',
     tips_26: 'Reussi à sauvegarder',
     tips_27: 'Échoué à sauvegarder',

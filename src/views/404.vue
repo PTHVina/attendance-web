@@ -68,6 +68,12 @@
         this.info =
           '入力したURLが正しいか確認するか、下のボタンをクリックしてホームページに戻ってください。'
         this.btn = 'ホームページに戻ります'
+      } else if (this.$lang == 'Fr_fr') {
+        this.oops = 'Pardon!'
+        this.headline = "La page actuelle n'existe pas..."
+        this.info =
+          "Veuillez vérifier si l'URL que vous avez saisie est correcte ou cliquez sur le bouton ci-dessous pour revenir à la page d'accueil."
+        this.btn = "retour à la page d'accueil"
       }
       this.timeChange()
     },
