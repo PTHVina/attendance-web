@@ -22,6 +22,7 @@ module.exports = {
     title_19: "Personnel de l'appareil",
     title_20: 'Réglage des paramètres',
     title_21: 'Document explicatif',
+    title_22: 'Classification des emplois',
   },
   //操作按钮
   operation_btn: {
@@ -36,7 +37,7 @@ module.exports = {
     btn_text_9: 'Importer par lots',
     btn_text_10: 'Télécharger le modèle',
     btn_text_11: 'Distribuer par lots',
-    btn_text_12: 'Distribuer en un clic',
+    btn_text_12: 'Tous les membres émis',
     btn_text_13: 'Supprimer par lots',
     btn_text_14: 'Rédiger',
     btn_text_15: 'Distribuer',
@@ -57,6 +58,7 @@ module.exports = {
     btn_text_30: 'Exporter',
     btn_text_31: 'Exporter les réglages',
     btn_text_32: 'Enregistrer en un clic',
+    btn_text_33: "Dossier d'émission",
   },
   // 操作提示
   operation_tips: {
@@ -137,17 +139,16 @@ module.exports = {
     tips_66: 'Étape précédente',
     tips_67: 'Étape suivante',
     tips_68: 'Entrez dans la page',
-    tips_69: 'accomplissement',
-    tips_70: 'Étape 1: Entrez dans la page pour ajouter un appareil',
+    tips_69: "Afficher l'enregistrement de la capture",
+    tips_70: 'Chercher un appareil',
     tips_71:
-      'Étape 2: Cliquez sur «Chercher un appareil» pour effectuer une recherche automatique, puis cliquez sur le bouton «Ajouter» pour ajouter un appareil.',
-    tips_72:
-      'Étape 3: Entrez dans la page pour ajouter des informations du personnel',
+      'Étape 1: Cliquez sur «Chercher un appareil» pour effectuer une recherche automatique, puis cliquez sur le bouton «Ajouter» pour ajouter un appareil.',
+    tips_72: 'Nouvelle équipe',
     tips_73:
-      "Étape 4: Cliquez sur le bouton 'Ajouter nouvellement' pour ajouter des informations personnelles individuelles.",
+      "Étape 2: Cliquez sur le bouton 'Ajouter nouvellement' pour ajouter des informations personnelles individuelles.",
     tips_74:
-      "Étape 5: Entrez dans la page pour examiner l'enregistrement d'instantané de l'appareil.",
-    tips_75: 'Sautée',
+      "Étape 3: Entrez dans la page pour examiner l'enregistrement d'instantané de l'appareil.",
+    tips_75: 'abandonner',
     tips_76: 'Guide de novice',
 
     tips_77: 'Il doit y avoir un groupe de présence par défaut',
@@ -177,7 +178,7 @@ module.exports = {
     text_8: 'Distribution des codes',
     text_9: 'Distribution ID',
     text_10:
-      "Quant à 《Distribution des codes》, le numéro du personnel nouvellement ajouté doit être indiqué comme numéro de citoyenneté de la carte d'identité de résident de la République populaire de Chine (numéro d'identification) ",
+      "Lors de la sélection de <émission du numéro>, le numéro du personnel nouvellement ajouté doit être renseigné comme numéro d'identification",
 
     title_1: 'Code',
     title_2: 'Nom du département',
@@ -225,6 +226,7 @@ module.exports = {
     title_14: "Code de l'appareil",
     title_15: 'Numéro de série',
     title_16: 'Heure de synchronisation',
+    title_17: 'Source du personnel',
 
     pl_1: 'Nom du personnel',
     pl_2: 'Adresse mail',
@@ -247,6 +249,20 @@ module.exports = {
     pl_19:
       "S'il faut enregistrer les informations de tout le personnel, en total",
     pl_20: 'Personnes',
+    pl_21: "Notes d'état",
+    pl_22:
+      'Le numéro de carte Wiegand ne prend pas en charge la correspondance floue',
+    pl_23: "Le décodage de l'image a échoué",
+    pl_24:
+      "L'image est trop grande, l'image jpg utilisée pour l'extraction des caractéristiques ne peut pas dépasser 10M",
+    pl_25: "L'image normalisée a échoué",
+    pl_26: 'La taille du visage est trop petite',
+    pl_27: 'La qualité du portrait est trop mauvaise',
+    pl_28: "Le nombre de visages dans l'image n'est pas 1",
+    pl_29: "Le visage est incomplet dans l'image",
+    pl_30:
+      "Dupliquer le visage (le même visage se trouve dans la bibliothèque lors de l'inscription)",
+    pl_31: 'synchronisation des données',
   },
   //设备管理
   device: {
@@ -308,9 +324,9 @@ module.exports = {
     text_55: "L'adresse DNS ne peut pas être vide",
     text_56: "Veuillez entrer l'adresse DNS correcte",
     text_57: "Modifier les informations IP de l'appareil",
-    text_58: "Synchroniser l'heure locale et l'heure d'appareil",
-    text_59: "Synchroniser l'heure",
-    text_60: " Non synchroniser l'heure",
+    text_58: "Méthode de synchronisation de l'heure de l'appareil",
+    text_59: 'Synchronisation du réseau externe (NTP)',
+    text_60: 'Synchronisation locale',
     text_61:
       "Remarque: l'appareil et cette machine doivent être dans le même segment de réseau",
     text_62: "L'ordre a été envoyé",
@@ -365,6 +381,7 @@ module.exports = {
     text_44: 'Information de voyage',
     text_45: 'Remarque du code de santé',
     text_46: 'Tout',
+    text_47: 'Afficher le code de santé',
   },
   //考勤管理
   attendance: {

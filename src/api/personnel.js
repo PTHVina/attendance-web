@@ -325,6 +325,7 @@ export function deleteDataSync(data) {
 // 设备人员注册
 export function registerDataSync(data) {
   let res = window.top.myExtension.setStaffForsynchronization(
+    // let res = window.top.myExtension.setStafforDataSyn(
     data.id.toString(),
     data.name,
     data.Employee_code.toString(),
@@ -336,7 +337,8 @@ export function registerDataSync(data) {
     data.line_type.toString(),
     data.line_userid.toString(),
     data.face_idcard.toString(),
-    data.idcardtype.toString()
+    data.idcardtype.toString(),
+    data.device_sn
   )
 
   var res_data = JSON.parse(res)

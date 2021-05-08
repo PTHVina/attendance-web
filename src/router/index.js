@@ -183,6 +183,12 @@ export const asyncRoutes = [
         meta: { title: i18.router.title_3, permissions: ['admin'] }, //部门设置
       },
       {
+        path: 'classification',
+        name: 'Classification',
+        component: () => import('@/views/system/classification'),
+        meta: { title: i18.router.title_22, permissions: ['admin'] }, //工作分类
+      },
+      {
         path: 'parameter',
         name: 'Parameter',
         component: () => import('@/views/system/parameter'),

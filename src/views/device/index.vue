@@ -298,8 +298,8 @@
         <!-- 补光模式 -->
         <el-form-item :label="$t('device.text_34')">
           <el-radio-group v-model="setForm.fillLight">
-            <el-radio label="1">{{ $t('device.text_35') }}</el-radio>
             <el-radio label="2">{{ $t('device.text_36') }}</el-radio>
+            <el-radio label="1">{{ $t('device.text_35') }}</el-radio>
             <el-radio label="3">{{ $t('device.text_37') }}</el-radio>
           </el-radio-group>
         </el-form-item>
@@ -330,14 +330,6 @@
             :inactive-text="$t('device.text_44')"
           ></el-switch>
         </el-form-item>
-        <!-- 体温检测 -->
-        <el-form-item :label="$t('device.text_31')">
-          <el-switch
-            v-model="setForm.enable"
-            :active-text="$t('device.text_28')"
-            :inactive-text="$t('device.text_44')"
-          ></el-switch>
-        </el-form-item>
         <!-- 自动息屏 -->
         <el-form-item :label="$t('device.text_43')">
           <el-switch
@@ -355,6 +347,14 @@
         >
           <el-switch
             v-model="setForm.output_not_matched"
+            :active-text="$t('device.text_28')"
+            :inactive-text="$t('device.text_44')"
+          ></el-switch>
+        </el-form-item>
+        <!-- 体温检测 -->
+        <el-form-item :label="$t('device.text_31')">
+          <el-switch
+            v-model="setForm.enable"
             :active-text="$t('device.text_28')"
             :inactive-text="$t('device.text_44')"
           ></el-switch>
@@ -622,21 +622,12 @@
     methods: {
       setGuide() {
         try {
-          let dom = document.getElementsByClassName('el-menu')[0]
-          let children = dom.childNodes
-          children[3].lastChild.style.removeProperty('display')
           let data = [
             {
-              title: this.$t('operation_tips.tips_76'),
+              title: this.$t('operation_tips.tips_70'),
               element: '.btn_guide_a',
               intro: this.$t('operation_tips.tips_71'),
               position: 'bottom',
-            },
-            {
-              title: this.$t('operation_tips.tips_76'),
-              element: '.el-menu li:nth-child(2)>ul li:first-child',
-              intro: this.$t('operation_tips.tips_72'),
-              position: 'right',
             },
           ]
           this.$intro()
@@ -644,7 +635,7 @@
               prevLabel: this.$t('operation_tips.tips_66'),
               nextLabel: this.$t('operation_tips.tips_67'),
               skipLabel: this.$t('operation_tips.tips_75'),
-              doneLabel: this.$t('operation_tips.tips_68'),
+              doneLabel: this.$t('operation_tips.tips_67'),
               steps: data,
               exitOnOverlayClick: false, //是否允许点击空白处退出
               overlayOpacity: 0.6, //遮罩层的透明度
@@ -949,6 +940,7 @@
 <style lang="scss">
   .tips {
     margin-bottom: 0 !important;
+    margin-left: 20px;
   }
   .form_group {
     height: auto;

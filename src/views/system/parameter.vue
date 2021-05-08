@@ -7,9 +7,11 @@
           class="set_item"
           :style="
             lang == 'en_US'
-              ? 'width:700px'
-              : lang == 'Fr_fr'
               ? 'width:800px'
+              : lang == 'Fr_fr'
+              ? 'width:950px'
+              : lang == 'Jan_JPN'
+              ? 'width:600px'
               : ''
           "
         >
@@ -29,9 +31,11 @@
           class="set_item"
           :style="
             lang == 'en_US'
-              ? 'width:700px'
-              : lang == 'Fr_fr'
               ? 'width:800px'
+              : lang == 'Fr_fr'
+              ? 'width:950px'
+              : lang == 'Jan_JPN'
+              ? 'width:600px'
               : ''
           "
         >

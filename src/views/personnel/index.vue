@@ -92,7 +92,7 @@
         <el-button icon="el-icon-connection" type="primary" @click="issue">
           {{ $t('operation_btn.btn_text_11') }}
         </el-button>
-        <!-- 一键下发 -->
+        <!-- 全员下发 -->
         <el-button icon="el-icon-thumb" type="primary" @click="oneClickIssue">
           {{ $t('operation_btn.btn_text_12') }}
         </el-button>
@@ -147,7 +147,15 @@
         :label="$t('personnel.text_3')"
         prop="phone"
         sortable
-        :width="lang == 'en_US' ? '175' : lang == 'Fr_fr' ? '200' : ''"
+        :width="
+          lang == 'en_US'
+            ? '175'
+            : lang == 'Fr_fr'
+            ? '200'
+            : lang == 'Jan_JPN'
+            ? '100'
+            : ''
+        "
       ></el-table-column>
       <!-- 部门 -->
       <el-table-column
@@ -163,7 +171,15 @@
         :label="$t('personnel.title_5')"
         prop="Employee_code"
         sortable
-        :width="lang == 'en_US' ? '170' : lang == 'Fr_fr' ? '180' : ''"
+        :width="
+          lang == 'en_US'
+            ? '170'
+            : lang == 'Fr_fr'
+            ? '180'
+            : lang == 'Jan_JPN'
+            ? '100'
+            : ''
+        "
       ></el-table-column>
       <!-- 工作分类 -->
       <el-table-column
@@ -171,7 +187,15 @@
         :label="$t('personnel.title_6')"
         prop="Employetypename"
         sortable
-        :width="lang == 'en_US' ? '180' : lang == 'Fr_fr' ? '210' : ''"
+        :width="
+          lang == 'en_US'
+            ? '180'
+            : lang == 'Fr_fr'
+            ? '210'
+            : lang == 'Jan_JPN'
+            ? '115'
+            : ''
+        "
       ></el-table-column>
       <!-- 已下发总数 -->
       <el-table-column
@@ -179,7 +203,15 @@
         :label="$t('personnel.title_7')"
         prop="eqcount"
         sortable
-        :width="lang == 'en_US' ? '140' : lang == 'Fr_fr' ? '200' : ''"
+        :width="
+          lang == 'en_US'
+            ? '140'
+            : lang == 'Fr_fr'
+            ? '200'
+            : lang == 'Jan_JPN'
+            ? '100'
+            : ''
+        "
       ></el-table-column>
       <!-- 相机总数 -->
       <el-table-column
@@ -189,11 +221,30 @@
         sortable
         :width="lang == 'en_US' ? '220' : lang == 'Fr_fr' ? '220' : '140'"
       ></el-table-column>
+      <!-- 人员来源 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('personnel.title_17')"
+        sortable
+        :width="lang == 'en_US' ? '170' : lang == 'Fr_fr' ? '200' : '120'"
+      >
+        <template #default="{ row }">
+          <span v-show="row.source">{{ $t('personnel.pl_31') }}</span>
+        </template>
+      </el-table-column>
       <!-- 操作 -->
       <el-table-column
         :label="$t('personnel.title_9')"
         fixed="right"
-        :width="lang == 'Jan_JPN' ? '550' : lang == 'Fr_fr' ? '330' : '240'"
+        :width="
+          lang == 'Jan_JPN'
+            ? '560'
+            : lang == 'Fr_fr'
+            ? '420'
+            : lang == 'en_US'
+            ? '310'
+            : '280'
+        "
       >
         <template #default="{ row }">
           <!-- 编辑 -->
@@ -316,6 +367,14 @@
               </el-button>
             </span>
           </span>
+          <!-- 下发记录 -->
+          <el-button
+            type="text"
+            icon="el-icon-document"
+            @click="issueRecord(row)"
+          >
+            {{ $t('operation_btn.btn_text_33') }}
+          </el-button>
           <!-- 删除 -->
           <el-button
             type="text"
@@ -799,13 +858,13 @@
           children[5].lastChild.style.removeProperty('display')
           let data = [
             {
-              title: this.$t('operation_tips.tips_76'),
+              title: this.$t('operation_tips.tips_72'),
               element: '.btn_guide_b',
               intro: this.$t('operation_tips.tips_73'),
               position: 'bottom',
             },
             {
-              title: this.$t('operation_tips.tips_76'),
+              title: this.$t('operation_tips.tips_69'),
               element: '.el-menu li:nth-child(4)>ul li:first-child',
               intro: this.$t('operation_tips.tips_74'),
               position: 'right',
@@ -852,7 +911,7 @@
         this.listLoading = true
         let list = getDataList(this.page)
         this.list = list[0]
-        // console.log('人员列表list', list)
+        console.log('人员列表', list)
         this.page.total = list[1]
         let imageList = []
         this.list.forEach((item, index) => {
@@ -950,6 +1009,10 @@
           }
         }
       },
+      //下发记录
+      issueRecord(row) {
+        this.$router.push({ path: '/personnel/issue', query: row })
+      },
       //设备列表选中
       getSelectRows(val) {
         this.deviceRows = val
@@ -970,7 +1033,7 @@
           this.init()
         }
       },
-      //一键下发
+      //全员下发
       oneClickIssue() {
         this.$baseConfirm(this.$t('operation_tips.tips_49'), null, () => {
           oneClickIssue().then((res) => {
@@ -1158,7 +1221,7 @@
       setFormData(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            if (this.deliveryMethod && !this.form.id) {
+            if (this.deliveryMethod && !this.form.id && this.lang == 'zh_CN') {
               if (!this.IdCodeValid(this.form.Employee_code)) {
                 this.$baseMessage(this.$t('personnel.pl_16'), 'warning')
                 return

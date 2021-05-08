@@ -22,6 +22,7 @@ module.exports = {
     title_19: 'Equipment personnel',
     title_20: 'Parameter settings',
     title_21: 'Documentation',
+    title_22: 'Job classification',
   },
   //操作按钮
   operation_btn: {
@@ -36,7 +37,7 @@ module.exports = {
     btn_text_9: 'Batch import',
     btn_text_10: 'Download template',
     btn_text_11: 'Batch distribution',
-    btn_text_12: 'One click distribution',
+    btn_text_12: 'All members issued',
     btn_text_13: 'Batch delete',
     btn_text_14: 'Edit',
     btn_text_15: 'Issue',
@@ -57,6 +58,7 @@ module.exports = {
     btn_text_30: 'Export',
     btn_text_31: 'Export settings',
     btn_text_32: 'One-click registration',
+    btn_text_33: 'Issue record',
   },
   // 操作提示
   operation_tips: {
@@ -135,15 +137,15 @@ module.exports = {
     tips_66: 'Previous',
     tips_67: 'Next step',
     tips_68: 'Enter the page',
-    tips_69: 'consummation',
-    tips_70: 'Step 1: Enter the page to add a device.',
+    tips_69: 'View the capture record',
+    tips_70: 'Search Device',
     tips_71:
-      'Step 2: Click "Search Device" to perform an automatic search, and then click the "Add" button to add a device.',
-    tips_72: 'Step 3: Enter the page to add personnel information.',
+      'Step 1: Click "Search Device" to perform an automatic search, and then click the "Add" button to add a device.',
+    tips_72: 'New staff',
     tips_73:
-      'Step 4: Click the "Add" button to add individual personnel information.',
-    tips_74: 'Step 5: Enter the page to view the device snapshot record.',
-    tips_75: 'jump over',
+      'Step 2: Click the "Add" button to add individual personnel information.',
+    tips_74: 'Step 3: Enter the page to view the device snapshot record.',
+    tips_75: 'Quit',
     tips_76: "Beginner's guide",
 
     tips_77: 'There must be a default attendance group',
@@ -173,7 +175,7 @@ module.exports = {
     text_8: 'Number issuance',
     text_9: 'ID issuance',
     text_10:
-      'When <number issuance>, the number of the new person must be filled in as the citizen identification number of the People’s Republic of China resident ID card',
+      'When selecting <number issuance>, the new personnel number must be filled in as the ID',
 
     title_1: 'code',
     title_2: 'Department name',
@@ -221,6 +223,7 @@ module.exports = {
     title_14: 'Equipment number',
     title_15: 'Serial number',
     title_16: 'synchronised time',
+    title_17: 'Personnel source',
 
     pl_1: 'Name of personnel',
     pl_2: 'mail box',
@@ -242,6 +245,19 @@ module.exports = {
     pl_18: 'Registering...',
     pl_19: 'Whether to register all personnel information, a total of',
     pl_20: 'people',
+    pl_21: 'Status notes',
+    pl_22: 'Wiegand card number does not support fuzzy matching',
+    pl_23: 'Image decoding failed',
+    pl_24:
+      'The image is too large, the jpg image used for feature extraction cannot exceed 10M',
+    pl_25: 'Normalized image failed',
+    pl_26: 'Face size is too small',
+    pl_27: 'Portrait quality is too poor',
+    pl_28: 'The number of faces in the image is not 1',
+    pl_29: 'The face is incomplete in the image',
+    pl_30:
+      'Duplicate face (the same face is found in the library when registering)',
+    pl_31: 'data synchronization',
   },
   //设备管理
   device: {
@@ -302,9 +318,9 @@ module.exports = {
     text_55: 'DNS address cannot be empty!',
     text_56: 'Please fill in the correct DNS address',
     text_57: 'Edit device IP information',
-    text_58: 'Device and local time synchronization',
-    text_59: 'synchronised time',
-    text_60: 'Out of sync time',
+    text_58: 'Device time synchronization method',
+    text_59: 'External network (NTP) synchronization',
+    text_60: 'Local synchronization',
     text_61:
       'Note：The device and the machine must be in the same network segment',
     text_62: 'The order has been sent',
@@ -358,6 +374,7 @@ module.exports = {
     text_44: 'Itinerary information',
     text_45: 'Health code notes',
     text_46: 'All',
+    text_47: 'Show health code',
   },
   //考勤管理
   attendance: {

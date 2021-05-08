@@ -153,6 +153,26 @@
           </el-tag>
         </template>
       </el-table-column>
+      <!-- 状态备注 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('personnel.pl_21')"
+        prop="code"
+      >
+        <template #default="{ row }">
+          <div>
+            <span v-show="row.code == 30">{{ $t('personnel.pl_22') }}</span>
+            <span v-show="row.code == 35">{{ $t('personnel.pl_23') }}</span>
+            <span v-show="row.code == 36">{{ $t('personnel.pl_24') }}</span>
+            <span v-show="row.code == 37">{{ $t('personnel.pl_25') }}</span>
+            <span v-show="row.code == 38">{{ $t('personnel.pl_26') }}</span>
+            <span v-show="row.code == 39">{{ $t('personnel.pl_27') }}</span>
+            <span v-show="row.code == 40">{{ $t('personnel.pl_28') }}</span>
+            <span v-show="row.code == 41">{{ $t('personnel.pl_29') }}</span>
+            <span v-show="row.code == 16">{{ $t('personnel.pl_30') }}</span>
+          </div>
+        </template>
+      </el-table-column>
     </el-table>
     <el-pagination
       background
@@ -215,6 +235,11 @@
       }
     },
     created() {
+      if (Object.keys(this.$route.query).length != 0) {
+        this.queryForm.name = this.$route.query.name
+        let path = this.$router.history.current.path
+        this.$router.push({ path, query: {} })
+      }
       this.init()
       this.deviceList = getDeviceList()
     },
@@ -225,6 +250,7 @@
         this.listLoading = true
         let list = getIssueList(this.page, this.queryForm)
         this.list = list[0]
+        console.log('下发记录', this.list)
         this.page.total = list[1][0].count >= 0 ? list[1][0].count : 0
         setTimeout(() => {
           this.listLoading = false

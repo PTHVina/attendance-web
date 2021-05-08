@@ -73,13 +73,26 @@
         :element-loading-text="elementLoadingText"
         height="350"
       >
+        <el-table-column show-overflow-tooltip width="50px">
+          <template #default="scope">
+            {{ scope.$index + 1 }}
+          </template>
+        </el-table-column>
         <!-- 设备名称 -->
         <el-table-column
           show-overflow-tooltip
           :label="$t('device.text_3')"
-          prop="DeviceName"
           sortable
-        ></el-table-column>
+        >
+          <template #default="{ row }">
+            <p style="margin: 0">{{ row.DeviceName }}</p>
+            <p
+              style="margin: 0; color: #999; font-size: 13px; line-height: 16px"
+            >
+              {{ row.DeviceNo }}
+            </p>
+          </template>
+        </el-table-column>
         <!-- IP地址 -->
         <el-table-column
           show-overflow-tooltip
@@ -93,6 +106,7 @@
           :label="$t('device.text_5')"
           prop="IsConnected"
           sortable
+          width="150px"
         >
           <template #default="{ row }">
             <el-tag v-if="row.IsConnected">{{ $t('device.text_7') }}</el-tag>
@@ -100,7 +114,7 @@
           </template>
         </el-table-column>
         <!-- 操作 -->
-        <el-table-column :label="$t('device.text_6')">
+        <el-table-column :label="$t('device.text_6')" width="150px">
           <template #default="{ row }">
             <!-- 开闸 -->
             <el-button type="text" @click="openDoor(row)">
@@ -239,24 +253,7 @@
       this.init()
       let firstStart = isFirstStart()
       if (firstStart) {
-        this.$confirm(
-          this.$t('operation_tips.tips_65'),
-          this.$t('operation_tips.tips_42'),
-          {
-            confirmButtonText: this.$t('operation_btn.btn_text_5'),
-            cancelButtonText: this.$t('operation_btn.btn_text_4'),
-            type: 'warning',
-            closeOnClickModal: false,
-            closeOnPressEscape: false,
-          }
-        )
-          .then(() => {
-            localStorage.setItem('firstLogin', true)
-            this.setGuide()
-          })
-          .catch(() => {
-            localStorage.setItem('firstLogin', false)
-          })
+        this.setGuide()
       }
     },
     destroyed() {
@@ -304,40 +301,30 @@
     methods: {
       // 新手引导
       setGuide() {
-        let dom = document.getElementsByClassName('el-menu')[0]
-        let children = dom.childNodes
-        children[4].lastChild.style.removeProperty('display')
-        let data = [
+        this.$confirm(
+          this.$t('operation_tips.tips_65'),
+          this.$t('operation_tips.tips_42'),
           {
-            title: this.$t('operation_tips.tips_76'),
-            element: '.el-menu li:nth-child(3)>ul li:first-child',
-            intro: this.$t('operation_tips.tips_70'),
-            position: 'right',
-          },
-        ]
-        this.$intro()
-          .setOptions({
-            skipLabel: this.$t('operation_tips.tips_75'),
-            doneLabel: this.$t('operation_tips.tips_68'),
-            steps: data,
-            exitOnOverlayClick: false, //是否允许点击空白处退出
-            overlayOpacity: 0.6, //遮罩层的透明度
-            showBullets: false, //是否使用点点点显示进度
-            showProgress: false, //是否显示进度条
-          })
-          .oncomplete(() => {
+            confirmButtonText: this.$t('operation_btn.btn_text_5'),
+            cancelButtonText: this.$t('operation_btn.btn_text_4'),
+            type: 'warning',
+            closeOnClickModal: false,
+            closeOnPressEscape: false,
+          }
+        )
+          .then(() => {
+            localStorage.setItem('firstLogin', true)
             this.$router.push('/device/deviceIndex')
           })
-          .onskip(() => {
-            console.log('跳过')
+          .catch(() => {
             localStorage.setItem('firstLogin', false)
           })
-          .start()
       },
       async init() {
         this.listLoading = true
         // 设备列表
         this.list = await getDeviceList()
+        console.log('设备列表', this.list)
         //抓拍记录
         this.capture_Loading = true
         await getUserList(this.queryForm, this.page)

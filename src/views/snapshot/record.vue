@@ -126,6 +126,11 @@
         >
           {{ $t('operation_btn.btn_text_13') }}
         </el-button>
+        <!-- 是否显示健康码 -->
+        <div v-if="lang == 'zh_CN'" style="margin-left: 20px">
+          <span style="margin-right: 5px">{{ $t('snapshot.text_47') }}</span>
+          <el-switch v-model="showCode" @change="changeCode"></el-switch>
+        </div>
       </div>
     </div>
 
@@ -217,6 +222,7 @@
       ></el-table-column>
       <!-- 健康码 -->
       <el-table-column
+        v-if="showCode"
         show-overflow-tooltip
         :label="$t('snapshot.text_38')"
         prop="QRcodestatus"
@@ -265,6 +271,7 @@
       </el-table-column>
       <!-- 健康码类型 -->
       <el-table-column
+        v-if="showCode"
         show-overflow-tooltip
         :label="$t('snapshot.text_43')"
         prop="QRcodestatus"
@@ -286,6 +293,7 @@
       </el-table-column>
       <!-- 健康码备注 -->
       <el-table-column
+        v-if="showCode"
         show-overflow-tooltip
         :label="$t('snapshot.text_45')"
         prop="QRcodestatus"
@@ -307,6 +315,7 @@
       </el-table-column>
       <!-- 行程信息 -->
       <el-table-column
+        v-if="showCode"
         :label="$t('snapshot.text_44')"
         prop="trip_infor"
         :width="lang == 'Fr_fr' ? '200px' : '160px'"
@@ -829,12 +838,21 @@
           ],
         },
         deliveryMethod: false, //下发方式
+
+        showCode: false, //健康码显示
       }
     },
     created() {
       this.deliveryMethod = getParam()
       this.typeList()
       this.init()
+
+      let code = JSON.parse(localStorage.getItem('codeData'))
+      if (code && this.lang == 'zh_CN') {
+        this.showCode = code
+      } else {
+        this.showCode = false
+      }
     },
     beforeDestroy() {},
     mounted() {},
@@ -1067,7 +1085,7 @@
       setFormData(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            if (this.deliveryMethod) {
+            if (this.deliveryMethod && this.lang == 'zh_CN') {
               if (!this.IdCodeValid(this.form.Employee_code)) {
                 this.$baseMessage(this.$t('personnel.pl_16'), 'warning')
                 return
@@ -1242,6 +1260,19 @@
           }
         })
       },
+
+      //显示健康码
+      changeCode(e) {
+        this.showCode = e
+        localStorage.setItem('codeData', e)
+        if (e) {
+          let list = this.list
+          this.list = ''
+          setTimeout(() => {
+            this.list = list
+          })
+        }
+      },
     },
   }
 </script>
@@ -1269,6 +1300,9 @@
   }
   .btn_group {
     margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
   }
   .el-dialog__body {
     padding: 20px;
