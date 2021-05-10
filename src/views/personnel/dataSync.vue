@@ -541,9 +541,8 @@
           name: data.name,
           Employee_code: '',
           phone: '',
-          face_idcard: data.long_card_id,
-          idcardtype:
-            data.long_card_id < 4294967295 || !data.long_card_id ? '32' : '64',
+          face_idcard: data.wg_card_id || data.long_card_id,
+          idcardtype: data.wg_card_id ? '32' : '64',
           Email: '',
           departmentname: '',
           Employetypename: '',
