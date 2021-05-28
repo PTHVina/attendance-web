@@ -71,3 +71,8 @@ export function getUserList(data, page) {
     }
   })
 }
+
+//获取logo
+export function getLogo() {
+  return false
+}

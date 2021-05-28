@@ -3,7 +3,11 @@
     <router-link v-if="lang != 'Jan_JPN'" to="/">
       <!-- 这里是logo变更的位置 -->
       <!-- <vab-remix-icon v-if="logo" class="logo" :icon-class="logo" /> -->
-      <img src="../../../assets/logo-2.png" class="logo" alt="" />
+      <img
+        :src="logoImg ? logoImg : require('@/assets/logo-2.png')"
+        class="logo"
+        alt=""
+      />
       <span
         id="admin_title"
         class="title"
@@ -14,14 +18,23 @@
       </span>
     </router-link>
     <router-link v-else to="/">
-      <img src="@/assets/logo-3.png" alt="logo" class="img" />
-      <img src="@/assets/logo-2.png" class="logo img_box" alt="" />
+      <img
+        :src="logoImg ? logoImg : require('@/assets/logo-3.png')"
+        alt="logo"
+        class="img"
+      />
+      <img
+        :src="logoImg ? logoImg : require('@/assets/logo-2.png')"
+        class="logo img_box"
+        alt=""
+      />
     </router-link>
   </div>
 </template>
 <script>
   import { mapGetters } from 'vuex'
   import { logo } from '@/config'
+  import { getLogo } from '@/api/index'
 
   export default {
     name: 'VabLogo',
@@ -29,6 +42,7 @@
       return {
         title: this.$baseTitle,
         lang: this.$lang,
+        logoImg: null,
       }
     },
     computed: {
@@ -36,6 +50,10 @@
         logo: 'settings/logo',
         layout: 'settings/layout',
       }),
+    },
+    created() {
+      this.logoImg = getLogo()
+      console.log('logo', this.logoImg)
     },
     mounted() {
       if (this.$lang == 'en_US') {

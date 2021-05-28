@@ -435,6 +435,7 @@
       :current-page="page.pageNo"
       :layout="layout"
       :page-size="page.pageSize"
+      :page-sizes="[10, 20, 30, 40, 50, 100, 200, 300, 500, 1000]"
       :total="page.total"
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
