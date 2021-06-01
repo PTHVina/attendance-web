@@ -75,8 +75,7 @@ export function getUserList(data, page) {
 //获取logo
 export function getLogo() {
   try {
-    let res = window.top.myExtension.getLogo()
-    return JSON.parse(res)
+    return window.top.myExtension.getLogo()
   } catch {
     return false
   }
