@@ -42,7 +42,7 @@
       return {
         title: this.$baseTitle,
         lang: this.$lang,
-        logoImg: null,
+        logoImg: '',
       }
     },
     computed: {
