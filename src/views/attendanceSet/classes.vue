@@ -573,7 +573,7 @@
           time += commuter2H - commuter1H
           let a = (commuter1M / 60).toFixed(2)
           let b = (commuter2M / 60).toFixed(2)
-          time -= b - a
+          time += b - a
           if (this.form.commuter2 && this.form.radio == '2') {
             let commuterB1H = timeSplit(this.form.commuter2[0])[0] //上班小时
             let commuterB1M = timeSplit(this.form.commuter2[0])[1] //上班分钟
@@ -582,7 +582,7 @@
             time += commuterB2H - commuterB1H
             let a2 = (commuterB1M / 60).toFixed(2)
             let b2 = (commuterB2M / 60).toFixed(2)
-            time -= b2 - a2
+            time += b2 - a2
           }
           if (this.form.rest && this.form.radio == '1') {
             let rest1H = timeSplit(this.form.rest[0])[0] //休息小时
