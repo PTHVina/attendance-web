@@ -18,16 +18,7 @@
       </span>
     </router-link>
     <router-link v-else to="/">
-      <img
-        :src="logoImg ? logoImg : require('@/assets/logo-3.png')"
-        alt="logo"
-        class="img"
-      />
-      <img
-        :src="logoImg ? logoImg : require('@/assets/logo-2.png')"
-        class="logo img_box"
-        alt=""
-      />
+      <img :src="require('@/assets/logo-3.png')" alt="logo" class="img" />
     </router-link>
   </div>
 </template>
