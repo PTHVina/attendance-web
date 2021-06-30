@@ -139,6 +139,8 @@
             v-else
             class="el-icon-user-solid"
             style="
+              width: 50px;
+              height: 50px;
               font-size: 30px;
               color: #999;
               text-align: center;
