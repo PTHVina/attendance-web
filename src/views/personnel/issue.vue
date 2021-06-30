@@ -161,15 +161,16 @@
       >
         <template #default="{ row }">
           <div>
-            <span v-show="row.code == 30">{{ $t('personnel.pl_22') }}</span>
-            <span v-show="row.code == 35">{{ $t('personnel.pl_23') }}</span>
-            <span v-show="row.code == 36">{{ $t('personnel.pl_24') }}</span>
-            <span v-show="row.code == 37">{{ $t('personnel.pl_25') }}</span>
-            <span v-show="row.code == 38">{{ $t('personnel.pl_26') }}</span>
-            <span v-show="row.code == 39">{{ $t('personnel.pl_27') }}</span>
-            <span v-show="row.code == 40">{{ $t('personnel.pl_28') }}</span>
-            <span v-show="row.code == 41">{{ $t('personnel.pl_29') }}</span>
-            <span v-show="row.code == 16">{{ $t('personnel.pl_30') }}</span>
+            <span v-if="row.code == 30">{{ $t('personnel.pl_22') }}</span>
+            <span v-else-if="row.code == 35">{{ $t('personnel.pl_23') }}</span>
+            <span v-else-if="row.code == 36">{{ $t('personnel.pl_24') }}</span>
+            <span v-else-if="row.code == 37">{{ $t('personnel.pl_25') }}</span>
+            <span v-else-if="row.code == 38">{{ $t('personnel.pl_26') }}</span>
+            <span v-else-if="row.code == 39">{{ $t('personnel.pl_27') }}</span>
+            <span v-else-if="row.code == 40">{{ $t('personnel.pl_28') }}</span>
+            <span v-else-if="row.code == 41">{{ $t('personnel.pl_29') }}</span>
+            <span v-else-if="row.code == 16">{{ $t('personnel.pl_30') }}</span>
+            <span v-else>{{ row.errMsg }}</span>
           </div>
         </template>
       </el-table-column>
