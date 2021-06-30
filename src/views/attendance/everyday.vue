@@ -493,11 +493,12 @@
     <el-dialog
       :title="$t('attendance.text_27')"
       :visible.sync="dialogVisible"
-      :width="lang != 'zh_CN' && lang != 'Jan_JPN' ? '870px' : '650px'"
+      width="900px"
       :destroy-on-close="true"
     >
       <el-transfer
         v-model="setData"
+        style="display: flex; align-items: center; justify-content: center"
         :props="{
           key: 'value',
           label: 'title',
