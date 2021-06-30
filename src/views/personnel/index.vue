@@ -140,7 +140,7 @@
             class="el-icon-user-solid"
             style="
               font-size: 30px;
-              color: #eee;
+              color: #999;
               text-align: center;
               line-height: 50px;
             "
