@@ -130,7 +130,21 @@
         :width="lang == 'en_US' ? '120' : lang == 'Fr_fr' ? '90' : ''"
       >
         <template #default="{ row }">
-          <el-image :preview-src-list="imageList" :src="row.picture"></el-image>
+          <el-image
+            v-if="row.picture"
+            :preview-src-list="imageList"
+            :src="row.picture"
+          ></el-image>
+          <span
+            v-else
+            class="el-icon-user-solid"
+            style="
+              font-size: 30px;
+              color: #eee;
+              text-align: center;
+              line-height: 50px;
+            "
+          ></span>
         </template>
       </el-table-column>
       <!-- 姓名 -->
