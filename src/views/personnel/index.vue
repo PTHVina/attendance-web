@@ -640,7 +640,11 @@
         <el-button @click="dialogTableVisible = false">
           {{ $t('operation_btn.btn_text_4') }}
         </el-button>
-        <el-button type="primary" @click="setIssue">
+        <el-button
+          type="primary"
+          :disabled="deviceRows.length == 0"
+          @click="setIssue"
+        >
           {{ $t('operation_btn.btn_text_15') }}
         </el-button>
       </div>
