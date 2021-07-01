@@ -138,19 +138,18 @@
         sortable
       >
         <template #default="{ row }">
-          <el-tag v-if="row.status === 'success'" size="medium">
+          <div v-if="row.status === 'success'" style="display: inline">
+            <i class="el-icon-success" style="color: green"></i>
             {{ $t('operation_btn.btn_text_19') }}
-          </el-tag>
-          <el-tag v-else-if="row.status === 'fail'" type="danger" size="medium">
+          </div>
+          <div v-else-if="row.status === 'fail'" style="display: inline">
+            <i class="el-icon-error" style="color: red"></i>
             {{ $t('operation_btn.btn_text_20') }}
-          </el-tag>
-          <el-tag
-            v-else-if="row.status === 'inprogress'"
-            type="success"
-            size="medium"
-          >
+          </div>
+          <div v-else-if="row.status === 'inprogress'" style="display: inline">
+            <i class="el-icon-loading"></i>
             {{ $t('operation_btn.btn_text_21') }}
-          </el-tag>
+          </div>
         </template>
       </el-table-column>
       <!-- 状态备注 -->
