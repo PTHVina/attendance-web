@@ -245,7 +245,15 @@
         :width="lang == 'en_US' ? '170' : lang == 'Fr_fr' ? '200' : '120'"
       >
         <template #default="{ row }">
-          <span v-show="row.source">{{ $t('personnel.pl_31') }}</span>
+          <span v-if="row.source === 'ManualAdd'">
+            {{ $t('personnel.pl_32') }}
+          </span>
+          <span v-else-if="row.source === 'BatchImport'">
+            {{ $t('personnel.pl_33') }}
+          </span>
+          <span v-else-if="row.source">
+            {{ $t('personnel.pl_31') }}
+          </span>
         </template>
       </el-table-column>
       <!-- 操作 -->
@@ -820,7 +828,8 @@
           ],
           Email: [
             {
-              pattern: /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/,
+              pattern:
+                /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/,
               message: this.$t('operation_tips.tips_16'),
               trigger: 'blur',
             },

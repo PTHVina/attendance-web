@@ -258,6 +258,8 @@ module.exports = {
     pl_30:
       'Duplicate face (the same face is found in the library when registering)',
     pl_31: 'data synchronization',
+    pl_32: 'Add Manually',
+    pl_33: 'Batch Import',
   },
   //设备管理
   device: {

@@ -263,6 +263,8 @@ module.exports = {
     pl_30:
       "Dupliquer le visage (le même visage se trouve dans la bibliothèque lors de l'inscription)",
     pl_31: 'synchronisation des données',
+    pl_32: 'Ajouter manuellement',
+    pl_33: 'Importation par lots',
   },
   //设备管理
   device: {
