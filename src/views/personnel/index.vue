@@ -1142,7 +1142,7 @@
             phone: data.phone,
             face_idcard: data.face_idcard,
             idcardtype: data.idcardtype ? data.idcardtype : '32',
-            Email: data.Email.replace(/\s*/g, ''),
+            Email: data.Email?.replace(/\s*/g, ''),
             departmentname: data.departmentname,
             Employetypename: data.Employetype_id,
             picture: data.picture,
