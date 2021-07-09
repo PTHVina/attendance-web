@@ -59,6 +59,7 @@ module.exports = {
     btn_text_31: '导出设置',
     btn_text_32: '全员注册',
     btn_text_33: '下发记录',
+    btn_text_34: '刷新',
   },
   // 操作提示
   operation_tips: {

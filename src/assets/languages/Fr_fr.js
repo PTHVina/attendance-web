@@ -59,6 +59,7 @@ module.exports = {
     btn_text_31: 'Exporter les réglages',
     btn_text_32: 'Enregistrer en un clic',
     btn_text_33: "Dossier d'émission",
+    btn_text_34: 'Rafraîchir',
   },
   // 操作提示
   operation_tips: {

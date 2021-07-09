@@ -59,6 +59,7 @@ module.exports = {
     btn_text_31: 'エクスポートの設定',
     btn_text_32: 'ワンクリック登録',
     btn_text_33: '発行記録',
+    btn_text_34: '状態を更新',
   },
   // 操作提示
   operation_tips: {

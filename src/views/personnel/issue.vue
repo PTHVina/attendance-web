@@ -68,6 +68,11 @@
               {{ $t('operation_btn.btn_text_6') }}
             </el-button>
           </el-form-item>
+          <el-form-item>
+            <el-button icon="el-icon-refresh" @click="refreshCurrentPage">
+              {{ $t('operation_btn.btn_text_34') }}
+            </el-button>
+          </el-form-item>
         </el-form>
       </div>
     </div>
@@ -271,6 +276,10 @@
       //查询
       handleQuery() {
         this.page.pageNo = 1
+        this.init()
+      },
+      //刷新当前页面下发状态
+      refreshCurrentPage() {
         this.init()
       },
     },

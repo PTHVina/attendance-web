@@ -59,6 +59,7 @@ module.exports = {
     btn_text_31: 'Export settings',
     btn_text_32: 'One-click registration',
     btn_text_33: 'Issue record',
+    btn_text_34: 'Refresh',
   },
   // 操作提示
   operation_tips: {
