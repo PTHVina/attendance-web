@@ -593,6 +593,7 @@
     addDete,
     addGroup,
     setGroup,
+    getUserIdArry,
   } from '@/api/attendanceSet'
   export default {
     name: 'Classes',
@@ -640,6 +641,8 @@
         personnelData2: [], //人员列表
         selectRows: [], //选中人员列表
         peopleText: '', //搜索信息
+
+        userIdArry: [], //选中人员信息
 
         dialogDeteVisible: false, //打卡日期
         deteType: 1, //日期类型
@@ -700,6 +703,15 @@
         let res = getPersonnelList()
         this.personnelData = res
         this.personnelData2 = res
+
+        res.forEach((item) => {
+          this.userIdArry.forEach((data) => {
+            if (data == item.id) {
+              this.$refs.numTable.toggleRowSelection(item)
+              this.selectRows.push(item)
+            }
+          })
+        })
         setTimeout(() => {
           this.listLoading2 = false
         }, 500)
@@ -764,6 +776,7 @@
             isdefault: data.isdefault,
             count: data.count,
           }
+          this.userIdArry = getUserIdArry(data.id)
         }
       },
       // 关闭弹窗

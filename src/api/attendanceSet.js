@@ -187,3 +187,11 @@ export function setGroup(attribute, data, ids, editId) {
 
   return re_json
 }
+
+//获取人员数组
+export function getUserIdArry(id) {
+  var data = window.top.myExtension.getStaffIdsInAttendanceGroup(id)
+  var re_json = JSON.parse(data)
+
+  return re_json
+}
