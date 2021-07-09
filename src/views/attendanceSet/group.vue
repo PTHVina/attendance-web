@@ -380,7 +380,7 @@
       :visible.sync="dialogTableVisible"
       width="600px"
       :destroy-on-close="true"
-      :before-close="changeTabel"
+      :before-close="closeTabel"
     >
       <div class="people_search">
         <el-input
@@ -846,6 +846,10 @@
       //选中人员
       setSelectRows(rows) {
         this.selectRows = rows
+      },
+      closeTabel() {
+        this.selectRows = []
+        this.dialogTableVisible = false
       },
       //选择人员
       changeTabel() {
