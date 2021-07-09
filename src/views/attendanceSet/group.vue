@@ -698,20 +698,12 @@
         this.classes = res
       },
       //人员信息
-      getPersonnelList() {
+      async getPersonnelList() {
         this.listLoading2 = true
-        let res = getPersonnelList()
+        let res = await getPersonnelList()
         this.personnelData = res
         this.personnelData2 = res
 
-        res.forEach((item) => {
-          this.userIdArry.forEach((data) => {
-            if (data == item.id) {
-              this.$refs.numTable.toggleRowSelection(item)
-              this.selectRows.push(item)
-            }
-          })
-        })
         setTimeout(() => {
           this.listLoading2 = false
         }, 500)
@@ -844,13 +836,21 @@
       },
 
       //选择人员
-      openTabelDialog() {
+      async openTabelDialog() {
         this.dialogTableVisible = true
         if (this.personnelData2.length == 0) {
-          this.getPersonnelList()
+          await this.getPersonnelList()
         } else {
           this.personnelData = this.personnelData2
         }
+        this.personnelData.forEach((item) => {
+          this.userIdArry.forEach((data) => {
+            if (data == item.id) {
+              this.selectRows.push(item)
+            }
+          })
+        })
+        console.log(this.personnelData, this.selectRows, this.userIdArry)
         this.peopleText = ''
         this.selectRows.forEach((item) => {
           this.$refs.numTable.toggleRowSelection(item)
