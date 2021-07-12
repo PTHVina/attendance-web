@@ -199,8 +199,8 @@
         ></el-table-column>
         <!-- 操作 -->
         <el-table-column :label="$t('device.text_6')">
-          <template #default="{ row }">
-            <el-button type="text" icon="el-icon-edit" @click="addIP(row)">
+          <template #default="{ row, idx }">
+            <el-button type="text" icon="el-icon-edit" @click="addIP(row, idx)">
               {{ $t('operation_btn.btn_text_1') }}
             </el-button>
             <!-- 修改IP -->
@@ -755,20 +755,26 @@
 
       //打开表格弹窗 搜索设备
       openTabelDialog(type) {
-        this.IPList = []
+        if (type !== 'update') {
+          this.IPList = []
+        }
+
         this.dialogTableVisible = true
-        this.listLoading2 = true
-        getDeviceByLocal().then((res) => {
-          this.IPList = res
-          this.listLoading2 = false
-          //添加设备后没有搜索到设备关闭会话框
-          if (type == 'update' && this.IPList.length == 0) {
-            this.dialogTableVisible = false
-          }
-        })
+
+        if (type !== 'update') {
+          this.listLoading2 = true
+          getDeviceByLocal().then((res) => {
+            this.IPList = res
+            this.listLoading2 = false
+            //添加设备后没有搜索到设备关闭会话框
+            //if (type == 'update' && this.IPList.length == 0) {
+            //  this.dialogTableVisible = false
+            //}
+          })
+        }
       },
       //添加IP
-      addIP(row) {
+      addIP(row, idx) {
         this.$prompt(
           this.$t('device.text_19'),
           this.$t('operation_tips.tips_42'),
@@ -782,6 +788,7 @@
             DeviceName: value ? value : row.Item4,
           })
           if (res.result == 2) {
+            this.IPList.splice(idx, 1)
             this.$baseMessage(this.$t('operation_tips.tips_8'), 'success')
             this.openTabelDialog('update')
             this.update()
