@@ -342,7 +342,9 @@
         <el-form-item :label="$t('attendanceSet.text_44')">
           <el-radio-group v-model="form.isdefault">
             <el-radio label="1">{{ $t('attendanceSet.text_45') }}</el-radio>
-            <el-radio label="0">{{ $t('attendanceSet.text_46') }}</el-radio>
+            <el-radio label="0" :disabled="form.isdefault === '1'">
+              {{ $t('attendanceSet.text_46') }}
+            </el-radio>
           </el-radio-group>
         </el-form-item>
         <!-- 特殊日期 -->
