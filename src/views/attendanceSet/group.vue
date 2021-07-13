@@ -852,7 +852,6 @@
             }
           })
         })
-        console.log(this.personnelData, this.selectRows, this.userIdArry)
         this.peopleText = ''
         this.selectRows.forEach((item) => {
           this.$refs.numTable.toggleRowSelection(item)
