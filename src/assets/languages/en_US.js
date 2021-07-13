@@ -507,6 +507,7 @@ module.exports = {
     text_65: 'Shift type',
     text_66: 'More',
     text_67: 'Enter name, number, department query',
+    text_68: 'Note: the employee cannot be moved out and can only be added to another attendance group.',
 
     text_70: 'Please choose working time',
     text_71: 'Please select an off-duty time',

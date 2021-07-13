@@ -378,7 +378,7 @@
     </el-dialog>
     <!-- 选择人员 -->
     <el-dialog
-      :title="$t('attendanceSet.text_49')"
+      :title="`${$t('attendanceSet.text_49')}(${selectRows.length})`"
       :visible.sync="dialogTableVisible"
       width="600px"
       :destroy-on-close="true"
@@ -427,7 +427,32 @@
           show-overflow-tooltip
         ></el-table-column>
       </el-table>
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        "
+      >
+        <el-tooltip
+          class="item"
+          effect="dark"
+          :content="$t('attendanceSet.text_68')"
+          placement="top"
+        >
+          <p
+            style="
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              margin-right: 3em;
+            "
+          >
+            {{ $t('attendanceSet.text_68') }}
+          </p>
+        </el-tooltip>
         <el-button type="primary" @click="changeTabel">
           {{ $t('operation_btn.btn_text_5') }}
         </el-button>

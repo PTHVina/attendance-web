@@ -514,6 +514,7 @@ module.exports = {
     text_65: "Type de l'équipe",
     text_66: 'Plus',
     text_67: 'Entrer le nom, le code et le département pour rechercher',
+    text_68: "Note: la personne ne peut pas être retirée, elle ne peut être ajoutée qu'à un autre groupe de présence.",
 
     text_70: "Veuillez choisir l'heure de début du travail",
     text_71: "Veuillez choisir l'heure de fin du travail",
