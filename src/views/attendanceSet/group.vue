@@ -436,23 +436,18 @@
           justify-content: space-between;
         "
       >
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content="$t('attendanceSet.text_68')"
-          placement="top"
+        <p
+          :title="$t('attendanceSet.text_68')"
+          style="
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-right: 3em;
+          "
         >
-          <p
-            style="
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-              margin-right: 3em;
-            "
-          >
-            {{ $t('attendanceSet.text_68') }}
-          </p>
-        </el-tooltip>
+          {{ $t('attendanceSet.text_68') }}
+        </p>
+
         <el-button type="primary" @click="changeTabel">
           {{ $t('operation_btn.btn_text_5') }}
         </el-button>
