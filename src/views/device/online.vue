@@ -3,7 +3,11 @@
     <div ref="videoList" class="device_box">
       <div class="device_title">{{ $t('device.text_25') }}</div>
       <ul class="device_list">
-        <li v-for="item in options" :key="item.Deviceid">
+        <li
+          v-for="item in options"
+          :key="item.Deviceid"
+          @dblclick.stop="playVideo(item)"
+        >
           <span>{{ item.DeviceName }}</span>
           <el-tooltip
             class="item"
@@ -560,6 +564,7 @@
     background: white;
     border: 1px solid #eee;
     border-radius: 0 0 5px 5px;
+    cursor: pointer;
     li {
       width: calc(100% - 20px);
       min-height: 30px;
