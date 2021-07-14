@@ -1,6 +1,6 @@
 <template>
   <div id="content" ref="videoBox" class="test-container">
-    <div class="device_box">
+    <div ref="videoList" class="device_box">
       <div class="device_title">{{ $t('device.text_25') }}</div>
       <ul class="device_list">
         <li v-for="item in options" :key="item.Deviceid">
@@ -230,10 +230,23 @@
     },
     created() {},
     mounted() {
-      this.box_width = this.$refs.videoBox.offsetWidth - 300
+      console.log(
+        this.$refs.videoList.offsetWidth,
+        this.$refs.videoBox.offsetWidth -
+          this.$refs.videoList.offsetWidth -
+          this.$refs.videoList.offsetLeft * 2
+      )
+      this.box_width =
+        this.$refs.videoBox.offsetWidth -
+        this.$refs.videoList.offsetWidth -
+        this.$refs.videoList.offsetLeft * 2
       this.box_height = this.$refs.videoBox.offsetHeight
-      this.box_left = this.$refs.videoBox.getBoundingClientRect().left + 300
+      this.box_left =
+        this.$refs.videoBox.getBoundingClientRect().left +
+        this.$refs.videoList.offsetWidth +
+        this.$refs.videoList.offsetLeft * 2
       this.box_top = this.$refs.videoBox.getBoundingClientRect().top
+      console.log(this.box_width, this.box_height, this.box_left, this.box_top)
       this.init()
     },
     beforeDestroy() {
