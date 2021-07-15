@@ -261,6 +261,7 @@ module.exports = {
     pl_31: 'data synchronization',
     pl_32: 'Add Manually',
     pl_33: 'Batch Import',
+    pl_34: 'Error code:',
   },
   //设备管理
   device: {

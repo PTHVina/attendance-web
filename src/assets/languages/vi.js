@@ -261,6 +261,7 @@ pl_30:
 pl_31: 'Đồng bộ hóa dữ liệu',
 pl_32: 'Thêm thủ công',
 pl_33: 'Nhập hàng loạt',
+pl_34: 'mã lỗi:',
   },
   //设备管理
 device: {

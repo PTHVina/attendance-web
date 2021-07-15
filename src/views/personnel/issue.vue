@@ -174,6 +174,9 @@
             <span v-else-if="row.code == 40">{{ $t('personnel.pl_28') }}</span>
             <span v-else-if="row.code == 41">{{ $t('personnel.pl_29') }}</span>
             <span v-else-if="row.code == 16">{{ $t('personnel.pl_30') }}</span>
+            <span v-else-if="row.code">
+              {{ $t('personnel.pl_34') + ' ' + row.code }}
+            </span>
             <span v-else>{{ row.errMsg }}</span>
           </div>
         </template>

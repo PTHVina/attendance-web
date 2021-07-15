@@ -266,6 +266,7 @@ module.exports = {
     pl_31: 'synchronisation des données',
     pl_32: 'Ajouter manuellement',
     pl_33: 'Importation par lots',
+    pl_34: "Code d'erreur:",
   },
   //设备管理
   device: {
