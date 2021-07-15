@@ -18,6 +18,8 @@ if (lang == 'zh_CN') {
   i18 = require('@/assets/languages/en_US')
 } else if (lang == 'Fr_fr') {
   i18 = require('@/assets/languages/Fr_fr')
+} else if (lang == 'vi') {
+  i18 = require('@/assets/languages/vi')
 }
 export const constantRoutes = [
   {
