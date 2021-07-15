@@ -80,6 +80,14 @@ const actions = {
       tip1 = "Bienvenue dans le système de contrôle d'accès face à la connexion"
       tip2 =
         "L'interface de connexion est anormale et ne retourne pas correctement"
+    } else if (lang == 'vi') {
+      a = 'Chào buổi sáng.'
+      b = 'Chào buổi sáng.'
+      c = 'Xin chào.'
+      d = 'Xin chào.'
+      e = 'Xin chào.'
+      tip1 = 'Chào mừng bạn đến hệ thống nhận dạng mặt'
+      tip2 = 'Giao diện Đăng nhập, not Trả right'
     }
     if (accessToken) {
       commit('setAccessToken', accessToken)
