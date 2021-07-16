@@ -54,6 +54,8 @@
         this.title = 'HEAT CHECK'
       } else if (this.$lang == 'Fr_fr') {
         this.title = 'Système de visage'
+      } else if (this.$lang == 'vi') {
+        this.title = 'FaceRASystem'
       } else {
         this.title = this.$baseTitle
       }
