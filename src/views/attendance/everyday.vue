@@ -669,6 +669,27 @@
           { value: 'isAbsenteeism', title: 'Absentéisme' },
           { value: 'temperature', title: 'Température corporelle (℃)' },
         ]
+        var dataVi = [
+          { value: 'name', title: 'Tên' },
+          { value: 'department', title: 'département' },
+          { value: 'Employee_code', title: 'Số nhân viên' },
+          { value: 'Date', title: 'Ngày tham dự' },
+          { value: 'Punchinformation', title: 'Giờ vào' },
+          {
+            value: 'Punchinformation1',
+            title: 'Giờ ra',
+          },
+          {
+            value: 'Shiftinformation',
+            title: 'Thông tin ca làm việc',
+          },
+          { value: 'Duration', title: 'Thời gian tham dự (giờ)' },
+          { value: 'late', title: 'Muộn (phút)' },
+          { value: 'Leaveearly', title: 'Nghỉ sớm (phút)' },
+          { value: 'workOvertime', title: 'Làm thêm giờ (phút)' },
+          { value: 'isAbsenteeism', title: 'Vắng mặt' },
+          { value: 'temperature', title: 'Nhiệt độ cơ thể (℃)' },
+        ]
         if (this.$lang == 'zh_CN') {
           this.setList = dataZn
         } else if (this.$lang == 'Jan_JPN') {
@@ -677,6 +698,8 @@
           this.setList = dataEn
         } else if (this.$lang == 'Fr_fr') {
           this.setList = dataFr
+        } else if (this.$lang == 'vi') {
+          this.setList = dataVi
         }
       },
       // 切换显示条数
