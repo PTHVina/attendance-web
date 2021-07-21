@@ -857,9 +857,9 @@
 
       let code = JSON.parse(localStorage.getItem('codeData'))
       let mask = JSON.parse(localStorage.getItem('showMask'))
+      this.showMask = mask
       if (code && this.lang == 'zh_CN') {
         this.showCode = code
-        this.showMask = mask
       } else {
         this.showCode = false
       }
