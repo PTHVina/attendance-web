@@ -131,6 +131,10 @@
           <span style="margin-right: 5px">{{ $t('snapshot.text_47') }}</span>
           <el-switch v-model="showCode" @change="changeCode"></el-switch>
         </div>
+        <div v-if="lang == 'zh_CN'" style="margin-left: 20px">
+          <span style="margin-right: 5px">{{ $t('snapshot.text_48') }}</span>
+          <el-switch v-model="showMask" @change="showMaskChanged"></el-switch>
+        </div>
       </div>
     </div>
 
@@ -376,6 +380,7 @@
       ></el-table-column>
       <!-- 是否佩戴口罩 -->
       <el-table-column
+        v-if="showMask"
         show-overflow-tooltip
         :label="$t('snapshot.text_20')"
         prop="exist_mask"
@@ -791,7 +796,8 @@
           ],
           Email: [
             {
-              pattern: /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/,
+              pattern:
+                /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/,
               message: this.$t('operation_tips.tips_16'),
               trigger: 'blur',
             },
@@ -841,6 +847,7 @@
         deliveryMethod: false, //下发方式
 
         showCode: false, //健康码显示
+        showMask: false, //是否显示口罩状态
       }
     },
     created() {
@@ -849,8 +856,10 @@
       this.init()
 
       let code = JSON.parse(localStorage.getItem('codeData'))
+      let mask = JSON.parse(localStorage.getItem('showMask'))
       if (code && this.lang == 'zh_CN') {
         this.showCode = code
+        this.showMask = mask
       } else {
         this.showCode = false
       }
@@ -1262,16 +1271,28 @@
         })
       },
 
+      refreshList() {
+        let list = this.list
+        this.list = ''
+        setTimeout(() => {
+          this.list = list
+        })
+      },
+
       //显示健康码
       changeCode(e) {
         this.showCode = e
         localStorage.setItem('codeData', e)
         if (e) {
-          let list = this.list
-          this.list = ''
-          setTimeout(() => {
-            this.list = list
-          })
+          this.refreshList()
+        }
+      },
+      //是否显示戴口罩
+      showMaskChanged(e) {
+        this.showMask = e
+        localStorage.setItem('showMask', e)
+        if (e) {
+          this.refreshList()
         }
       },
     },
