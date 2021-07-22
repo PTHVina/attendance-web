@@ -379,6 +379,7 @@ text_44: 'Thông tin hành trình',
 text_45: 'Ghi chú mã sức khỏe',
 text_46: 'Tất cả',
 text_47: 'Hiển thị mã sức khỏe',
+text_49: 'ID',
   },
   //考勤管理
  attendance: {

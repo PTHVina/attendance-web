@@ -379,6 +379,7 @@ module.exports = {
     text_45: 'Health code notes',
     text_46: 'All',
     text_47: 'Show health code',
+    text_49: 'ID',
   },
   //考勤管理
   attendance: {

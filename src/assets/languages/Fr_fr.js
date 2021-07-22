@@ -386,6 +386,7 @@ module.exports = {
     text_45: 'Remarque du code de santé',
     text_46: 'Tout',
     text_47: 'Afficher le code de santé',
+    text_49: 'ID',
   },
   //考勤管理
   attendance: {

@@ -377,6 +377,7 @@ module.exports = {
     text_45: '健康コードノート',
     text_46: 'すべて',
     text_47: '健康コードを表示する',
+    text_49: 'ID',
   },
   //考勤管理
   attendance: {

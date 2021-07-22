@@ -183,6 +183,13 @@
         :label="$t('snapshot.text_1')"
         width="100px"
       ></el-table-column>
+      <!--Person ID-->
+      <el-table-column
+        show-overflow-tooltip
+        prop="person_id"
+        :label="$t('snapshot.text_49')"
+        width="100px"
+      ></el-table-column>
       <!-- 体温 -->
       <el-table-column
         show-overflow-tooltip
