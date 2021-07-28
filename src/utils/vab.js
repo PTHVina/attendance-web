@@ -78,8 +78,23 @@ const install = (Vue, opts = {}) => {
 
   /* 全局Alert */
   Vue.prototype.$baseAlert = (content, title, callback) => {
-    MessageBox.alert(content, title || '温馨提示', {
-      confirmButtonText: '确定',
+    let t = {
+      zh_CN: '温馨提示',
+      en_US: 'Reminder',
+      Fr_fr: 'Rappel',
+      vi: 'nhắc',
+      Jan_JPN: 'ヒント',
+    }
+    let okText = {
+      zh_CN: '确定',
+      en_US: 'OK',
+      Fr_fr: "C'est sûr.",
+      vi: 'xác định',
+      Jan_JPN: 'を選択します',
+    }
+    let lang = window.top.myExtension.getlanguage()
+    MessageBox.alert(content, title || t[lang], {
+      confirmButtonText: okText[lang],
       dangerouslyUseHTMLString: true,
       callback: (action) => {
         if (callback) {
@@ -92,23 +107,33 @@ const install = (Vue, opts = {}) => {
   /* 全局Confirm */
   Vue.prototype.$baseConfirm = (content, title, callback1, callback2) => {
     let lang = window.top.myExtension.getlanguage()
-    MessageBox.confirm(
-      content,
-      title ||
-        (lang == 'zh_CN'
-          ? '温馨提示'
-          : lang == 'en_US'
-          ? 'reminder'
-          : '暖かいヒント'),
-      {
-        confirmButtonText:
-          lang == 'zh_CN' ? '确定' : lang == 'en_US' ? 'OK' : 'を選択します',
-        cancelButtonText:
-          lang == 'zh_CN' ? '取消' : lang == 'en_US' ? 'Cancel' : 'キャンセル',
-        closeOnClickModal: false,
-        type: 'warning',
-      }
-    )
+    let t = {
+      zh_CN: '温馨提示',
+      en_US: 'Reminder',
+      Fr_fr: 'Rappel',
+      vi: 'nhắc',
+      Jan_JPN: 'ヒント',
+    }
+    let okText = {
+      zh_CN: '确定',
+      en_US: 'OK',
+      Fr_fr: "C'est sûr.",
+      vi: 'xác định',
+      Jan_JPN: 'を選択します',
+    }
+    let CancelText = {
+      zh_CN: '取消',
+      en_US: 'Cancel',
+      Fr_fr: 'Annulation',
+      vi: 'hủy',
+      Jan_JPN: 'キャンセル',
+    }
+    MessageBox.confirm(content, title || t[lang], {
+      confirmButtonText: okText[lang],
+      cancelButtonText: CancelText[lang],
+      closeOnClickModal: false,
+      type: 'warning',
+    })
       .then(() => {
         if (callback1) {
           callback1()
