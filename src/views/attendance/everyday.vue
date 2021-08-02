@@ -610,6 +610,8 @@
           { value: 'Date', title: '考勤日期' },
           { value: 'Punchinformation', title: '上班打卡' },
           { value: 'Punchinformation1', title: '下班打卡' },
+          { value: 'Punchinformation2', title: '上班打卡2' },
+          { value: 'Punchinformation22', title: '下班打卡2' },
           { value: 'Shiftinformation', title: '班次信息' },
           { value: 'Duration', title: '应出勤时间(小时)' },
           { value: 'late', title: '迟到(分钟)' },
@@ -625,6 +627,8 @@
           { value: 'Date', title: '日付' },
           { value: 'Punchinformation', title: '出勤時間' },
           { value: 'Punchinformation1', title: '退勤時間' },
+          { value: 'Punchinformation2', title: '出勤時間2' },
+          { value: 'Punchinformation22', title: '退勤時間2' },
           { value: 'Shiftinformation', title: 'シフト' },
           { value: 'Duration', title: '勤務時間' },
           { value: 'late', title: '遅刻（分）' },
@@ -640,6 +644,8 @@
           { value: 'Date', title: 'Attendance date' },
           { value: 'Punchinformation', title: 'Clock in' },
           { value: 'Punchinformation1', title: 'Clock out' },
+          { value: 'Punchinformation2', title: 'Clock in 2' },
+          { value: 'Punchinformation22', title: 'Clock out 2' },
           { value: 'Shiftinformation', title: 'Shift information' },
           { value: 'Duration', title: 'Due attendance time(hours)' },
           { value: 'late', title: 'Late(minutes)' },
@@ -657,6 +663,11 @@
           {
             value: 'Punchinformation1',
             title: 'Pointer après avoir quitté le travail',
+          },
+          { value: 'Punchinformation2', title: 'carte perforée 2' },
+          {
+            value: 'Punchinformation22',
+            title: 'Pointer après avoir quitté le travail 2',
           },
           {
             value: 'Shiftinformation',
@@ -678,6 +689,11 @@
           {
             value: 'Punchinformation1',
             title: 'Giờ ra',
+          },
+          { value: 'Punchinformation2', title: 'Giờ vào 2' },
+          {
+            value: 'Punchinformation22',
+            title: 'Giờ ra 2',
           },
           {
             value: 'Shiftinformation',
