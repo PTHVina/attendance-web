@@ -76,7 +76,7 @@
         })
       },
       handleInputConfirm() {
-        let inputValue = this.inputValue.replace(/\s*/g, '')
+        let inputValue = this.inputValue.trim()
         if (!inputValue) {
           this.inputVisible = false
           this.inputValue = ''
