@@ -6,7 +6,9 @@ export function getRecordList(data, page) {
     data.name,
     data.devname,
     data.stranger,
-    data.codestus
+    data.codestus,
+    data.temp_from,
+    data.temp_to
   )
   let res = window.top.myExtension.getCapture_Data(
     data.startTime,
@@ -15,6 +17,8 @@ export function getRecordList(data, page) {
     data.devname,
     data.stranger,
     data.codestus,
+    data.temp_from,
+    data.temp_to,
     page.pageNo.toString(),
     page.pageSize.toString()
   )
@@ -37,6 +41,8 @@ export function BatchXport(data, type) {
     data.no,
     data.stranger,
     data.codestus,
-    type
+    type,
+    data.temp_from,
+    data.temp_to
   )
 }

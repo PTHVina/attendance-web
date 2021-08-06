@@ -40,6 +40,26 @@
               @change="checkTime"
             ></el-date-picker>
           </el-form-item>
+          <el-form-item>
+            <span>{{ $t('snapshot.text_16') }}</span>
+            <el-input
+              v-model="queryForm.temp_from"
+              type="number"
+              step="0.01"
+              maxlength="4"
+              style="width: 100px"
+              @change="checkLowerTemp"
+            />
+            -
+            <el-input
+              v-model="queryForm.temp_to"
+              type="number"
+              step="0.01"
+              maxlength="4"
+              style="width: 100px"
+              @change="checkUpperTemp"
+            />
+          </el-form-item>
           <!-- 陌生人 -->
           <el-form-item>
             <span>{{ $t('snapshot.text_8') }}</span>
@@ -58,7 +78,7 @@
             </el-select>
           </el-form-item>
           <!-- 健康码状态 -->
-          <el-form-item>
+          <el-form-item v-if="lang == 'zh_CN'">
             <span>{{ $t('snapshot.text_11') }}</span>
             <el-select
               v-model="queryForm.codestus"
@@ -761,6 +781,8 @@
           picture: '',
           line_userid: '',
           line_type: '1',
+          temp_from: '',
+          temp_to: '',
         },
         rules: {
           name: [
@@ -1300,6 +1322,25 @@
         localStorage.setItem('showMask', e)
         if (e) {
           this.refreshList()
+        }
+      },
+      //检查温度输入范围是否上限大于下限
+      checkUpperTemp() {
+        if (
+          this.queryForm.temp_from &&
+          parseFloat(this.queryForm.temp_to) <
+            parseFloat(this.queryForm.temp_from)
+        ) {
+          this.queryForm.temp_to = this.queryForm.temp_from
+        }
+      },
+      checkLowerTemp() {
+        if (
+          this.queryForm.temp_to &&
+          parseFloat(this.queryForm.temp_to) <
+            parseFloat(this.queryForm.temp_from)
+        ) {
+          this.queryForm.temp_from = this.queryForm.temp_to
         }
       },
     },

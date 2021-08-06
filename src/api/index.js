@@ -63,6 +63,8 @@ export function getUserList(data, page) {
         data.devname,
         data.stranger,
         data.codestus,
+        null,
+        null,
         page.pageNo.toString(),
         page.pageSize.toString()
       )
