@@ -161,6 +161,7 @@
     <el-table
       ref="tableSort"
       v-loading="listLoading"
+      border="true"
       :data="list"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
