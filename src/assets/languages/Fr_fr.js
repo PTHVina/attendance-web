@@ -180,6 +180,7 @@ module.exports = {
     text_9: 'Distribution ID',
     text_10:
       "Lors de la sélection de <émission du numéro>, le numéro du personnel nouvellement ajouté doit être renseigné comme numéro d'identification",
+    text_11: "Lorsqu'elle est désactivée, l'application doit être redémarrée pour restaurer le nom par défaut",
 
     title_1: 'Code',
     title_2: 'Nom du département',
@@ -190,6 +191,8 @@ module.exports = {
     title_7: 'Nom du département',
     title_8: 'Description du département',
     title_9: 'Numéro de téléphone',
+    title_10: "Nom du système",
+    title_11: "Abréviation du système",
   },
   //人员管理
   personnel: {

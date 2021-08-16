@@ -170,6 +170,7 @@ module.exports = {
     text_8: '编号下发',
     text_9: 'ID下发',
     text_10: '选择<编号下发>时新增人员编号必须填写为身份证号码',
+    text_11: '关闭后，重启程序才能恢复默认名称',
 
     title_1: '编码',
     title_2: '部门名称',
@@ -180,6 +181,9 @@ module.exports = {
     title_7: '部门名称',
     title_8: '部门描述',
     title_9: '电话',
+    title_10: "自定义系统名称",
+    title_11: "自定义系统简称",
+
   },
   //人员管理
   personnel: {

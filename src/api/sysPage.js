@@ -128,3 +128,19 @@ export function setParam(data) {
   var data_json = JSON.parse(data)
   return data_json
 }
+
+export function enableLongTitle(enable) {
+  window.top.myExtension.enableLongTitle(enable)
+}
+
+export function setLongTitle(title) {
+  window.top.myExtension.setLongTitle(title)
+}
+
+export function getEnableLongTitle() {
+  return window.top.myExtension.getEnableLongTitle() === 'true'
+}
+
+export function getLongTitle() {
+  return window.top.myExtension.getLongTitle()
+}

@@ -55,13 +55,48 @@
           </el-tooltip>
         </div>
       </li>
+      <!--自定义标题-->
+      <li class="setting_row">
+        <div
+          class="set_item"
+          :style="
+            lang == 'en_US'
+              ? 'width:800px'
+              : lang == 'Fr_fr'
+              ? 'width:950px'
+              : lang == 'Jan_JPN'
+              ? 'width:600px'
+              : ''
+          "
+        >
+          <el-switch
+            v-model="enableLongTitle"
+            :active-text="$t('system.title_10')"
+            @change="enableLongTitleOuter"
+          ></el-switch>
+          <el-input
+            v-model="longTitle"
+            style="width: 200px"
+            :disabled="!enableLongTitle"
+            @input="setLongTitleOuter"
+          />
+        </div>
+        <span class="item_tips">*{{ $t('system.text_11') }}</span>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
   import { setSwitch, getSwitch } from '@/api/device'
-  import { setParam, getParam } from '@/api/sysPage'
+  import {
+    setParam,
+    getParam,
+    enableLongTitle,
+    setLongTitle,
+    getEnableLongTitle,
+    getLongTitle,
+  } from '@/api/sysPage'
   export default {
     name: 'Parameter',
     data() {
@@ -69,11 +104,15 @@
         lang: this.$lang,
         value: false,
         synchronizationTime: false, //是否同步时间
+        enableLongTitle: false,
+        longTitle: '',
       }
     },
     created() {
       this.synchronizationTime = getSwitch()
       this.value = getParam()
+      this.enableLongTitle = getEnableLongTitle()
+      this.longTitle = getLongTitle()
     },
     methods: {
       //设置下发方式
@@ -95,6 +134,12 @@
           this.synchronizationTime = !this.synchronizationTime
           this.$baseMessage(this.$t('device.text_49'), 'warning')
         }
+      },
+      enableLongTitleOuter(e) {
+        enableLongTitle(e.toString())
+      },
+      setLongTitleOuter() {
+        setLongTitle(this.longTitle)
       },
     },
   }

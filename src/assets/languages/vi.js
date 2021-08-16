@@ -177,6 +177,7 @@ text_8: 'SỐ phát hành',
 text_9: 'ID phát hành',
 text_10:
 'Khi chọn <Số phát hành>, số nhân sự mới phải được điền làm ID',
+text_11: 'Khi tắt, ứng dụng phải được khởi chạy lại để phục hồi tên mặc định',
  
 title_1: 'Mã',
 title_2: 'Tên phòng',
@@ -187,6 +188,8 @@ title_6: 'Mã bộ phận',
 title_7: 'Tên bộ phận',
 title_8: 'Mô tả bộ phận',
 title_9: 'Điện thoại',
+title_10: "Tên hệ thống",
+title_11: "Tên viết tắt hệ thống",
   },
   //人员管理
  personnel: {
