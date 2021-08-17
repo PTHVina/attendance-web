@@ -133,14 +133,18 @@ export function enableLongTitle(enable) {
   window.top.myExtension.enableLongTitle(enable)
 }
 
+export function enableShortTitle(enable) {
+  window.top.myExtension.enableShortTitle(enable)
+}
+
 export function setLongTitle(title) {
   window.top.myExtension.setLongTitle(title)
 }
 
-export function getEnableLongTitle() {
-  return window.top.myExtension.getEnableLongTitle() === 'true'
+export function setShortTitle(title) {
+  window.top.myExtension.setShortTitle(title)
 }
 
-export function getLongTitle() {
-  return window.top.myExtension.getLongTitle()
+export function getUserConfigObject() {
+  return JSON.parse(window.top.myExtension.getUserConfigObject())
 }

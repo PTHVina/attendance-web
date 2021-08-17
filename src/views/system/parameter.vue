@@ -55,7 +55,7 @@
           </el-tooltip>
         </div>
       </li>
-      <!--自定义标题-->
+      <!--自定义系统名称-->
       <li class="setting_row">
         <div
           class="set_item"
@@ -81,9 +81,37 @@
             @input="setLongTitleOuter"
           />
         </div>
-        <span class="item_tips">*{{ $t('system.text_11') }}</span>
+      </li>
+
+      <!--自定义系统简称-->
+      <li class="setting_row">
+        <div
+          class="set_item"
+          :style="
+            lang == 'en_US'
+              ? 'width:800px'
+              : lang == 'Fr_fr'
+              ? 'width:950px'
+              : lang == 'Jan_JPN'
+              ? 'width:600px'
+              : ''
+          "
+        >
+          <el-switch
+            v-model="enableShortTitle"
+            :active-text="$t('system.title_11')"
+            @change="enableShortTitleOuter"
+          ></el-switch>
+          <el-input
+            v-model="shortTitle"
+            style="width: 200px"
+            :disabled="!enableShortTitle"
+            @change="setShortTitleOuter"
+          />
+        </div>
       </li>
     </ul>
+    <p class="item_tips">{{ $t('system.text_11') }}</p>
   </div>
 </template>
 
@@ -94,8 +122,9 @@
     getParam,
     enableLongTitle,
     setLongTitle,
-    getEnableLongTitle,
-    getLongTitle,
+    enableShortTitle,
+    setShortTitle,
+    getUserConfigObject,
   } from '@/api/sysPage'
   export default {
     name: 'Parameter',
@@ -106,13 +135,18 @@
         synchronizationTime: false, //是否同步时间
         enableLongTitle: false,
         longTitle: '',
+        enableShortTitle: false,
+        shortTitle: '',
       }
     },
     created() {
+      const cfg = getUserConfigObject()
       this.synchronizationTime = getSwitch()
       this.value = getParam()
-      this.enableLongTitle = getEnableLongTitle()
-      this.longTitle = getLongTitle()
+      this.enableLongTitle = cfg.EnableTitleLong
+      this.longTitle = cfg.TitleLong
+      this.shortTitle = cfg.TitleShort
+      this.enableShortTitle = cfg.EnableTitleShort
     },
     methods: {
       //设置下发方式
@@ -140,6 +174,12 @@
       },
       setLongTitleOuter() {
         setLongTitle(this.longTitle)
+      },
+      setShortTitleOuter() {
+        setShortTitle(this.shortTitle)
+      },
+      enableShortTitleOuter(e) {
+        enableShortTitle(e.toString())
       },
     },
   }

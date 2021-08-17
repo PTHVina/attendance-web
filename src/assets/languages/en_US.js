@@ -177,7 +177,7 @@ module.exports = {
     text_9: 'ID issuance',
     text_10:
       'When selecting <number issuance>, the new personnel number must be filled in as the ID',
-    text_11: 'When disabled, application must be restarted to restore default name',
+    text_11: '*: Take effect after restart application',
 
     title_1: 'code',
     title_2: 'Department name',
@@ -188,8 +188,8 @@ module.exports = {
     title_7: 'Department name',
     title_8: 'Department description',
     title_9: 'Telephone',
-    title_10: "System Name",
-    title_11: "System Abbrev. Name",
+    title_10: "System Name*",
+    title_11: "System Abbrev. Name*",
   },
   //人员管理
   personnel: {

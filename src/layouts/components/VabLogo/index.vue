@@ -26,6 +26,7 @@
   import { mapGetters } from 'vuex'
   import { logo } from '@/config'
   import { getLogo } from '@/api/index'
+  import { getUserConfigObject } from '@/api/sysPage'
 
   export default {
     name: 'VabLogo',
@@ -58,6 +59,11 @@
         this.title = 'FaceRASystem'
       } else {
         this.title = this.$baseTitle
+      }
+
+      let configObject = getUserConfigObject()
+      if (configObject.EnableTitleShort && configObject.TitleShort) {
+        this.title = configObject.TitleShort
       }
     },
   }

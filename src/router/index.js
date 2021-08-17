@@ -6,6 +6,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Layout from '@/layouts'
+import { getLongTitle } from '../api/sysPage'
 
 Vue.use(VueRouter)
 let lang = window.top.myExtension.getlanguage()
