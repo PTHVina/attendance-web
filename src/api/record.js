@@ -5,7 +5,7 @@ export function getRecordList(data, page) {
     data.endTime,
     data.name,
     data.devname,
-    data.stranger,
+    data.stranger ? '1' : '0',
     data.codestus,
     data.temp_from,
     data.temp_to
@@ -15,7 +15,7 @@ export function getRecordList(data, page) {
     data.endTime,
     data.name,
     data.devname,
-    data.stranger,
+    data.stranger ? '1' : '0',
     data.codestus,
     data.temp_from,
     data.temp_to,

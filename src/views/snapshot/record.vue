@@ -76,19 +76,7 @@
           <!-- 陌生人 -->
           <el-form-item>
             <span>{{ $t('snapshot.text_8') }}</span>
-            <el-select
-              v-model="queryForm.stranger"
-              clearable
-              :placeholder="$t('snapshot.text_9')"
-              style="width: 140px"
-            >
-              <!-- <el-option key="0" label="否" value="0"></el-option> -->
-              <el-option
-                key="1"
-                :label="$t('snapshot.text_10')"
-                value="1"
-              ></el-option>
-            </el-select>
+            <el-switch v-model="queryForm.stranger"></el-switch>
           </el-form-item>
           <!-- 健康码状态 -->
           <el-form-item v-if="lang == 'zh_CN'">
@@ -772,7 +760,7 @@
           accreditTime: [], //授权时间范围
           statime: '',
           endtime: '',
-          stranger: '', //是否陌生人
+          stranger: false, //是否陌生人
           codestus: '', //健康码
         },
         page: {
