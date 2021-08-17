@@ -190,6 +190,7 @@ title_8: 'Mô tả bộ phận',
 title_9: 'Điện thoại',
 title_10: "Tên hệ thống*",
 title_11: "Tên viết tắt hệ thống*",
+title_12: "Ẩn trang*",
   },
   //人员管理
  personnel: {

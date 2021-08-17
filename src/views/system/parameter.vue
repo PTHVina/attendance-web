@@ -110,6 +110,33 @@
           />
         </div>
       </li>
+      <!--隐藏页面-->
+      <li class="setting_row">
+        <div
+          class="set_item"
+          :style="
+            lang == 'en_US'
+              ? 'width:800px'
+              : lang == 'Fr_fr'
+              ? 'width:950px'
+              : lang == 'Jan_JPN'
+              ? 'width:600px'
+              : ''
+          "
+        >
+          <span class="item_title">{{ $t('system.title_12') }}</span>
+          <el-switch
+            v-model="hideAttendanceManagementPage"
+            :active-text="$t('router.title_16')"
+            @change="hideAttendanceManagementPageOuter"
+          ></el-switch>
+          <el-switch
+            v-model="hideAttendanceConfigPage"
+            :active-text="$t('router.title_13')"
+            @change="hideAttendanceConfigPageOuter"
+          ></el-switch>
+        </div>
+      </li>
     </ul>
     <p class="item_tips">{{ $t('system.text_11') }}</p>
   </div>
@@ -124,6 +151,8 @@
     setLongTitle,
     enableShortTitle,
     setShortTitle,
+    hideAttendanceManagementPage,
+    hideAttendanceConfigPage,
     getUserConfigObject,
   } from '@/api/sysPage'
   export default {
@@ -137,6 +166,8 @@
         longTitle: '',
         enableShortTitle: false,
         shortTitle: '',
+        hideAttendanceManagementPage: false,
+        hideAttendanceConfigPage: false,
       }
     },
     created() {
@@ -147,6 +178,8 @@
       this.longTitle = cfg.TitleLong
       this.shortTitle = cfg.TitleShort
       this.enableShortTitle = cfg.EnableTitleShort
+      this.hideAttendanceManagementPage = cfg.HideAttendanceManagementPage
+      this.hideAttendanceConfigPage = cfg.HideAttendanceConfigPage
     },
     methods: {
       //设置下发方式
@@ -180,6 +213,12 @@
       },
       enableShortTitleOuter(e) {
         enableShortTitle(e.toString())
+      },
+      hideAttendanceManagementPageOuter(e) {
+        hideAttendanceManagementPage(e.toString())
+      },
+      hideAttendanceConfigPageOuter(e) {
+        hideAttendanceConfigPage(e.toString())
       },
     },
   }

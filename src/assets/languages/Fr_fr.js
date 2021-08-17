@@ -193,6 +193,7 @@ module.exports = {
     title_9: 'Numéro de téléphone',
     title_10: "Nom du système*",
     title_11: "Abréviation du système*",
+    title_12: "Cacher la page*",
   },
   //人员管理
   personnel: {

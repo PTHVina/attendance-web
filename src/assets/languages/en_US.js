@@ -190,6 +190,7 @@ module.exports = {
     title_9: 'Telephone',
     title_10: "System Name*",
     title_11: "System Abbrev. Name*",
+    title_12: "Hide Pages*",
   },
   //人员管理
   personnel: {

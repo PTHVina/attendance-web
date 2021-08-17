@@ -6,7 +6,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Layout from '@/layouts'
-import { getLongTitle } from '../api/sysPage'
+import { getUserConfigObject } from '../api/sysPage'
 
 Vue.use(VueRouter)
 let lang = window.top.myExtension.getlanguage()
@@ -283,6 +283,28 @@ export function resetRouter() {
   router.matcher = new VueRouter({
     routes: asyncRoutes,
   }).matcher
+}
+
+const cfg = getUserConfigObject()
+if (
+  cfg.HideAttendanceManagementPage &&
+  cfg.HideAttendanceManagementPage === true
+) {
+  let idx = asyncRoutes.findIndex(
+    (e) => e.meta && e.meta.title === i18.router.title_16
+  )
+  if (idx !== -1) {
+    asyncRoutes.splice(idx, 1)
+  }
+}
+
+if (cfg.HideAttendanceConfigPage && cfg.HideAttendanceConfigPage === true) {
+  let idx = asyncRoutes.findIndex(
+    (e) => e.meta && e.meta.title === i18.router.title_13
+  )
+  if (idx !== -1) {
+    asyncRoutes.splice(idx, 1)
+  }
 }
 
 export default router

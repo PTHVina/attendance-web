@@ -189,6 +189,7 @@ module.exports = {
     title_9: '電話',
     title_10: "システム名*",
     title_11: "システム略称*",
+    title_12: "ページを隠す*",
   },
   //人员管理
   personnel: {

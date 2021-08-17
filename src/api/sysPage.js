@@ -145,6 +145,14 @@ export function setShortTitle(title) {
   window.top.myExtension.setShortTitle(title)
 }
 
+export function hideAttendanceManagementPage(hide) {
+  window.top.myExtension.hideAttendanceManagementPage(hide)
+}
+
+export function hideAttendanceConfigPage(hide) {
+  window.top.myExtension.hideAttendanceConfigPage(hide)
+}
+
 export function getUserConfigObject() {
   return JSON.parse(window.top.myExtension.getUserConfigObject())
 }
