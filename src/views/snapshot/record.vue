@@ -73,10 +73,23 @@
               @change="checkUpperTemp"
             />
           </el-form-item>
-          <!-- 陌生人 -->
+          <!-- 人员类别 -->
           <el-form-item>
-            <span>{{ $t('snapshot.text_8') }}</span>
-            <el-switch v-model="queryForm.stranger"></el-switch>
+            <span>{{ $t('snapshot.text_50') }}</span>
+            <el-select
+              v-model="queryForm.selectedPersonTypes"
+              multiple
+              filterable
+              allow-create
+              default-first-option
+            >
+              <el-option
+                v-for="item in personTypes"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
           </el-form-item>
           <!-- 健康码状态 -->
           <el-form-item v-if="lang == 'zh_CN'">
@@ -760,7 +773,7 @@
           accreditTime: [], //授权时间范围
           statime: '',
           endtime: '',
-          stranger: false, //是否陌生人
+          selectedPersonTypes: [], //人员类别
           codestus: '', //健康码
         },
         page: {
@@ -882,6 +895,11 @@
         showCode: false, //健康码显示
         showMask: false, //是否显示口罩状态
         deviceList: [], //设备列表
+        personTypes: [
+          //人员类别选项
+          { label: this.$t('snapshot.text_51'), value: 1 }, //白名单
+          { label: this.$t('snapshot.text_8'), value: 0 }, //陌生人
+        ],
       }
     },
     created() {

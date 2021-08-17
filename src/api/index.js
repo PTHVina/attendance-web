@@ -61,7 +61,7 @@ export function getUserList(data, page) {
         data.endTime,
         data.name,
         data.devname,
-        data.stranger,
+        data.selectedPersonTypes.toString(),
         data.codestus,
         null,
         null,

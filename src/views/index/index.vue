@@ -234,7 +234,7 @@
           accreditTime: [], //授权时间范围
           statime: '',
           endtime: '',
-          stranger: '', //是否陌生人
+          selectedPersonTypes: ['1', '0'], //所有人员类型
           codestus: '', //健康码
         },
         page: {

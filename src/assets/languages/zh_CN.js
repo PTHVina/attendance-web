@@ -377,6 +377,9 @@ module.exports = {
     text_47: '显示健康码',
     text_48: '显示是否戴口罩',
     text_49: 'ID',
+    text_50: '人员类别',
+    text_51: '白名单',
+
   },
   //考勤管理
   attendance: {
