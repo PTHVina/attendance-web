@@ -20,12 +20,25 @@
           </el-form-item>
           <!-- 设备编号 -->
           <el-form-item>
-            <span>{{ $t('snapshot.text_3') }}</span>
-            <el-input
+            <span>{{ $t('snapshot.text_19') }}</span>
+            <el-select
               v-model="queryForm.devname"
-              :placeholder="$t('snapshot.text_3')"
+              clearable="true"
               style="width: 170px"
-            />
+              :placeholder="$t('snapshot.text_19')"
+            >
+              <el-option
+                v-for="item in deviceList"
+                :key="item.id"
+                :label="item.DeviceName"
+                :value="item.number"
+              >
+                <span style="float: left">{{ item.DeviceName }}</span>
+                <span style="float: right; color: #8492a6; font-size: 13px">
+                  {{ item.number }}
+                </span>
+              </el-option>
+            </el-select>
           </el-form-item>
           <!-- 抓拍时间 -->
           <el-form-item>
@@ -740,6 +753,8 @@
   } from '@/api/personnel'
   import { getRecordList, delRecord, BatchXport } from '@/api/record'
   import { getParam } from '@/api/sysPage'
+  import { getAllMyDevices } from '@/api/device'
+
   export default {
     name: 'Record',
     data() {
@@ -878,6 +893,7 @@
 
         showCode: false, //健康码显示
         showMask: false, //是否显示口罩状态
+        deviceList: [], //设备列表
       }
     },
     created() {
@@ -914,6 +930,7 @@
         this.page.total = counts
         this.list = list
         let imageList = []
+        this.deviceList = getAllMyDevices()
         list.forEach((item, index) => {
           imageList.push(item.closeup)
         })

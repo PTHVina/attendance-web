@@ -143,3 +143,7 @@ export function play(ip) {
 export function closePage() {
   window.top.myExtension.NodisplayPanel()
 }
+
+export function getAllMyDevices() {
+  return JSON.parse(window.top.myExtension.getAllMyDevices())
+}
