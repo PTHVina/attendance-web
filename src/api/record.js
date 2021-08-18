@@ -39,7 +39,7 @@ export function BatchXport(data, type) {
     data.endTime,
     data.name,
     data.no,
-    data.stranger,
+    data.selectedPersonTypes.toString(),
     data.codestus,
     type,
     data.temp_from,

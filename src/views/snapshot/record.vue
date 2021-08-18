@@ -132,7 +132,7 @@
         <el-button
           icon="el-icon-folder-opened"
           type="primary"
-          @click="openTabelDialog('1')"
+          @click="exportList('1')"
         >
           {{ $t('operation_btn.btn_text_26') }}(Excel)
         </el-button>
@@ -140,7 +140,7 @@
         <el-button
           icon="el-icon-folder-opened"
           type="primary"
-          @click="openTabelDialog('0')"
+          @click="exportList('0')"
         >
           {{ $t('operation_btn.btn_text_26') }}(CSV)
         </el-button>
@@ -865,7 +865,6 @@
           // ],
         },
         dialogTableVisible: false,
-        exportType: '',
         exportData: {
           exportTime: '',
           startTime: '',
@@ -1293,11 +1292,6 @@
         return row.pass
       },
 
-      //打开表格弹窗
-      openTabelDialog(type) {
-        this.dialogTableVisible = true
-        this.exportType = type
-      },
       exportTime(e) {
         if (e) {
           let start = this.getTime(e[0])
@@ -1309,15 +1303,8 @@
           this.exportData.endTime = ''
         }
       },
-      exportList(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            BatchXport(this.exportData, this.exportType)
-            this.dialogTableVisible = false
-          } else {
-            return false
-          }
-        })
+      exportList(type) {
+        BatchXport(this.queryForm, type)
       },
 
       refreshList() {
