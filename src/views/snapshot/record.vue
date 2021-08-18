@@ -76,13 +76,7 @@
           <!-- 人员类别 -->
           <el-form-item>
             <span>{{ $t('snapshot.text_50') }}</span>
-            <el-select
-              v-model="queryForm.selectedPersonTypes"
-              multiple
-              filterable
-              allow-create
-              default-first-option
-            >
+            <el-select v-model="queryForm.selectedPersonTypes" multiple>
               <el-option
                 v-for="item in personTypes"
                 :key="item.value"
@@ -775,6 +769,8 @@
           endtime: '',
           selectedPersonTypes: [], //人员类别
           codestus: '', //健康码
+          temp_from: '',
+          temp_to: '',
         },
         page: {
           pageNo: 1,
@@ -798,8 +794,6 @@
           picture: '',
           line_userid: '',
           line_type: '1',
-          temp_from: '',
-          temp_to: '',
         },
         rules: {
           name: [
@@ -1042,8 +1036,10 @@
           accreditTime: [],
           statime: '',
           endtime: '',
-          stranger: '',
+          selectedPersonTypes: [],
           codestus: '',
+          temp_from: '',
+          temp_to: '',
         }
         this.page.pageNo = 1
         this.init()
