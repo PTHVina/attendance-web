@@ -7,7 +7,11 @@ export function getDeviceList() {
 }
 //添加设备
 export function addDevice(data) {
-  var res = window.top.myExtension.AddIPtoMydevice(data.IP, data.DeviceName)
+  var res = window.top.myExtension.AddIPtoMydevice(
+    data.IP,
+    data.DeviceName,
+    data.InOut
+  )
   var res_json = JSON.parse(res)
 
   return res_json
@@ -32,8 +36,8 @@ export function openDoor(ip) {
   })
 }
 //删除设备
-export function delDevice(data) {
-  var res = window.top.myExtension.DeleteIPtoMydevice(data.IP)
+export function delDevice(ip) {
+  var res = window.top.myExtension.DeleteIPtoMydevice(ip)
 
   return res
 }

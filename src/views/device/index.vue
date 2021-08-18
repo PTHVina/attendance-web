@@ -3,7 +3,7 @@
     <div class="group">
       <div class="btn_group">
         <!-- 添加设备 -->
-        <el-button icon="el-icon-plus" type="primary" @click="openFormDialog">
+        <el-button icon="el-icon-plus" type="primary" @click="openFormDialog()">
           {{ $t('operation_btn.btn_text_22') }}
         </el-button>
         <!-- 搜索设备 -->
@@ -43,7 +43,7 @@
       <el-table-column
         show-overflow-tooltip
         :label="$t('device.text_2')"
-        prop="DeviceNo"
+        prop="number"
         sortable
       ></el-table-column>
       <!-- 设备名称 -->
@@ -57,7 +57,7 @@
       <el-table-column
         show-overflow-tooltip
         :label="$t('device.text_4')"
-        prop="IP"
+        prop="ipAddress"
         sortable
       ></el-table-column>
       <!-- 状态 -->
@@ -153,7 +153,16 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
+        <!-- 进出类型 -->
+        <el-form-item label="进出" prop="DeviceName">
+          <el-radio-group v-model="form.InOut">
+            <el-radio :label="-1">未定义</el-radio>
+            <el-radio :label="1">进</el-radio>
+            <el-radio :label="0">出</el-radio>
+          </el-radio-group>
+        </el-form-item>
       </el-form>
+
       <div slot="footer" class="dialog-footer">
         <el-button @click="closeFn">
           {{ $t('operation_btn.btn_text_4') }}
@@ -405,6 +414,14 @@
         <el-form-item :label="$t('device.text_4')" prop="ip">
           <el-input v-model="ipParameters.ip" placeholder="IP"></el-input>
         </el-form-item>
+        <!-- 进出类型 -->
+        <el-form-item label="进出" prop="DeviceName">
+          <el-radio-group v-model="ipParameters.inout">
+            <el-radio :label="-1">未定义</el-radio>
+            <el-radio :label="1">进</el-radio>
+            <el-radio :label="0">出</el-radio>
+          </el-radio-group>
+        </el-form-item>
         <!-- 子网掩码 -->
         <el-form-item
           :label="$t('device.text_15')"
@@ -466,6 +483,7 @@
     getCameraIp,
     setCameraIP,
     getLocalIp,
+    getAllMyDevices,
   } from '@/api/device'
   export default {
     name: 'DeviceIndex',
@@ -487,6 +505,7 @@
         form: {
           IP: '',
           DeviceName: '',
+          InOut: -1,
         },
         rules: {
           IP: [
@@ -613,6 +632,7 @@
           gateway: '',
           dns: '',
           cameraIp: '',
+          inout: -1,
         }, //相机ip参数
         dialogCameraVisible: false,
 
@@ -669,30 +689,44 @@
       },
       init() {
         this.listLoading = true
-        let list = getDeviceList()
-        this.list = list
-        this.page.total = list.length
+        this.loadMyDevices()
         setTimeout(() => {
           this.listLoading = false
+          this.updateConnectState()
         }, 500)
         setInterval(() => {
-          let list = getDeviceList()
-          this.list = list
-          this.page.total = list.length
+          this.updateConnectState()
         }, 10000)
+      },
+      loadMyDevices() {
+        let list = getAllMyDevices()
+        list.forEach((element) => {
+          element.IsConnected = false
+        })
+        this.list = list
+        this.page.total = list.length
       },
       update() {
         this.listLoading = true
         setTimeout(() => {
-          let list = getDeviceList()
-          this.list = list
-          this.page.total = list.length
+          this.loadMyDevices()
           this.listLoading = false
         }, 3000)
       },
+      updateConnectState() {
+        let state = getDeviceList()
+        state.forEach((el) => {
+          let idx = this.list.findIndex((e) => e.ipAddress === el.IP)
+          if (idx !== -1) {
+            this.list[idx].IsConnected = el.IsConnected
+            this.list[idx].number = el.DeviceNo
+            this.list[idx].state = el
+          }
+        })
+      },
       //开闸
       openDoor(row) {
-        openDoor(row.IP).then((res) => {
+        openDoor(row.ipAddress).then((res) => {
           if (res) {
             this.$baseMessage(this.$t('operation_tips.tips_40'), 'success')
           } else {
@@ -703,7 +737,7 @@
       // 删除
       handleDelete(row) {
         this.$baseConfirm(this.$t('operation_tips.tips_4'), null, () => {
-          let res = delDevice(row)
+          let res = delDevice(row.ipAddress)
           if (res) {
             this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
           } else {
@@ -714,12 +748,13 @@
       },
 
       //打开弹窗 添加设备
-      openFormDialog() {
-        this.dialogFormVisible = true
+      openFormDialog(ip, name, inout = -1) {
         this.form = {
-          IP: '',
-          DeviceName: '',
+          IP: ip,
+          DeviceName: name,
+          InOut: inout,
         }
+        this.dialogFormVisible = true
       },
       //添加设备
       addDevice(formName) {
@@ -750,6 +785,7 @@
         this.form = {
           IP: '',
           DeviceName: '',
+          InOut: -1,
         }
       },
 
@@ -775,29 +811,7 @@
       },
       //添加IP
       addIP(row, idx) {
-        this.$prompt(
-          this.$t('device.text_19'),
-          this.$t('operation_tips.tips_42'),
-          {
-            confirmButtonText: this.$t('operation_btn.btn_text_5'),
-            cancelButtonText: this.$t('operation_btn.btn_text_4'),
-          }
-        ).then(({ value }) => {
-          let res = addDevice({
-            IP: row.Item2,
-            DeviceName: value ? value : row.Item4,
-          })
-          if (res.result == 2) {
-            this.IPList.splice(idx, 1)
-            this.$baseMessage(this.$t('operation_tips.tips_8'), 'success')
-            this.openTabelDialog('update')
-            this.update()
-          } else if (res.result == 1) {
-            this.$baseMessage(this.$t('device.text_24'), 'warning')
-          } else if (res.result == 3) {
-            this.$baseMessage(this.$t('operation_tips.tips_9'), 'error')
-          }
-        })
+        this.openFormDialog(row.Item2)
       },
 
       // 搜索设备列表修改ip
@@ -835,7 +849,7 @@
           this.$baseMessage(this.$t('device.text_47'), 'warning')
           return
         }
-        let res = getCameraParameters(row.IP)
+        let res = getCameraParameters(row.ipAddress)
         if (res == -1) {
           this.$baseMessage(this.$t('device.text_51'), 'warning')
           return
@@ -843,7 +857,7 @@
         this.dialogTypeVisible = true
         // console.log('res', res)
         this.setForm = {
-          ip: row.IP,
+          ip: row.ipAddress,
           // dereplication: res.face.enable_dereplication, //允许注册重复
           dereplication: 'false', //允许注册重复
           enableAlive: res.face.enable_alive, //活体检测开关
@@ -888,21 +902,23 @@
         this.form = row
         this.ipParameters = {
           DeviceName: row.DeviceName,
-          ip: row.IP,
+          ip: row.ipAddress,
           netmask: '',
           gateway: '',
           dns: '',
-          cameraIp: row.IP,
+          cameraIp: row.ipAddress,
+          inout: -1,
         }
         if (row.IsConnected) {
-          let res = getCameraIp(row.IP)
+          let res = getCameraIp(row.state.IP)
           this.ipParameters = {
-            DeviceName: row.DeviceName,
-            ip: row.IP,
+            DeviceName: row.state.DeviceName,
+            ip: row.state.IP,
             netmask: res.netmask,
             gateway: res.gateway,
             dns: res.dns,
-            cameraIp: row.IP,
+            cameraIp: row.state.IP,
+            inout: row.IsEnter,
           }
         }
       },
