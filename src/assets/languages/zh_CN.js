@@ -157,6 +157,7 @@ module.exports = {
     text_8: '我的设备',
     text_9: '抓拍记录',
     text_10: '七日通勤量',
+    text_11: '今日进入人数',
   },
   // 系统设置
   system: {

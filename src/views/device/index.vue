@@ -61,15 +61,20 @@
         sortable
       ></el-table-column>
       <!-- 进出 -->
-      <el-table-column :label="$t('device.text_64')" prop="IsEnter" sortable>
+      <el-table-column
+        :label="$t('device.text_64')"
+        prop="IsEnter"
+        align="center"
+        sortable
+      >
         <template #default="{ row }">
-          <el-tag v-if="row.IsEnter === -1">{{ $t('device.text_65') }}</el-tag>
-          <el-tag v-else-if="row.IsEnter === 1">
+          <span v-if="row.IsEnter === -1">{{ $t('device.text_65') }}</span>
+          <span v-else-if="row.IsEnter === 1">
             {{ $t('device.text_66') }}
-          </el-tag>
-          <el-tag v-else-if="row.IsEnter === 0">
+          </span>
+          <span v-else-if="row.IsEnter === 0">
             {{ $t('device.text_67') }}
-          </el-tag>
+          </span>
         </template>
       </el-table-column>
       <!-- 状态 -->

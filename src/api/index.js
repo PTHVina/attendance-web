@@ -1,4 +1,4 @@
-export function getList() {
+export function getList(retrieveAttendance = false) {
   var reg = 0,
     device = 0,
     online = 0,
@@ -17,18 +17,21 @@ export function getList() {
   //在线设备数
   let re3 = window.top.myExtension.getindexforNumberequipment()
   online = JSON.parse(re3)
-  //今日出勤数
-  let re4 = window.top.myExtension.getindexforAttendanceToday()
-  attendance.all = JSON.parse(re4)[0].count
-  //迟到
-  let re5 = window.top.myExtension.getindexforlate()
-  attendance.count1 = JSON.parse(re5)[0].count
-  //早退
-  let re6 = window.top.myExtension.getindexforLeaveEarly()
-  attendance.count2 = JSON.parse(re6)[0].count
-  //请假
-  let re7 = window.top.myExtension.getindexforleave()
-  attendance.count3 = JSON.parse(re7)[0].count
+
+  if (retrieveAttendance) {
+    //今日出勤数
+    let re4 = window.top.myExtension.getindexforAttendanceToday()
+    attendance.all = JSON.parse(re4)[0].count
+    //迟到
+    let re5 = window.top.myExtension.getindexforlate()
+    attendance.count1 = JSON.parse(re5)[0].count
+    //早退
+    let re6 = window.top.myExtension.getindexforLeaveEarly()
+    attendance.count2 = JSON.parse(re6)[0].count
+    //请假
+    let re7 = window.top.myExtension.getindexforleave()
+    attendance.count3 = JSON.parse(re7)[0].count
+  }
 
   let datas = {
     reg: reg,
@@ -81,4 +84,9 @@ export function getLogo() {
   } catch {
     return false
   }
+}
+
+export function getInOutCount() {
+  let json = window.top.myExtension.getInOutCount()
+  return JSON.parse(json)
 }

@@ -37,7 +37,19 @@
         <div class="item_title">
           <i class="el-icon-s-claim"></i>
         </div>
-        <div class="item_body">
+        <div v-if="showEnteredPersonCountOnly" class="item_body">
+          <!-- 今日进入人数 -->
+          <span
+            class="item_num"
+            :style="lang == 'Fr_fr' ? 'line-height:70px;' : ''"
+          >
+            {{ inOutCount.In }}
+          </span>
+          <span class="item_tips">
+            {{ $t('home.text_11') }}
+          </span>
+        </div>
+        <div v-else class="item_body">
           <!-- 今日出勤数 -->
           <span
             class="item_num"
@@ -212,8 +224,15 @@
 </template>
 
 <script>
-  import { getList, isFirstStart, chartData, getUserList } from '@/api/index'
+  import {
+    getList,
+    isFirstStart,
+    chartData,
+    getUserList,
+    getInOutCount,
+  } from '@/api/index'
   import { getDeviceList, openDoor } from '@/api/device'
+  import { getUserConfigObject } from '@/api/sysPage'
   export default {
     name: 'Index',
     data() {
@@ -221,6 +240,7 @@
         lang: this.$lang,
         interval: '',
         interval2: '',
+        intervalInOutCounter: '',
         tag: '',
         list: [],
         imageList: [],
@@ -245,10 +265,19 @@
         capture_list: [],
 
         chartData: '',
+
+        showEnteredPersonCountOnly: true,
+        inOutCount: { In: 0, Out: 0 },
       }
     },
     created() {
-      this.tag = getList()
+      let config = getUserConfigObject()
+      this.showEnteredPersonCountOnly =
+        config.HideAttendanceConfigPage || config.HideAttendanceManagementPage
+      if (this.showEnteredPersonCountOnly) {
+        this.loadInOutCount()
+      }
+      this.tag = getList(!this.showEnteredPersonCountOnly)
       this.chartData = chartData()
       this.init()
       let firstStart = isFirstStart()
@@ -259,6 +288,7 @@
     destroyed() {
       clearInterval(this.interval)
       clearInterval(this.interval2)
+      clearInterval(this.intervalInOutCounter)
     },
     mounted() {
       let myEchart = this.$echarts.init(document.getElementById('echarts'))
@@ -372,6 +402,9 @@
               this.$baseMessage(this.$t('personnel.pl_17'), 'warning')
             })
         }, 5000)
+        this.intervalInOutCounter = setInterval(() => {
+          this.loadInOutCount()
+        }, 1000 * 60 * 5)
       },
       //开闸
       openDoor(row) {
@@ -382,6 +415,9 @@
             this.$baseMessage(this.$t('operation_tips.tips_41'), 'warning')
           }
         })
+      },
+      loadInOutCount() {
+        this.inOutCount = getInOutCount()
       },
     },
   }
