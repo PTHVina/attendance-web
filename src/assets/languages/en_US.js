@@ -333,6 +333,10 @@ module.exports = {
       'Note：The device and the machine must be in the same network segment',
     text_62: 'The order has been sent',
     text_63: 'Local ip address',
+    text_64: 'Entry/Exit',
+    text_65: 'Undefined',
+    text_66: 'Entry',
+    text_67: 'Exit',
   },
   //抓拍管理
   snapshot: {

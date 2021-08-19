@@ -21,7 +21,8 @@ export function editDevice(data) {
   var res = window.top.myExtension.UpdatIPtoMydevice(
     data.editIp,
     data.IP,
-    data.DeviceName
+    data.DeviceName,
+    data.InOut
   )
   var res_json = JSON.parse(res)
 

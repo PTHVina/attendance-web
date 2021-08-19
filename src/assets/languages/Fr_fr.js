@@ -339,6 +339,10 @@ module.exports = {
       "Remarque: l'appareil et cette machine doivent être dans le même segment de réseau",
     text_62: "L'ordre a été envoyé",
     text_63: 'Adresse IP locale',
+    text_64: 'Entrée/Exportations',
+    text_65: 'Non défini',
+    text_66: 'Entrée',
+    text_67: 'Exportations',
   },
   //抓拍管理
   snapshot: {

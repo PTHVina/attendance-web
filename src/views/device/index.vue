@@ -60,6 +60,18 @@
         prop="ipAddress"
         sortable
       ></el-table-column>
+      <!-- 进出 -->
+      <el-table-column :label="$t('device.text_64')" prop="IsEnter" sortable>
+        <template #default="{ row }">
+          <el-tag v-if="row.IsEnter === -1">{{ $t('device.text_65') }}</el-tag>
+          <el-tag v-else-if="row.IsEnter === 1">
+            {{ $t('device.text_66') }}
+          </el-tag>
+          <el-tag v-else-if="row.IsEnter === 0">
+            {{ $t('device.text_67') }}
+          </el-tag>
+        </template>
+      </el-table-column>
       <!-- 状态 -->
       <el-table-column
         show-overflow-tooltip
@@ -154,11 +166,11 @@
           ></el-input>
         </el-form-item>
         <!-- 进出类型 -->
-        <el-form-item label="进出" prop="DeviceName">
+        <el-form-item :label="$t('device.text_64')" prop="InOut">
           <el-radio-group v-model="form.InOut">
-            <el-radio :label="-1">未定义</el-radio>
-            <el-radio :label="1">进</el-radio>
-            <el-radio :label="0">出</el-radio>
+            <el-radio :label="-1">{{ $t('device.text_65') }}</el-radio>
+            <el-radio :label="1">{{ $t('device.text_66') }}</el-radio>
+            <el-radio :label="0">{{ $t('device.text_67') }}</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>
@@ -415,11 +427,11 @@
           <el-input v-model="ipParameters.ip" placeholder="IP"></el-input>
         </el-form-item>
         <!-- 进出类型 -->
-        <el-form-item label="进出" prop="DeviceName">
+        <el-form-item :label="$t('device.text_64')" prop="inout">
           <el-radio-group v-model="ipParameters.inout">
-            <el-radio :label="-1">未定义</el-radio>
-            <el-radio :label="1">进</el-radio>
-            <el-radio :label="0">出</el-radio>
+            <el-radio :label="-1">{{ $t('device.text_65') }}</el-radio>
+            <el-radio :label="1">{{ $t('device.text_66') }}</el-radio>
+            <el-radio :label="0">{{ $t('device.text_67') }}</el-radio>
           </el-radio-group>
         </el-form-item>
         <!-- 子网掩码 -->
@@ -719,7 +731,9 @@
           let idx = this.list.findIndex((e) => e.ipAddress === el.IP)
           if (idx !== -1) {
             this.list[idx].IsConnected = el.IsConnected
-            this.list[idx].number = el.DeviceNo
+            if (el.DeviceNo) {
+              this.list[idx].number = el.DeviceNo
+            }
             this.list[idx].state = el
           }
         })
@@ -907,7 +921,7 @@
           gateway: '',
           dns: '',
           cameraIp: row.ipAddress,
-          inout: -1,
+          inout: row.IsEnter,
         }
         if (row.IsConnected) {
           let res = getCameraIp(row.state.IP)
@@ -941,6 +955,7 @@
               editIp: this.ipParameters.cameraIp,
               IP: this.ipParameters.ip,
               DeviceName: this.ipParameters.DeviceName,
+              InOut: this.ipParameters.inout,
             }
             // console.log('data', this.form, data, this.ipParameters)
             setTimeout(() => {

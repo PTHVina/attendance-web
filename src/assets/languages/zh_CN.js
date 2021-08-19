@@ -325,6 +325,11 @@ module.exports = {
     text_61: '注：设备与本机必须在同一网段',
     text_62: '指令已发送',
     text_63: '本机ip地址',
+    text_64: '进出',
+    text_65: '未定义',
+    text_66: '进',
+    text_67: '出',
+
   },
   //抓拍管理
   snapshot: {

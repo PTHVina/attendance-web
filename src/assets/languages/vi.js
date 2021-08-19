@@ -333,6 +333,10 @@ text_61:
 'Lưu ý: Thiết bị và máy phải ở trong cùng một phân khúc mạng',
 text_62: 'Đơn hàng đã được gửi',
 text_63: 'Địa chỉ IP cục bộ',
+text_64: 'mục/Thoát',
+text_65: 'mơ hồ',
+text_66: 'mục',
+text_67: 'Thoát',
   },
   //抓拍管理
 snapshot: {
