@@ -166,6 +166,7 @@ module.exports = {
     text_8: 'Mon appareil',
     text_9: 'Enregistrement des instantanés',
     text_10: 'Nombre de navetteurs de sept jours',
+    text_11: "Quelqu'un est entré aujourd'hui.",
   },
   // 系统设置
   system: {

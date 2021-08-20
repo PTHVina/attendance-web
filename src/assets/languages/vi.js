@@ -163,6 +163,7 @@ text_7: 'Rời khỏi',
 text_8: 'Thiết bị của tôi',
 text_9: 'Bản ghi ảnh chụp nhanh',
 text_10: 'Lộ trình đi làm trong một tuần',
+text_11: 'Nhân dân vào Hôm nay',
   },
   // 系统设置
   system: {

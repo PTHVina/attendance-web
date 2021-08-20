@@ -163,6 +163,7 @@ module.exports = {
     text_8: 'My device',
     text_9: 'Snapshot record',
     text_10: 'Seven-day commute',
+    text_11: 'People Entered Today',
   },
   // 系统设置
   system: {
