@@ -68,12 +68,14 @@
         sortable
       >
         <template #default="{ row }">
-          <span v-if="row.IsEnter === -1">{{ $t('device.text_65') }}</span>
+          <span v-if="row.IsEnter === -1">
+            <img :src="require('@/assets/door.svg')" alt="door icon" />
+          </span>
           <span v-else-if="row.IsEnter === 1">
-            {{ $t('device.text_66') }}
+            <img :src="require('@/assets/in.svg')" alt="in icon" />
           </span>
           <span v-else-if="row.IsEnter === 0">
-            {{ $t('device.text_67') }}
+            <img :src="require('@/assets/out.svg')" alt="out icon" />
           </span>
         </template>
       </el-table-column>
