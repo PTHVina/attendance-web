@@ -118,6 +118,8 @@
       :height="lang == 'zh_CN' ? '745' : '700'"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
+      border="true"
+      @row-dblclick="loadDetails"
     >
       <!-- 姓名 -->
       <el-table-column
@@ -516,6 +518,48 @@
         </el-button>
       </div>
     </el-dialog>
+    <!-- 打卡详情 -->
+    <el-dialog :visible.sync="showDetailsDialog" title="打卡记录">
+      <el-table
+        v-loading="isLoadingDetails"
+        :data="captureDataDetailsList"
+        :highlight-current-row="true"
+        :fit="true"
+        border="true"
+        :element-loading-text="elementLoadingText"
+      >
+        <!-- 打卡时间 -->
+        <el-table-column
+          show-overflow-tooltip
+          prop="time"
+          :formatter="formatDate"
+          :label="$t('attendance.text_1')"
+          :width="
+            lang == 'en_US' ? '130px' : lang == 'Jan_JPN' ? '120px' : '100px'
+          "
+        ></el-table-column>
+        <!-- 设备名称 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('attendance.text_8')"
+          prop="DeviceName"
+          sortable
+          :width="
+            lang == 'en_US' ? '160px' : lang == 'Fr_fr' ? '170px' : '130px'
+          "
+        ></el-table-column>
+        <!-- 设备序列号 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('attendance.text_8')"
+          prop="number"
+          sortable
+          :width="
+            lang == 'en_US' ? '160px' : lang == 'Fr_fr' ? '170px' : '130px'
+          "
+        ></el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -527,6 +571,7 @@
     exportList,
     defaultSet,
     saveSetting,
+    getCaptureDataByIdForDate,
   } from '@/api/attendance'
   export default {
     name: 'Everyday',
@@ -564,6 +609,10 @@
         dialogVisible: false,
         setList: [], //左侧设置信息
         setData: [], //右侧选中列表
+        //打卡记录详情
+        showDetailsDialog: false,
+        isLoadingDetails: false,
+        captureDataDetailsList: [],
       }
     },
     created() {
@@ -889,6 +938,21 @@
         } else {
           this.$baseMessage(this.$t('operation_tips.tips_44'), 'warning')
         }
+      },
+      loadDetails(row, column, event) {
+        this.captureDataDetailsList = []
+        this.showDetailsDialog = true
+        this.isLoadingDetails = true
+        console.log(row)
+        this.captureDataDetailsList = getCaptureDataByIdForDate(
+          row.personId,
+          row.Date
+        )
+        this.isLoadingDetails = false
+      },
+      formatDate(row, column, cellValue) {
+        let tm = new Date(cellValue)
+        return `${tm.getHours()}:${tm.getMinutes()}`
       },
     },
   }
