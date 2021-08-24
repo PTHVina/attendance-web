@@ -519,44 +519,36 @@
       </div>
     </el-dialog>
     <!-- 打卡详情 -->
-    <el-dialog :visible.sync="showDetailsDialog" title="打卡记录">
+    <el-dialog :visible.sync="showDetailsDialog" :title="detailDialogTitle">
       <el-table
-        v-loading="isLoadingDetails"
         :data="captureDataDetailsList"
         :highlight-current-row="true"
+        :border="true"
         :fit="true"
-        border="true"
-        :element-loading-text="elementLoadingText"
       >
         <!-- 打卡时间 -->
         <el-table-column
           show-overflow-tooltip
           prop="time"
           :formatter="formatDate"
-          :label="$t('attendance.text_1')"
-          :width="
-            lang == 'en_US' ? '130px' : lang == 'Jan_JPN' ? '120px' : '100px'
-          "
+          :label="$t('snapshot.text_4')"
+          :width="'100px'"
         ></el-table-column>
         <!-- 设备名称 -->
         <el-table-column
           show-overflow-tooltip
-          :label="$t('attendance.text_8')"
+          :label="$t('snapshot.text_19')"
           prop="DeviceName"
           sortable
-          :width="
-            lang == 'en_US' ? '160px' : lang == 'Fr_fr' ? '170px' : '130px'
-          "
+          :width="'200px'"
         ></el-table-column>
         <!-- 设备序列号 -->
         <el-table-column
           show-overflow-tooltip
-          :label="$t('attendance.text_8')"
+          :label="$t('snapshot.text_3')"
           prop="number"
           sortable
-          :width="
-            lang == 'en_US' ? '160px' : lang == 'Fr_fr' ? '170px' : '130px'
-          "
+          :width="'300px'"
         ></el-table-column>
       </el-table>
     </el-dialog>
@@ -573,6 +565,7 @@
     saveSetting,
     getCaptureDataByIdForDate,
   } from '@/api/attendance'
+  import dayjs from 'dayjs'
   export default {
     name: 'Everyday',
     data() {
@@ -613,6 +606,7 @@
         showDetailsDialog: false,
         isLoadingDetails: false,
         captureDataDetailsList: [],
+        detailDialogTitle: '',
       }
     },
     created() {
@@ -940,10 +934,10 @@
         }
       },
       loadDetails(row, column, event) {
+        this.detailDialogTitle = `${row.name} ${row.Date}`
         this.captureDataDetailsList = []
         this.showDetailsDialog = true
         this.isLoadingDetails = true
-        console.log(row)
         this.captureDataDetailsList = getCaptureDataByIdForDate(
           row.personId,
           row.Date
@@ -951,8 +945,7 @@
         this.isLoadingDetails = false
       },
       formatDate(row, column, cellValue) {
-        let tm = new Date(cellValue)
-        return `${tm.getHours()}:${tm.getMinutes()}`
+        return dayjs(cellValue).format('HH:mm')
       },
     },
   }
