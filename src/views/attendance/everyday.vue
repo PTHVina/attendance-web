@@ -525,8 +525,10 @@
     </el-dialog>
     <!-- 打卡详情 -->
     <el-dialog :visible.sync="showDetailsDialog">
-      <div slot="title">
-        <span>{{ currentDetailPersonName + ' ' + currentDetailDate }}</span>
+      <div slot="title" class="el-dialog__title">
+        <span>
+          {{ currentDetailPersonName + ' ' + currentDetailDate }}
+        </span>
         <a v-if="showPrevButton" href="#" @click.prevent="loadPrevDayDetail">
           <i class="el-icon-arrow-left"></i>
         </a>
@@ -556,6 +558,13 @@
           prop="time"
           :formatter="formatDate"
           :label="$t('snapshot.text_4')"
+          :width="'100px'"
+        ></el-table-column>
+        <!-- 体温 -->
+        <el-table-column
+          prop="body_temp"
+          :formatter="formatTemperature"
+          :label="$t('snapshot.text_16')"
           :width="'100px'"
         ></el-table-column>
         <!-- 设备名称 -->
@@ -1002,6 +1011,9 @@
       },
       formatDate(row, column, cellValue) {
         return dayjs(cellValue).format('HH:mm')
+      },
+      formatTemperature(row, column, cellValue) {
+        return cellValue == 0 ? '' : Number(cellValue).toFixed(2)
       },
     },
   }
