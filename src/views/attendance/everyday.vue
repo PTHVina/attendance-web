@@ -160,10 +160,15 @@
       <el-table-column
         show-overflow-tooltip
         :label="$t('attendance.text_8')"
-        prop="Date"
         sortable
         :width="lang == 'en_US' ? '160px' : lang == 'Fr_fr' ? '170px' : '130px'"
-      ></el-table-column>
+      >
+        <template #default="{ row }">
+          <a href="#" @click.prevent="loadDetails(row)">
+            {{ row.Date }}
+          </a>
+        </template>
+      </el-table-column>
       <!-- 班次信息 -->
       <el-table-column
         show-overflow-tooltip
