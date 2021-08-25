@@ -524,7 +524,16 @@
       </div>
     </el-dialog>
     <!-- 打卡详情 -->
-    <el-dialog :visible.sync="showDetailsDialog" :title="detailDialogTitle">
+    <el-dialog :visible.sync="showDetailsDialog">
+      <div slot="title">
+        <span>{{ currentDetailPersonName + ' ' + currentDetailDate }}</span>
+        <a v-if="showPrevButton" href="#" @click.prevent="loadPrevDayDetail">
+          <i class="el-icon-arrow-left"></i>
+        </a>
+        <a href="#" @click.prevent="loadNextDayDetail">
+          <i class="el-icon-arrow-right"></i>
+        </a>
+      </div>
       <el-table
         :data="captureDataDetailsList"
         :highlight-current-row="true"
@@ -622,7 +631,21 @@
         isLoadingDetails: false,
         captureDataDetailsList: [],
         detailDialogTitle: '',
+        currentDetailDate: '',
+        currentDetailStartDate: '',
+        currentDetailPersonId: '',
+        currentDetailPersonName: '',
       }
+    },
+    computed: {
+      showPrevButton() {
+        if (this.currentDetailDate && this.currentDetailStartDate) {
+          return (
+            dayjs(this.currentDetailDate) > dayjs(this.currentDetailStartDate)
+          )
+        }
+        return false
+      },
     },
     created() {
       let date = new Date()
@@ -949,15 +972,33 @@
         }
       },
       loadDetails(row, column, event) {
-        this.detailDialogTitle = `${row.name} ${row.Date}`
+        this.currentDetailPersonId = row.personId
+        this.currentDetailPersonName = row.name
+        this.currentDetailStartDate = row.Date
+        this.currentDetailDate = row.Date
         this.captureDataDetailsList = []
         this.showDetailsDialog = true
         this.isLoadingDetails = true
-        this.captureDataDetailsList = getCaptureDataByIdForDate(
-          row.personId,
-          row.Date
-        )
+        this.loadDetailsCore()
         this.isLoadingDetails = false
+      },
+      loadDetailsCore() {
+        this.captureDataDetailsList = getCaptureDataByIdForDate(
+          this.currentDetailPersonId,
+          this.currentDetailDate
+        )
+      },
+      loadPrevDayDetail() {
+        this.addDays(-1)
+        this.loadDetailsCore()
+      },
+      loadNextDayDetail() {
+        this.addDays(1)
+        this.loadDetailsCore()
+      },
+      addDays(day = 1) {
+        let nextDay = dayjs(this.currentDetailDate).add(day, 'd')
+        this.currentDetailDate = nextDay.format('YYYY-MM-DD')
       },
       formatDate(row, column, cellValue) {
         return dayjs(cellValue).format('HH:mm')
