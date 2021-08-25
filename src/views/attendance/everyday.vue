@@ -526,6 +526,16 @@
         :border="true"
         :fit="true"
       >
+        <!-- 特写图 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('snapshot.text_15')"
+          :width="'100px'"
+        >
+          <template #default="{ row }">
+            <el-image :src="row.closeup"></el-image>
+          </template>
+        </el-table-column>
         <!-- 打卡时间 -->
         <el-table-column
           show-overflow-tooltip
