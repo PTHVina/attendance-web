@@ -84,3 +84,8 @@ export function getEverydayAllList(data) {
     }, data.personId)
   })
 }
+
+export function getCaptureDataByIdForDate(personId, date) {
+  let json = window.top.myExtension.getCaptureDataByIdForDate(personId, date)
+  return JSON.parse(json)
+}

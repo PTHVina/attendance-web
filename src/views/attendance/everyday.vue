@@ -118,6 +118,8 @@
       :height="lang == 'zh_CN' ? '745' : '700'"
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
+      border="true"
+      @row-dblclick="loadDetails"
     >
       <!-- 姓名 -->
       <el-table-column
@@ -158,10 +160,15 @@
       <el-table-column
         show-overflow-tooltip
         :label="$t('attendance.text_8')"
-        prop="Date"
         sortable
         :width="lang == 'en_US' ? '160px' : lang == 'Fr_fr' ? '170px' : '130px'"
-      ></el-table-column>
+      >
+        <template #default="{ row }">
+          <a href="#" @click.prevent="loadDetails(row)">
+            {{ row.Date }}
+          </a>
+        </template>
+      </el-table-column>
       <!-- 班次信息 -->
       <el-table-column
         show-overflow-tooltip
@@ -516,6 +523,68 @@
         </el-button>
       </div>
     </el-dialog>
+    <!-- 打卡详情 -->
+    <el-dialog :visible.sync="showDetailsDialog">
+      <div slot="title" class="el-dialog__title">
+        <span>
+          {{ currentDetailPersonName + ' ' + currentDetailDate }}
+        </span>
+        <a v-if="showPrevButton" href="#" @click.prevent="loadPrevDayDetail">
+          <i class="el-icon-arrow-left"></i>
+        </a>
+        <a href="#" @click.prevent="loadNextDayDetail">
+          <i class="el-icon-arrow-right"></i>
+        </a>
+      </div>
+      <el-table
+        :data="captureDataDetailsList"
+        :highlight-current-row="true"
+        :border="true"
+        :fit="true"
+      >
+        <!-- 特写图 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('snapshot.text_15')"
+          :width="'100px'"
+        >
+          <template #default="{ row }">
+            <el-image :src="row.closeup"></el-image>
+          </template>
+        </el-table-column>
+        <!-- 打卡时间 -->
+        <el-table-column
+          show-overflow-tooltip
+          prop="time"
+          :formatter="formatDate"
+          :label="$t('snapshot.text_4')"
+          :width="'100px'"
+        ></el-table-column>
+        <!-- 体温 -->
+        <el-table-column
+          prop="body_temp"
+          :formatter="formatTemperature"
+          :label="$t('snapshot.text_16')"
+          :width="'100px'"
+        ></el-table-column>
+        <!-- 设备名称 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('snapshot.text_19')"
+          prop="DeviceName"
+          sortable
+          :width="'200px'"
+        ></el-table-column>
+        <!-- 设备序列号 -->
+        <el-table-column
+          show-overflow-tooltip
+          :label="$t('snapshot.text_3')"
+          prop="number"
+          sortable
+          :width="'300px'"
+        ></el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -527,7 +596,9 @@
     exportList,
     defaultSet,
     saveSetting,
+    getCaptureDataByIdForDate,
   } from '@/api/attendance'
+  import dayjs from 'dayjs'
   export default {
     name: 'Everyday',
     data() {
@@ -564,7 +635,26 @@
         dialogVisible: false,
         setList: [], //左侧设置信息
         setData: [], //右侧选中列表
+        //打卡记录详情
+        showDetailsDialog: false,
+        isLoadingDetails: false,
+        captureDataDetailsList: [],
+        detailDialogTitle: '',
+        currentDetailDate: '',
+        currentDetailStartDate: '',
+        currentDetailPersonId: '',
+        currentDetailPersonName: '',
       }
+    },
+    computed: {
+      showPrevButton() {
+        if (this.currentDetailDate && this.currentDetailStartDate) {
+          return (
+            dayjs(this.currentDetailDate) > dayjs(this.currentDetailStartDate)
+          )
+        }
+        return false
+      },
     },
     created() {
       let date = new Date()
@@ -889,6 +979,41 @@
         } else {
           this.$baseMessage(this.$t('operation_tips.tips_44'), 'warning')
         }
+      },
+      loadDetails(row, column, event) {
+        this.currentDetailPersonId = row.personId
+        this.currentDetailPersonName = row.name
+        this.currentDetailStartDate = row.Date
+        this.currentDetailDate = row.Date
+        this.captureDataDetailsList = []
+        this.showDetailsDialog = true
+        this.isLoadingDetails = true
+        this.loadDetailsCore()
+        this.isLoadingDetails = false
+      },
+      loadDetailsCore() {
+        this.captureDataDetailsList = getCaptureDataByIdForDate(
+          this.currentDetailPersonId,
+          this.currentDetailDate
+        )
+      },
+      loadPrevDayDetail() {
+        this.addDays(-1)
+        this.loadDetailsCore()
+      },
+      loadNextDayDetail() {
+        this.addDays(1)
+        this.loadDetailsCore()
+      },
+      addDays(day = 1) {
+        let nextDay = dayjs(this.currentDetailDate).add(day, 'd')
+        this.currentDetailDate = nextDay.format('YYYY-MM-DD')
+      },
+      formatDate(row, column, cellValue) {
+        return dayjs(cellValue).format('HH:mm')
+      },
+      formatTemperature(row, column, cellValue) {
+        return cellValue == 0 ? '' : Number(cellValue).toFixed(2)
       },
     },
   }
