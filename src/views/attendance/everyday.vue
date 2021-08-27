@@ -124,12 +124,21 @@
       <!-- 姓名 -->
       <el-table-column
         show-overflow-tooltip
-        prop="name"
         :label="$t('attendance.text_1')"
         :width="
           lang == 'en_US' ? '130px' : lang == 'Jan_JPN' ? '120px' : '100px'
         "
-      ></el-table-column>
+      >
+        <template #default="{ row }">
+          <a
+            href="#"
+            style="text-decoration: underline"
+            @click.prevent="loadDetails(row)"
+          >
+            {{ row.name }}
+          </a>
+        </template>
+      </el-table-column>
       <!-- 部门 -->
       <el-table-column
         show-overflow-tooltip
@@ -159,16 +168,11 @@
       <!-- 考勤日期 -->
       <el-table-column
         show-overflow-tooltip
+        prop="Date"
         :label="$t('attendance.text_8')"
         sortable
         :width="lang == 'en_US' ? '160px' : lang == 'Fr_fr' ? '170px' : '130px'"
-      >
-        <template #default="{ row }">
-          <a href="#" @click.prevent="loadDetails(row)">
-            {{ row.Date }}
-          </a>
-        </template>
-      </el-table-column>
+      ></el-table-column>
       <!-- 班次信息 -->
       <el-table-column
         show-overflow-tooltip

@@ -65,12 +65,13 @@
         sortable
       >
         <template #default="{ row }">
-          <span
-            style="color: red; cursor: pointer; border-bottom: 1px solid red"
-            @click="openDialog(row)"
+          <a
+            href="#"
+            style="text-decoration: underline"
+            @click.prevent="openDialog(row)"
           >
             {{ row.name }}
-          </span>
+          </a>
         </template>
       </el-table-column>
       <!-- 人员编号 -->
