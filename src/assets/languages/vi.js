@@ -544,7 +544,7 @@ text_84:
 text_85:
 'Thời gian bắt đầu công việc hiệu quả nên lớn hơn thời gian kết thúc của giai đoạn 1 và ít hơn thời gian bắt đầu của giai đoạn 2',
 text_86:
-'Thời gian kết thúc công việc hiệu quả nên lớn hơn khoảng thời gian 2 và thời gian làm việc ít hơn khoảng thời gian 2 và thời gian nghỉ làm việc.'
+'Thời gian kết thúc công việc hiệu quả nên lớn hơn khoảng thời gian 2 và thời gian làm việc ít hơn khoảng thời gian 2 và thời gian nghỉ làm việc.',
 text_87: '',
 text_88:
 'Thời gian bắt đầu đồng hồ hiệu quả sau khi nghỉ làm nên lớn hơn thời gian làm việc và ít hơn thời gian làm việc',
