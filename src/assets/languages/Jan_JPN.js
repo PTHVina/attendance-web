@@ -387,6 +387,8 @@ module.exports = {
     text_46: 'すべて',
     text_47: '健康コードを表示する',
     text_49: 'ID',
+    text_50: '人員の種類',
+    text_51: '白リスト',
   },
   //考勤管理
   attendance: {

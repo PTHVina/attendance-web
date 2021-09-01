@@ -389,6 +389,8 @@ text_45: 'Ghi chú mã sức khỏe',
 text_46: 'Tất cả',
 text_47: 'Hiển thị mã sức khỏe',
 text_49: 'ID',
+text_50: 'Phân loại nhân sự',
+text_51: 'danh sách trắng',
   },
   //考勤管理
  attendance: {
