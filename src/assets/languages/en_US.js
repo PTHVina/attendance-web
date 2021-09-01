@@ -389,6 +389,8 @@ module.exports = {
     text_46: 'All',
     text_47: 'Show health code',
     text_49: 'ID',
+    text_50: 'Personnel category',
+    text_51: 'White list',
   },
   //考勤管理
   attendance: {
