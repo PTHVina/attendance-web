@@ -172,6 +172,22 @@ export const asyncRoutes = [
     ],
   },
   {
+    path: '/accesscontrol',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'AccessControl',
+    alwaysShow: true,
+    meta: { title: i18.router.title_23, icon: 'door-open' }, //门禁规则
+    children: [
+      {
+        path: 'rules',
+        name: 'Rules',
+        component: () => import('@/views/accesscontrol/index'),
+        meta: { title: i18.router.title_23, permissions: ['admin'] },
+      },
+    ],
+  },
+  {
     path: '/system',
     component: Layout,
     redirect: 'noRedirect',
