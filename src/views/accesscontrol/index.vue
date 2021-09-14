@@ -221,7 +221,7 @@
         return [1, 1]
       },
       addTimeSegment(Days, index) {
-        const regular = /\d{2,2}:?(\d{2,2})\D?\d{2,2}:?(\d{2,2})/
+        const regular = /(\d{2,2}):?(\d{2,2})\D?(\d{2,2}):?(\d{2,2})/
         this.$prompt('input time frame', {
           inputPlaceholder: '12:00-13:00',
           inputPattern: regular,
