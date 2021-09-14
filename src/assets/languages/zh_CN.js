@@ -24,6 +24,7 @@ module.exports = {
     title_21: '说明文档',
     title_22: '工作分类',
     title_23: '调度规则',
+    title_24: '规则下发',
   },
   //操作按钮
   operation_btn: {
