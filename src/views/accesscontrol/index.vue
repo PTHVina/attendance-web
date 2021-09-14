@@ -1,6 +1,24 @@
 <template>
   <div class="table-container">
-    <h1>Access Rules</h1>
+    <div class="group">
+      <div class="btn_group">
+        <el-button
+          icon="el-icon-thumb"
+          type="primary"
+          @click="addWeekAccessRule"
+        >
+          添加周调度规则
+        </el-button>
+        <el-button
+          icon="el-icon-delete"
+          type="danger"
+          style="opacity: 0.6"
+          @click="addDayAccessRule"
+        >
+          添加天调度规则
+        </el-button>
+      </div>
+    </div>
     <el-table
       ref="tableSort"
       border="true"
@@ -196,6 +214,8 @@
     addTimeSegment,
     removeTimeSegment,
     removeAccessRule,
+    addWeekAccessRule,
+    addDayAccessRule,
   } from '@/api/accesscontrol'
   export default {
     name: 'Rules',
@@ -243,6 +263,25 @@
       removeAccessRule(index, row) {
         removeAccessRule(row.Id)
         this.rules.splice(index, 1)
+      },
+      addWeekAccessRule() {
+        this.$prompt('input name', {}).then(({ value }) => {
+          this.addAccessRule(value, 0)
+        })
+      },
+      addDayAccessRule() {
+        this.$prompt('input name', {}).then(({ value }) => {
+          this.addAccessRule(value, 1)
+        })
+      },
+      addAccessRule(name, type) {
+        var rule
+        if (type === 0) {
+          rule = addWeekAccessRule(name)
+        } else if (type === 1) {
+          rule = addDayAccessRule(name)
+        }
+        rules.push(rule)
       },
     },
   }

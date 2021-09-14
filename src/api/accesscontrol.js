@@ -15,3 +15,13 @@ export function removeTimeSegment(segmentId) {
 export function removeAccessRule(Id) {
   window.top.myExtension.removeAccessRule(Id)
 }
+
+export function addWeekAccessRule(name) {
+  const json = window.top.myExtension.addWeekAccessRule(name)
+  return JSON.parse(json)
+}
+
+export function addDayAccessRule(name) {
+  const json = window.top.myExtension.addDayAccessRule(name)
+  return JSON.parse(json)
+}
