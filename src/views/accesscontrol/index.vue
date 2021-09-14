@@ -18,12 +18,15 @@
         <template #default="{ row }">
           <label v-if="row.Days[0]" class="parent">
             <p
-              v-for="seg in row.Days[0].TimeSegments"
+              v-for="(seg, index) in row.Days[0].TimeSegments"
               :key="seg.Id"
               class="parentRemove"
             >
               {{ seg.Start + '-' + seg.End }}
-              <span class="remove" @click="removeTimeSegment">
+              <span
+                class="remove"
+                @click="removeTimeSegment(row.Days[0], index)"
+              >
                 &nbsp;
                 <i class="el-icon-remove-outline"></i>
               </span>
@@ -38,12 +41,15 @@
         <template #default="{ row }">
           <label v-if="row.Days[1]" class="parent">
             <p
-              v-for="seg in row.Days[1].TimeSegments"
+              v-for="(seg, index) in row.Days[1].TimeSegments"
               :key="seg.Id"
               class="parentRemove"
             >
               {{ seg.Start + '-' + seg.End }}
-              <span class="remove" @click="removeTimeSegment(row.Days[0].Id)">
+              <span
+                class="remove"
+                @click="removeTimeSegment(row.Days[1], index)"
+              >
                 &nbsp;
                 <i class="el-icon-remove-outline"></i>
               </span>
@@ -58,12 +64,15 @@
         <template #default="{ row }">
           <label v-if="row.Days[2]" class="parent">
             <p
-              v-for="seg in row.Days[2].TimeSegments"
+              v-for="(seg, index) in row.Days[2].TimeSegments"
               :key="seg.Id"
               class="parentRemove"
             >
               {{ seg.Start + '-' + seg.End }}
-              <span class="remove" @click="removeTimeSegment(row.Days[0].Id)">
+              <span
+                class="remove"
+                @click="removeTimeSegment(row.Days[2], index)"
+              >
                 &nbsp;
                 <i class="el-icon-remove-outline"></i>
               </span>
@@ -78,12 +87,15 @@
         <template #default="{ row }">
           <label v-if="row.Days[3]" class="parent">
             <p
-              v-for="seg in row.Days[3].TimeSegments"
+              v-for="(seg, index) in row.Days[3].TimeSegments"
               :key="seg.Id"
               class="parentRemove"
             >
               {{ seg.Start + '-' + seg.End }}
-              <span class="remove" @click="removeTimeSegment(row.Days[3].Id)">
+              <span
+                class="remove"
+                @click="removeTimeSegment(row.Days[3], index)"
+              >
                 &nbsp;
                 <i class="el-icon-remove-outline"></i>
               </span>
@@ -98,12 +110,15 @@
         <template #default="{ row }">
           <label v-if="row.Days[4]" class="parent">
             <p
-              v-for="seg in row.Days[4].TimeSegments"
+              v-for="(seg, index) in row.Days[4].TimeSegments"
               :key="seg.Id"
               class="parentRemove"
             >
               {{ seg.Start + '-' + seg.End }}
-              <span class="remove" @click="removeTimeSegment(row.Days[4].Id)">
+              <span
+                class="remove"
+                @click="removeTimeSegment(row.Days[4], index)"
+              >
                 &nbsp;
                 <i class="el-icon-remove-outline"></i>
               </span>
@@ -118,12 +133,15 @@
         <template #default="{ row }">
           <label v-if="row.Days[5]" class="parent">
             <p
-              v-for="seg in row.Days[5].TimeSegments"
+              v-for="(seg, index) in row.Days[5].TimeSegments"
               :key="seg.Id"
               class="parentRemove"
             >
               {{ seg.Start + '-' + seg.End }}
-              <span class="remove" @click="removeTimeSegment(row.Days[5].Id)">
+              <span
+                class="remove"
+                @click="removeTimeSegment(row.Days[5], index)"
+              >
                 &nbsp;
                 <i class="el-icon-remove-outline"></i>
               </span>
@@ -138,12 +156,15 @@
         <template #default="{ row }">
           <label v-if="row.Days[6]" class="parent">
             <p
-              v-for="seg in row.Days[6].TimeSegments"
+              v-for="(seg, index) in row.Days[6].TimeSegments"
               :key="seg.Id"
               class="parentRemove"
             >
               {{ seg.Start + '-' + seg.End }}
-              <span class="remove" @click="removeTimeSegment">
+              <span
+                class="remove"
+                @click="removeTimeSegment(row.Days[6], index)"
+              >
                 &nbsp;
                 <i class="el-icon-remove-outline"></i>
               </span>
@@ -154,12 +175,28 @@
           </label>
         </template>
       </el-table-column>
+      <el-table-column label="操作">
+        <template #default="{ scope }">
+          <el-button
+            size="mini"
+            type="danger"
+            @click="removeAccessRule(scope.$index, scope.row)"
+          >
+            删除
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-  import { getAllAccessRules, addTimeSegment } from '@/api/accesscontrol'
+  import {
+    getAllAccessRules,
+    addTimeSegment,
+    removeTimeSegment,
+    removeAccessRule,
+  } from '@/api/accesscontrol'
   export default {
     name: 'Rules',
     data() {
@@ -192,8 +229,13 @@
           Days[index].TimeSegments.push(ts)
         })
       },
-      removeTimeSegment(id) {
-        alert('remove')
+      removeTimeSegment(Day, index) {
+        removeTimeSegment(Day.TimeSegments[index].Id)
+        Day.TimeSegments.splice(index, 1)
+      },
+      removeAccessRule(index, row) {
+        removeAccessRule(row.Id)
+        this.rules.splice(index, 1)
       },
     },
   }
