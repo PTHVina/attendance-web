@@ -221,12 +221,20 @@
         return [1, 1]
       },
       addTimeSegment(Days, index) {
+        const regular = /\d{2,2}:?(\d{2,2})\D?\d{2,2}:?(\d{2,2})/
         this.$prompt('input time frame', {
           inputPlaceholder: '12:00-13:00',
-          inputPattern: /\d{2,2}:?(\d{2,2})\D?\d{2,2}:?(\d{2,2})/,
+          inputPattern: regular,
         }).then(({ value }) => {
-          var ts = addTimeSegment(Days[index].Id, '11:00', '13:00')
-          Days[index].TimeSegments.push(ts)
+          var match = value.match(regular)
+          if (match) {
+            var ts = addTimeSegment(
+              Days[index].Id,
+              match[1] + ':' + match[2],
+              match[3] + ':' + match[4]
+            )
+            Days[index].TimeSegments.push(ts)
+          }
         })
       },
       removeTimeSegment(Day, index) {
