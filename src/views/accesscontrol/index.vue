@@ -28,7 +28,7 @@
                 <i class="el-icon-remove-outline"></i>
               </span>
             </p>
-            <p class="add" @click="addTimeSegment">
+            <p class="add" @click="addTimeSegment(row.Days, 0)">
               <i class="el-icon-circle-plus-outline"></i>
             </p>
           </label>
@@ -43,12 +43,12 @@
               class="parentRemove"
             >
               {{ seg.Start + '-' + seg.End }}
-              <span class="remove" @click="removeTimeSegment">
+              <span class="remove" @click="removeTimeSegment(row.Days[0].Id)">
                 &nbsp;
                 <i class="el-icon-remove-outline"></i>
               </span>
             </p>
-            <p class="add" @click="addTimeSegment">
+            <p class="add" @click="addTimeSegment(row.Days, 1)">
               <i class="el-icon-circle-plus-outline"></i>
             </p>
           </label>
@@ -63,12 +63,12 @@
               class="parentRemove"
             >
               {{ seg.Start + '-' + seg.End }}
-              <span class="remove" @click="removeTimeSegment">
+              <span class="remove" @click="removeTimeSegment(row.Days[0].Id)">
                 &nbsp;
                 <i class="el-icon-remove-outline"></i>
               </span>
             </p>
-            <p class="add" @click="addTimeSegment">
+            <p class="add" @click="addTimeSegment(row.Days, 2)">
               <i class="el-icon-circle-plus-outline"></i>
             </p>
           </label>
@@ -83,12 +83,12 @@
               class="parentRemove"
             >
               {{ seg.Start + '-' + seg.End }}
-              <span class="remove" @click="removeTimeSegment">
+              <span class="remove" @click="removeTimeSegment(row.Days[3].Id)">
                 &nbsp;
                 <i class="el-icon-remove-outline"></i>
               </span>
             </p>
-            <p class="add" @click="addTimeSegment">
+            <p class="add" @click="addTimeSegment(row.Days, 3)">
               <i class="el-icon-circle-plus-outline"></i>
             </p>
           </label>
@@ -103,12 +103,12 @@
               class="parentRemove"
             >
               {{ seg.Start + '-' + seg.End }}
-              <span class="remove" @click="removeTimeSegment">
+              <span class="remove" @click="removeTimeSegment(row.Days[4].Id)">
                 &nbsp;
                 <i class="el-icon-remove-outline"></i>
               </span>
             </p>
-            <p class="add" @click="addTimeSegment">
+            <p class="add" @click="addTimeSegment(row.Days, 4)">
               <i class="el-icon-circle-plus-outline"></i>
             </p>
           </label>
@@ -123,12 +123,12 @@
               class="parentRemove"
             >
               {{ seg.Start + '-' + seg.End }}
-              <span class="remove" @click="removeTimeSegment">
+              <span class="remove" @click="removeTimeSegment(row.Days[5].Id)">
                 &nbsp;
                 <i class="el-icon-remove-outline"></i>
               </span>
             </p>
-            <p class="add" @click="addTimeSegment">
+            <p class="add" @click="addTimeSegment(row.Days, 5)">
               <i class="el-icon-circle-plus-outline"></i>
             </p>
           </label>
@@ -148,7 +148,7 @@
                 <i class="el-icon-remove-outline"></i>
               </span>
             </p>
-            <p class="add" @click="addTimeSegment">
+            <p class="add" @click="addTimeSegment(row.Days, 6)">
               <i class="el-icon-circle-plus-outline"></i>
             </p>
           </label>
@@ -159,7 +159,7 @@
 </template>
 
 <script>
-  import { getAllAccessRules } from '@/api/accesscontrol'
+  import { getAllAccessRules, addTimeSegment } from '@/api/accesscontrol'
   export default {
     name: 'Rules',
     data() {
@@ -183,8 +183,14 @@
         }
         return [1, 1]
       },
-      addTimeSegment(parentId, start, end) {
-        alert('add')
+      addTimeSegment(Days, index) {
+        this.$prompt('input time frame', {
+          inputPlaceholder: '12:00-13:00',
+          inputPattern: /\d{2,2}:?(\d{2,2})\D?\d{2,2}:?(\d{2,2})/,
+        }).then(({ value }) => {
+          var ts = addTimeSegment(Days[index].Id, '11:00', '13:00')
+          Days[index].TimeSegments.push(ts)
+        })
       },
       removeTimeSegment(id) {
         alert('remove')
