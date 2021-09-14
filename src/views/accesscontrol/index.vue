@@ -16,63 +16,140 @@
       ></el-table-column>
       <el-table-column label="周日" align="center" width="180">
         <template #default="{ row }">
-          <label v-if="row.Days[0]">
-            <p v-for="seg in row.Days[0].TimeSegments" :key="seg.Id">
+          <label v-if="row.Days[0]" class="parent">
+            <p
+              v-for="seg in row.Days[0].TimeSegments"
+              :key="seg.Id"
+              class="parentRemove"
+            >
               {{ seg.Start + '-' + seg.End }}
+              <span class="remove" @click="removeTimeSegment">
+                &nbsp;
+                <i class="el-icon-remove-outline"></i>
+              </span>
+            </p>
+            <p class="add" @click="addTimeSegment">
+              <i class="el-icon-circle-plus-outline"></i>
             </p>
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="周一" width="180">
+      <el-table-column label="周一" align="center" width="180">
         <template #default="{ row }">
-          <label v-if="row.Days[1]">
-            <p v-for="seg in row.Days[1].TimeSegments" :key="seg.Id">
+          <label v-if="row.Days[1]" class="parent">
+            <p
+              v-for="seg in row.Days[1].TimeSegments"
+              :key="seg.Id"
+              class="parentRemove"
+            >
               {{ seg.Start + '-' + seg.End }}
+              <span class="remove" @click="removeTimeSegment">
+                &nbsp;
+                <i class="el-icon-remove-outline"></i>
+              </span>
+            </p>
+            <p class="add" @click="addTimeSegment">
+              <i class="el-icon-circle-plus-outline"></i>
             </p>
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="周二" width="180">
+      <el-table-column label="周二" align="center" width="180">
         <template #default="{ row }">
-          <label v-if="row.Days[2]">
-            <p v-for="seg in row.Days[2].TimeSegments" :key="seg.Id">
+          <label v-if="row.Days[2]" class="parent">
+            <p
+              v-for="seg in row.Days[2].TimeSegments"
+              :key="seg.Id"
+              class="parentRemove"
+            >
               {{ seg.Start + '-' + seg.End }}
+              <span class="remove" @click="removeTimeSegment">
+                &nbsp;
+                <i class="el-icon-remove-outline"></i>
+              </span>
+            </p>
+            <p class="add" @click="addTimeSegment">
+              <i class="el-icon-circle-plus-outline"></i>
             </p>
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="周三" width="180">
+      <el-table-column label="周三" align="center" width="180">
         <template #default="{ row }">
-          <label v-if="row.Days[3]">
-            <p v-for="seg in row.Days[3].TimeSegments" :key="seg.Id">
+          <label v-if="row.Days[3]" class="parent">
+            <p
+              v-for="seg in row.Days[3].TimeSegments"
+              :key="seg.Id"
+              class="parentRemove"
+            >
               {{ seg.Start + '-' + seg.End }}
+              <span class="remove" @click="removeTimeSegment">
+                &nbsp;
+                <i class="el-icon-remove-outline"></i>
+              </span>
+            </p>
+            <p class="add" @click="addTimeSegment">
+              <i class="el-icon-circle-plus-outline"></i>
             </p>
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="周四" width="180">
+      <el-table-column label="周四" align="center" width="180">
         <template #default="{ row }">
-          <label v-if="row.Days[4]">
-            <p v-for="seg in row.Days[4].TimeSegments" :key="seg.Id">
+          <label v-if="row.Days[4]" class="parent">
+            <p
+              v-for="seg in row.Days[4].TimeSegments"
+              :key="seg.Id"
+              class="parentRemove"
+            >
               {{ seg.Start + '-' + seg.End }}
+              <span class="remove" @click="removeTimeSegment">
+                &nbsp;
+                <i class="el-icon-remove-outline"></i>
+              </span>
+            </p>
+            <p class="add" @click="addTimeSegment">
+              <i class="el-icon-circle-plus-outline"></i>
             </p>
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="周五" width="180">
+      <el-table-column label="周五" align="center" width="180">
         <template #default="{ row }">
-          <label v-if="row.Days[5]">
-            <p v-for="seg in row.Days[5].TimeSegments" :key="seg.Id">
+          <label v-if="row.Days[5]" class="parent">
+            <p
+              v-for="seg in row.Days[5].TimeSegments"
+              :key="seg.Id"
+              class="parentRemove"
+            >
               {{ seg.Start + '-' + seg.End }}
+              <span class="remove" @click="removeTimeSegment">
+                &nbsp;
+                <i class="el-icon-remove-outline"></i>
+              </span>
+            </p>
+            <p class="add" @click="addTimeSegment">
+              <i class="el-icon-circle-plus-outline"></i>
             </p>
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="周六" width="180">
+      <el-table-column label="周六" align="center" width="180">
         <template #default="{ row }">
-          <label v-if="row.Days[6]">
-            <p v-for="seg in row.Days[6].TimeSegments" :key="seg.Id">
+          <label v-if="row.Days[6]" class="parent">
+            <p
+              v-for="seg in row.Days[6].TimeSegments"
+              :key="seg.Id"
+              class="parentRemove"
+            >
               {{ seg.Start + '-' + seg.End }}
+              <span class="remove" @click="removeTimeSegment">
+                &nbsp;
+                <i class="el-icon-remove-outline"></i>
+              </span>
+            </p>
+            <p class="add" @click="addTimeSegment">
+              <i class="el-icon-circle-plus-outline"></i>
             </p>
           </label>
         </template>
@@ -97,7 +174,6 @@
     methods: {
       loadRules() {
         this.rules = getAllAccessRules()
-        console.log(this.rules)
       },
       columnSpan({ row, column, rowIndex, columnIndex }) {
         if (columnIndex == 1) {
@@ -107,8 +183,32 @@
         }
         return [1, 1]
       },
+      addTimeSegment(parentId, start, end) {
+        alert('add')
+      },
+      removeTimeSegment(id) {
+        alert('remove')
+      },
     },
   }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+  .parentRemove > .remove {
+    visibility: hidden;
+  }
+
+  .parentRemove:hover > .remove {
+    visibility: visible;
+    cursor: pointer;
+  }
+
+  .cell .add {
+    visibility: hidden;
+  }
+
+  .cell:hover .add {
+    visibility: visible;
+    cursor: pointer;
+  }
+</style>
