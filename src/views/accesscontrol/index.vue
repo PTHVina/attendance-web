@@ -9,7 +9,7 @@
       :highlight-current-row="true"
     >
       <el-table-column
-        show-overflow-tooltip
+        align="center"
         prop="Name"
         label="名称"
         width="100px"
@@ -175,12 +175,12 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
-        <template #default="{ scope }">
+      <el-table-column label="操作" fixed align="center" width="80px">
+        <template #default="{ row, index }">
           <el-button
             size="mini"
             type="danger"
-            @click="removeAccessRule(scope.$index, scope.row)"
+            @click="removeAccessRule(index, row)"
           >
             删除
           </el-button>
@@ -213,12 +213,11 @@
         this.rules = getAllAccessRules()
       },
       columnSpan({ row, column, rowIndex, columnIndex }) {
-        if (columnIndex == 1) {
+        if (columnIndex == 2) {
           if (row.Days && row.Days.length == 1) {
             return [1, 7]
           }
         }
-        return [1, 1]
       },
       addTimeSegment(Days, index) {
         const regular = /(\d{2,2}):?(\d{2,2})\D?(\d{2,2}):?(\d{2,2})/
