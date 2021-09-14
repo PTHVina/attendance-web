@@ -194,11 +194,11 @@
         </template>
       </el-table-column>
       <el-table-column label="操作" fixed align="center" width="80px">
-        <template #default="{ row, index }">
+        <template #default="scope">
           <el-button
             size="mini"
             type="danger"
-            @click="removeAccessRule(index, row)"
+            @click="removeAccessRule(scope.$index, scope.row)"
           >
             删除
           </el-button>
@@ -281,13 +281,37 @@
         } else if (type === 1) {
           rule = addDayAccessRule(name)
         }
-        rules.push(rule)
+        this.rules.push(rule)
       },
     },
   }
 </script>
 
 <style lang="scss">
+  .form_group {
+    height: auto;
+    .el-form {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      .el-form-item {
+        margin-bottom: 10px;
+        .el-form-item__content {
+          display: flex;
+          align-items: center;
+          margin-right: 10px;
+          > span {
+            white-space: nowrap;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+  .btn_group {
+    margin: 15px 0;
+  }
+
   .parentRemove > .remove {
     visibility: hidden;
   }
