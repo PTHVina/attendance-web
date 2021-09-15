@@ -25,3 +25,16 @@ export function addDayAccessRule(name) {
   const json = window.top.myExtension.addDayAccessRule(name)
   return JSON.parse(json)
 }
+
+export function getAllRuleDistribution() {
+  const json = window.top.myExtension.getAllRuleDistribution()
+  return JSON.parse(json)
+}
+
+export function removeRuleDistributionItem(Id) {
+  window.top.myExtension.removeRuleDistributionItem(Id)
+}
+
+export function removeRuleDistributionDevice(Id) {
+  window.top.myExtension.removeRuleDistributionDevice(Id)
+}
