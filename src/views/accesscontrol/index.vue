@@ -2,21 +2,8 @@
   <div class="table-container">
     <div class="group">
       <div class="btn_group">
-        <el-button
-          icon="el-icon-thumb"
-          type="primary"
-          @click="addWeekAccessRule"
-        >
-          添加周调度规则
-        </el-button>
-        <el-button
-          icon="el-icon-delete"
-          type="danger"
-          style="opacity: 0.6"
-          @click="addDayAccessRule"
-        >
-          添加天调度规则
-        </el-button>
+        <el-button @click="addWeekAccessRule">添加周调度规则</el-button>
+        <el-button @click="addDayAccessRule">添加天调度规则</el-button>
       </div>
     </div>
     <el-table
@@ -46,7 +33,7 @@
                 @click="removeTimeSegment(row.Days[0], index)"
               >
                 &nbsp;
-                <i class="el-icon-remove-outline"></i>
+                <i class="el-icon-remove" style="color: red"></i>
               </span>
             </p>
             <p class="add" @click="addTimeSegment(row.Days, 0)">
@@ -69,7 +56,7 @@
                 @click="removeTimeSegment(row.Days[1], index)"
               >
                 &nbsp;
-                <i class="el-icon-remove-outline"></i>
+                <i class="el-icon-remove" style="color: red"></i>
               </span>
             </p>
             <p class="add" @click="addTimeSegment(row.Days, 1)">
@@ -92,7 +79,7 @@
                 @click="removeTimeSegment(row.Days[2], index)"
               >
                 &nbsp;
-                <i class="el-icon-remove-outline"></i>
+                <i class="el-icon-remove" style="color: red"></i>
               </span>
             </p>
             <p class="add" @click="addTimeSegment(row.Days, 2)">
@@ -115,7 +102,7 @@
                 @click="removeTimeSegment(row.Days[3], index)"
               >
                 &nbsp;
-                <i class="el-icon-remove-outline"></i>
+                <i class="el-icon-remove" style="color: red"></i>
               </span>
             </p>
             <p class="add" @click="addTimeSegment(row.Days, 3)">
@@ -138,7 +125,7 @@
                 @click="removeTimeSegment(row.Days[4], index)"
               >
                 &nbsp;
-                <i class="el-icon-remove-outline"></i>
+                <i class="el-icon-remove" style="color: red"></i>
               </span>
             </p>
             <p class="add" @click="addTimeSegment(row.Days, 4)">
@@ -161,7 +148,7 @@
                 @click="removeTimeSegment(row.Days[5], index)"
               >
                 &nbsp;
-                <i class="el-icon-remove-outline"></i>
+                <i class="el-icon-remove" style="color: red"></i>
               </span>
             </p>
             <p class="add" @click="addTimeSegment(row.Days, 5)">
@@ -184,7 +171,7 @@
                 @click="removeTimeSegment(row.Days[6], index)"
               >
                 &nbsp;
-                <i class="el-icon-remove-outline"></i>
+                <i class="el-icon-remove" style="color: red"></i>
               </span>
             </p>
             <p class="add" @click="addTimeSegment(row.Days, 6)">
@@ -193,14 +180,10 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed align="center" width="80px">
-        <template #default="scope">
-          <el-button
-            size="mini"
-            type="danger"
-            @click="removeAccessRule(scope.$index, scope.row)"
-          >
-            删除
+      <el-table-column label="操作" fixed align="center" width="50px">
+        <template #default="{ row, $index }">
+          <el-button type="text" @click="removeAccessRule($index, row)">
+            <i class="el-icon-remove" style="font-size: 1.5em; color: red"></i>
           </el-button>
         </template>
       </el-table-column>
