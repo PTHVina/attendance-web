@@ -213,7 +213,12 @@
     },
     methods: {
       loadRules() {
-        this.rules = getAllAccessRules()
+        const rules = getAllAccessRules()
+        //按周日，周一..排序，因为界面上按这个顺序显示
+        for (const r of rules) {
+          r.Days.sort((x, y) => x.DayOfWeek - y.DayOfWeek)
+        }
+        this.rules = rules
       },
       columnSpan({ row, column, rowIndex, columnIndex }) {
         if (columnIndex == 2) {
