@@ -1,13 +1,26 @@
 <template>
   <div class="table-container">
+    <div class="group">
+      <div class="btn_group">
+        <el-button @click="addEmployeeTypeDistribution">
+          添加员工类型下发规则
+        </el-button>
+        <el-button @click="addDepartmentDistribution">
+          添加部门下发规则
+        </el-button>
+        <el-button @click="addStaffDistribution">
+          添加个人员工下发规则
+        </el-button>
+      </div>
+    </div>
     <el-table border="true" :data="distributions" :highlight-current-row="true">
       <el-table-column
         align="center"
         prop="Name"
         label="名称"
-        width="100px"
+        width="200px"
       ></el-table-column>
-      <el-table-column align="center" label="人员/部门/人员类型" width="200px">
+      <el-table-column align="center" label="人员/部门/人员类型" width="300px">
         <template #default="scope">
           <el-tag
             v-for="item in scope.row.Items"
@@ -22,7 +35,7 @@
           </p>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="设备" width="200px">
+      <el-table-column align="center" label="设备" width="300px">
         <template #default="scope">
           <el-tag
             v-for="item in scope.row.Devices"
@@ -37,7 +50,7 @@
           </p>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="设备" width="200px">
+      <el-table-column align="center" label="规则" width="200px">
         <template #default="{ row }">
           <el-select
             v-model="row.AccessRuleId"
@@ -53,6 +66,13 @@
           </el-select>
         </template>
       </el-table-column>
+      <el-table-column label="操作" fixed align="center" width="50px">
+        <template #default="{ row, $index }">
+          <el-button type="text" @click="removeDistribution($index, row)">
+            <i class="el-icon-remove" style="font-size: 1.5em; color: red"></i>
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -61,9 +81,15 @@
   import {
     getAllRuleDistribution,
     getAllAccessRules,
+    getAllEmployeeType,
+    getAllDepartment,
     removeRuleDistributionItem,
     removeRuleDistributionDevice,
     setAccessRuleForRuleDistribution,
+    addEmployeeTypeDistribution,
+    addDepartmentDistribution,
+    addStaffDistribution,
+    removeDistribution,
   } from '@/api/accesscontrol'
 
   export default {
@@ -72,6 +98,8 @@
         distributions: [],
         allAccessRules: [],
         allDevices: [],
+        allEmployeeTypes: [],
+        allDepartments: [],
       }
     },
     created() {
@@ -87,6 +115,14 @@
         const rules = getAllAccessRules()
         this.allAccessRules = rules
       },
+      loadAllEmployeeTypes() {
+        let ets = getAllEmployeeType()
+        this.allEmployeeTypes = ets
+      },
+      loadAllDepartments() {
+        let depts = getAllDepartment()
+        this.allDepartments = depts
+      },
       removeItem(ruleDistributionItemId) {
         removeRuleDistributionItem(ruleDistributionItemId)
       },
@@ -98,6 +134,32 @@
       },
       addDevice() {},
       addItem() {},
+      addDistribution(type) {
+        this.$prompt('input name', {}).then(({ value }) => {
+          var rule
+          if (type === 0) {
+            rule = addEmployeeTypeDistribution(value)
+          } else if (type === 1) {
+            rule = addDepartmentDistribution(value)
+          } else if (type === 2) {
+            rule = addStaffDistribution(value)
+          }
+          this.distributions.push(rule)
+        })
+      },
+      addEmployeeTypeDistribution() {
+        this.addDistribution(0)
+      },
+      addDepartmentDistribution() {
+        this.addDistribution(1)
+      },
+      addStaffDistribution() {
+        this.addDistribution(2)
+      },
+      removeDistribution(index, distribution) {
+        removeDistribution(distribution.Id)
+        this.distributions.splice(index, 1)
+      },
     },
   }
 </script>

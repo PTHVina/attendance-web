@@ -253,23 +253,21 @@
         this.rules.splice(index, 1)
       },
       addWeekAccessRule() {
-        this.$prompt('input name', {}).then(({ value }) => {
-          this.addAccessRule(value, 0)
-        })
+        this.addAccessRule(0)
       },
       addDayAccessRule() {
-        this.$prompt('input name', {}).then(({ value }) => {
-          this.addAccessRule(value, 1)
-        })
+        this.addAccessRule(1)
       },
-      addAccessRule(name, type) {
-        var rule
-        if (type === 0) {
-          rule = addWeekAccessRule(name)
-        } else if (type === 1) {
-          rule = addDayAccessRule(name)
-        }
-        this.rules.push(rule)
+      addAccessRule(type) {
+        this.$prompt('input name', {}).then(({ value }) => {
+          var rule
+          if (type === 0) {
+            rule = addWeekAccessRule(value)
+          } else if (type === 1) {
+            rule = addDayAccessRule(value)
+          }
+          this.rules.push(rule)
+        })
       },
     },
   }

@@ -45,3 +45,32 @@ export function setAccessRuleForRuleDistribution(distributionId, accessRuleId) {
     accessRuleId
   )
 }
+
+export function addEmployeeTypeDistribution(name) {
+  let data = window.top.myExtension.addEmployeeTypeDistribution(name)
+  return JSON.parse(data)
+}
+
+export function addDepartmentDistribution(name) {
+  let data = window.top.myExtension.addDepartmentDistribution(name)
+  return JSON.parse(data)
+}
+
+export function addStaffDistribution(name) {
+  let data = window.top.myExtension.addStaffDistribution(name)
+  return JSON.parse(data)
+}
+
+export function getAllEmployeeType() {
+  let data = window.top.myExtension.getAllEmployeeType()
+  return JSON.parse(data)
+}
+
+export function getAllDepartment() {
+  let data = window.top.myExtension.getAllDepartment()
+  return JSON.parse(data)
+}
+
+export function removeDistribution(Id) {
+  window.top.myExtension.removeDistribution(Id)
+}
