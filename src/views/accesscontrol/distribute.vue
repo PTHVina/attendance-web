@@ -21,18 +21,29 @@
         width="200px"
       ></el-table-column>
       <el-table-column align="center" label="人员/部门/人员类型" width="300px">
-        <template #default="scope">
+        <template #default="{ row }">
           <el-tag
-            v-for="item in scope.row.Items"
+            v-for="(item, index) in row.Items"
             :key="item.Id"
             closable
-            @close="removeItem(item.Id)"
+            @close="removeItem(row, index, item.Id)"
           >
             {{ item.Name }}
           </el-tag>
-          <p class="add" @click="addItem">
-            <i class="el-icon-circle-plus-outline"></i>
-          </p>
+          <el-select
+            v-if="row.DistributionItemType === 1"
+            v-model="selectedEmployeeTypeId"
+            style="display: block; margin-top: 5px"
+            placeholder="请添加员工类型"
+            @change="addGroupIdToDistribution(row, selectedEmployeeTypeId, 0)"
+          >
+            <el-option
+              v-for="item in allEmployeeTypes"
+              :key="item.id"
+              :label="item.Employetype_name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
         </template>
       </el-table-column>
       <el-table-column align="center" label="设备" width="300px">
@@ -90,6 +101,7 @@
     addDepartmentDistribution,
     addStaffDistribution,
     removeDistribution,
+    addGroupIdToDistribution,
   } from '@/api/accesscontrol'
 
   export default {
@@ -100,10 +112,15 @@
         allDevices: [],
         allEmployeeTypes: [],
         allDepartments: [],
+        selectedEmployeeTypeId: null,
+        selectedDepartmentId: null,
+        selectedDeviceId: null,
       }
     },
     created() {
+      this.loadAllEmployeeTypes()
       this.loadAllAccessRules()
+      this.loadAllDepartments()
       this.loadDistribution()
     },
     methods: {
@@ -116,15 +133,16 @@
         this.allAccessRules = rules
       },
       loadAllEmployeeTypes() {
-        let ets = getAllEmployeeType()
+        const ets = getAllEmployeeType()
         this.allEmployeeTypes = ets
       },
       loadAllDepartments() {
-        let depts = getAllDepartment()
+        const depts = getAllDepartment()
         this.allDepartments = depts
       },
-      removeItem(ruleDistributionItemId) {
+      removeItem(row, index, ruleDistributionItemId) {
         removeRuleDistributionItem(ruleDistributionItemId)
+        row.Items.splice(index, 1)
       },
       removeDevice(ruleDistributionDeviceId) {
         removeRuleDistributionDevice(ruleDistributionDeviceId)
@@ -133,7 +151,14 @@
         setAccessRuleForRuleDistribution(distributionId, ruleId)
       },
       addDevice() {},
-      addItem() {},
+      addGroupIdToDistribution(distribution, groupId, groupIdType) {
+        let data = addGroupIdToDistribution(
+          distribution.Id,
+          groupId,
+          groupIdType
+        )
+        distribution.Items.push(data)
+      },
       addDistribution(type) {
         this.$prompt('input name', {}).then(({ value }) => {
           var rule
@@ -159,6 +184,9 @@
       removeDistribution(index, distribution) {
         removeDistribution(distribution.Id)
         this.distributions.splice(index, 1)
+      },
+      log() {
+        console.log(this.allEmployeeTypes)
       },
     },
   }

@@ -62,8 +62,8 @@ export function addStaffDistribution(name) {
 }
 
 export function getAllEmployeeType() {
-  let data = window.top.myExtension.getAllEmployeeType()
-  return JSON.parse(data)
+  const json = window.top.myExtension.getAllEmployeeType()
+  return JSON.parse(json)
 }
 
 export function getAllDepartment() {
@@ -73,4 +73,13 @@ export function getAllDepartment() {
 
 export function removeDistribution(Id) {
   window.top.myExtension.removeDistribution(Id)
+}
+
+export function addGroupIdToDistribution(distId, groupId, groupIdType) {
+  let data = window.top.myExtension.addGroupIdToDistribution(
+    distId,
+    groupId,
+    groupIdType
+  )
+  return JSON.parse(data)
 }
