@@ -42,8 +42,7 @@
           <el-select
             v-model="row.AccessRuleId"
             placeholder="请选择"
-            @change="handleInputConfirm"
-            @blur="handleInputConfirm"
+            @change="setAccessRuleForRuleDistribution(row.Id, row.AccessRuleId)"
           >
             <el-option
               v-for="item in allAccessRules"
@@ -64,6 +63,7 @@
     getAllAccessRules,
     removeRuleDistributionItem,
     removeRuleDistributionDevice,
+    setAccessRuleForRuleDistribution,
   } from '@/api/accesscontrol'
 
   export default {
@@ -71,6 +71,7 @@
       return {
         distributions: [],
         allAccessRules: [],
+        allDevices: [],
       }
     },
     created() {
@@ -92,8 +93,55 @@
       removeDevice(ruleDistributionDeviceId) {
         removeRuleDistributionDevice(ruleDistributionDeviceId)
       },
+      setAccessRuleForRuleDistribution(distributionId, ruleId) {
+        setAccessRuleForRuleDistribution(distributionId, ruleId)
+      },
       addDevice() {},
       addItem() {},
     },
   }
 </script>
+
+<style lang="scss" scoped>
+  .form_group {
+    height: auto;
+    .el-form {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      .el-form-item {
+        margin-bottom: 10px;
+        .el-form-item__content {
+          display: flex;
+          align-items: center;
+          margin-right: 10px;
+          > span {
+            white-space: nowrap;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+  .btn_group {
+    margin: 15px 0;
+  }
+
+  .parentRemove > .remove {
+    visibility: hidden;
+  }
+
+  .parentRemove:hover > .remove {
+    visibility: visible;
+    cursor: pointer;
+  }
+
+  .cell .add {
+    visibility: hidden;
+  }
+
+  .cell:hover .add {
+    visibility: visible;
+    cursor: pointer;
+  }
+</style>

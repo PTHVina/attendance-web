@@ -38,3 +38,10 @@ export function removeRuleDistributionItem(Id) {
 export function removeRuleDistributionDevice(Id) {
   window.top.myExtension.removeRuleDistributionDevice(Id)
 }
+
+export function setAccessRuleForRuleDistribution(distributionId, accessRuleId) {
+  window.top.myExtension.setAccessRuleForRuleDistribution(
+    distributionId,
+    accessRuleId
+  )
+}
