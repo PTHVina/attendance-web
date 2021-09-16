@@ -30,6 +30,7 @@
           >
             {{ item.Name }}
           </el-tag>
+          <!--员工类型-->
           <el-select
             v-if="row.DistributionItemType === 1"
             v-model="selectedEmployeeTypeId"
@@ -41,6 +42,25 @@
               v-for="item in allEmployeeTypes"
               :key="item.id"
               :label="item.Employetype_name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+          <!--个人-->
+          <el-select
+            v-else-if="row.DistributionItemType === 0"
+            v-model="selectedStaffId"
+            filterable
+            remote
+            reserve-keyword
+            placeholder="请输入人员姓名"
+            :remote-method="loadStaffs"
+            :loading="isLoadingStaffs"
+            @change="addStaffIdToDistribution(row, selectedStaffId)"
+          >
+            <el-option
+              v-for="item in matchedEmployees"
+              :key="item.id"
+              :label="item.name"
               :value="item.id"
             ></el-option>
           </el-select>
@@ -102,6 +122,8 @@
     addStaffDistribution,
     removeDistribution,
     addGroupIdToDistribution,
+    addStaffIdToDistribution,
+    getStaffByNameFuzzy,
   } from '@/api/accesscontrol'
 
   export default {
@@ -115,6 +137,9 @@
         selectedEmployeeTypeId: null,
         selectedDepartmentId: null,
         selectedDeviceId: null,
+        selectedStaffId: '',
+        isLoadingStaffs: false,
+        matchedEmployees: [],
       }
     },
     created() {
@@ -159,6 +184,10 @@
         )
         distribution.Items.push(data)
       },
+      addStaffIdToDistribution(distribution, staffId) {
+        let data = addStaffIdToDistribution(distribution.Id, staffId)
+        distribution.Items.push(data)
+      },
       addDistribution(type) {
         this.$prompt('input name', {}).then(({ value }) => {
           var rule
@@ -185,8 +214,13 @@
         removeDistribution(distribution.Id)
         this.distributions.splice(index, 1)
       },
-      log() {
-        console.log(this.allEmployeeTypes)
+      loadStaffs(query) {
+        if (query) {
+          //this.isLoadingStaffs = true
+          this.matchedEmployees = getStaffByNameFuzzy(query)
+        } else {
+          this.matchedEmployees = []
+        }
       },
     },
   }

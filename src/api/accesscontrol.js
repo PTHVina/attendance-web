@@ -83,3 +83,13 @@ export function addGroupIdToDistribution(distId, groupId, groupIdType) {
   )
   return JSON.parse(data)
 }
+
+export function getStaffByNameFuzzy(query) {
+  let json = window.top.myExtension.getStaffByNameFuzzy(query)
+  return JSON.parse(json)
+}
+
+export function addStaffIdToDistribution(distId, staffId) {
+  let json = window.top.myExtension.addStaffIdToDistribution(distId, staffId)
+  return JSON.parse(json)
+}
