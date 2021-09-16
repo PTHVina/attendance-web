@@ -93,3 +93,8 @@ export function addStaffIdToDistribution(distId, staffId) {
   let json = window.top.myExtension.addStaffIdToDistribution(distId, staffId)
   return JSON.parse(json)
 }
+
+export function addDeviceIdToDistribution(distId, deviceId) {
+  let json = window.top.myExtension.addDeviceIdToDistribution(distId, deviceId)
+  return JSON.parse(json)
+}

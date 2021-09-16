@@ -83,18 +83,28 @@
         </template>
       </el-table-column>
       <el-table-column align="center" label="设备" width="300px">
-        <template #default="scope">
+        <template #default="{ row }">
           <el-tag
-            v-for="item in scope.row.Devices"
+            v-for="(item, index) in row.Devices"
             :key="item.Id"
             closable
-            @close="removeDevice(item.Id)"
+            @close="removeDevice(row, index, item.Id)"
           >
             {{ item.Name }}
           </el-tag>
-          <p class="add" @click="addDevice">
-            <i class="el-icon-circle-plus-outline"></i>
-          </p>
+          <el-select
+            v-model="selectedDeviceId"
+            style="display: block; margin-top: 5px"
+            placeholder="请选择设备"
+            @change="addDeviceIdToDistribution(row, selectedDeviceId)"
+          >
+            <el-option
+              v-for="item in allDevices"
+              :key="item.id"
+              :label="item.DeviceName"
+              :value="item.id"
+            ></el-option>
+          </el-select>
         </template>
       </el-table-column>
       <el-table-column align="center" label="规则" width="200px">
@@ -139,8 +149,10 @@
     removeDistribution,
     addGroupIdToDistribution,
     addStaffIdToDistribution,
+    addDeviceIdToDistribution,
     getStaffByNameFuzzy,
   } from '@/api/accesscontrol'
+  import { getAllMyDevices } from '@/api/device'
 
   export default {
     data() {
@@ -162,6 +174,7 @@
       this.loadAllEmployeeTypes()
       this.loadAllAccessRules()
       this.loadAllDepartments()
+      this.loadAllMyDevices()
       this.loadDistribution()
     },
     methods: {
@@ -181,17 +194,25 @@
         const depts = getAllDepartment()
         this.allDepartments = depts
       },
+      loadAllMyDevices() {
+        const devices = getAllMyDevices()
+        this.allDevices = devices
+      },
       removeItem(row, index, ruleDistributionItemId) {
         removeRuleDistributionItem(ruleDistributionItemId)
         row.Items.splice(index, 1)
       },
-      removeDevice(ruleDistributionDeviceId) {
+      removeDevice(row, index, ruleDistributionDeviceId) {
         removeRuleDistributionDevice(ruleDistributionDeviceId)
+        row.Devices.splice(index, 1)
       },
       setAccessRuleForRuleDistribution(distributionId, ruleId) {
         setAccessRuleForRuleDistribution(distributionId, ruleId)
       },
-      addDevice() {},
+      addDeviceIdToDistribution(distribution, deviceId) {
+        let data = addDeviceIdToDistribution(distribution.Id, deviceId)
+        distribution.Devices.push(data)
+      },
       addGroupIdToDistribution(distribution, groupId, groupIdType) {
         let data = addGroupIdToDistribution(
           distribution.Id,
