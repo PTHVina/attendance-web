@@ -83,7 +83,7 @@
         </template>
       </el-table-column>
       <el-table-column align="center" label="设备" width="300px">
-        <template #default="{ row }">
+        <template #default="{ row, $index }">
           <el-tag
             v-for="(item, index) in row.Devices"
             :key="item.Id"
@@ -93,10 +93,10 @@
             {{ item.Name }}
           </el-tag>
           <el-select
-            v-model="selectedDeviceId"
+            v-model="selectedDeviceIds[$index]"
             style="display: block; margin-top: 5px"
             placeholder="请选择设备"
-            @change="addDeviceIdToDistribution(row, selectedDeviceId)"
+            @change="addDeviceIdToDistribution(row, selectedDeviceIds[$index])"
           >
             <el-option
               v-for="item in allDevices"
@@ -164,7 +164,7 @@
         allDepartments: [],
         selectedEmployeeTypeId: null,
         selectedDepartmentId: null,
-        selectedDeviceId: null,
+        selectedDeviceIds: null,
         selectedStaffId: '',
         isLoadingStaffs: false,
         matchedEmployees: [],
@@ -181,6 +181,7 @@
       loadDistribution() {
         const distributions = getAllRuleDistribution()
         this.distributions = distributions
+        this.selectedDeviceIds = new Array(distributions.length)
       },
       loadAllAccessRules() {
         const rules = getAllAccessRules()
