@@ -21,7 +21,7 @@
         width="200px"
       ></el-table-column>
       <el-table-column align="center" label="人员/部门/工作类型" width="300px">
-        <template #default="{ row }">
+        <template #default="{ row, $index }">
           <el-tag
             v-for="(item, index) in row.Items"
             :key="item.Id"
@@ -33,10 +33,10 @@
           <!--员工类型-->
           <el-select
             v-if="row.DistributionItemType === 1"
-            v-model="selectedEmployeeTypeId"
+            v-model="selectedItemIds[$index]"
             style="display: block; margin-top: 5px"
             placeholder="请选择工作类型"
-            @change="addGroupIdToDistribution(row, selectedEmployeeTypeId, 0)"
+            @change="addGroupIdToDistribution(row, selectedItemIds[$index], 0)"
           >
             <el-option
               v-for="item in allEmployeeTypes"
@@ -48,10 +48,10 @@
           <!--部门类型-->
           <el-select
             v-if="row.DistributionItemType === 2"
-            v-model="selectedDepartmentId"
+            v-model="selectedItemIds[$index]"
             style="display: block; margin-top: 5px"
             placeholder="请选择部门"
-            @change="addGroupIdToDistribution(row, selectedDepartmentId, 1)"
+            @change="addGroupIdToDistribution(row, selectedItemIds[$index], 1)"
           >
             <el-option
               v-for="item in allDepartments"
@@ -63,7 +63,7 @@
           <!--个人-->
           <el-select
             v-else-if="row.DistributionItemType === 0"
-            v-model="selectedStaffId"
+            v-model="selectedItemIds[$index]"
             style="display: block; margin-top: 5px"
             filterable
             remote
@@ -71,7 +71,7 @@
             placeholder="请输入人员姓名"
             :remote-method="loadStaffs"
             :loading="isLoadingStaffs"
-            @change="addStaffIdToDistribution(row, selectedStaffId)"
+            @change="addStaffIdToDistribution(row, selectedItemIds[$index])"
           >
             <el-option
               v-for="item in matchedEmployees"
@@ -162,10 +162,8 @@
         allDevices: [],
         allEmployeeTypes: [],
         allDepartments: [],
-        selectedEmployeeTypeId: null,
-        selectedDepartmentId: null,
+        selectedItemIds: null,
         selectedDeviceIds: null,
-        selectedStaffId: '',
         isLoadingStaffs: false,
         matchedEmployees: [],
       }
@@ -182,6 +180,7 @@
         const distributions = getAllRuleDistribution()
         this.distributions = distributions
         this.selectedDeviceIds = new Array(distributions.length)
+        this.selectedItemIds = new Array(distributions.length)
       },
       loadAllAccessRules() {
         const rules = getAllAccessRules()
