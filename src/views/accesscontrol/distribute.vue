@@ -20,7 +20,7 @@
         label="名称"
         width="200px"
       ></el-table-column>
-      <el-table-column align="center" label="人员/部门/人员类型" width="300px">
+      <el-table-column align="center" label="人员/部门/工作类型" width="300px">
         <template #default="{ row }">
           <el-tag
             v-for="(item, index) in row.Items"
@@ -35,7 +35,7 @@
             v-if="row.DistributionItemType === 1"
             v-model="selectedEmployeeTypeId"
             style="display: block; margin-top: 5px"
-            placeholder="请添加员工类型"
+            placeholder="请选择工作类型"
             @change="addGroupIdToDistribution(row, selectedEmployeeTypeId, 0)"
           >
             <el-option
@@ -45,10 +45,26 @@
               :value="item.id"
             ></el-option>
           </el-select>
+          <!--部门类型-->
+          <el-select
+            v-if="row.DistributionItemType === 2"
+            v-model="selectedDepartmentId"
+            style="display: block; margin-top: 5px"
+            placeholder="请选择部门"
+            @change="addGroupIdToDistribution(row, selectedDepartmentId, 1)"
+          >
+            <el-option
+              v-for="item in allDepartments"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
           <!--个人-->
           <el-select
             v-else-if="row.DistributionItemType === 0"
             v-model="selectedStaffId"
+            style="display: block; margin-top: 5px"
             filterable
             remote
             reserve-keyword
