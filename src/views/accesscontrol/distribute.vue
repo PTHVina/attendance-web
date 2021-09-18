@@ -11,6 +11,7 @@
         <el-button @click="addStaffDistribution">
           添加个人员工下发规则
         </el-button>
+        <el-button @click="buildRuleDeploymentTask">生成下发任务</el-button>
       </div>
     </div>
     <el-table border="true" :data="distributions" :highlight-current-row="true">
@@ -151,6 +152,7 @@
     addStaffIdToDistribution,
     addDeviceIdToDistribution,
     getStaffByNameFuzzy,
+    buildRuleDeploymentTask,
   } from '@/api/accesscontrol'
   import { getAllMyDevices } from '@/api/device'
 
@@ -258,6 +260,9 @@
         } else {
           this.matchedEmployees = []
         }
+      },
+      buildRuleDeploymentTask() {
+        buildRuleDeploymentTask()
       },
     },
   }

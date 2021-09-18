@@ -98,3 +98,7 @@ export function addDeviceIdToDistribution(distId, deviceId) {
   let json = window.top.myExtension.addDeviceIdToDistribution(distId, deviceId)
   return JSON.parse(json)
 }
+
+export function buildRuleDeploymentTask() {
+  window.top.myExtension.buildRuleDeploymentTask()
+}
