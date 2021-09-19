@@ -182,6 +182,8 @@ module.exports = {
     text_10:
       "Lors de la sélection de <émission du numéro>, le numéro du personnel nouvellement ajouté doit être renseigné comme numéro d'identification",
     text_11: "*: Prend effet après le redémarrage de l'application",
+    text_celcius: "C",
+    text_fahreinheit: "Fahrenheit",
 
     title_1: 'Code',
     title_2: 'Nom du département',
@@ -195,6 +197,7 @@ module.exports = {
     title_10: "Nom du système*",
     title_11: "Abréviation du système*",
     title_12: "Cacher la page*",
+    title_temperature: "Affichage de la température",
   },
   //人员管理
   personnel: {

@@ -179,6 +179,8 @@ module.exports = {
     text_10:
       'When selecting <number issuance>, the new personnel number must be filled in as the ID',
     text_11: '*: Take effect after restart application',
+    text_celcius: "Celsius",
+    text_fahreinheit: "Fahreinheit",
 
     title_1: 'code',
     title_2: 'Department name',
@@ -192,6 +194,7 @@ module.exports = {
     title_10: "System Name*",
     title_11: "System Abbrev. Name*",
     title_12: "Hide Pages*",
+    title_temperature: "Temperature Display",
   },
   //人员管理
   personnel: {

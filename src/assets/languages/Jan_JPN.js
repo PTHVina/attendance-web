@@ -178,6 +178,8 @@ module.exports = {
     text_10:
       '<発行番号>を選択する場合は、ID番号として新たに追加した担当者の番号を入力する必要があります',
     text_11: '*: アプリケーションの再起動後',
+    text_celcius: "摂氏度",
+    text_fahreinheit: "華氏度",
 
     title_1: 'コーディング',
     title_2: '部署名',
@@ -191,6 +193,7 @@ module.exports = {
     title_10: "システム名*",
     title_11: "システム略称*",
     title_12: "ページを隠す*",
+    title_temperature: "温度表示",
   },
   //人员管理
   personnel: {

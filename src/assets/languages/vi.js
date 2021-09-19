@@ -179,6 +179,8 @@ text_9: 'ID phát hành',
 text_10:
 'Khi chọn <Số phát hành>, số nhân sự mới phải được điền làm ID',
 text_11: '*: Hiệu quả sau khi khởi chạy lại',
+text_celcius: "Mức tế bào",
+text_fahreinheit: "Cao đẳng Pháp",
  
 title_1: 'Mã bộ phận',
 title_2: 'Tên bộ phận',
@@ -192,6 +194,7 @@ title_9: 'Điện thoại',
 title_10: "Tên hệ thống*",
 title_11: "Tên viết tắt hệ thống*",
 title_12: "Ẩn trang*",
+title_temperature: "Hiển thị nhiệt độ",
   },
   //人员管理
  personnel: {

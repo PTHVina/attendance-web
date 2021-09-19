@@ -193,7 +193,9 @@
                 {{ Number(row.body_temp).toFixed(2) }}
               </span>
             </div>
-            <span v-else>{{ Number(row.body_temp).toFixed(2) }}</span>
+            <span v-else>
+              {{ row.body_temp ? Number(row.body_temp).toFixed(2) : '' }}
+            </span>
           </template>
         </el-table-column>
         <!-- 设备名称 -->
