@@ -182,7 +182,7 @@ module.exports = {
     text_10:
       "Lors de la sélection de <émission du numéro>, le numéro du personnel nouvellement ajouté doit être renseigné comme numéro d'identification",
     text_11: "*: Prend effet après le redémarrage de l'application",
-    text_celcius: "C",
+    text_celsius: "C",
     text_fahreinheit: "Fahrenheit",
 
     title_1: 'Code',

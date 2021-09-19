@@ -179,7 +179,7 @@ text_9: 'ID phát hành',
 text_10:
 'Khi chọn <Số phát hành>, số nhân sự mới phải được điền làm ID',
 text_11: '*: Hiệu quả sau khi khởi chạy lại',
-text_celcius: "Mức tế bào",
+text_celsius: "Mức tế bào",
 text_fahreinheit: "Cao đẳng Pháp",
  
 title_1: 'Mã bộ phận',

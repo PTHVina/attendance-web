@@ -179,7 +179,7 @@ module.exports = {
     text_10:
       'When selecting <number issuance>, the new personnel number must be filled in as the ID',
     text_11: '*: Take effect after restart application',
-    text_celcius: "Celsius",
+    text_celsius: "Celsius",
     text_fahreinheit: "Fahreinheit",
 
     title_1: 'code',
