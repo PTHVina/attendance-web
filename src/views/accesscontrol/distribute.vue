@@ -108,7 +108,7 @@
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="规则" width="200px">
+      <el-table-column align="center" label="规则" width="300px">
         <template #default="{ row }">
           <el-select
             v-model="row.AccessRuleId"
