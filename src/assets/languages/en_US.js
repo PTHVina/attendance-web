@@ -416,7 +416,7 @@ module.exports = {
     text_17: 'leave',
     text_18: 'Card missing',
     text_19: 'knock off',
-    text_20: 'temperature(℃)',
+    text_20: 'temperature',
     text_21: 'late(minute)',
     text_22: 'Supplementary card information',
     text_23: 'Type of supplementary card',

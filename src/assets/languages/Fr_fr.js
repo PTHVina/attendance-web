@@ -423,7 +423,7 @@ module.exports = {
     text_17: 'en congé',
     text_18: 'manque de badger',
     text_19: 'fin du travail',
-    text_20: 'Température corporelle (℃)',
+    text_20: 'Température corporelle',
     text_21: 'en retard(minutes)',
     text_22: 'Information de pointage supplémentaire',
     text_23: 'Type de pointage supplémentaire',
