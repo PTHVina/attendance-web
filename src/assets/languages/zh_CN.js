@@ -172,6 +172,8 @@ module.exports = {
     text_9: 'ID下发',
     text_10: '选择<编号下发>时新增人员编号必须填写为身份证号码',
     text_11: '*: 重新启动程序生效',
+    text_celsius: "摄氏度",
+    text_fahreinheit: "华氏度",
 
 
     title_1: '编码',
@@ -186,6 +188,7 @@ module.exports = {
     title_10: "自定义系统名称*",
     title_11: "自定义系统简称*",
     title_12: "隐藏页面*",
+    title_temperature: "温度显示",
 
   },
   //人员管理
@@ -408,7 +411,7 @@ module.exports = {
     text_17: '请假',
     text_18: '缺卡',
     text_19: '下班',
-    text_20: '体温(℃)',
+    text_20: '体温',
     text_21: '迟到(分钟)',
     text_22: '补卡信息',
     text_23: '补卡类型',

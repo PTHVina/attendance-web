@@ -156,3 +156,7 @@ export function hideAttendanceConfigPage(hide) {
 export function getUserConfigObject() {
   return JSON.parse(window.top.myExtension.getUserConfigObject())
 }
+
+export function setShowTemperatueInCelsius(show) {
+  window.top.myExtension.setShowCelsius(show)
+}

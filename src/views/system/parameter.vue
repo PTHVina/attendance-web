@@ -55,6 +55,38 @@
           </el-tooltip>
         </div>
       </li>
+      <!-- 温度格式 -->
+      <li class="setting_row">
+        <div
+          class="set_item"
+          :style="
+            lang == 'en_US'
+              ? 'width:800px'
+              : lang == 'Fr_fr'
+              ? 'width:950px'
+              : lang == 'Jan_JPN'
+              ? 'width:600px'
+              : ''
+          "
+        >
+          <span class="item_title">{{ $t('system.title_temperature') }}</span>
+          <el-tooltip
+            :content="
+              showTemperatureInCelsius
+                ? $t('system.text_celsius')
+                : $t('system.text_fahreinheit')
+            "
+            placement="top"
+          >
+            <el-switch
+              v-model="showTemperatureInCelsius"
+              :active-text="$t('system.text_celsius')"
+              :inactive-text="$t('system.text_fahreinheit')"
+              @change="setShowTemperature"
+            ></el-switch>
+          </el-tooltip>
+        </div>
+      </li>
       <!--自定义系统名称-->
       <li class="setting_row">
         <div
@@ -154,6 +186,7 @@
     hideAttendanceManagementPage,
     hideAttendanceConfigPage,
     getUserConfigObject,
+    setShowTemperatueInCelsius,
   } from '@/api/sysPage'
   export default {
     name: 'Parameter',
@@ -168,6 +201,7 @@
         shortTitle: '',
         hideAttendanceManagementPage: false,
         hideAttendanceConfigPage: false,
+        showTemperatureInCelsius: true,
       }
     },
     created() {
@@ -180,6 +214,7 @@
       this.enableShortTitle = cfg.EnableTitleShort
       this.hideAttendanceManagementPage = cfg.HideAttendanceManagementPage
       this.hideAttendanceConfigPage = cfg.HideAttendanceConfigPage
+      this.showTemperatureInCelsius = cfg.ShowTemperatureInCelsius === true
     },
     methods: {
       //设置下发方式
@@ -219,6 +254,9 @@
       },
       hideAttendanceConfigPageOuter(e) {
         hideAttendanceConfigPage(e.toString())
+      },
+      setShowTemperature() {
+        setShowTemperatueInCelsius(this.showTemperatureInCelsius)
       },
     },
   }

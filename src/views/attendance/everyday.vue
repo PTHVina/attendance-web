@@ -712,7 +712,7 @@
           { value: 'Leaveearly', title: '早退(分钟)' },
           { value: 'workOvertime', title: '加班(分钟)' },
           { value: 'isAbsenteeism', title: '是否旷工' },
-          { value: 'temperature', title: '体温(℃)' },
+          { value: 'temperature', title: '体温' },
         ]
         var dataJpan = [
           { value: 'name', title: '名前' },
@@ -746,7 +746,7 @@
           { value: 'Leaveearly', title: 'Leave early(minutes)' },
           { value: 'workOvertime', title: 'Overtime(minutes)' },
           { value: 'isAbsenteeism', title: 'Absenteeism' },
-          { value: 'temperature', title: 'Body temperature(℃)' },
+          { value: 'temperature', title: 'Body temperature' },
         ]
         var dataFr = [
           { value: 'name', title: 'Nom' },
@@ -772,7 +772,7 @@
           { value: 'Leaveearly', title: 'Partez tôt (minutes)' },
           { value: 'workOvertime', title: 'Heures supplémentaires (minutes)' },
           { value: 'isAbsenteeism', title: 'Absentéisme' },
-          { value: 'temperature', title: 'Température corporelle (℃)' },
+          { value: 'temperature', title: 'Température corporelle' },
         ]
         var dataVi = [
           { value: 'name', title: 'Tên' },
@@ -798,7 +798,7 @@
           { value: 'Leaveearly', title: 'Nghỉ sớm (phút)' },
           { value: 'workOvertime', title: 'Làm thêm giờ (phút)' },
           { value: 'isAbsenteeism', title: 'Vắng mặt' },
-          { value: 'temperature', title: 'Nhiệt độ cơ thể (℃)' },
+          { value: 'temperature', title: 'Nhiệt độ cơ thể' },
         ]
         if (this.$lang == 'zh_CN') {
           this.setList = dataZn

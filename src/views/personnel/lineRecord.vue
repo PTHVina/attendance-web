@@ -91,7 +91,7 @@
       ></el-table-column>
       <el-table-column
         show-overflow-tooltip
-        label="体温(℃)"
+        label="体温"
         prop="temperature"
         sortable
       ></el-table-column>
