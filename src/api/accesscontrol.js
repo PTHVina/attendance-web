@@ -102,3 +102,8 @@ export function addDeviceIdToDistribution(distId, deviceId) {
 export function buildRuleDeploymentTask() {
   window.top.myExtension.buildRuleDeploymentTask()
 }
+
+export function getRuleDeployTasks() {
+  let json = window.top.myExtension.getAllAccessRuleDeployTasks()
+  return JSON.parse(json)
+}

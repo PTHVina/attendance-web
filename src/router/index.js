@@ -191,6 +191,15 @@ export const asyncRoutes = [
         component: () => import('@/views/accesscontrol/distribute'),
         meta: { title: i18.router.title_24, permissions: ['admin'] },
       },
+      {
+        path: 'tasks',
+        name: 'Tasks',
+        component: () => import('@/views/accesscontrol/tasks'),
+        meta: {
+          title: i18.router.title_rule_deploy_tasks,
+          permissions: ['admin'],
+        },
+      },
     ],
   },
   {
