@@ -263,7 +263,7 @@
       },
       buildRuleDeploymentTask() {
         buildRuleDeploymentTask()
-        this.$baseMessage('创建下发任务成功', 'success')()
+        this.$baseMessage('创建下发任务成功', 'success')
       },
     },
   }

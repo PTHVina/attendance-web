@@ -39,8 +39,17 @@
     <el-table-column align="center" prop="State" label="状态" width="100px">
       <template #default="{ row }">
         <div v-if="row.State === 1" style="display: inline">
-          <i class="el-icon-success" style="color: green"></i>
-          {{ $t('operation_btn.btn_text_19') }}
+          <i
+            v-if="row.FailCount === 0"
+            class="el-icon-success"
+            style="color: green"
+          ></i>
+          <i
+            v-else-if="row.FailCount > 0"
+            class="el-icon-warning"
+            style="color: red"
+          ></i>
+          完成
         </div>
         <div v-else-if="row.State === 2" style="display: inline">
           <i class="el-icon-error" style="color: red"></i>
