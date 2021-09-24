@@ -229,7 +229,7 @@
         distribution.Items.push(data)
       },
       addDistribution(type) {
-        this.$prompt('input name', {}).then(({ value }) => {
+        this.$prompt('输入名称', {}).then(({ value }) => {
           var rule
           if (type === 0) {
             rule = addEmployeeTypeDistribution(value)

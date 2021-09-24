@@ -229,8 +229,8 @@
       },
       addTimeSegment(Days, index) {
         const regular = /(\d{2,2}):?(\d{2,2})\D?(\d{2,2}):?(\d{2,2})/
-        this.$prompt('input time frame', {
-          inputPlaceholder: '12:00-13:00',
+        this.$prompt('输入时间段', {
+          inputPlaceholder: '12:00-13:00 或 12001300',
           inputPattern: regular,
         }).then(({ value }) => {
           var match = value.match(regular)
@@ -259,7 +259,7 @@
         this.addAccessRule(1)
       },
       addAccessRule(type) {
-        this.$prompt('input name', {}).then(({ value }) => {
+        this.$prompt('输入名称', {}).then(({ value }) => {
           var rule
           if (type === 0) {
             rule = addWeekAccessRule(value)
