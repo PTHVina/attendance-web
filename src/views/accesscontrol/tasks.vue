@@ -63,7 +63,11 @@
     </el-table-column>
     <el-table-column label="操作" fixed align="center" width="50px">
       <template #default="{ row, $index }">
-        <el-button type="text" @click="removeAccessRule($index, row)">
+        <el-button
+          type="text"
+          :disabled="row.State === 0"
+          @click="removeTask($index, row)"
+        >
           <i class="el-icon-remove" style="font-size: 1.5em; color: red"></i>
         </el-button>
       </template>
@@ -72,7 +76,10 @@
 </template>
 
 <script>
-  import { getRuleDeployTasks } from '@/api/accesscontrol'
+  import {
+    getRuleDeployTasks,
+    removeAccessControlDeployTask,
+  } from '@/api/accesscontrol'
 
   export default {
     data() {
@@ -86,6 +93,10 @@
     methods: {
       loadTasks() {
         this.tasks = getRuleDeployTasks()
+      },
+      removeTask(index, row) {
+        removeAccessControlDeployTask(row.Id)
+        this.tasks.splice(index, 1)
       },
     },
   }

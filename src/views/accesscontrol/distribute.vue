@@ -153,6 +153,7 @@
     addDeviceIdToDistribution,
     getStaffByNameFuzzy,
     buildRuleDeploymentTask,
+    canAddAccessControlDeployTask,
   } from '@/api/accesscontrol'
   import { getAllMyDevices } from '@/api/device'
 
@@ -262,6 +263,10 @@
         }
       },
       buildRuleDeploymentTask() {
+        if (!canAddAccessControlDeployTask()) {
+          this.$baseMessage('有下发任务正在运行， 无法继续添加', 'warning')
+          return
+        }
         buildRuleDeploymentTask()
         this.$baseMessage('创建下发任务成功', 'success')
       },

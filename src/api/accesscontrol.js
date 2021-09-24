@@ -107,3 +107,11 @@ export function getRuleDeployTasks() {
   let json = window.top.myExtension.getAllAccessRuleDeployTasks()
   return JSON.parse(json)
 }
+
+export function canAddAccessControlDeployTask() {
+  return window.top.myExtension.canAddAccessControlDeployTask()
+}
+
+export function removeAccessControlDeployTask(id) {
+  window.top.myExtension.removeAccessControlDeployTask(id)
+}
