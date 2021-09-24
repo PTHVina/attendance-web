@@ -21,7 +21,11 @@
         label="名称"
         width="200px"
       ></el-table-column>
-      <el-table-column align="center" label="人员/部门/工作类型" width="300px">
+      <el-table-column
+        align="center"
+        label="人员/部门/工作类型"
+        min-width="300px"
+      >
         <template #default="{ row, $index }">
           <el-tag
             v-for="(item, index) in row.Items"
@@ -37,10 +41,13 @@
             v-model="selectedItemIds[$index]"
             style="display: block; margin-top: 5px"
             placeholder="请选择工作类型"
-            @change="addGroupIdToDistribution(row, selectedItemIds[$index], 0)"
+            @change="
+              addGroupIdToDistribution(row, selectedItemIds[$index], 0, $index)
+            "
+            @focus="setList(row, 0)"
           >
             <el-option
-              v-for="item in allEmployeeTypes"
+              v-for="item in allEmployeeTypes2"
               :key="item.id"
               :label="item.Employetype_name"
               :value="item.id"
@@ -52,10 +59,13 @@
             v-model="selectedItemIds[$index]"
             style="display: block; margin-top: 5px"
             placeholder="请选择部门"
-            @change="addGroupIdToDistribution(row, selectedItemIds[$index], 1)"
+            @change="
+              addGroupIdToDistribution(row, selectedItemIds[$index], 1, $index)
+            "
+            @focus="setList(row, 1)"
           >
             <el-option
-              v-for="item in allDepartments"
+              v-for="item in allDepartments2"
               :key="item.id"
               :label="item.name"
               :value="item.id"
@@ -83,7 +93,7 @@
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="设备" width="300px">
+      <el-table-column align="center" label="设备" min-width="300px">
         <template #default="{ row, $index }">
           <el-tag
             v-for="(item, index) in row.Devices"
@@ -108,7 +118,7 @@
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="规则" width="300px">
+      <el-table-column align="center" label="规则" min-width="300px">
         <template #default="{ row }">
           <el-select
             v-model="row.AccessRuleId"
@@ -164,7 +174,9 @@
         allAccessRules: [],
         allDevices: [],
         allEmployeeTypes: [],
+        allEmployeeTypes2: [],
         allDepartments: [],
+        allDepartments2: [],
         selectedItemIds: null,
         selectedDeviceIds: null,
         isLoadingStaffs: false,
@@ -216,13 +228,31 @@
         let data = addDeviceIdToDistribution(distribution.Id, deviceId)
         distribution.Devices.push(data)
       },
-      addGroupIdToDistribution(distribution, groupId, groupIdType) {
+      addGroupIdToDistribution(distribution, groupId, groupIdType, index) {
+        console.log(distribution, groupId, groupIdType)
         let data = addGroupIdToDistribution(
           distribution.Id,
           groupId,
           groupIdType
         )
         distribution.Items.push(data)
+
+        let option = []
+        if (groupIdType == 0) {
+          option = this.allEmployeeTypes2
+        } else if (groupIdType == 1) {
+          option = this.allDepartments2
+        }
+        let isFind = -1
+        option.forEach((item, index) => {
+          if (item.id == groupId) {
+            isFind = index
+          }
+        })
+        if (isFind >= 0) {
+          option.splice(isFind, 1)
+        }
+        this.selectedItemIds[index] = ''
       },
       addStaffIdToDistribution(distribution, staffId) {
         let data = addStaffIdToDistribution(distribution.Id, staffId)
@@ -269,6 +299,32 @@
         }
         buildRuleDeploymentTask()
         this.$baseMessage('创建下发任务成功', 'success')
+      },
+
+      setList(row, type) {
+        let array = []
+        let option = []
+        if (type == 0) {
+          option = this.allEmployeeTypes
+        } else if (type == 1) {
+          option = this.allDepartments
+        }
+        option.forEach((data) => {
+          let isFind = false
+          row.Items.forEach((item) => {
+            if (item.GroupId == data.id) {
+              isFind = true
+            }
+          })
+          if (!isFind) {
+            array.push(data)
+          }
+        })
+        if (type == 0) {
+          this.allEmployeeTypes2 = array
+        } else if (type == 1) {
+          this.allDepartments2 = array
+        }
       },
     },
   }
