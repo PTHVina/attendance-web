@@ -947,7 +947,6 @@
         if (this.lang != 'zh_CN' || this.lang != 'Jan_JPN') {
           setTimeout(() => {
             var element = document.getElementsByClassName('el-transfer-panel')
-            console.log(element)
             element[0].style.width = '330px'
             element[1].style.width = '330px'
           }, 100)

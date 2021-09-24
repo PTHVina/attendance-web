@@ -144,19 +144,15 @@
         </template>
       </el-table-column>
     </el-table>
-    <div>
-      <h4>注意事项</h4>
-      <ul>
-        <li>
-          规则下发顺序：工作分类 -> 部门 -> 个人员工,
-          即如果同时添加了三类下发规则，那么最先下发工作分类，然后是部门，最后是个人员工，后下发的规则覆盖先下发的规则
-        </li>
-        <li>推荐添加规则的顺序：工作分类 -> 部门 -> 个人员工</li>
-        <li>
-          对于部门下发规则，不会查找该部门的上下级部门的从属关系，即某个员工如果属于A部门，那么当添加部门下发规则时，必须选择A部门，选择A部门的上级不会下发该员工
-        </li>
-      </ul>
-    </div>
+    <el-alert
+      title="重要提示"
+      type="info"
+      style="margin-top: 10px"
+      description="1. 规则下发顺序：工作分类 -> 部门 -> 个人员工, 即如果同时添加了三类下发规则，那么最先下发工作分类，然后是部门，最后是个人员工，后下发的规则覆盖先下发的规则。
+                 2. 推荐添加规则的顺序：工作分类 -> 部门 -> 个人员工。3. 对于部门下发规则，不会查找该部门的上下级部门的从属关系，即某个员工如果属于A部门，那么当添加部门下发规则时，必须选择A部门，选择A部门的上级不会下发该员工。"
+      :closable="false"
+      show-icon
+    ></el-alert>
   </div>
 </template>
 
@@ -250,7 +246,6 @@
         distribution.Devices.push(data)
       },
       addGroupIdToDistribution(distribution, groupId, groupIdType, index) {
-        console.log(distribution, groupId, groupIdType)
         let data = addGroupIdToDistribution(
           distribution.Id,
           groupId,

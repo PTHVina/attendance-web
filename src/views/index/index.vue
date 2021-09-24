@@ -356,7 +356,6 @@
         this.listLoading = true
         // 设备列表
         this.list = await getDeviceList()
-        console.log('设备列表', this.list)
         //抓拍记录
         this.capture_Loading = true
         await getUserList(this.queryForm, this.page)
