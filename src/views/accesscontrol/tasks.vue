@@ -1,5 +1,12 @@
 <template>
   <div class="table-container">
+    <div class="group">
+      <div class="btn_group">
+        <el-button icon="el-icon-refresh" @click="loadTasks">
+          刷新状态
+        </el-button>
+      </div>
+    </div>
     <el-table
       ref="tableSort"
       border="true"
@@ -113,3 +120,30 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+  .form_group {
+    height: auto;
+    .el-form {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      .el-form-item {
+        margin-bottom: 10px;
+        .el-form-item__content {
+          display: flex;
+          align-items: center;
+          margin-right: 10px;
+          > span {
+            white-space: nowrap;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .btn_group {
+    margin: 15px 0;
+  }
+</style>
