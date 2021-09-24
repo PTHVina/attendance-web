@@ -25,7 +25,7 @@
       ></el-table-column>
       <el-table-column
         align="center"
-        label="人员/部门/工作类型"
+        label="人员/部门/工作分类"
         min-width="300px"
       >
         <template #default="{ row, $index }">
@@ -42,7 +42,7 @@
             v-if="row.DistributionItemType === 1"
             v-model="selectedItemIds[$index]"
             style="display: block; margin-top: 5px"
-            placeholder="请选择工作类型"
+            placeholder="请选择工作分类"
             @change="
               addGroupIdToDistribution(row, selectedItemIds[$index], 0, $index)
             "
@@ -240,6 +240,12 @@
         setAccessRuleForRuleDistribution(distributionId, ruleId)
       },
       addDeviceIdToDistribution(distribution, deviceId) {
+        for (const device of distribution.Devices) {
+          if (device.DeviceId === deviceId) {
+            this.$baseMessage('选择的项目已经存在', 'warning')
+            return
+          }
+        }
         let data = addDeviceIdToDistribution(distribution.Id, deviceId)
         distribution.Devices.push(data)
       },
@@ -270,6 +276,12 @@
         this.selectedItemIds[index] = ''
       },
       addStaffIdToDistribution(distribution, staffId) {
+        for (const staff of distribution.Items) {
+          if (staff.StaffId === staffId) {
+            this.$baseMessage('选择的项目已经存在', 'warning')
+            return
+          }
+        }
         let data = addStaffIdToDistribution(distribution.Id, staffId)
         distribution.Items.push(data)
       },
