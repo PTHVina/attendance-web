@@ -23,6 +23,10 @@ module.exports = {
     title_20: '参数设置',
     title_21: '说明文档',
     title_22: '工作分类',
+    title_23: '调度规则',
+    title_24: '规则下发',
+    title_rule_edit: '规则编辑',
+    title_rule_deploy_tasks: "下发任务",
   },
   //操作按钮
   operation_btn: {
