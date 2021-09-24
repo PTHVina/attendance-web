@@ -19,30 +19,35 @@
         label="创建时间"
         formatter=""
         width="300px"
-      ></el-table-column>
-      <el-table-column
-        align="center"
-        prop="Progress"
-        label="进度"
-        width="100px"
-      ></el-table-column>
+      >
+        <template #default="{ row }">
+          <div>
+            {{ timestampToTime(row.Created) }}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" prop="Progress" label="进度">
+        <template #default="{ row }">
+          <el-progress
+            :percentage="(row.Progress / row.TotalCount) * 100"
+            :status="row.Progress / row.TotalCount < 1 ? 'warning' : 'success'"
+          ></el-progress>
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         prop="TotalCount"
         label="总数"
-        width="100px"
       ></el-table-column>
       <el-table-column
         align="center"
         prop="SuccessCount"
         label="成功"
-        width="100px"
       ></el-table-column>
       <el-table-column
         align="center"
         prop="FailCount"
         label="失败"
-        width="100px"
       ></el-table-column>
       <el-table-column align="center" prop="State" label="状态" width="100px">
         <template #default="{ row }">
@@ -106,6 +111,11 @@
       removeTask(index, row) {
         removeAccessControlDeployTask(row.Id)
         this.tasks.splice(index, 1)
+      },
+      // 时间显示转化为12小时制
+      timestampToTime(timestamp) {
+        var date = new Date(timestamp)
+        return date.toLocaleString('en', { hour12: true })
       },
     },
   }
