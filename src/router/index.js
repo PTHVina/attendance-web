@@ -183,7 +183,7 @@ export const asyncRoutes = [
         path: 'rules',
         name: 'Rules',
         component: () => import('@/views/accesscontrol/index'),
-        meta: { title: i18.router.title_23, permissions: ['admin'] },
+        meta: { title: i18.router.title_rule_edit, permissions: ['admin'] },
       },
       {
         path: 'distribute',
