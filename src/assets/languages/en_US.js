@@ -23,6 +23,10 @@ module.exports = {
     title_20: 'Parameter settings',
     title_21: 'Documentation',
     title_22: 'Job classification',
+    title_23: 'Access Rules',
+    title_24: 'Rule Deployment',
+    title_rule_edit: 'Edit Rule',
+    title_rule_deploy_tasks: "Deploy Task",
   },
   //操作按钮
   operation_btn: {
@@ -554,4 +558,38 @@ module.exports = {
     text_88:
       'The effective clock-in start time after get off work should be greater than the on-duty time and less than the off-duty time',
   },
+  //调度规则
+  accessControl: {
+    addWeekRule: 'Add Week Access Rule',
+    addDayRule: 'Add Day Access Rule',
+    name: 'Name',
+    inputTimeSlot: 'Please input time slot',
+    timeSlotPlaceHolder: '12:00-13:00 or 12001300',
+    addEmployeeTypeDeployRule: 'Add Employee Type Deployment Rule',
+    addDepartmentDeployRule: 'Add Department Deployment Rule',
+    addEmployeeDeployRule: 'Add Employee Deployment Rule',
+    generateDeployTask: 'Generate Deployment Task',
+    personDepartmentEmployeeType: 'Employee/Department/Employee Type',
+    device: 'Device',
+    rule: 'Rule',
+    pleaseChooseEmployeeType: 'Please Choose Employee Type',
+    pleaseChooseDepartment: 'Please Choose Department',
+    pleaseChooseDevice:'Please Choose Device',
+    pleaseChoose: 'Please Choose',
+    pleaseInputName: 'Please Input Name',
+    noteTitle: 'Notes',
+    notes: 
+    '1. Rule distribution order: Employee Type  - > Department - > individual employee. That is, if three types of distribution rules are added at the same time, the employee type is distributed first, then the Department, and finally the individual employee. The later distributed rules overwrite the first distributed rules. 2. The order of adding rules is recommended: job classification - > Department - > individual employee. 3. For Department distribution rules, the subordinate relationship between the superior and subordinate departments of the Department will not be found, that is, if an employee belongs to department a, when adding Department distribution rules, department a must be selected, and the superior of department a will not distribute the employee.',
+    refresh: 'Refresh',
+    createdTime: 'Created',
+    progress: 'Progress',
+    total:'Total',
+    success: 'Success',
+    fail: 'Faile',
+    state: 'State',
+    finished: 'Finished',
+    selectedItemAlreadyExists: 'Selected item already exists',
+    thereIsUnfinishedTask: "There is unfinished task, can't add more",
+    taskCreatedSuccessfully: 'Task created',
+  }
 }
