@@ -155,7 +155,7 @@
     <el-alert
       :title="$t('accessControl.noteTitle')"
       type="info"
-      style="margin-top: 10px; line-height: 1.2em"
+      style="margin-top: 10px; line-height: 1.3em"
       :description="$t('accessControl.notes')"
       :closable="false"
       show-icon
