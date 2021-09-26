@@ -585,7 +585,7 @@ module.exports = {
     progress: 'Progress',
     total:'Total',
     success: 'Success',
-    fail: 'Faile',
+    fail: 'Fail',
     state: 'State',
     finished: 'Finished',
     selectedItemAlreadyExists: 'Selected item already exists',
