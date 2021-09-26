@@ -123,7 +123,7 @@
       },
       timestampToTime(timestamp) {
         var date = new Date(timestamp)
-        return date.toLocaleString()
+        return date.toLocaleString([], { hourCycle: 'h24' })
       },
     },
   }
