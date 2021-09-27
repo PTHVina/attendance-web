@@ -23,6 +23,10 @@ module.exports = {
     title_20: 'パラメータ設定',
     title_21: 'ドキュメント',
     title_22: '仕事の分類',
+    title_23: 'スケジュール規則',
+    title_24: 'ルールの下で',
+    title_rule_edit: 'ルール編集',
+    title_rule_deploy_tasks: "任務を下す",
   },
   //操作按钮
   operation_btn: {
@@ -547,4 +551,39 @@ module.exports = {
     text_88:
       '降車後の有効な出勤開始時間は、就業時間よりも長く、降車時間よりも短くする必要があります',
   },
+  //调度规则
+  accessControl: {
+    addWeekRule: '周スケジュール規則を追加します',
+    addDayRule: '天スケジューリング規則の追加',
+    name: '名前',
+    inputTimeSlot: '時間帯を入力してください',
+    timeSlotPlaceHolder: '12:00-13:00または12001300',
+    addEmployeeTypeDeployRule: '仕事分類の下でルールを追加します',
+    addDepartmentDeployRule: '追加部門下でのルール',
+    addEmployeeDeployRule: '追加人員の下で規則を出す',
+    generateDeployTask: '生成下发任务',
+    personDepartmentEmployeeType: '人員/部門/仕事の分類',
+    device: '設備',
+    rule: 'ルール',
+    pleaseChooseEmployeeType: '作業分類を選択してください',
+    pleaseChooseDepartment: '部署を選択してください',
+    pleaseChooseDevice:'デバイスを選択してください',
+    pleaseChoose: 'を選択してください',
+    pleaseInputName: '人員名を入力してください',
+    noteTitle: '重要ヒント',
+    notes: 
+    '1.ルールの下で配布する順序：仕事の分類->>部門->個人の従業員、つまり同時に3種類の下で出す規則を追加したら、最初に仕事の分類を出して、それから部門で、最後に個人の従業員で、後から出す規則は先発の規則を覆います。2.ルールを追加する順序を勧めます。仕事の分類->>>部門->個人従業員です。3.部門下のルールについては、当該部門の上下部門の従属関係を調べません。つまり、ある社員がA部門に属している場合、追加部門下でルールを出す時は、A部門を選択しなければなりません。A部門の上司を選んで、その社員を送らないようにします',
+    refresh: 'リフレッシュ',
+    createdTime: '作成時間',
+    progress: '進度',
+    total:'総数',
+    success: '成功',
+    fail: '失敗',
+    state: '状態',
+    finished: '完成',
+    selectedItemAlreadyExists: '選択されたプロジェクトは既に存在します',
+    thereIsUnfinishedTask: 'は次のミッションが実行されていますが、追加はできません',
+    taskCreatedSuccessfully: '作成下での任務成功',
+
+  }
 }

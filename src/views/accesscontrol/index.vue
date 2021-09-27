@@ -2,8 +2,12 @@
   <div class="table-container">
     <div class="group">
       <div class="btn_group">
-        <el-button @click="addWeekAccessRule">添加周调度规则</el-button>
-        <el-button @click="addDayAccessRule">添加天调度规则</el-button>
+        <el-button @click="addWeekAccessRule">
+          {{ $t('accessControl.addWeekRule') }}
+        </el-button>
+        <el-button @click="addDayAccessRule">
+          {{ $t('accessControl.addDayRule') }}
+        </el-button>
       </div>
     </div>
     <el-table
@@ -16,10 +20,14 @@
       <el-table-column
         align="center"
         prop="Name"
-        label="名称"
+        :label="$t('accessControl.name')"
         width="100px"
       ></el-table-column>
-      <el-table-column label="周日" align="center" width="180">
+      <el-table-column
+        :label="$t('attendance.text_50')"
+        align="center"
+        width="180"
+      >
         <template #default="{ row }">
           <label v-if="row.Days[0]" class="parent">
             <p
@@ -42,7 +50,11 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="周一" align="center" width="180">
+      <el-table-column
+        :label="$t('attendance.text_51')"
+        align="center"
+        width="180"
+      >
         <template #default="{ row }">
           <label v-if="row.Days[1]" class="parent">
             <p
@@ -65,7 +77,11 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="周二" align="center" width="180">
+      <el-table-column
+        :label="$t('attendance.text_52')"
+        align="center"
+        width="180"
+      >
         <template #default="{ row }">
           <label v-if="row.Days[2]" class="parent">
             <p
@@ -88,7 +104,11 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="周三" align="center" width="180">
+      <el-table-column
+        :label="$t('attendance.text_53')"
+        align="center"
+        width="180"
+      >
         <template #default="{ row }">
           <label v-if="row.Days[3]" class="parent">
             <p
@@ -111,7 +131,11 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="周四" align="center" width="180">
+      <el-table-column
+        :label="$t('attendance.text_54')"
+        align="center"
+        width="180"
+      >
         <template #default="{ row }">
           <label v-if="row.Days[4]" class="parent">
             <p
@@ -134,7 +158,11 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="周五" align="center" width="180">
+      <el-table-column
+        :label="$t('attendance.text_55')"
+        align="center"
+        width="180"
+      >
         <template #default="{ row }">
           <label v-if="row.Days[5]" class="parent">
             <p
@@ -157,7 +185,11 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="周六" align="center" width="180">
+      <el-table-column
+        :label="$t('attendance.text_56')"
+        align="center"
+        width="180"
+      >
         <template #default="{ row }">
           <label v-if="row.Days[6]" class="parent">
             <p
@@ -180,7 +212,7 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed align="center" width="50px">
+      <el-table-column fixed align="center" width="50px">
         <template #default="{ row, $index }">
           <el-button type="text" @click="removeAccessRule($index, row)">
             <i class="el-icon-remove" style="font-size: 1.5em; color: red"></i>
@@ -229,8 +261,8 @@
       },
       addTimeSegment(Days, index) {
         const regular = /(\d{2,2}):?(\d{2,2})\D?(\d{2,2}):?(\d{2,2})/
-        this.$prompt('输入时间段', {
-          inputPlaceholder: '12:00-13:00 或 12001300',
+        this.$prompt(this.$t('accessControl.inputTimeSlot'), {
+          inputPlaceholder: this.$t('accessControl.timeSlotPlaceHolder'),
           inputPattern: regular,
         }).then(({ value }) => {
           var match = value.match(regular)
@@ -259,7 +291,7 @@
         this.addAccessRule(1)
       },
       addAccessRule(type) {
-        this.$prompt('输入名称', {}).then(({ value }) => {
+        this.$prompt(this.$t('accessControl.name'), {}).then(({ value }) => {
           var rule
           if (type === 0) {
             rule = addWeekAccessRule(value)

@@ -115,3 +115,7 @@ export function canAddAccessControlDeployTask() {
 export function removeAccessControlDeployTask(id) {
   window.top.myExtension.removeAccessControlDeployTask(id)
 }
+
+export function setDefaultAccess(access) {
+  window.top.myExtension.setDefaultAccess(access)
+}

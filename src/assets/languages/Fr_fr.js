@@ -23,6 +23,10 @@ module.exports = {
     title_20: 'Réglage des paramètres',
     title_21: 'Document explicatif',
     title_22: 'Classification des emplois',
+    title_23: 'Règles de programmation',
+    title_24: 'Publication des règles',
+    title_rule_edit: 'Édition des règles',
+    title_rule_deploy_tasks: "Affectation",
   },
   //操作按钮
   operation_btn: {
@@ -564,4 +568,39 @@ module.exports = {
     text_88:
       "L'heure de début de pointage valide après travail doit être supérieure à l'heure de début du travail et inférieure à l'heure de fin du travail",
   },
+  //调度规则
+  accessControl: {
+    addWeekRule: 'Ajouter une règle de programmation hebdomadaire',
+    addDayRule: 'Ajouter une règle de programmation quotidienne',
+    name: 'Nom',
+    inputTimeSlot: 'Veuillez saisir une période',
+    timeSlotPlaceHolder: '12:00-13:00 ou 12001300',
+    addEmployeeTypeDeployRule: 'Ajouter une règle de publication de la catégorie de travail',
+    addDepartmentDeployRule: 'Ajouter une règle de distribution du Ministère',
+    addEmployeeDeployRule: 'Ajouter une règle de distribution du personnel',
+    generateDeployTask: 'Générer des tâches distribuées',
+    personDepartmentEmployeeType: 'Personnel / Département / classification du travail',
+    device: 'Matériel',
+    rule: 'Les règles',
+    pleaseChooseEmployeeType: "Veuillez sélectionner une catégorie d'emploi",
+    pleaseChooseDepartment: 'Veuillez sélectionner un département',
+    pleaseChooseDevice:'Veuillez sélectionner un périphérique',
+    pleaseChoose: 'Veuillez sélectionner',
+    pleaseInputName: 'Veuillez saisir le nom de la personne',
+    noteTitle: 'Conseils importants',
+    notes: 
+    "1. Ordre d'émission des règles: classification des emplois - > Ministère - > employé individuel. C'est - à - dire, si trois types de règles d'émission sont ajoutés en même temps, la classification des emplois sera publiée en premier, puis le Ministère, et enfin l'employé individuel. Les règles publiées plus tard écraseront Les règles publiées en premier.2. Ordre dans lequel il est recommandé d'ajouter des règles: classification des emplois - > Ministère - > employé individuel.3. Pour les règles de distribution du Ministère, les dépendances des ministères supérieurs et inférieurs du Ministère ne seront pas trouvées, c'est - à - dire que si un employé appartient au Ministère a, le Ministère a doit être sélectionné lors de l'ajout des règles de distribution du Ministère, et le parent du Ministère a ne distribuera pas l'employé.",
+    refresh: 'Rafraîchir',
+    createdTime: 'Temps de création',
+    progress: 'Progrès accomplis',
+    total:'Total général',
+    success: 'Succès',
+    fail: 'Échec',
+    state: 'Statut',
+    finished: 'Terminé.',
+    selectedItemAlreadyExists: "L'élément sélectionné existe déjà",
+    thereIsUnfinishedTask: "Une tâche assignée est en cours d'exécution et ne peut pas continuer à ajouter",
+    taskCreatedSuccessfully: 'Création réussie de la tâche assignée',
+
+  }
 }

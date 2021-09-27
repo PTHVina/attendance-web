@@ -3,29 +3,44 @@
     <div class="group">
       <div class="btn_group">
         <el-button @click="addEmployeeTypeDistribution">
-          添加工作分类下发规则
+          {{ $t('accessControl.addEmployeeTypeDeployRule') }}
         </el-button>
         <el-button @click="addDepartmentDistribution">
-          添加部门下发规则
+          {{ $t('accessControl.addDepartmentDeployRule') }}
         </el-button>
         <el-button @click="addStaffDistribution">
-          添加个人员工下发规则
+          {{ $t('accessControl.addEmployeeDeployRule') }}
         </el-button>
         <el-button icon="el-icon-download" @click="buildRuleDeploymentTask">
-          生成下发任务
+          {{ $t('accessControl.generateDeployTask') }}
         </el-button>
+        <div
+          style="display: inline-flex; align-items: center; margin-left: 30px"
+        >
+          <span style="margin-right: 20px">
+            {{ $t('accessControl.defaultAccess') }}
+          </span>
+          <el-switch
+            v-model="defaultAccess"
+            :active-text="$t('accessControl.fullAccess')"
+            :active-value="1"
+            :inactive-text="$t('accessControl.noAccess')"
+            :inactive-value="0"
+            @change="setDefaultAccess"
+          ></el-switch>
+        </div>
       </div>
     </div>
     <el-table border="true" :data="distributions" :highlight-current-row="true">
       <el-table-column
         align="center"
         prop="Name"
-        label="名称"
+        :label="$t('accessControl.name')"
         width="200px"
       ></el-table-column>
       <el-table-column
         align="center"
-        label="人员/部门/工作分类"
+        :label="$t('accessControl.personDepartmentEmployeeType')"
         min-width="300px"
       >
         <template #default="{ row, $index }">
@@ -42,7 +57,7 @@
             v-if="row.DistributionItemType === 1"
             v-model="selectedItemIds[$index]"
             style="display: block; margin-top: 5px"
-            placeholder="请选择工作分类"
+            :placeholder="$t('accessControl.pleaseChooseEmployeeType')"
             @change="
               addGroupIdToDistribution(row, selectedItemIds[$index], 0, $index)
             "
@@ -60,7 +75,7 @@
             v-if="row.DistributionItemType === 2"
             v-model="selectedItemIds[$index]"
             style="display: block; margin-top: 5px"
-            placeholder="请选择部门"
+            :placeholder="$t('accessControl.pleaseChooseDepartment')"
             @change="
               addGroupIdToDistribution(row, selectedItemIds[$index], 1, $index)
             "
@@ -81,7 +96,7 @@
             filterable
             remote
             reserve-keyword
-            placeholder="请输入人员姓名"
+            :placeholder="$t('accessControl.pleaseInputName')"
             :remote-method="loadStaffs"
             :loading="isLoadingStaffs"
             @change="addStaffIdToDistribution(row, selectedItemIds[$index])"
@@ -95,7 +110,11 @@
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="设备" min-width="300px">
+      <el-table-column
+        align="center"
+        :label="$t('accessControl.device')"
+        min-width="300px"
+      >
         <template #default="{ row, $index }">
           <el-tag
             v-for="(item, index) in row.Devices"
@@ -108,7 +127,7 @@
           <el-select
             v-model="selectedDeviceIds[$index]"
             style="display: block; margin-top: 5px"
-            placeholder="请选择设备"
+            :placeholder="$t('accessControl.pleaseChooseDevice')"
             @change="addDeviceIdToDistribution(row, selectedDeviceIds[$index])"
           >
             <el-option
@@ -120,11 +139,15 @@
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="规则" min-width="300px">
+      <el-table-column
+        align="center"
+        :label="$t('accessControl.rule')"
+        min-width="300px"
+      >
         <template #default="{ row }">
           <el-select
             v-model="row.AccessRuleId"
-            placeholder="请选择"
+            :placeholder="$t('accessControl.pleaseChoose')"
             @change="setAccessRuleForRuleDistribution(row.Id, row.AccessRuleId)"
           >
             <el-option
@@ -136,7 +159,7 @@
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed align="center" width="50px">
+      <el-table-column fixed align="center" width="50px">
         <template #default="{ row, $index }">
           <el-button type="text" @click="removeDistribution($index, row)">
             <i class="el-icon-remove" style="font-size: 1.5em; color: red"></i>
@@ -145,11 +168,10 @@
       </el-table-column>
     </el-table>
     <el-alert
-      title="重要提示"
+      :title="$t('accessControl.noteTitle')"
       type="info"
-      style="margin-top: 10px"
-      description="1. 规则下发顺序：工作分类 -> 部门 -> 个人员工, 即如果同时添加了三类下发规则，那么最先下发工作分类，然后是部门，最后是个人员工，后下发的规则覆盖先下发的规则。
-                 2. 推荐添加规则的顺序：工作分类 -> 部门 -> 个人员工。3. 对于部门下发规则，不会查找该部门的上下级部门的从属关系，即某个员工如果属于A部门，那么当添加部门下发规则时，必须选择A部门，选择A部门的上级不会下发该员工。"
+      style="margin-top: 10px; line-height: 1.3em"
+      :description="$t('accessControl.notes')"
       :closable="false"
       show-icon
     ></el-alert>
@@ -175,7 +197,10 @@
     getStaffByNameFuzzy,
     buildRuleDeploymentTask,
     canAddAccessControlDeployTask,
+    setDefaultAccess,
   } from '@/api/accesscontrol'
+  import consts from '@/api/consts'
+  import { getUserConfigObject } from '@/api/sysPage'
   import { getAllMyDevices } from '@/api/device'
 
   export default {
@@ -192,6 +217,7 @@
         selectedDeviceIds: null,
         isLoadingStaffs: false,
         matchedEmployees: [],
+        defaultAccess: consts.fullAccess,
       }
     },
     created() {
@@ -200,6 +226,8 @@
       this.loadAllDepartments()
       this.loadAllMyDevices()
       this.loadDistribution()
+      var setting = getUserConfigObject()
+      this.defaultAccess = setting.DefaultAccess
     },
     methods: {
       loadDistribution() {
@@ -238,7 +266,10 @@
       addDeviceIdToDistribution(distribution, deviceId) {
         for (const device of distribution.Devices) {
           if (device.DeviceId === deviceId) {
-            this.$baseMessage('选择的项目已经存在', 'warning')
+            this.$baseMessage(
+              this.$t('accessControl.selectedItemAlreadyExists'),
+              'warning'
+            )
             return
           }
         }
@@ -273,7 +304,10 @@
       addStaffIdToDistribution(distribution, staffId) {
         for (const staff of distribution.Items) {
           if (staff.StaffId === staffId) {
-            this.$baseMessage('选择的项目已经存在', 'warning')
+            this.$baseMessage(
+              this.$t('accessControl.selectedItemAlreadyExists'),
+              'warning'
+            )
             return
           }
         }
@@ -281,7 +315,7 @@
         distribution.Items.push(data)
       },
       addDistribution(type) {
-        this.$prompt('输入名称', {}).then(({ value }) => {
+        this.$prompt(this.$t('accessControl.name'), {}).then(({ value }) => {
           var rule
           if (type === 0) {
             rule = addEmployeeTypeDistribution(value)
@@ -316,11 +350,17 @@
       },
       buildRuleDeploymentTask() {
         if (!canAddAccessControlDeployTask()) {
-          this.$baseMessage('有下发任务正在运行， 无法继续添加', 'warning')
-          return
+          this.$baseMessage(
+            this.$t('accessControl.thereIsUnfinishedTask'),
+            'warning'
+          )
+        } else {
+          buildRuleDeploymentTask()
+          this.$baseMessage(
+            this.$t('accessControl.taskCreatedSuccessfully'),
+            'success'
+          )
         }
-        buildRuleDeploymentTask()
-        this.$baseMessage('创建下发任务成功', 'success')
       },
 
       setList(row, type) {
@@ -348,6 +388,9 @@
           this.allDepartments2 = array
         }
       },
+      setDefaultAccess() {
+        setDefaultAccess(this.defaultAccess)
+      },
     },
   }
 </script>
@@ -373,8 +416,12 @@
       }
     }
   }
+
   .btn_group {
     margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   .parentRemove > .remove {
