@@ -591,5 +591,8 @@ module.exports = {
     selectedItemAlreadyExists: 'Selected item already exists',
     thereIsUnfinishedTask: "There is unfinished task, can't add more",
     taskCreatedSuccessfully: 'Task created',
+    noAccess: 'No Access',
+    fullAccess: 'Full Access',
+    defaultAccess: 'Default Rule:',
   }
 }
