@@ -14,6 +14,19 @@
         <el-button icon="el-icon-download" @click="buildRuleDeploymentTask">
           {{ $t('accessControl.generateDeployTask') }}
         </el-button>
+        <div style="margin-left: 20px">
+          <span style="margin-right: 5px">
+            {{ $t('accessControl.defaultAccess') }}
+          </span>
+          <el-switch
+            v-model="defaultAccess"
+            :active-text="$t('accessControl.fullAccess')"
+            :active-value="1"
+            :inactive-text="$t('accessControl.noAccess')"
+            :inactive-value="0"
+            @change="setDefaultAccess"
+          ></el-switch>
+        </div>
       </div>
     </div>
     <el-table border="true" :data="distributions" :highlight-current-row="true">
@@ -182,7 +195,10 @@
     getStaffByNameFuzzy,
     buildRuleDeploymentTask,
     canAddAccessControlDeployTask,
+    setDefaultAccess,
   } from '@/api/accesscontrol'
+  import consts from '@/api/consts'
+  import { getUserConfigObject } from '@/api/sysPage'
   import { getAllMyDevices } from '@/api/device'
 
   export default {
@@ -199,6 +215,7 @@
         selectedDeviceIds: null,
         isLoadingStaffs: false,
         matchedEmployees: [],
+        defaultAccess: consts.fullAccess,
       }
     },
     created() {
@@ -207,6 +224,8 @@
       this.loadAllDepartments()
       this.loadAllMyDevices()
       this.loadDistribution()
+      var setting = getUserConfigObject()
+      this.defaultAccess = setting.DefaultAccess
     },
     methods: {
       loadDistribution() {
@@ -366,6 +385,9 @@
         } else if (type == 1) {
           this.allDepartments2 = array
         }
+      },
+      setDefaultAccess() {
+        setDefaultAccess(this.defaultAccess)
       },
     },
   }

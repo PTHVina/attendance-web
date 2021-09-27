@@ -575,6 +575,9 @@ module.exports = {
     selectedItemAlreadyExists: '选择的项目已经存在',
     thereIsUnfinishedTask: '有下发任务正在运行， 无法继续添加',
     taskCreatedSuccessfully: '创建下发任务成功',
+    noAccess: '不得进出',
+    fullAccess: '不限制进出',
+    defaultAccess: '默认规则',
 
   }
 }
