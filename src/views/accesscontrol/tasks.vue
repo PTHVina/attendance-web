@@ -3,7 +3,7 @@
     <div class="group">
       <div class="btn_group">
         <el-button icon="el-icon-refresh" @click="loadTasks">
-          刷新状态
+          {{ $t('accessControl.refresh') }}
         </el-button>
       </div>
     </div>
@@ -16,7 +16,7 @@
       <el-table-column
         align="center"
         prop="Created"
-        label="创建时间"
+        :label="$t('accessControl.createdTime')"
         formatter=""
         width="300px"
       >
@@ -26,7 +26,11 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="Progress" label="进度">
+      <el-table-column
+        align="center"
+        prop="Progress"
+        :label="$t('accessControl.progress')"
+      >
         <template #default="{ row }">
           <el-progress
             :percentage="(row.Progress / row.TotalCount) * 100"
@@ -37,19 +41,24 @@
       <el-table-column
         align="center"
         prop="TotalCount"
-        label="总数"
+        :label="$t('accessControl.total')"
       ></el-table-column>
       <el-table-column
         align="center"
         prop="SuccessCount"
-        label="成功"
+        :label="$t('accessControl.success')"
       ></el-table-column>
       <el-table-column
         align="center"
         prop="FailCount"
-        label="失败"
+        :label="$t('accessControl.fail')"
       ></el-table-column>
-      <el-table-column align="center" prop="State" label="状态" width="100px">
+      <el-table-column
+        align="center"
+        prop="State"
+        :label="$t('accessControl.state')"
+        width="100px"
+      >
         <template #default="{ row }">
           <div v-if="row.State === 1" style="display: inline">
             <i
@@ -62,7 +71,7 @@
               class="el-icon-warning"
               style="color: red"
             ></i>
-            完成
+            {{ $t('accessControl.finished') }}
           </div>
           <div v-else-if="row.State === 2" style="display: inline">
             <i class="el-icon-error" style="color: red"></i>
@@ -74,7 +83,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed align="center" width="50px">
+      <el-table-column fixed align="center" width="50px">
         <template #default="{ row, $index }">
           <el-button
             type="text"
@@ -112,10 +121,9 @@
         removeAccessControlDeployTask(row.Id)
         this.tasks.splice(index, 1)
       },
-      // 时间显示转化为12小时制
       timestampToTime(timestamp) {
         var date = new Date(timestamp)
-        return date.toLocaleString('en', { hour12: true })
+        return date.toLocaleString([], { hourCycle: 'h24' })
       },
     },
   }
