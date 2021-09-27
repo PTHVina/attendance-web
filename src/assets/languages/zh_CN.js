@@ -577,7 +577,7 @@ module.exports = {
     taskCreatedSuccessfully: '创建下发任务成功',
     noAccess: '不得进出',
     fullAccess: '不限制进出',
-    defaultAccess: '默认规则',
+    defaultAccess: '默认规则:',
 
   }
 }

@@ -14,8 +14,10 @@
         <el-button icon="el-icon-download" @click="buildRuleDeploymentTask">
           {{ $t('accessControl.generateDeployTask') }}
         </el-button>
-        <div style="margin-left: 20px">
-          <span style="margin-right: 5px">
+        <div
+          style="display: inline-flex; align-items: center; margin-left: 30px"
+        >
+          <span style="margin-right: 20px">
             {{ $t('accessControl.defaultAccess') }}
           </span>
           <el-switch
@@ -414,8 +416,12 @@
       }
     }
   }
+
   .btn_group {
     margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   .parentRemove > .remove {
