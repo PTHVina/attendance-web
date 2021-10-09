@@ -154,6 +154,7 @@ module.exports = {
     tips_76: "Beginner's guide",
 
     tips_77: 'There must be a default attendance group',
+    tips_78: 'The text is too long',
   },
   // 首页
   home: {
@@ -237,6 +238,9 @@ module.exports = {
     title_15: 'Serial number',
     title_16: 'synchronised time',
     title_17: 'Personnel source',
+    title_18: 'User-defined text',
+    title_19: 'Valid from',
+    title_20: 'Valid through',
 
     pl_1: 'Name of personnel',
     pl_2: 'mail box',
@@ -274,6 +278,7 @@ module.exports = {
     pl_32: 'Add Manually',
     pl_33: 'Batch Import',
     pl_34: 'Error code:',
+    pl_35: 'User-defined text'
   },
   //设备管理
   device: {

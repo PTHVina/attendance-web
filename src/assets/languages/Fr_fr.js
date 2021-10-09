@@ -157,6 +157,7 @@ module.exports = {
     tips_76: 'Guide de novice',
 
     tips_77: 'Il doit y avoir un groupe de présence par défaut',
+    tips_78: 'bunengchaoguo22gezifu',
   },
   // 首页
   home: {
@@ -240,6 +241,9 @@ module.exports = {
     title_15: 'Numéro de série',
     title_16: 'Heure de synchronisation',
     title_17: 'Source du personnel',
+    title_18: "Texte défini par l'utilisateur",
+    title_19: 'Valable depuis',
+    title_20: "Valable jusqu'à",
 
     pl_1: 'Nom du personnel',
     pl_2: 'Adresse mail',
@@ -279,6 +283,7 @@ module.exports = {
     pl_32: 'Ajouter manuellement',
     pl_33: 'Importation par lots',
     pl_34: "Code d'erreur:",
+    pl_35: "Texte défini par l'utilisateur",
   },
   //设备管理
   device: {
