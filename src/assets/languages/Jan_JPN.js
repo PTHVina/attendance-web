@@ -237,9 +237,9 @@ module.exports = {
     title_15: '番号付け',
     title_16: '同期時間',
     title_17: '人事情報源',
-    title_18: 'zidingyi',
-    title_19: 'shouquankaishi',
-    title_20: 'shouquanjieshu',
+    title_18: 'ユーザー定義フィールド',
+    title_19: '有効期間から',
+    title_20: '有効期限',
 
     pl_1: '人員氏名',
     pl_2: '電子メールアドレス',
@@ -276,7 +276,7 @@ module.exports = {
     pl_32: '手動で追加',
     pl_33: '一括インポート',
     pl_34: 'エラーコード:',
-    pl_35: 'zidingyiziduan',
+    pl_35: 'ユーザー定義フィールド',
   },
   //设备管理
   device: {
