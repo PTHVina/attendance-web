@@ -154,6 +154,7 @@ tips_75: 'Thoát',
 tips_76: 'Hướng dẫn cho người mới bắt đầu',
  
 tips_77: 'Phải có một nhóm chấm công mặc định',
+tips_78: 'bunengchaoguo22gezifu',
   },
   // 首页
   home: {
@@ -237,6 +238,9 @@ title_14: 'Số thiết bị',
 title_15: 'Số thứ tự',
 title_16: 'Thời gian đồng bộ',
 title_17: 'Nguồn nhân sự',
+title_18: 'zidingyi',
+title_19: 'shouquankaishi',
+title_20: 'shouquanjieshu',
  
 pl_1: 'Tên nhân viên',
 pl_2: 'Nhập Email',
@@ -274,6 +278,7 @@ pl_31: 'Đồng bộ hóa dữ liệu',
 pl_32: 'Thêm thủ công',
 pl_33: 'Nhập hàng loạt',
 pl_34: 'Mã lỗi:',
+pl_35: 'zidingyiziduan'
   },
   //设备管理
 device: {
