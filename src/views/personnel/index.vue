@@ -623,15 +623,14 @@
             @change="checkTime"
           ></el-date-picker>
         </el-form-item>
-        
         <!-- 自定义字段 -->
         <el-form-item :label="$t('personnel.title_18')" prop="customer_text">
           <el-input
             v-model="form.customer_text"
             :placeholder="$t('personnel.pl_35')"
             autocomplete="off"
-          ><el-input>
-        <el-form-item>
+          ></el-input>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="closeFn">
@@ -649,7 +648,11 @@
       :title="$t('personnel.text_5')"
       :visible.sync="dialogTableVisible"
     >
-      <el-table ref="multipleTable" :data="gridData" @selection-change="getSelectRows">
+      <el-table
+        ref="multipleTable"
+        :data="gridData"
+        @selection-change="getSelectRows"
+      >
         <el-table-column
           show-overflow-tooltip
           type="selection"
@@ -781,7 +784,7 @@
     name: 'PersonnelIndex',
     data() {
       return {
-        authorized_time:[],
+        authorized_time: [],
         lang: this.$lang,
         list: [],
         imageList: [],
@@ -816,10 +819,9 @@
           picture: '',
           line_userid: '', //Line_ueserid
           line_type: '1', //送信モード
-          customer_text:'',//用户自定义文本内容（不超过67字节）
-          term_start:'',//有效期起始时间
-          term:''//有效期截止时间
-
+          customer_text: '', //用户自定义文本内容（不超过67字节）
+          term_start: '', //有效期起始时间
+          term: '', //有效期截止时间
         },
         departmentData: {}, //选中部门数据
         rules: {
@@ -863,7 +865,8 @@
           ],
           Email: [
             {
-              pattern: /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/,
+              pattern:
+                /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/,
               message: this.$t('operation_tips.tips_16'),
               trigger: 'blur',
             },
@@ -882,13 +885,13 @@
               trigger: 'blur',
             },
           ],
-          customer_text:[
+          customer_text: [
             {
               max: 22,
               message: this.$t('operation_tips.tips_78'),
               trigger: 'blur',
             },
-          ]
+          ],
           // picture: [
           //   {
           //     required: true,
@@ -1047,12 +1050,11 @@
             this.$baseMessage(this.$t('operation_tips.tips_19'), 'warning')
             return
           } else if (res.result == 'success') {
-            this.deviceRows= []
+            this.deviceRows = []
             this.issueUser = []
             this.issueUser.push(row)
             this.dialogTableVisible = true
-            this.$nextTick(()=>{this.$refs.multipleTable.clearSelection();})
-            
+            this.$nextTick(() => this.$refs.multipleTable.clearSelection())
           }
         } else {
           if (this.selectRows.length > 0) {
@@ -1191,9 +1193,9 @@
             picture: data.picture,
             line_userid: data.line_userid ? data.line_userid : '',
             line_type: data.line_type ? data.line_type : '1',
-            customer_text: data.customer_text,
-            term_start: data.term_start?data.term_start:'',
-            term: data.term?data.term:'',
+            customer_text: data.customer_text ?? '',
+            term_start: data.term_start ?? '',
+            term: data.term ?? '',
           }
           this.departmentData = {
             id: data.department_id,
@@ -1201,7 +1203,8 @@
             title: data.departmentname,
           }
         }
-        this.form.term_start && this.authorized_time.push(new Date(this.form.term_start))
+        this.form.term_start &&
+          this.authorized_time.push(new Date(this.form.term_start))
         this.form.term && this.authorized_time.push(new Date(this.form.term))
         if (!this.form.Employee_code && !this.deliveryMethod) {
           this.form.Employee_code = new Date().getTime().toString()
@@ -1282,7 +1285,7 @@
             re = this.$t('operation_tips.tips_63')
             break
           default:
-            re = this.$t('operation_tips.tips_64')+" "+type
+            re = this.$t('operation_tips.tips_64') + ' ' + type
         }
         return re
       },
@@ -1366,10 +1369,10 @@
           line_userid: '',
           line_type: '1',
           customer_text: '',
-          term:'',
-          term_start:''
+          term: '',
+          term_start: '',
         }
-        this.authorized_time=[];
+        this.authorized_time = []
         this.departmentData = {}
       },
       // 验证身份证号是否正确

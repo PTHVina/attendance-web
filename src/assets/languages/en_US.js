@@ -241,7 +241,7 @@ module.exports = {
     title_18: 'User-defined text',
     title_19: 'Valid from',
     title_20: 'Valid through',
-    authorized_time: 'Durée du mandat',
+    authorized_time: 'Validity',
 
     pl_1: 'Name of personnel',
     pl_2: 'mail box',
