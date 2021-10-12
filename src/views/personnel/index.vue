@@ -615,6 +615,7 @@
           <el-date-picker
             v-model="authorized_time"
             type="datetimerange"
+            unlink-panels="true"
             :range-separator="$t('snapshot.text_5')"
             :start-placeholder="$t('personnel.text_8')"
             :end-placeholder="$t('personnel.text_9')"
