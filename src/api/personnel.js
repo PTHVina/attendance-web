@@ -60,7 +60,9 @@ export function setData(data) {
     data.line_userid.toString(),
     data.face_idcard.toString(),
     data.idcardtype.toString(),
-    data.customer_text.toString()
+    data.customer_text.toString(),
+    data.term_start.toString(),
+    data.term.toString()
   )
   var re_json = JSON.parse(re)
 
@@ -80,7 +82,10 @@ export function editData(data) {
     data.line_type.toString(),
     data.id.toString(),
     data.face_idcard.toString(),
-    data.idcardtype.toString()
+    data.idcardtype.toString(),
+    data.customer_text.toString(),
+    data.term_start.toString(),
+    data.term.toString()
   )
   var re_json = JSON.parse(re)
 

@@ -241,6 +241,7 @@ title_17: 'Nguồn nhân sự',
 title_18: 'User-defined text',
 title_19: 'Valid from',
 title_20: 'Valid through',
+authorized_time: 'Thời gian cho phép',
  
 pl_1: 'Tên nhân viên',
 pl_2: 'Nhập Email',
