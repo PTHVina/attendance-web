@@ -236,6 +236,7 @@ module.exports = {
     title_18: '自定义',
     title_19: '授权开始',
     title_20: '授权结束',
+    authorized_time: '授权时间',
 
     pl_1: '人员姓名',
     pl_2: '电子邮箱',

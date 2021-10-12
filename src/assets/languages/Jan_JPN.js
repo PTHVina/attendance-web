@@ -240,6 +240,7 @@ module.exports = {
     title_18: 'ユーザー定義フィールド',
     title_19: '有効期間から',
     title_20: '有効期限',
+    authorized_time: '許可時間',
 
     pl_1: '人員氏名',
     pl_2: '電子メールアドレス',

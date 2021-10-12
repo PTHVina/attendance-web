@@ -244,6 +244,7 @@ module.exports = {
     title_18: "Texte défini par l'utilisateur",
     title_19: 'Valable depuis',
     title_20: "Valable jusqu'à",
+    authorized_time: 'Durée du mandat',
 
     pl_1: 'Nom du personnel',
     pl_2: 'Adresse mail',

@@ -610,6 +610,20 @@
             </div>
           </div>
         </el-form-item>
+        <!--授权时间-->
+        <el-form-item :label="$t('personnel.authorized_time')">
+          <el-date-picker
+            v-model="authorized_time"
+            type="datetimerange"
+            :range-separator="$t('snapshot.text_5')"
+            :start-placeholder="$t('personnel.text_8')"
+            :end-placeholder="$t('personnel.text_9')"
+            :default-time="['00:00:00', '23:59:59']"
+            style="width: 100%"
+            @change="checkTime"
+          ></el-date-picker>
+        </el-form-item>
+        
         <!-- 自定义字段 -->
         <el-form-item :label="$t('personnel.title_18')" prop="customer_text">
           <el-input
@@ -767,6 +781,7 @@
     name: 'PersonnelIndex',
     data() {
       return {
+        authorized_time:[],
         lang: this.$lang,
         list: [],
         imageList: [],
@@ -802,8 +817,8 @@
           line_userid: '', //Line_ueserid
           line_type: '1', //送信モード
           customer_text:'',//用户自定义文本内容（不超过67字节）
-          //term_start:'',//有效期起始时间
-          //term:''//有效期截止时间
+          term_start:'',//有效期起始时间
+          term:''//有效期截止时间
 
         },
         departmentData: {}, //选中部门数据
@@ -1177,6 +1192,8 @@
             line_userid: data.line_userid ? data.line_userid : '',
             line_type: data.line_type ? data.line_type : '1',
             customer_text: data.customer_text,
+            term_start: data.term_start?data.term_start:'',
+            term: data.term?data.term:'',
           }
           this.departmentData = {
             id: data.department_id,
@@ -1184,6 +1201,8 @@
             title: data.departmentname,
           }
         }
+        this.form.term_start && this.authorized_time.push(new Date(this.form.term_start))
+        this.form.term && this.authorized_time.push(new Date(this.form.term))
         if (!this.form.Employee_code && !this.deliveryMethod) {
           this.form.Employee_code = new Date().getTime().toString()
         }
@@ -1346,8 +1365,11 @@
           picture: '',
           line_userid: '',
           line_type: '1',
-          customer_text: ''
+          customer_text: '',
+          term:'',
+          term_start:''
         }
+        this.authorized_time=[];
         this.departmentData = {}
       },
       // 验证身份证号是否正确
@@ -1553,6 +1575,36 @@
             }
           }, row.id.toString())
         }
+      },
+      //日期时间选择
+      checkTime(e) {
+        if (e) {
+          let start = this.getTime(e[0])
+          let end = this.getTime(e[1])
+          this.form.term_start = start[0] + ' ' + start[1]
+          this.form.term = end[0] + ' ' + end[1]
+          // alert(this.form.term_start+"\n"+this.form.term)
+        } else {
+          this.queryForm.startTime = ''
+          this.queryForm.endTime = ''
+        }
+      },
+      //处理时间
+      getTime(time) {
+        var date = new Date(time)
+        let Y = date.getFullYear()
+        let M = date.getMonth() + 1
+        let D = date.getDate()
+        let h = date.getHours()
+        let m = date.getMinutes()
+        let s = date.getSeconds()
+        M = M <= 9 ? '0' + M : M
+        D = D <= 9 ? '0' + D : D
+        h = h <= 9 ? '0' + h : h
+        m = m <= 9 ? '0' + m : m
+        s = s <= 9 ? '0' + s : s
+
+        return [Y + '-' + M + '-' + D, h + ':' + m + ':' + s]
       },
     },
   }
