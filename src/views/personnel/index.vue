@@ -569,14 +569,6 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <!--授权开始时间-->
-        <!-- <el-form-item :label="$t('personnel.title_19')">
-          
-        </el-form-item>   -->
-        <!--授权结束时间-->
-        <!-- <el-form-item :label="$t('personnel.title_20')">
-          
-        </el-form-item> -->
         <!-- 照片 -->
         <el-form-item :label="$t('personnel.title_12')" prop="picture">
           <div class="add_img">
@@ -616,7 +608,7 @@
             v-model="authorized_time"
             type="datetimerange"
             unlink-panels="true"
-            :range-separator="$t('snapshot.text_5')"
+            :range-separator="$t('personnel.text_5')"
             :start-placeholder="$t('personnel.text_8')"
             :end-placeholder="$t('personnel.text_9')"
             :default-time="['00:00:00', '23:59:59']"
@@ -913,6 +905,7 @@
         deliveryMethod: false, //下发方式
       }
     },
+    watch: {},
     created() {
       this.deliveryMethod = getParam()
       this.typeList()
@@ -1340,7 +1333,7 @@
                 this.$baseMessage(res.data, 'warning')
               }
             } catch {
-              this.$baseMessage(this.$t('personnel.pl_17'), 'success')
+              this.$baseMessage(this.$t('personnel.pl_17'), 'error')
               if (!this.form.idcardtype) {
                 this.form.idcardtype = '32'
               }
@@ -1589,8 +1582,8 @@
           this.form.term = end[0] + ' ' + end[1]
           // alert(this.form.term_start+"\n"+this.form.term)
         } else {
-          this.queryForm.startTime = ''
-          this.queryForm.endTime = ''
+          this.form.term_start = ''
+          this.form.term = ''
         }
       },
       //处理时间
