@@ -220,6 +220,37 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <!--添加调度时间段弹窗-->
+    <el-dialog
+      :title="$t('accessControl.inputTimeSlot')"
+      :close-on-click-modal="false"
+      :visible.sync="dialogTimeVisible"
+      :destroy-on-close="true"
+      :before-close="closeFn"
+      width="30%"
+      center
+    >
+      <div style="text-align: center">
+        <el-time-picker
+          v-model="timeValue"
+          is-range
+          :range-separator="$t('snapshot.text_5')"
+          :start-placeholder="$t('snapshot.text_36')"
+          :end-placeholder="$t('snapshot.text_37')"
+          :placeholder="$t('attendanceSet.text_20')"
+          format="HH:mm"
+        ></el-time-picker>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="closeFn">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
+        <el-button type="primary" @click="setTimeData">
+          {{ $t('operation_btn.btn_text_5') }}
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -238,6 +269,10 @@
       return {
         rules: [],
         weekeays: ['周日', '周1', '周2', '周3', '周4', '周5', '周6'],
+        dialogTimeVisible: false,
+        timeValue: [new Date(2021, 5, 5, 0, 0), new Date(2021, 6, 6, 23, 59)],
+        Days: '',
+        index: '',
       }
     },
     created() {
@@ -260,21 +295,24 @@
         }
       },
       addTimeSegment(Days, index) {
-        const regular = /(\d{2,2}):?(\d{2,2})\D?(\d{2,2}):?(\d{2,2})/
-        this.$prompt(this.$t('accessControl.inputTimeSlot'), {
-          inputPlaceholder: this.$t('accessControl.timeSlotPlaceHolder'),
-          inputPattern: regular,
-        }).then(({ value }) => {
-          var match = value.match(regular)
-          if (match) {
-            var ts = addTimeSegment(
-              Days[index].Id,
-              match[1] + ':' + match[2],
-              match[3] + ':' + match[4]
-            )
-            Days[index].TimeSegments.push(ts)
-          }
-        })
+        this.Days = Days
+        this.index = index
+        this.dialogTimeVisible = true
+        // const regular = /(\d{2,2}):?(\d{2,2})\D?(\d{2,2}):?(\d{2,2})/
+        // this.$prompt(this.$t('accessControl.inputTimeSlot'), {
+        //   inputPlaceholder: this.$t('accessControl.timeSlotPlaceHolder'),
+        //   inputPattern: regular,
+        // }).then(({ value }) => {
+        //   var match = value.match(regular)
+        //   if (match) {
+        //     var ts = addTimeSegment(
+        //       Days[index].Id,
+        //       match[1] + ':' + match[2],
+        //       match[3] + ':' + match[4]
+        //     )
+        //     Days[index].TimeSegments.push(ts)
+        //   }
+        // })
       },
       removeTimeSegment(Day, index) {
         removeTimeSegment(Day.TimeSegments[index].Id)
@@ -300,6 +338,34 @@
           }
           this.rules.push(rule)
         })
+      },
+      //关闭窗口
+      closeFn() {
+        this.Days = ''
+        this.index = ''
+        this.dialogTimeVisible = false
+      },
+      // 添加调度时间片段
+      setTimeData() {
+        if (this.timeValue) {
+          try {
+            let start = this.formatAccessTime(this.timeValue[0])
+            let end = this.formatAccessTime(this.timeValue[1])
+            var ts = addTimeSegment(this.Days[this.index].Id, start, end)
+            this.Days[this.index].TimeSegments.push(ts)
+          } catch (error) {
+            this.$baseMessage(this.$t('personnel.pl_17'), 'error')
+          }
+        }
+        this.dialogTimeVisible = false
+      },
+      //格式化时间
+      formatAccessTime(date) {
+        let h = date.getHours()
+        let m = date.getMinutes()
+        h = h <= 9 ? '0' + h : h
+        m = m <= 9 ? '0' + m : m
+        return h + ':' + m
       },
     },
   }
