@@ -89,3 +89,7 @@ export function getCaptureDataByIdForDate(personId, date) {
   let json = window.top.myExtension.getCaptureDataByIdForDate(personId, date)
   return JSON.parse(json)
 }
+
+export function exportDailyAttendance() {
+  window.top.myExtension.exportDailyAttendance(null, '2021-10-11')
+}

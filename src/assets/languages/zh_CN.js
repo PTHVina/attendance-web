@@ -455,6 +455,8 @@ module.exports = {
     text_54: '星期四',
     text_55: '星期五',
     text_56: '星期六',
+
+    text_daily_report: 'Daily Attendance',
   },
   //考勤设置
   attendanceSet: {

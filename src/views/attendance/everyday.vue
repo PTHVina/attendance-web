@@ -102,6 +102,9 @@
             >
               {{ $t('operation_btn.btn_text_30') }}
             </el-button>
+            <el-button @click="exportDailyAttendance">
+              {{ $t('attendance.text_daily_report') }}
+            </el-button>
             <!-- 导出设置 -->
             <el-button icon="el-icon-setting" type="primary" @click="setExport">
               {{ $t('operation_btn.btn_text_31') }}
@@ -601,6 +604,7 @@
     defaultSet,
     saveSetting,
     getCaptureDataByIdForDate,
+    exportDailyAttendance,
   } from '@/api/attendance'
   import dayjs from 'dayjs'
   export default {
@@ -1017,6 +1021,9 @@
       },
       formatTemperature(row, column, cellValue) {
         return cellValue == 0 ? '' : Number(cellValue).toFixed(2)
+      },
+      exportDailyAttendance() {
+        exportDailyAttendance()
       },
     },
   }
