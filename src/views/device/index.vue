@@ -103,7 +103,7 @@
             ? '380px'
             : lang == 'Fr_fr'
             ? '420'
-            : '400'
+            : '350'
         "
       >
         <template #default="{ row }">
