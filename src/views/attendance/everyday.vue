@@ -17,6 +17,29 @@
               :placeholder="$t('attendance.text_2')"
             />
           </el-form-item>
+          <!-- 部门 -->
+          <el-form-item>
+            <!-- <span>{{ $t('attendance.text_12') }}</span>
+            <el-input
+              v-model="queryForm.department"
+              :placeholder="$t('accessControl.pleaseChooseDepartment')"
+            /> -->
+            <span>{{ $t('attendance.text_12') }}</span>
+            <el-select
+              v-model="departments"
+              multiple
+              collapse-tags
+              style="margin-left: 20px"
+              :placeholder="$t('accessControl.pleaseChooseDepartment')"
+            >
+              <el-option
+                v-for="item in allDepartments"
+                :key="item.id"
+                :label="item.name"
+                :value="item.name"
+              ></el-option>
+            </el-select>
+          </el-form-item>
           <!-- 旷工 -->
           <el-form-item>
             <span>{{ $t('attendance.text_3') }}</span>
@@ -606,11 +629,14 @@
     getCaptureDataByIdForDate,
     exportDailyAttendance,
   } from '@/api/attendance'
+  import { getAllDepartment } from '@/api/accesscontrol'
   import dayjs from 'dayjs'
   export default {
     name: 'Everyday',
     data() {
       return {
+        departments: [],
+        allDepartments: [],
         lang: this.$lang,
         list: [],
         listLoading: false, //列表加载
@@ -622,6 +648,7 @@
           late: '', //迟到
           Leaveearly: '', //早退
           daterangetime: [], //考勤日期
+          departments: '', //部门
         },
         page: {
           pageNo: 1,
@@ -675,6 +702,7 @@
       this.queryForm.daterangetime[1] = YY + '-' + MM + '-' + DD
       this.init()
       this.setTingList()
+      this.loadAllDepartments()
     },
     beforeDestroy() {},
     mounted() {},
@@ -684,8 +712,10 @@
         this.queryForm.isAbsenteeism ? this.queryForm.isAbsenteeism : '0'
         this.queryForm.late ? this.queryForm.late : '0'
         this.queryForm.Leaveearly ? this.queryForm.Leaveearly : '0'
+        this.queryForm.departments = this.departments.join(',')
         let count = getEverydayCount(this.queryForm)
         this.page.total = count
+        //alert(this.queryForm.departments)
         getEverydayList(this.queryForm, this.page).then((res) => {
           if (res) {
             this.list = JSON.parse(res)
@@ -1021,6 +1051,10 @@
       },
       formatTemperature(row, column, cellValue) {
         return cellValue == 0 ? '' : Number(cellValue).toFixed(2)
+      },
+      loadAllDepartments() {
+        const depts = getAllDepartment()
+        this.allDepartments = depts
       },
       exportDailyAttendance() {
         exportDailyAttendance()

@@ -153,7 +153,8 @@ module.exports = {
     tips_76: 'ビギナーズガイド',
 
     tips_77: 'デフォルトの出席グループが必要です',
-    tips_78: 'bunengchaoguo22gezifu',
+    tips_78: '文字が長すぎる',
+    tips_79: '全員を設備に配付することは確実か'
   },
   // 首页
   home: {

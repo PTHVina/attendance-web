@@ -25,7 +25,8 @@ export function getEverydayList(data, page) {
       data.Leaveearly.toString(),
       data.isAbsenteeism.toString(),
       page.pageNo.toString(),
-      page.pageSize.toString()
+      page.pageSize.toString(),
+      data.departments.toString()
     )
   })
 }
@@ -49,7 +50,8 @@ export function exportList(data) {
     data.name.toString(),
     data.late.toString(),
     data.Leaveearly.toString(),
-    data.isAbsenteeism.toString()
+    data.isAbsenteeism.toString(),
+    data.departments.toString()
   )
 }
 //导出设置信息
