@@ -11,7 +11,11 @@
         <el-button @click="addStaffDistribution">
           {{ $t('accessControl.addEmployeeDeployRule') }}
         </el-button>
-        <el-button icon="el-icon-download" @click="buildRuleDeploymentTask">
+        <el-button
+          icon="el-icon-download"
+          type="primary"
+          @click="buildRuleDeploymentTask"
+        >
           {{ $t('accessControl.generateDeployTask') }}
         </el-button>
         <div

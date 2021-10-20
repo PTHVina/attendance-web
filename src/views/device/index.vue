@@ -28,6 +28,7 @@
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
       height="calc(100vh - 258px)"
+      border="true"
     >
       <!-- 序号 -->
       <el-table-column
@@ -97,15 +98,23 @@
         fixed="right"
         :width="
           lang == 'Jan_JPN'
-            ? '400px'
+            ? '420px'
             : lang == 'en_US'
-            ? '350px'
+            ? '380px'
             : lang == 'Fr_fr'
-            ? '400'
-            : ''
+            ? '420'
+            : '400'
         "
       >
         <template #default="{ row }">
+          <!--下发-->
+          <el-button
+            type="text"
+            icon="el-icon-s-promotion"
+            @click="oneClickIssue(row)"
+          >
+            {{ $t('operation_btn.btn_text_15') }}
+          </el-button>
           <!-- 开闸 -->
           <el-button type="text" icon="el-icon-thumb" @click="openDoor(row)">
             {{ $t('operation_btn.btn_text_24') }}
@@ -504,6 +513,7 @@
     getLocalIp,
     getAllMyDevices,
   } from '@/api/device'
+  import { toIssue2 } from '@/api/personnel'
   export default {
     name: 'DeviceIndex',
     data() {
@@ -742,6 +752,17 @@
               this.list[idx].number = el.DeviceNo
             }
             this.list[idx].state = el
+          }
+        })
+      },
+      //一键下发
+      oneClickIssue(row) {
+        this.$baseConfirm(this.$t('operation_tips.tips_79'), null, () => {
+          let res = toIssue2(row.id)
+          if (res) {
+            this.$baseMessage(this.$t('operation_tips.tips_24'), 'success')
+          } else {
+            this.$baseMessage(this.$t('personnel.pl_17'), 'warning')
           }
         })
       },

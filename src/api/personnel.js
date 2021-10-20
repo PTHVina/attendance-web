@@ -115,6 +115,19 @@ export function queryPerson(id) {
 
   return data_json
 }
+//下发所有人员到某相机
+export function toIssue2(deviceId) {
+  let flag = false
+  try {
+    let res = window.top.myExtension.AddPersonToEquipment_distribution(
+      deviceId.toString()
+    )
+    flag = true
+  } catch {
+    flag = false
+  }
+  return flag
+}
 //人员下发
 export function toIssue(data) {
   let res = window.top.myExtension.AddPersonToEquipment_distribution(
