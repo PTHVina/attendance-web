@@ -154,7 +154,8 @@ tips_75: 'Thoát',
 tips_76: 'Hướng dẫn cho người mới bắt đầu',
  
 tips_77: 'Phải có một nhóm chấm công mặc định',
-tips_78: 'The lenght must be less or equal to 22',
+tips_78: 'Ký tự là quá dài',
+tips_79: 'Xác định tất cả nhân viên để thiết bị này',
   },
   // 首页
   home: {
