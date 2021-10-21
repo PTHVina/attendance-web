@@ -152,7 +152,7 @@
 
     <!-- 每日考勤 -->
     <el-dialog
-      title="每日考勤"
+      :title="$t('router.title_17')"
       :visible.sync="dialogTableVisible"
       :destroy-on-close="true"
       width="80vw"
