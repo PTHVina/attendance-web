@@ -252,7 +252,11 @@
       this.deviceList = getDeviceList()
     },
     beforeDestroy() {},
-    mounted() {},
+    mounted() {
+      setInterval(() => {
+        this.init()
+      }, 10000)
+    },
     methods: {
       init() {
         this.listLoading = true
