@@ -82,7 +82,7 @@ const install = (Vue, opts = {}) => {
       zh_CN: '温馨提示',
       en_US: 'Reminder',
       Fr_fr: 'Rappel',
-      vi: 'nhắc',
+      vi: 'Xác nhận',
       Jan_JPN: 'ヒント',
     }
     let okText = {
@@ -111,7 +111,7 @@ const install = (Vue, opts = {}) => {
       zh_CN: '温馨提示',
       en_US: 'Reminder',
       Fr_fr: 'Rappel',
-      vi: 'nhắc',
+      vi: 'Xác nhận',
       Jan_JPN: 'ヒント',
     }
     let okText = {
