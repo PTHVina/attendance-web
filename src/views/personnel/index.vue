@@ -608,7 +608,7 @@
             v-model="authorized_time"
             type="datetimerange"
             unlink-panels="true"
-            :range-separator="$t('personnel.text_5')"
+            :range-separator="$t('personnel.text_7')"
             :start-placeholder="$t('personnel.text_8')"
             :end-placeholder="$t('personnel.text_9')"
             :default-time="['00:00:00', '23:59:59']"
