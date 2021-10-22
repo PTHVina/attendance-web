@@ -89,7 +89,9 @@
         sortable
       >
         <template #default="{ row }">
-          <el-tag v-if="row.IsConnected">{{ $t('device.text_7') }}</el-tag>
+          <el-tag v-if="row.IsConnected" type="success">
+            {{ $t('device.text_7') }}
+          </el-tag>
           <el-tag v-else type="danger">{{ $t('device.text_8') }}</el-tag>
         </template>
       </el-table-column>

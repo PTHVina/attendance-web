@@ -159,6 +159,9 @@ module.exports = {
     tips_77: 'Il doit y avoir un groupe de présence par défaut',
     tips_78: 'Caractères trop longs',
     tips_79: 'Être sûr d’envoyer tout le personnel à cet appareil',
+    auto_refresh_on: 'Activer le rafraîchissement automatique des listes',
+    auto_refresh_off: 'Désactivé actualiser automatiquement la liste',
+    auto_refresh: 'Rafraîchir automatiquement',
   },
   // 首页
   home: {

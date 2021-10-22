@@ -149,7 +149,10 @@ module.exports = {
 
     tips_77: '必须有一个默认考勤组',
     tips_78: '不能超过最大字符长度',
-    tips_79: '确定将全部人员下发到该设备吗？'
+    tips_79: '确定将全部人员下发到该设备吗？',
+    auto_refresh_on: '开启自动刷新列表',
+    auto_refresh_off: '关闭自动刷新列表',
+    auto_refresh: '自动刷新'
   },
   // 首页
   home: {

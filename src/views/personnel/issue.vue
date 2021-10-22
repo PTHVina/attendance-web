@@ -73,6 +73,11 @@
               {{ $t('operation_btn.btn_text_34') }}
             </el-button>
           </el-form-item>
+          <el-form-item>
+            <el-checkbox v-model="autoRefresh">
+              {{ $t('operation_tips.auto_refresh') }}
+            </el-checkbox>
+          </el-form-item>
         </el-form>
       </div>
     </div>
@@ -202,6 +207,8 @@
     name: 'Issue',
     data() {
       return {
+        timer: '',
+        autoRefresh: false,
         lang: this.$lang,
         list: [],
         listLoading: false, //列表加载
@@ -242,6 +249,20 @@
         deviceList: [],
       }
     },
+    watch: {
+      autoRefresh(val) {
+        if (val) {
+          this.$baseMessage(
+            this.$t('operation_tips.auto_refresh_on'),
+            'success'
+          )
+          this.timer = setInterval(this.refreshCurrentPage, 10000)
+        } else {
+          this.$baseMessage(this.$t('operation_tips.auto_refresh_off'), 'info')
+          this.timer && clearInterval(this.timer)
+        }
+      },
+    },
     created() {
       if (Object.keys(this.$route.query).length != 0) {
         this.queryForm.name = this.$route.query.name
@@ -250,13 +271,12 @@
       }
       this.init()
       this.deviceList = getDeviceList()
+      this.autoRefresh = true
     },
-    beforeDestroy() {},
-    mounted() {
-      setInterval(() => {
-        this.init()
-      }, 10000)
+    beforeDestroy() {
+      this.timer && clearInterval(this.timer)
     },
+    mounted() {},
     methods: {
       init() {
         this.listLoading = true
