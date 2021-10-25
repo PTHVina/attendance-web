@@ -156,6 +156,9 @@ tips_76: 'Hướng dẫn cho người mới bắt đầu',
 tips_77: 'Phải có một nhóm chấm công mặc định',
 tips_78: 'Ký tự là quá dài',
 tips_79: 'Xác định tất cả nhân viên để thiết bị này',
+auto_refresh_on: 'Bật danh sách cập nhật tự động', 
+auto_refresh_off: 'Tắt danh sách cập nhật tự động',
+auto_refresh: 'Tự động cập nhật'
   },
   // 首页
   home: {
