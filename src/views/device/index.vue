@@ -16,7 +16,13 @@
           {{ $t('operation_btn.btn_text_23') }}
         </el-button>
         <span class="tips">
-          {{ $t('operation_tips.tips_39') }}
+          <el-alert
+            :title="$t('operation_tips.tips_42')"
+            type="info"
+            :description="$t('operation_tips.tips_39')"
+            show-icon
+            :closable="false"
+          ></el-alert>
         </span>
       </div>
     </div>
@@ -62,15 +68,10 @@
         sortable
       ></el-table-column>
       <!-- 进出 -->
-      <el-table-column
-        :label="$t('device.text_64')"
-        prop="IsEnter"
-        align="center"
-        sortable
-      >
+      <el-table-column :label="$t('device.text_64')" prop="IsEnter" sortable>
         <template #default="{ row }">
           <span v-if="row.IsEnter === -1">
-            <img :src="require('@/assets/door.svg')" alt="door icon" />
+            <img :src="require('@/assets/undefined.svg')" alt="door icon" />
           </span>
           <span v-else-if="row.IsEnter === 1">
             <img :src="require('@/assets/in.svg')" alt="in icon" />
@@ -88,7 +89,9 @@
         sortable
       >
         <template #default="{ row }">
-          <el-tag v-if="row.IsConnected">{{ $t('device.text_7') }}</el-tag>
+          <el-tag v-if="row.IsConnected" type="success">
+            {{ $t('device.text_7') }}
+          </el-tag>
           <el-tag v-else type="danger">{{ $t('device.text_8') }}</el-tag>
         </template>
       </el-table-column>
@@ -739,6 +742,7 @@
         this.listLoading = true
         setTimeout(() => {
           this.loadMyDevices()
+          this.updateConnectState()
           this.listLoading = false
         }, 3000)
       },

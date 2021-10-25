@@ -89,7 +89,7 @@ tips_19: 'Vui lòng tải lên hình đại diện của bạn',
 tips_20: 'Độ dài từ 1 đến 18 ký tự',
 tips_21: 'Bạn có chắc chắn muốn xóa khoản mục đã chọn không?',
 tips_22: 'Không có hàng nào được chọn',
-tips_23: 'Đăng ký',
+tips_23: 'Đăng ký thành công!',
 tips_24: 'Đang đăng ký, xin vui lòng chờ đợi ...',
 tips_25: 'Đăng ký thất bại!',
 tips_26: 'Lưu thành công!',
@@ -156,6 +156,9 @@ tips_76: 'Hướng dẫn cho người mới bắt đầu',
 tips_77: 'Phải có một nhóm chấm công mặc định',
 tips_78: 'Ký tự là quá dài',
 tips_79: 'Xác định tất cả nhân viên để thiết bị này',
+auto_refresh_on: 'Bật danh sách cập nhật tự động', 
+auto_refresh_off: 'Tắt danh sách cập nhật tự động',
+auto_refresh: 'Tự động cập nhật'
   },
   // 首页
   home: {
