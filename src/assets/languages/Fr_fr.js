@@ -162,6 +162,7 @@ module.exports = {
     auto_refresh_on: 'Activer le rafraîchissement automatique des listes',
     auto_refresh_off: 'Désactivé actualiser automatiquement la liste',
     auto_refresh: 'Rafraîchir automatiquement',
+    issue_finished: 'La livraison est terminée'
   },
   // 首页
   home: {
