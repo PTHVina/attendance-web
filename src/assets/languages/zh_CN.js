@@ -152,7 +152,8 @@ module.exports = {
     tips_79: '确定将全部人员下发到该设备吗？',
     auto_refresh_on: '开启自动刷新列表',
     auto_refresh_off: '关闭自动刷新列表',
-    auto_refresh: '自动刷新'
+    auto_refresh: '自动刷新',
+    issue_finished: '下发已完成'
   },
   // 首页
   home: {

@@ -157,7 +157,8 @@ module.exports = {
     tips_79: '全員を設備に配付することは確実か',
     auto_refresh_on: '自動更新リストをオンにする',
     auto_refresh_off: '自動更新リストをオフにする',
-    auto_refresh: '自動リフレッシュ'
+    auto_refresh: '自動リフレッシュ',
+    issue_finished: '配付はすでに完了した'
   },
   // 首页
   home: {

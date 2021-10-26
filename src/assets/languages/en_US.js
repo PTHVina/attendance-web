@@ -158,7 +158,8 @@ module.exports = {
     tips_79: 'Are you sure to send all personnel to the facility',
     auto_refresh_on: 'The automatic refresh list is displayed',
     auto_refresh_off: 'Close the automatic refresh list',
-    auto_refresh: 'Automatically refresh'
+    auto_refresh: 'Automatically refresh',
+    issue_finished: 'Delivery completed'
   },
   // 首页
   home: {

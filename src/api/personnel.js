@@ -255,6 +255,31 @@ export function issueVisitor(data) {
 
   return res
 }
+//下发统计
+export function getIssueInfo() {
+  var success_res = window.top.myExtension.getcountforEquipment_distribution(
+    '',
+    '',
+    '0',
+    ''
+  )
+  var fail_res = window.top.myExtension.getcountforEquipment_distribution(
+    '',
+    '',
+    '1',
+    ''
+  )
+  var all_res = window.top.myExtension.getcountforEquipment_distribution(
+    '',
+    '',
+    '',
+    ''
+  )
+  var success_count = JSON.parse(success_res)[0].count
+  var fail_count = JSON.parse(fail_res)[0].count
+  var all_count = JSON.parse(all_res)[0].count
+  return [success_count, fail_count, all_count]
+}
 
 // 下发记录
 export function getIssueList(page, data) {

@@ -78,6 +78,43 @@
               {{ $t('operation_tips.auto_refresh') }}
             </el-checkbox>
           </el-form-item>
+          <!--下发进度-->
+          <el-form-item>
+            <el-popover
+              v-model="showIssueInfo"
+              placement="bottom"
+              :title="
+                issueProgress == 100
+                  ? $t('operation_tips.issue_finished')
+                  : $t('operation_tips.tips_24')
+              "
+              trigger="manual"
+            >
+              <slot name="content">
+                <div>
+                  <el-progress :percentage="issueProgress"></el-progress>
+                </div>
+                <div style="margin-top: 8px">
+                  <el-tag type="success" effect="plain">
+                    {{ $t('operation_btn.btn_text_19') }}:{{ successCount }}
+                  </el-tag>
+                  <el-tag type="danger" effect="plain">
+                    {{ $t('operation_btn.btn_text_20') }}:{{ failCount }}
+                  </el-tag>
+                  <el-tag type="info" effect="plain">
+                    {{ $t('accessControl.total') }}:{{ allCount }}
+                  </el-tag>
+                </div>
+              </slot>
+              <el-button
+                slot="reference"
+                @click="showIssueInfo = !showIssueInfo"
+              >
+                {{ $t('accessControl.progress') }} ({{ issueProgress }}%)
+                <i class="el-icon-arrow-down el-icon--right"></i>
+              </el-button>
+            </el-popover>
+          </el-form-item>
         </el-form>
       </div>
     </div>
@@ -201,12 +238,16 @@
 </template>
 
 <script>
-  import { getIssueList } from '@/api/personnel'
+  import { getIssueList, getIssueInfo } from '@/api/personnel'
   import { getDeviceList } from '@/api/device'
   export default {
     name: 'Issue',
     data() {
       return {
+        successCount: 0,
+        failCount: 0,
+        allCount: 0,
+        showIssueInfo: false,
         timer: '',
         autoRefresh: false,
         lang: this.$lang,
@@ -249,6 +290,16 @@
         deviceList: [],
       }
     },
+    computed: {
+      issueProgress() {
+        if (this.allCount > 0) {
+          return Math.floor(
+            ((this.successCount + this.failCount) / this.allCount) * 100
+          )
+        }
+        return 100
+      },
+    },
     watch: {
       autoRefresh(val) {
         if (val) {
@@ -284,6 +335,11 @@
         this.list = list[0]
         console.log('下发记录', this.list)
         this.page.total = list[1][0].count >= 0 ? list[1][0].count : 0
+        let issueInfo = getIssueInfo()
+        this.successCount = issueInfo[0]
+        this.failCount = issueInfo[1]
+        this.allCount = issueInfo[2]
+        console.log(issueInfo)
         setTimeout(() => {
           this.listLoading = false
         }, 500)
