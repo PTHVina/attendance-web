@@ -498,6 +498,7 @@
             v-model="form.face_idcard"
             :placeholder="$t('personnel.title_10')"
             autocomplete="off"
+            type="number"
             style="width: 60%; margin-right: 20px"
             :style="lang == 'Fr_fr' ? 'width:50%;' : ''"
           ></el-input>
