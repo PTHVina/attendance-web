@@ -365,6 +365,7 @@
         show-overflow-tooltip
         :label="$t('attendance.text_20')"
         prop="temperature"
+        :formatter="formatCellTemperatureString"
         sortable
         :width="lang == 'en_US' ? '160px' : lang == 'Fr_fr' ? '230px' : '100px'"
       >
@@ -590,7 +591,7 @@
         <!-- 体温 -->
         <el-table-column
           prop="body_temp"
-          :formatter="formatTemperature"
+          :formatter="formatCellTemperatureString"
           :label="$t('snapshot.text_16')"
           :width="'100px'"
         ></el-table-column>
@@ -627,6 +628,7 @@
   } from '@/api/attendance'
   import { getAllDepartment } from '@/api/accesscontrol'
   import dayjs from 'dayjs'
+  import { formatCellTemperatureString } from '@/utils/index'
   export default {
     name: 'Everyday',
     data() {
@@ -1044,9 +1046,6 @@
       },
       formatDate(row, column, cellValue) {
         return dayjs(cellValue).format('HH:mm')
-      },
-      formatTemperature(row, column, cellValue) {
-        return cellValue == 0 ? '' : Number(cellValue).toFixed(2)
       },
       loadAllDepartments() {
         const depts = getAllDepartment()

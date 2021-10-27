@@ -93,6 +93,7 @@
         show-overflow-tooltip
         label="体温"
         prop="temperature"
+        formatter="formatCellTemperatureString"
         sortable
       ></el-table-column>
       <el-table-column label="操作" fixed="right">
@@ -116,6 +117,7 @@
 
 <script>
   import { getLineSendCount, getLineSendList, setSend } from '@/api/personnel'
+  import { formatCellTemperatureString } from '@/utils/index'
   export default {
     name: 'Issue',
     data() {

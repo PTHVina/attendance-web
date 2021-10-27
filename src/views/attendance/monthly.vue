@@ -317,6 +317,7 @@
         <el-table-column
           show-overflow-tooltip
           :label="$t('attendance.text_20')"
+          formatter="formatCellTemperatureString"
           prop="temperature"
           sortable
           :width="
@@ -409,6 +410,7 @@
     exportData,
     getEverydayAllList,
   } from '@/api/attendance'
+  import { formatCellTemperatureString } from '@/utils/index'
   export default {
     name: 'Monthly',
     data() {
