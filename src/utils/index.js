@@ -267,6 +267,7 @@ export const off = (function () {
 
 export function formatTemperatureString(value) {
   if (!value) return ''
+  if (/^0+.?0*$/.test(value)) return ''
   return Number(value).toFixed(2)
 }
 
