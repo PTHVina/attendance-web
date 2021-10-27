@@ -317,6 +317,7 @@
         <el-table-column
           show-overflow-tooltip
           :label="$t('attendance.text_20')"
+          formatter="formatCellTemperatureString"
           prop="temperature"
           sortable
           :width="
@@ -330,9 +331,9 @@
               "
               style="color: red"
             >
-              {{ row.temperature }}
+              {{ formatTemperatureString(row.temperature) }}
             </span>
-            <span v-else>{{ row.temperature }}</span>
+            <span v-else>{{ formatTemperatureString(row.temperature) }}</span>
           </template>
         </el-table-column>
         <!-- 迟到(分钟) -->
@@ -409,6 +410,10 @@
     exportData,
     getEverydayAllList,
   } from '@/api/attendance'
+  import {
+    formatCellTemperatureString,
+    formatTemperatureString,
+  } from '@/utils/index'
   export default {
     name: 'Monthly',
     data() {
@@ -445,6 +450,8 @@
       this.init()
     },
     methods: {
+      formatCellTemperatureString,
+      formatTemperatureString,
       init() {
         if (this.queryForm.date) {
           this.listLoading = true

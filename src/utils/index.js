@@ -264,3 +264,13 @@ export const off = (function () {
     }
   }
 })()
+
+export function formatTemperatureString(value) {
+  if (!value) return ''
+  if (/^0+.?0*$/.test(value)) return ''
+  return Number(value).toFixed(2)
+}
+
+export function formatCellTemperatureString(row, cell, value) {
+  return formatTemperatureString(value)
+}

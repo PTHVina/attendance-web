@@ -235,11 +235,11 @@
             "
           >
             <span style="color: red">
-              {{ Number(row.body_temp).toFixed(2) }}
+              {{ formatTemperatureString(row.body_temp) }}
             </span>
           </div>
           <span v-else>
-            {{ row.body_temp ? Number(row.body_temp).toFixed(2) : '' }}
+            {{ formatTemperatureString(row.body_temp) }}
           </span>
         </template>
       </el-table-column>
@@ -751,6 +751,10 @@
   import { getRecordList, delRecord, BatchXport } from '@/api/record'
   import { getParam } from '@/api/sysPage'
   import { getAllMyDevices } from '@/api/device'
+  import {
+    formatCellTemperatureString,
+    formatTemperatureString,
+  } from '@/utils/index'
 
   export default {
     name: 'Record',
@@ -914,6 +918,8 @@
     beforeDestroy() {},
     mounted() {},
     methods: {
+      formatCellTemperatureString,
+      formatTemperatureString,
       typeList() {
         // 人员分类、部门列表
         let list = getTypeList()

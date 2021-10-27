@@ -190,11 +190,11 @@
               "
             >
               <span style="color: red">
-                {{ Number(row.body_temp).toFixed(2) }}
+                {{ formatTemperatureString(row.body_temp) }}
               </span>
             </div>
             <span v-else>
-              {{ row.body_temp ? Number(row.body_temp).toFixed(2) : '' }}
+              {{ formatTemperatureString(row.body_temp) }}
             </span>
           </template>
         </el-table-column>
@@ -235,6 +235,10 @@
   } from '@/api/index'
   import { getDeviceList, openDoor } from '@/api/device'
   import { getUserConfigObject } from '@/api/sysPage'
+  import {
+    formatCellTemperatureString,
+    formatTemperatureString,
+  } from '@/utils/index'
   export default {
     name: 'Index',
     data() {
@@ -331,6 +335,8 @@
       myEchart.setOption(option)
     },
     methods: {
+      formatCellTemperatureString,
+      formatTemperatureString,
       // 新手引导
       setGuide() {
         this.$confirm(
