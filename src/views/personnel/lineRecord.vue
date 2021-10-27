@@ -152,6 +152,7 @@
     beforeDestroy() {},
     mounted() {},
     methods: {
+      formatCellTemperatureString,
       init() {
         this.listLoading = true
         let count = getLineSendCount(this.queryForm)

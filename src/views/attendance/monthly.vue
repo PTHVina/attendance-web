@@ -450,6 +450,8 @@
       this.init()
     },
     methods: {
+      formatCellTemperatureString,
+      formatTemperatureString,
       init() {
         if (this.queryForm.date) {
           this.listLoading = true

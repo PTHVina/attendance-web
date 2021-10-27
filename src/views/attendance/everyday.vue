@@ -365,7 +365,7 @@
         show-overflow-tooltip
         :label="$t('attendance.text_20')"
         prop="temperature"
-        :formatter="formatCellTemperatureString"
+        formatter="formatCellTemperatureString"
         sortable
         :width="lang == 'en_US' ? '160px' : lang == 'Fr_fr' ? '230px' : '100px'"
       >
@@ -708,6 +708,8 @@
     beforeDestroy() {},
     mounted() {},
     methods: {
+      formatCellTemperatureString,
+      formatTemperatureString,
       init() {
         this.listLoading = true
         this.queryForm.isAbsenteeism ? this.queryForm.isAbsenteeism : '0'

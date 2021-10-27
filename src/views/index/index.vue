@@ -335,6 +335,8 @@
       myEchart.setOption(option)
     },
     methods: {
+      formatCellTemperatureString,
+      formatTemperatureString,
       // 新手引导
       setGuide() {
         this.$confirm(

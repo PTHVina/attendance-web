@@ -918,6 +918,8 @@
     beforeDestroy() {},
     mounted() {},
     methods: {
+      formatCellTemperatureString,
+      formatTemperatureString,
       typeList() {
         // 人员分类、部门列表
         let list = getTypeList()
