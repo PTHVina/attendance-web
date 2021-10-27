@@ -331,9 +331,9 @@
               "
               style="color: red"
             >
-              {{ row.temperature }}
+              {{ formatTemperatureString(row.temperature) }}
             </span>
-            <span v-else>{{ row.temperature }}</span>
+            <span v-else>{{ formatTemperatureString(row.temperature) }}</span>
           </template>
         </el-table-column>
         <!-- 迟到(分钟) -->
@@ -410,7 +410,10 @@
     exportData,
     getEverydayAllList,
   } from '@/api/attendance'
-  import { formatCellTemperatureString } from '@/utils/index'
+  import {
+    formatCellTemperatureString,
+    formatTemperatureString,
+  } from '@/utils/index'
   export default {
     name: 'Monthly',
     data() {
