@@ -79,7 +79,7 @@
             </el-checkbox>
           </el-form-item>
           <!--下发进度-->
-          <el-form-item>
+          <el-form-item v-if="allCount != 0">
             <el-popover
               v-model="showIssueInfo"
               placement="bottom"

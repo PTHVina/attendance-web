@@ -15,11 +15,10 @@
         >
           {{ $t('operation_btn.btn_text_23') }}
         </el-button>
-        <span class="tips">
+        <span class="tips2">
           <el-alert
-            :title="$t('operation_tips.tips_42')"
+            :title="$t('operation_tips.tips_39')"
             type="info"
-            :description="$t('operation_tips.tips_39')"
             show-icon
             :closable="false"
           ></el-alert>
@@ -206,16 +205,27 @@
     <!-- 设备列表 -->
     <!-- 设备IP -->
     <el-dialog
-      :title="
-        IPList.length === 0
-          ? $t('device.text_12')
-          : `${$t('device.text_12')}(${IPList.length})`
-      "
       :visible.sync="dialogTableVisible"
       :width="lang == 'zh_CN' ? '600px' : '700px'"
       :destroy-on-close="true"
       :before-close="closeFn"
     >
+      <div slot="title" class="title">
+        <div class="title_content">
+          {{
+            IPList.length === 0
+              ? $t('device.text_12')
+              : `${$t('device.text_12')}(${IPList.length})`
+          }}
+        </div>
+        <el-alert
+          v-if="ipInfo"
+          class="title_content_right"
+          :title="ipInfo"
+          type="success"
+          :closable="false"
+        ></el-alert>
+      </div>
       <el-table
         ref="tableIP"
         v-loading="listLoading2"
@@ -256,14 +266,14 @@
           color: red;
           font-size: 14px;
           display: flex;
-          align-items: center;
+          align-items: right;
           justify-content: space-between;
         "
       >
-        <span style="min-width: 60%">
+        <!-- <span style="min-width: 60%">
           {{ $t('device.text_63') }}：{{ localIP[0] }}
           <span v-if="localIP[1]">/ {{ localIP[1] }}</span>
-        </span>
+        </span> -->
         <span>{{ $t('device.text_61') }}</span>
       </p>
     </el-dialog>
@@ -671,9 +681,21 @@
         localIP: [], //本地IP地址
       }
     },
+    computed: {
+      ipInfo() {
+        return this.localIP[1]
+          ? this.$t('device.text_63') +
+              ': ' +
+              this.localIP[0] +
+              '/' +
+              this.localIP[1]
+          : ''
+      },
+    },
     created() {
       this.init()
       this.localIP = getLocalIp()
+      console.log(this.localIP)
     },
     mounted() {
       let firstLogin = JSON.parse(localStorage.getItem('firstLogin'))
@@ -1018,10 +1040,18 @@
   }
 </script>
 
-<style lang="scss">
-  .tips {
-    margin-bottom: 0 !important;
-    margin-left: 20px;
+<style lang="scss" scoped>
+  .title_content {
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 20px;
+  }
+  .title_content_right {
+    display: inline;
+  }
+  .tips2 {
+    display: inline-block;
+    margin-left: 10px;
   }
   .form_group {
     height: auto;
