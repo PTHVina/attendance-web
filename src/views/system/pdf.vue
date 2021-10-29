@@ -181,7 +181,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .tips {
     margin-bottom: 50px;
     span:nth-child(1) {

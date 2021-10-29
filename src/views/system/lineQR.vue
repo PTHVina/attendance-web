@@ -132,7 +132,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .img_box {
     width: 300px;
     height: 400px;
