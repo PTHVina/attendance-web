@@ -356,6 +356,8 @@ text_64: 'Vào/Ra',
 text_65: 'Chưa xác định',
 text_66: 'Vào',
 text_67: 'Ra',
+username: 'Tài khoản',
+password: 'Mật khẩu',
   },
   //抓拍管理
 snapshot: {

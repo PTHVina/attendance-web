@@ -10,7 +10,9 @@ export function addDevice(data) {
   var res = window.top.myExtension.AddIPtoMydevice(
     data.IP,
     data.DeviceName,
-    data.InOut
+    data.InOut,
+    data.username,
+    data.password
   )
   var res_json = JSON.parse(res)
 

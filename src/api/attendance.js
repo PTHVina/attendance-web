@@ -69,14 +69,22 @@ export function saveSetting(key, val) {
 
 //月度考勤列表
 export function getMonthlyList(data) {
-  let res = window.top.myExtension.getMonthlyData(data.date, data.name)
+  let res = window.top.myExtension.getMonthlyData(
+    data.date,
+    data.name,
+    data.departments
+  )
   let data_json = JSON.parse(res)
 
   return data_json
 }
 //导出数据
 export function exportData(data) {
-  window.top.myExtension.exportMonthlyData(data.date, data.name)
+  window.top.myExtension.exportMonthlyData(
+    data.date,
+    data.name,
+    data.departments
+  )
 }
 //获取单个人员每天数据
 export function getEverydayAllList(data) {
