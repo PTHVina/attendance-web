@@ -21,6 +21,23 @@
               :clearable="false"
             ></el-date-picker>
           </el-form-item>
+          <!-- 部门 -->
+          <el-form-item>
+            <span>{{ $t('attendance.text_12') }}</span>
+            <el-select
+              v-model="departments"
+              multiple
+              collapse-tags
+              :placeholder="$t('accessControl.pleaseChooseDepartment')"
+            >
+              <el-option
+                v-for="item in allDepartments"
+                :key="item.id"
+                :label="item.name"
+                :value="item.name"
+              ></el-option>
+            </el-select>
+          </el-form-item>
           <!-- 姓名 -->
           <el-form-item>
             <span>{{ $t('attendance.text_1') }}</span>
@@ -414,11 +431,14 @@
     formatCellTemperatureString,
     formatTemperatureString,
   } from '@/utils/index'
+  import { getAllDepartment } from '@/api/accesscontrol'
   export default {
     name: 'Monthly',
     data() {
       return {
         lang: this.$lang,
+        departments: [],
+        allDepartments: [],
         list: [],
         listLoading: false, //列表加载
         listLoading2: false,
@@ -427,6 +447,7 @@
         queryForm: {
           name: '',
           date: '',
+          departments: '',
         },
         page: {
           pageNo: 1,
@@ -444,17 +465,23 @@
       let MM = date.getMonth() + 1
       MM = MM > 9 ? MM : '0' + MM
       this.queryForm.date = YY + '-' + MM
+      this.loadAllDepartments()
     },
     beforeDestroy() {},
     mounted() {
       this.init()
     },
     methods: {
+      loadAllDepartments() {
+        const depts = getAllDepartment()
+        this.allDepartments = depts
+      },
       formatCellTemperatureString,
       formatTemperatureString,
       init() {
         if (this.queryForm.date) {
           this.listLoading = true
+          this.queryForm.departments = this.departments.join(',')
           let list = getMonthlyList(this.queryForm)
           this.list = list
           this.page.total = list.length
@@ -516,7 +543,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .form_group {
     height: auto;
     margin-bottom: 20px;

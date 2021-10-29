@@ -356,6 +356,8 @@ module.exports = {
     text_65: 'Undefined',
     text_66: 'Entry',
     text_67: 'Exit',
+    username: 'username',
+    password: 'password',
   },
   //抓拍管理
   snapshot: {

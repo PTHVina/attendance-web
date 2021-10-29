@@ -348,6 +348,8 @@ module.exports = {
     text_65: '未定义',
     text_66: '进',
     text_67: '出',
+    username: '账号',
+    password: '密码',
 
   },
   //抓拍管理

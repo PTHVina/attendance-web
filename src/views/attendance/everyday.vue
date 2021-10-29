@@ -19,17 +19,11 @@
           </el-form-item>
           <!-- 部门 -->
           <el-form-item>
-            <!-- <span>{{ $t('attendance.text_12') }}</span>
-            <el-input
-              v-model="queryForm.department"
-              :placeholder="$t('accessControl.pleaseChooseDepartment')"
-            /> -->
             <span>{{ $t('attendance.text_12') }}</span>
             <el-select
               v-model="departments"
               multiple
               collapse-tags
-              style="margin-left: 20px"
               :placeholder="$t('accessControl.pleaseChooseDepartment')"
             >
               <el-option
@@ -1067,7 +1061,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .form_group {
     height: auto;
     margin-bottom: 20px;

@@ -362,6 +362,8 @@ module.exports = {
     text_65: 'Non défini',
     text_66: 'Entrée',
     text_67: 'Exportations',
+    username: 'Le compte',
+    password: 'Les mots de passe',
   },
   //抓拍管理
   snapshot: {

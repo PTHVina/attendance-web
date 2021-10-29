@@ -1454,7 +1454,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .form_group {
     height: auto;
     .el-form {

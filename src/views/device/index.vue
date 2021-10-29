@@ -183,6 +183,22 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
+        <!--账号-->
+        <el-form-item :label="$t('device.username')">
+          <el-input
+            v-model="form.username"
+            :placeholder="$t('device.username')"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <!--密码-->
+        <el-form-item :label="$t('device.password')">
+          <el-input
+            v-model="form.password"
+            :placeholder="$t('device.password')"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
         <!-- 进出类型 -->
         <el-form-item :label="$t('device.text_64')" prop="InOut">
           <el-radio-group v-model="form.InOut">
@@ -651,6 +667,8 @@
           IP: '',
           Netmask: '',
           gateway: '',
+          username: '',
+          password: '',
         },
 
         dialogTypeVisible: false, //表格弹窗控制

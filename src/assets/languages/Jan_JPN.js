@@ -354,6 +354,8 @@ module.exports = {
     text_65: '未定義',
     text_66: '入ります',
     text_67: '出ます',
+    username: 'アカウント',
+    password: 'パスワード',
   },
   //抓拍管理
   snapshot: {

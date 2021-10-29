@@ -282,7 +282,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   #content {
     height: calc(100vh - 145px) !important;
     display: flex;

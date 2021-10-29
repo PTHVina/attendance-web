@@ -429,7 +429,7 @@
     },
   }
 </script>
-<style scoped>
+<style lang="scss" scoped>
   .home_list {
     display: flex;
     align-items: center;
