@@ -24,7 +24,9 @@ export function editDevice(data) {
     data.editIp,
     data.IP,
     data.DeviceName,
-    data.InOut
+    data.InOut,
+    data.username,
+    data.password
   )
   var res_json = JSON.parse(res)
 
