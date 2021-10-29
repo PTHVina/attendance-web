@@ -212,7 +212,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .flex_box {
     display: flex;
   }

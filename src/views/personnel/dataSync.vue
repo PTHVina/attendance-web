@@ -457,7 +457,8 @@
           ],
           Email: [
             {
-              pattern: /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/,
+              pattern:
+                /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/,
               message: this.$t('operation_tips.tips_16'),
               trigger: 'blur',
             },
@@ -825,7 +826,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .form_group {
     height: auto;
     margin-bottom: 20px;
