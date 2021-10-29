@@ -108,7 +108,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .test-container {
     height: 100%;
     display: flex;
