@@ -471,6 +471,22 @@
         <el-form-item :label="$t('device.text_4')" prop="ip">
           <el-input v-model="ipParameters.ip" placeholder="IP"></el-input>
         </el-form-item>
+        <!--账号-->
+        <el-form-item :label="$t('device.username')">
+          <el-input
+            v-model="ipParameters.username"
+            :placeholder="$t('device.username')"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <!--密码-->
+        <el-form-item :label="$t('device.password')">
+          <el-input
+            v-model="ipParameters.password"
+            :placeholder="$t('device.password')"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
         <!-- 进出类型 -->
         <el-form-item :label="$t('device.text_64')" prop="inout">
           <el-radio-group v-model="ipParameters.inout">
@@ -693,6 +709,8 @@
           dns: '',
           cameraIp: '',
           inout: -1,
+          username: '',
+          password: '',
         }, //相机ip参数
         dialogCameraVisible: false,
 
@@ -768,7 +786,7 @@
         }, 500)
         setInterval(() => {
           this.updateConnectState()
-        }, 10000)
+        }, 2000)
       },
       loadMyDevices() {
         let list = getAllMyDevices()
@@ -994,6 +1012,8 @@
           dns: '',
           cameraIp: row.ipAddress,
           inout: row.IsEnter,
+          username: row.username,
+          password: row.password,
         }
         if (row.IsConnected) {
           let res = getCameraIp(row.state.IP)
@@ -1005,6 +1025,8 @@
             dns: res.dns,
             cameraIp: row.state.IP,
             inout: row.IsEnter,
+            username: row.username,
+            password: row.password,
           }
         }
       },
@@ -1028,6 +1050,8 @@
               IP: this.ipParameters.ip,
               DeviceName: this.ipParameters.DeviceName,
               InOut: this.ipParameters.inout,
+              username: this.ipParameters.username,
+              password: this.ipParameters.password,
             }
             // console.log('data', this.form, data, this.ipParameters)
             setTimeout(() => {
