@@ -79,7 +79,7 @@
 
   @mixin logo {
     display: inline-block;
-    height: 35px;
+    //height: 35px;
     margin-right: 10px;
     color: $base-title-color;
     vertical-align: middle;
