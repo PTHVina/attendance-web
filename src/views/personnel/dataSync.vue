@@ -826,7 +826,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .form_group {
     height: auto;
     margin-bottom: 20px;
