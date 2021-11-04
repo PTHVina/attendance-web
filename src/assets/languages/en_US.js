@@ -191,6 +191,8 @@ module.exports = {
     text_11: '*: Take effect after restart application',
     text_celsius: "Celsius",
     text_fahreinheit: "Fahreinheit",
+    auto_issue: 'Automatic issued',
+    manual_issue: 'Manual issued',
 
     title_1: 'code',
     title_2: 'Department name',

@@ -194,6 +194,8 @@ module.exports = {
     text_11: "*: Prend effet après le redémarrage de l'application",
     text_celsius: "C",
     text_fahreinheit: "Fahrenheit",
+    auto_issue: 'Envoi automatique de',
+    manual_issue: 'Livrer manuellement',
 
     title_1: 'Code',
     title_2: 'Nom du département',

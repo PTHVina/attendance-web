@@ -190,6 +190,8 @@ module.exports = {
     text_11: '*: アプリケーションの再起動後',
     text_celsius: "摂氏度",
     text_fahreinheit: "華氏度",
+    auto_issue: '自動的に発令される',
+    manual_issue: '手動で交付する',
 
     title_1: 'コーディング',
     title_2: '部署名',
