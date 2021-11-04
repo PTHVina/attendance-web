@@ -191,6 +191,8 @@ text_10:
 text_11: '*: Hiệu quả sau khi khởi chạy lại',
 text_celsius: "Bật",
 text_fahreinheit: "Tắt",
+auto_issue: 'Tự động phát hành',
+manual_issue: 'Hướng dẫn sử dụng',
  
 title_1: 'Mã bộ phận',
 title_2: 'Tên bộ phận',

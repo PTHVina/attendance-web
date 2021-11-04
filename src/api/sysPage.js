@@ -128,6 +128,10 @@ export function setParam(data) {
   var data_json = JSON.parse(data)
   return data_json
 }
+// 设置下发方式（自动/手动）
+export function setParam2(data) {
+  window.top.myExtension.setIsauto_syn(data.toString())
+}
 
 export function enableLongTitle(enable) {
   window.top.myExtension.enableLongTitle(enable)

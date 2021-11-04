@@ -184,6 +184,8 @@ module.exports = {
     text_11: '*: 重新启动程序生效',
     text_celsius: "摄氏度",
     text_fahreinheit: "华氏度",
+    auto_issue: '自动下发',
+    manual_issue: '手动下发',
 
 
     title_1: '编码',

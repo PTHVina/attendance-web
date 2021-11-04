@@ -25,6 +25,29 @@
         </div>
         <span class="item_tips">*{{ $t('system.text_10') }}</span>
       </li>
+      <!-- 自动下发 -->
+      <li class="setting_row">
+        <div
+          class="set_item"
+          :style="
+            lang == 'en_US'
+              ? 'width:800px'
+              : lang == 'Fr_fr'
+              ? 'width:950px'
+              : lang == 'Jan_JPN'
+              ? 'width:600px'
+              : ''
+          "
+        >
+          <span class="item_title">{{ $t('system.auto_issue') }}</span>
+          <el-switch
+            v-model="autoIssue"
+            :active-text="$t('system.auto_issue')"
+            :inactive-text="$t('system.manual_issue')"
+            @change="setParam2"
+          ></el-switch>
+        </div>
+      </li>
       <!-- 时间同步 -->
       <li class="setting_row">
         <div
@@ -178,6 +201,7 @@
   import { setSwitch, getSwitch } from '@/api/device'
   import {
     setParam,
+    setParam2,
     getParam,
     enableLongTitle,
     setLongTitle,
@@ -202,6 +226,7 @@
         hideAttendanceManagementPage: false,
         hideAttendanceConfigPage: false,
         showTemperatureInCelsius: true,
+        autoIssue: true,
       }
     },
     created() {
@@ -215,6 +240,7 @@
       this.hideAttendanceManagementPage = cfg.HideAttendanceManagementPage
       this.hideAttendanceConfigPage = cfg.HideAttendanceConfigPage
       this.showTemperatureInCelsius = cfg.ShowTemperatureInCelsius === true
+      this.autoIssue = cfg.AutoIssue
     },
     methods: {
       //设置下发方式
@@ -224,6 +250,15 @@
           this.$baseMessage(this.$t('device.text_48'), 'success')
         } else {
           this.value = !this.value
+          this.$baseMessage(this.$t('device.text_49'), 'warning')
+        }
+      },
+      //设置下发方式(自动/手动)
+      setParam2(e) {
+        try {
+          setParam2(e)
+          this.$baseMessage(this.$t('device.text_48'), 'success')
+        } catch (error) {
           this.$baseMessage(this.$t('device.text_49'), 'warning')
         }
       },

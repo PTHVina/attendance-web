@@ -720,11 +720,7 @@
     computed: {
       ipInfo() {
         return this.localIP[1]
-          ? this.$t('device.text_63') +
-              ': ' +
-              this.localIP[0] +
-              '/' +
-              this.localIP[1]
+          ? this.$t('device.text_63') + ': ' + this.localIP[1]
           : ''
       },
     },
