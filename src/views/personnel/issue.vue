@@ -293,9 +293,7 @@
     computed: {
       issueProgress() {
         if (this.allCount > 0) {
-          return Math.floor(
-            ((this.successCount + this.failCount) / this.allCount) * 100
-          )
+          return Math.floor((this.successCount / this.allCount) * 100)
         }
         return 100
       },
