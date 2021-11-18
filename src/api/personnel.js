@@ -336,6 +336,20 @@ export function setSend(id) {
   })
 }
 
+//实时设备人员列表
+export function getDataSyncListRealTime(data, page) {
+  let res = window.top.myExtension.getDataSynRealTime(
+    data.name.toString(),
+    data.role.toString(),
+    data.stutas.toString(),
+    data.addr_name.toString(),
+    page.pageNo.toString(),
+    page.pageSize.toString()
+  )
+  var res_data = JSON.parse(res)
+  return res_data
+}
+
 //设备人员列表
 export function getDataSyncList(data, page) {
   let res = window.top.myExtension.getDataSyn(
@@ -357,6 +371,16 @@ export function getDataSyncList(data, page) {
 
   return { count: count[0].count, list: res_data }
 }
+//删除实时设备人员
+export function deleteDataSynRealTime(data) {
+  let res = window.top.myExtension.deleteDataSynRealTime(
+    data.id.toString(),
+    data.device_sn
+  )
+  var res_data = JSON.parse(res)
+  return res_data
+}
+
 //删除设备人员
 export function deleteDataSync(data) {
   let res = window.top.myExtension.deleteDataSyn(

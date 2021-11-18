@@ -64,6 +64,7 @@ module.exports = {
     btn_text_32: 'One-click registration',
     btn_text_33: 'Issue record',
     btn_text_34: 'Refresh',
+    real_time_query: 'Real-time query',
   },
   // 操作提示
   operation_tips: {
@@ -86,7 +87,7 @@ module.exports = {
     tips_17: 'Please select Department',
     tips_18: 'Please select job category',
     tips_19: 'Please upload your avatar',
-    tips_20: 'The length is between 1 and 18 characters',
+    tips_20: 'The length is between 1 and 19 characters',
     tips_21: 'Are you sure you want to delete the selected item?',
     tips_22: 'No rows selected',
     tips_23: 'Issued',
@@ -159,7 +160,8 @@ module.exports = {
     auto_refresh_on: 'The automatic refresh list is displayed',
     auto_refresh_off: 'Close the automatic refresh list',
     auto_refresh: 'Automatically refresh',
-    issue_finished: 'Delivery completed'
+    issue_finished: 'Delivery completed',
+    choose_device: 'Please select device'
   },
   // 首页
   home: {

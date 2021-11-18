@@ -40,7 +40,7 @@
             />
           </el-form-item>
           <!-- 角色 -->
-          <el-form-item>
+          <!-- <el-form-item>
             <span>{{ $t('personnel.text_16') }}</span>
             <el-select
               v-model="queryForm.role"
@@ -62,13 +62,13 @@
                 :label="$t('personnel.pl_12')"
                 value="2"
               ></el-option>
-              <!-- <el-option
+             <el-option
                 key="-1"
                 :label="$t('personnel.pl_13')"
                 value="-1"
-              ></el-option> -->
+              ></el-option> 
             </el-select>
-          </el-form-item>
+          </el-form-item> -->
           <!-- 状态 -->
           <!-- <el-form-item>
             <span>{{ $t('personnel.text_17') }}</span>
@@ -101,6 +101,14 @@
             >
               {{ $t('operation_btn.btn_text_32') }}
             </el-button>
+            <!--实时查询-->
+            <el-button
+              icon="el-icon-search"
+              native-type="submit"
+              @click="handleQuery(true)"
+            >
+              {{ $t('operation_btn.real_time_query') }}
+            </el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -126,9 +134,36 @@
       <!-- 头像 -->
       <el-table-column show-overflow-tooltip :label="$t('personnel.title_1')">
         <template #default="{ row }">
-          <el-image :preview-src-list="[row.imge]" :src="row.imge"></el-image>
+          <img
+            v-if="row.imge && isRealTime"
+            width="50px"
+            :src="'data:image/jpg;base64,' + row.imge"
+          />
+          <el-image
+            v-if="row.imge && !isRealTime"
+            :preview-src-list="[row.imge]"
+            :src="row.imge"
+          ></el-image>
+          <span
+            v-if="!row.imge"
+            class="el-icon-user-solid"
+            style="
+              width: 50px;
+              height: 50px;
+              font-size: 30px;
+              color: #999;
+              text-align: center;
+              line-height: 50px;
+            "
+          ></span>
         </template>
       </el-table-column>
+      <!--人员编号-->
+      <el-table-column
+        show-overflow-tooltip
+        prop="personid"
+        :label="$t('personnel.title_5')"
+      ></el-table-column>
       <!-- 姓名 -->
       <el-table-column
         show-overflow-tooltip
@@ -136,7 +171,7 @@
         :label="$t('personnel.text_1')"
       ></el-table-column>
       <!-- 角色 -->
-      <el-table-column
+      <!-- <el-table-column
         show-overflow-tooltip
         :label="$t('personnel.text_16')"
         prop="role"
@@ -149,7 +184,7 @@
           <span v-else-if="row.role == -1">{{ $t('personnel.pl_13') }}</span>
           <span v-else>{{ $t('personnel.pl_14') }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <!-- 状态 -->
       <!-- <el-table-column
         show-overflow-tooltip
@@ -176,6 +211,7 @@
         <template #default="{ row }">
           <!-- 注册 -->
           <el-button
+            v-if="!isRealTime"
             type="text"
             icon="el-icon-edit"
             style="margin-right: 10px"
@@ -375,7 +411,9 @@
     openImg,
     photograph,
     getDataSyncList,
+    getDataSyncListRealTime,
     deleteDataSync,
+    deleteDataSynRealTime,
     registerDataSync,
     registerAll,
   } from '@/api/personnel'
@@ -438,7 +476,7 @@
             },
             {
               min: 1,
-              max: 18,
+              max: 19,
               message: this.$t('operation_tips.tips_20'),
               trigger: 'blur',
             },
@@ -489,6 +527,7 @@
         options: [], // 工作分类
 
         deliveryMethod: false, //下发方式
+        isRealTime: false, //实时查询
       }
     },
     created() {
@@ -511,9 +550,26 @@
         let deviceList = getDeviceList2()
         this.deviceList = deviceList
         console.log('设备列表', this.deviceList)
-        let { count, list } = getDataSyncList(this.queryForm, this.page)
-        this.page.total = count
-        this.list = list
+        let obj
+        if (this.isRealTime) {
+          if (!this.queryForm.addr_name) {
+            this.$baseMessage(
+              this.$t('operation_tips.choose_device'),
+              'warning'
+            )
+            this.list = []
+            this.count = 0
+            this.listLoading = false
+            return
+          }
+          obj = getDataSyncListRealTime(this.queryForm, this.page)
+          console.log(obj)
+        } else {
+          obj = getDataSyncList(this.queryForm, this.page)
+          console.log(obj)
+        }
+        this.page.total = obj.count
+        this.list = obj.list
         console.log('人员列表', this.list)
         setTimeout(() => {
           this.listLoading = false
@@ -530,7 +586,8 @@
         this.init()
       },
       //查询
-      handleQuery() {
+      handleQuery(real_time) {
+        this.isRealTime = real_time ? true : false
         this.page.pageNo = 1
         this.init()
       },
@@ -540,7 +597,7 @@
         this.form = {
           id: data.personid,
           name: data.name,
-          Employee_code: '',
+          Employee_code: data.personid,
           phone: '',
           face_idcard: data.wg_card_id || data.long_card_id,
           idcardtype: data.wg_card_id ? '32' : '64',
@@ -659,11 +716,12 @@
               if (res.result == 2) {
                 this.$baseMessage(res.data, 'success')
                 this.dialogFormVisible = false
+                this.init()
               } else {
                 this.$baseMessage(res.data, 'warning')
               }
             } catch {
-              this.$baseMessage(this.$t('personnel.pl_17'), 'success')
+              this.$baseMessage(this.$t('personnel.pl_17'), 'error')
               if (!this.form.idcardtype) {
                 this.form.idcardtype = '32'
               }
@@ -790,7 +848,12 @@
 
       //删除
       handleDelete(data) {
-        let res = deleteDataSync(data)
+        let res
+        if (this.isRealTime) {
+          res = deleteDataSynRealTime(data)
+        } else {
+          res = deleteDataSync(data)
+        }
         if (res) {
           this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
         } else {
@@ -816,6 +879,7 @@
             try {
               registerAll(this.queryForm)
               this.$baseMessage(this.$t('personnel.pl_18'), 'success')
+              this.init()
             } catch {
               this.$baseMessage(this.$t('personnel.pl_17'), 'warning')
             }
