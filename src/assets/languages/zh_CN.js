@@ -64,6 +64,7 @@ module.exports = {
     btn_text_32: '全员注册',
     btn_text_33: '下发记录',
     btn_text_34: '刷新',
+    real_time_query: '实时查询',
   },
   // 操作提示
   operation_tips: {
@@ -86,7 +87,7 @@ module.exports = {
     tips_17: '请选择部门',
     tips_18: '请选择工作分类',
     tips_19: '请上传头像',
-    tips_20: '长度在 1 到 18 个字符',
+    tips_20: '长度在 1 到 19 个字符',
     tips_21: '你确定要删除选中项吗?',
     tips_22: '未选中任何行',
     tips_23: '已下发',
@@ -153,7 +154,8 @@ module.exports = {
     auto_refresh_on: '开启自动刷新列表',
     auto_refresh_off: '关闭自动刷新列表',
     auto_refresh: '自动刷新',
-    issue_finished: '下发已完成'
+    issue_finished: '下发已完成',
+    choose_device: '请选择设备'
   },
   // 首页
   home: {

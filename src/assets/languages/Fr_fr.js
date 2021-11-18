@@ -64,6 +64,7 @@ module.exports = {
     btn_text_32: 'Enregistrer en un clic',
     btn_text_33: "Dossier d'émission",
     btn_text_34: 'Rafraîchir',
+    real_time_query: 'Requêtes en temps réel',
   },
   // 操作提示
   operation_tips: {
@@ -87,7 +88,7 @@ module.exports = {
     tips_17: 'Veuillez choisir le département',
     tips_18: 'Veuillez choisir la classification de travail',
     tips_19: 'Veuillez télécharger un avatar',
-    tips_20: 'Entre 1 et 18 caractères',
+    tips_20: 'Entre 1 et 19 caractères',
 
     tips_21: "Êtes-vous sûr de supprimer l'élément sélectionné?",
     tips_22: 'Aucune ligne sélectionnée',
@@ -162,7 +163,8 @@ module.exports = {
     auto_refresh_on: 'Activer le rafraîchissement automatique des listes',
     auto_refresh_off: 'Désactivé actualiser automatiquement la liste',
     auto_refresh: 'Rafraîchir automatiquement',
-    issue_finished: 'La livraison est terminée'
+    issue_finished: 'La livraison est terminée',
+    choose_device: 'Veuillez sélectionner un appareil',
   },
   // 首页
   home: {

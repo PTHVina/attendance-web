@@ -64,6 +64,7 @@ module.exports = {
     btn_text_32: 'ワンクリック登録',
     btn_text_33: '発行記録',
     btn_text_34: '状態を更新',
+    real_time_query: 'リアルタイムクエリ',
   },
   // 操作提示
   operation_tips: {
@@ -86,7 +87,7 @@ module.exports = {
     tips_17: '部門を選択してください',
     tips_18: '仕事の分類を選択してください。',
     tips_19: '画像をアップロードしてください',
-    tips_20: '長さは1から18文字です。',
+    tips_20: '長さは1から19文字です。',
     tips_21: '本当に選択したアイテムを削除しますか？?',
     tips_22: '行が選択されていません',
     tips_23: '髪が下りました',
@@ -158,7 +159,8 @@ module.exports = {
     auto_refresh_on: '自動更新リストをオンにする',
     auto_refresh_off: '自動更新リストをオフにする',
     auto_refresh: '自動リフレッシュ',
-    issue_finished: '配付はすでに完了した'
+    issue_finished: '配付はすでに完了した',
+    choose_device: '装置を選んでください',
   },
   // 首页
   home: {
