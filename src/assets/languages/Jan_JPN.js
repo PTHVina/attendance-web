@@ -64,7 +64,8 @@ module.exports = {
     btn_text_32: 'ワンクリック登録',
     btn_text_33: '発行記録',
     btn_text_34: '状態を更新',
-    real_time_query: 'リアルタイムクエリ',
+    real_time_query: '装置',
+    local_query: 'ローカル',
   },
   // 操作提示
   operation_tips: {

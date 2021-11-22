@@ -64,7 +64,8 @@ module.exports = {
     btn_text_32: 'Enregistrer en un clic',
     btn_text_33: "Dossier d'émission",
     btn_text_34: 'Rafraîchir',
-    real_time_query: 'Requêtes en temps réel',
+    real_time_query: 'Dispositif',
+    local_query: 'Local',
   },
   // 操作提示
   operation_tips: {

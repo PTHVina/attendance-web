@@ -64,7 +64,8 @@ btn_text_31: 'Cài đặt xuất',
 btn_text_32: 'Đăng ký bằng một cú nhấp chuột',
 btn_text_33: 'Tình trạng đăng ký',
 btn_text_34: 'Làm mới',
-real_time_query: 'Truy vấn thời gian thực',
+real_time_query: 'thiết bị',
+local_query: 'địa phương',
   },
   // 操作提示
 operation_tips: {
