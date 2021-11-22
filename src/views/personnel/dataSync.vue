@@ -89,7 +89,7 @@
               icon="el-icon-search"
               type="primary"
               native-type="submit"
-              @click="handleQuery()"
+              @click="handleQuery"
             >
               {{ $t('operation_btn.btn_text_6') }}
             </el-button>
@@ -101,14 +101,15 @@
             >
               {{ $t('operation_btn.btn_text_32') }}
             </el-button>
-            <!--实时查询-->
-            <el-button
-              icon="el-icon-search"
-              native-type="submit"
-              @click="handleQuery(true)"
+            <!--查询类型-->
+            <el-radio-group
+              v-model="isRealTime"
+              style="margin-left: 30px"
+              size="small"
             >
-              {{ $t('operation_btn.real_time_query') }}
-            </el-button>
+              <el-radio-button :label="0">本地</el-radio-button>
+              <el-radio-button :label="1">设备</el-radio-button>
+            </el-radio-group>
           </el-form-item>
         </el-form>
       </div>
@@ -527,7 +528,7 @@
         options: [], // 工作分类
 
         deliveryMethod: false, //下发方式
-        isRealTime: false, //实时查询
+        isRealTime: 1, //实时查询
       }
     },
     created() {
@@ -551,12 +552,8 @@
         this.deviceList = deviceList
         console.log('设备列表', this.deviceList)
         let obj
-        if (this.isRealTime) {
+        if (this.isRealTime === 1) {
           if (!this.queryForm.addr_name) {
-            this.$baseMessage(
-              this.$t('operation_tips.choose_device'),
-              'warning'
-            )
             this.list = []
             this.count = 0
             this.listLoading = false
@@ -586,8 +583,7 @@
         this.init()
       },
       //查询
-      handleQuery(real_time) {
-        this.isRealTime = real_time ? true : false
+      handleQuery() {
         this.page.pageNo = 1
         this.init()
       },
@@ -849,7 +845,7 @@
       //删除
       handleDelete(data) {
         let res
-        if (this.isRealTime) {
+        if (this.isRealTime === 1) {
           res = deleteDataSynRealTime(data)
         } else {
           res = deleteDataSync(data)
