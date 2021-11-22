@@ -385,6 +385,7 @@ export function deleteDataSynRealTime(data) {
 export function deleteDataSync(data) {
   let res = window.top.myExtension.deleteDataSyn(
     data.id.toString(),
+    data.personid.toString(),
     data.device_sn
   )
   var res_data = JSON.parse(res)
