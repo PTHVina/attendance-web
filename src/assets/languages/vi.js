@@ -598,6 +598,7 @@ text_88:
     noteTitle: 'Lưu ý:',
     notes: 
     '1. Thứ tự cập nhật múi giờ: Chức vụ  - > Bộ phận - > Nhân viên. Nghĩa là, nếu cả ba loại múi giờ được thêm vào cùng một lúc thì "Chức vụ" được cập nhật trước, sau đó là "Bộ phận", và cuối cùng là "Nhân viên". Các múi giờ được cập nhật sau đó sẽ ghi đè lên các múi giờ được cập nhật đầu tiên. 2. Thứ tự thêm múi giờ được khuyến nghị: Chức vụ - > Bộ phận - > Nhân viên. 3. Đối với múi giờ theo bộ phận, Khi thêm một múi giờ theo bộ phận thì bộ phận cấp dưới của nhân viên đó sẽ được cập nhật, cập nhật không có tác dụng đối với bộ phận cấp trên của nhân viên đó.',
+    issueTip:'Hãy chắc chắn rằng tất cả các nhân viên đã được phát hành thành công, nếu không các quy định không có hiệu lực, cho dù tiếp tục?',
     refresh: 'Làm mới',
     createdTime: 'Thời gian cập nhật',
     progress: 'Tiến trình',
