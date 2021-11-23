@@ -608,6 +608,7 @@ module.exports = {
     noteTitle: 'Conseils importants',
     notes: 
     "1. Ordre d'émission des règles: classification des emplois - > Ministère - > employé individuel. C'est - à - dire, si trois types de règles d'émission sont ajoutés en même temps, la classification des emplois sera publiée en premier, puis le Ministère, et enfin l'employé individuel. Les règles publiées plus tard écraseront Les règles publiées en premier.2. Ordre dans lequel il est recommandé d'ajouter des règles: classification des emplois - > Ministère - > employé individuel.3. Pour les règles de distribution du Ministère, les dépendances des ministères supérieurs et inférieurs du Ministère ne seront pas trouvées, c'est - à - dire que si un employé appartient au Ministère a, le Ministère a doit être sélectionné lors de l'ajout des règles de distribution du Ministère, et le parent du Ministère a ne distribuera pas l'employé.",
+    issueTip:'S’il vous plaît assurez-vous que le personnel a été envoyé avec succès, sinon les règles de planification ne seront pas en vigueur, continuer?',
     refresh: 'Rafraîchir',
     createdTime: 'Temps de création',
     progress: 'Progrès accomplis',

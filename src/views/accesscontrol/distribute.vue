@@ -172,6 +172,7 @@
       </el-table-column>
     </el-table>
     <el-alert
+      v-if="lang != 'zh_CN'"
       :title="$t('accessControl.noteTitle')"
       type="info"
       style="margin-top: 10px; line-height: 1.3em"
@@ -179,6 +180,20 @@
       :closable="false"
       show-icon
     ></el-alert>
+    <el-alert
+      v-else
+      :title="$t('accessControl.noteTitle')"
+      type="info"
+      style="margin-top: 10px; line-height: 1.3em"
+      :closable="false"
+      show-icon
+    >
+      <slot name="description">
+        <p class="note">{{ $t('accessControl.note1') }}</p>
+        <p class="note">{{ $t('accessControl.note2') }}</p>
+        <p class="note">{{ $t('accessControl.note3') }}</p>
+      </slot>
+    </el-alert>
   </div>
 </template>
 
@@ -210,6 +225,7 @@
   export default {
     data() {
       return {
+        lang: this.$lang,
         distributions: [],
         allAccessRules: [],
         allDevices: [],
@@ -359,11 +375,13 @@
             'warning'
           )
         } else {
-          buildRuleDeploymentTask()
-          this.$baseMessage(
-            this.$t('accessControl.taskCreatedSuccessfully'),
-            'success'
-          )
+          this.$baseConfirm(this.$t('accessControl.issueTip'), null, () => {
+            buildRuleDeploymentTask()
+            this.$baseMessage(
+              this.$t('accessControl.taskCreatedSuccessfully'),
+              'success'
+            )
+          })
         }
       },
 
@@ -444,5 +462,8 @@
   .cell:hover .add {
     visibility: visible;
     cursor: pointer;
+  }
+  .note {
+    margin: 2px 0;
   }
 </style>

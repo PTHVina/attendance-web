@@ -598,6 +598,7 @@ module.exports = {
     noteTitle: 'Notes',
     notes: 
     '1. Rule distribution order: Employee Type  - > Department - > individual employee. That is, if three types of distribution rules are added at the same time, the employee type is distributed first, then the Department, and finally the individual employee. The later distributed rules overwrite the first distributed rules. 2. The order of adding rules is recommended: job classification - > Department - > individual employee. 3. For Department distribution rules, the subordinate relationship between the superior and subordinate departments of the Department will not be found, that is, if an employee belongs to department a, when adding Department distribution rules, department a must be selected, and the superior of department a will not distribute the employee.',
+    issueTip:'Ensure that all personnel have been successfully delivered. Otherwise, the scheduling rule does not take effect. Determine whether to continue?',
     refresh: 'Refresh',
     createdTime: 'Created',
     progress: 'Progress',

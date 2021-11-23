@@ -83,6 +83,18 @@
               <el-option key="3" label="状态三" value="3"></el-option>
             </el-select>
           </el-form-item> -->
+
+          <el-form-item>
+            <!--查询类型-->
+            <el-radio-group v-model="isRealTime" size="small">
+              <el-radio :label="0" border style="margin-right: 0px">
+                {{ $t('operation_btn.local_query') }}
+              </el-radio>
+              <el-radio :label="1" border style="margin-right: 0px">
+                {{ $t('operation_btn.real_time_query') }}
+              </el-radio>
+            </el-radio-group>
+          </el-form-item>
           <el-form-item>
             <!-- 查询 -->
             <el-button
@@ -101,19 +113,6 @@
             >
               {{ $t('operation_btn.btn_text_32') }}
             </el-button>
-            <!--查询类型-->
-            <el-radio-group
-              v-model="isRealTime"
-              style="margin-left: 30px"
-              size="small"
-            >
-              <el-radio-button :label="0">
-                {{ $t('operation_btn.local_query') }}
-              </el-radio-button>
-              <el-radio-button :label="1">
-                {{ $t('operation_btn.real_time_query') }}
-              </el-radio-button>
-            </el-radio-group>
           </el-form-item>
         </el-form>
       </div>
@@ -532,7 +531,7 @@
         options: [], // 工作分类
 
         deliveryMethod: false, //下发方式
-        isRealTime: 1, //实时查询
+        isRealTime: 0, //实时查询
       }
     },
     created() {
@@ -561,6 +560,10 @@
             this.list = []
             this.count = 0
             this.listLoading = false
+            this.$baseMessage(
+              this.$t('operation_tips.choose_device'),
+              'warning'
+            )
             return
           }
           obj = getDataSyncListRealTime(this.queryForm, this.page)
