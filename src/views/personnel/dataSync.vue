@@ -107,8 +107,12 @@
               style="margin-left: 30px"
               size="small"
             >
-              <el-radio-button :label="0">本地</el-radio-button>
-              <el-radio-button :label="1">设备</el-radio-button>
+              <el-radio-button :label="0">
+                {{ $t('operation_btn.local_query') }}
+              </el-radio-button>
+              <el-radio-button :label="1">
+                {{ $t('operation_btn.real_time_query') }}
+              </el-radio-button>
             </el-radio-group>
           </el-form-item>
         </el-form>
