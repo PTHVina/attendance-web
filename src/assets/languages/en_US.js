@@ -64,7 +64,8 @@ module.exports = {
     btn_text_32: 'One-click registration',
     btn_text_33: 'Issue record',
     btn_text_34: 'Refresh',
-    real_time_query: 'Real-time query',
+    real_time_query: 'Device',
+    local_query: 'Local',
   },
   // 操作提示
   operation_tips: {

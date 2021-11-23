@@ -64,7 +64,8 @@ module.exports = {
     btn_text_32: '全员注册',
     btn_text_33: '下发记录',
     btn_text_34: '刷新',
-    real_time_query: '实时查询',
+    real_time_query: '设备',
+    local_query: '本地',
   },
   // 操作提示
   operation_tips: {
