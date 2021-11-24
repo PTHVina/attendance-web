@@ -192,6 +192,8 @@
         <p class="note">{{ $t('accessControl.note1') }}</p>
         <p class="note">{{ $t('accessControl.note2') }}</p>
         <p class="note">{{ $t('accessControl.note3') }}</p>
+        <p class="note">{{ $t('accessControl.note4') }}</p>
+        <p class="note">{{ $t('accessControl.note5') }}</p>
       </slot>
     </el-alert>
   </div>

@@ -620,6 +620,7 @@ module.exports = {
     selectedItemAlreadyExists: "L'élément sélectionné existe déjà",
     thereIsUnfinishedTask: "Une tâche assignée est en cours d'exécution et ne peut pas continuer à ajouter",
     taskCreatedSuccessfully: 'Création réussie de la tâche assignée',
+    ruleTips:'Définition de la période passable pendant laquelle la personne correspondante n’est pas passable',
 
   }
 }

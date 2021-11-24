@@ -613,5 +613,6 @@ text_88:
     noAccess: 'Không thể truy cập',
     fullAccess: 'Truy cập đầy',
     defaultAccess: 'Múi giờ mặc định:',
+    ruleTips:'Định nghĩa các khoảng thời gian có thể đi qua, và các đối tượng không thể đi qua trong khoảng thời gian đó',
   }
 }
