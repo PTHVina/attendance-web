@@ -603,6 +603,7 @@ module.exports = {
     selectedItemAlreadyExists: '選択されたプロジェクトは既に存在します',
     thereIsUnfinishedTask: 'は次のミッションが実行されていますが、追加はできません',
     taskCreatedSuccessfully: '作成下での任務成功',
+    ruleTips:'通行可能時間帯を定義し、対応者がいない時間帯は通行不可',
 
   }
 }

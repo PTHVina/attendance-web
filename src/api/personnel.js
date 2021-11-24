@@ -60,9 +60,9 @@ export function setData(data) {
     data.line_userid.toString(),
     data.face_idcard.toString(),
     data.idcardtype.toString(),
-    data.customer_text.toString(),
-    data.term_start.toString(),
-    data.term.toString()
+    data.customer_text ? data.customer_text.toString() : '',
+    data.term_start ? data.term_start.toString() : '',
+    data.term ? data.term.toString() : ''
   )
   var re_json = JSON.parse(re)
 
