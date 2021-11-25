@@ -60,9 +60,9 @@ export function setData(data) {
     data.line_userid.toString(),
     data.face_idcard.toString(),
     data.idcardtype.toString(),
-    data.customer_text.toString(),
-    data.term_start.toString(),
-    data.term.toString()
+    data.customer_text ? data.customer_text.toString() : '',
+    data.term_start ? data.term_start.toString() : '',
+    data.term ? data.term.toString() : ''
   )
   var re_json = JSON.parse(re)
 
@@ -336,6 +336,20 @@ export function setSend(id) {
   })
 }
 
+//实时设备人员列表
+export function getDataSyncListRealTime(data, page) {
+  let res = window.top.myExtension.getDataSynRealTime(
+    data.name.toString(),
+    data.role.toString(),
+    data.stutas.toString(),
+    data.addr_name.toString(),
+    page.pageNo.toString(),
+    page.pageSize.toString()
+  )
+  var res_data = JSON.parse(res)
+  return res_data
+}
+
 //设备人员列表
 export function getDataSyncList(data, page) {
   let res = window.top.myExtension.getDataSyn(
@@ -357,10 +371,21 @@ export function getDataSyncList(data, page) {
 
   return { count: count[0].count, list: res_data }
 }
+//删除实时设备人员
+export function deleteDataSynRealTime(data) {
+  let res = window.top.myExtension.deleteDataSynRealTime(
+    data.id.toString(),
+    data.device_sn
+  )
+  var res_data = JSON.parse(res)
+  return res_data
+}
+
 //删除设备人员
 export function deleteDataSync(data) {
   let res = window.top.myExtension.deleteDataSyn(
     data.id.toString(),
+    data.personid.toString(),
     data.device_sn
   )
   var res_data = JSON.parse(res)

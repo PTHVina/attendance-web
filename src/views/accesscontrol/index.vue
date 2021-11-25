@@ -8,6 +8,14 @@
         <el-button @click="addDayAccessRule">
           {{ $t('accessControl.addDayRule') }}
         </el-button>
+        <span class="tips2">
+          <el-alert
+            :title="$t('accessControl.ruleTips')"
+            type="info"
+            show-icon
+            :closable="false"
+          ></el-alert>
+        </span>
       </div>
     </div>
     <el-table
@@ -23,11 +31,7 @@
         :label="$t('accessControl.name')"
         width="100px"
       ></el-table-column>
-      <el-table-column
-        :label="$t('attendance.text_50')"
-        align="center"
-        width="180"
-      >
+      <el-table-column :label="$t('attendance.text_50')" align="center">
         <template #default="{ row }">
           <label v-if="row.Days[0]" class="parent">
             <p
@@ -50,11 +54,7 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column
-        :label="$t('attendance.text_51')"
-        align="center"
-        width="180"
-      >
+      <el-table-column :label="$t('attendance.text_51')" align="center">
         <template #default="{ row }">
           <label v-if="row.Days[1]" class="parent">
             <p
@@ -77,11 +77,7 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column
-        :label="$t('attendance.text_52')"
-        align="center"
-        width="180"
-      >
+      <el-table-column :label="$t('attendance.text_52')" align="center">
         <template #default="{ row }">
           <label v-if="row.Days[2]" class="parent">
             <p
@@ -104,11 +100,7 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column
-        :label="$t('attendance.text_53')"
-        align="center"
-        width="180"
-      >
+      <el-table-column :label="$t('attendance.text_53')" align="center">
         <template #default="{ row }">
           <label v-if="row.Days[3]" class="parent">
             <p
@@ -131,11 +123,7 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column
-        :label="$t('attendance.text_54')"
-        align="center"
-        width="180"
-      >
+      <el-table-column :label="$t('attendance.text_54')" align="center">
         <template #default="{ row }">
           <label v-if="row.Days[4]" class="parent">
             <p
@@ -158,11 +146,7 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column
-        :label="$t('attendance.text_55')"
-        align="center"
-        width="180"
-      >
+      <el-table-column :label="$t('attendance.text_55')" align="center">
         <template #default="{ row }">
           <label v-if="row.Days[5]" class="parent">
             <p
@@ -185,11 +169,7 @@
           </label>
         </template>
       </el-table-column>
-      <el-table-column
-        :label="$t('attendance.text_56')"
-        align="center"
-        width="180"
-      >
+      <el-table-column :label="$t('attendance.text_56')" align="center">
         <template #default="{ row }">
           <label v-if="row.Days[6]" class="parent">
             <p
@@ -319,8 +299,11 @@
         Day.TimeSegments.splice(index, 1)
       },
       removeAccessRule(index, row) {
-        removeAccessRule(row.Id)
-        this.rules.splice(index, 1)
+        this.$baseConfirm(this.$t('operation_tips.tips_4'), null, () => {
+          removeAccessRule(row.Id)
+          this.rules.splice(index, 1)
+          this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
+        })
       },
       addWeekAccessRule() {
         this.addAccessRule(0)
@@ -412,5 +395,9 @@
   .cell:hover .add {
     visibility: visible;
     cursor: pointer;
+  }
+  .tips2 {
+    display: inline-block;
+    margin-left: 10px;
   }
 </style>

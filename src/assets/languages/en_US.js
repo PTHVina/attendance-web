@@ -64,6 +64,8 @@ module.exports = {
     btn_text_32: 'One-click registration',
     btn_text_33: 'Issue record',
     btn_text_34: 'Refresh',
+    real_time_query: 'Device',
+    local_query: 'Local',
   },
   // 操作提示
   operation_tips: {
@@ -86,7 +88,7 @@ module.exports = {
     tips_17: 'Please select Department',
     tips_18: 'Please select job category',
     tips_19: 'Please upload your avatar',
-    tips_20: 'The length is between 1 and 18 characters',
+    tips_20: 'The length is between 1 and 19 characters',
     tips_21: 'Are you sure you want to delete the selected item?',
     tips_22: 'No rows selected',
     tips_23: 'Issued',
@@ -159,7 +161,8 @@ module.exports = {
     auto_refresh_on: 'The automatic refresh list is displayed',
     auto_refresh_off: 'Close the automatic refresh list',
     auto_refresh: 'Automatically refresh',
-    issue_finished: 'Delivery completed'
+    issue_finished: 'Delivery completed',
+    choose_device: 'Please select device'
   },
   // 首页
   home: {
@@ -595,6 +598,7 @@ module.exports = {
     noteTitle: 'Notes',
     notes: 
     '1. Rule distribution order: Employee Type  - > Department - > individual employee. That is, if three types of distribution rules are added at the same time, the employee type is distributed first, then the Department, and finally the individual employee. The later distributed rules overwrite the first distributed rules. 2. The order of adding rules is recommended: job classification - > Department - > individual employee. 3. For Department distribution rules, the subordinate relationship between the superior and subordinate departments of the Department will not be found, that is, if an employee belongs to department a, when adding Department distribution rules, department a must be selected, and the superior of department a will not distribute the employee.',
+    issueTip:'Ensure that all personnel have been successfully delivered. Otherwise, the scheduling rule does not take effect. Determine whether to continue?',
     refresh: 'Refresh',
     createdTime: 'Created',
     progress: 'Progress',
@@ -609,5 +613,6 @@ module.exports = {
     noAccess: 'No Access',
     fullAccess: 'Full Access',
     defaultAccess: 'Default Rule:',
+    ruleTips:'Define the accessible time slots, duing which the authorized personnels can access the door',
   }
 }

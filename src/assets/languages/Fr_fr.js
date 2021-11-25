@@ -64,6 +64,8 @@ module.exports = {
     btn_text_32: 'Enregistrer en un clic',
     btn_text_33: "Dossier d'émission",
     btn_text_34: 'Rafraîchir',
+    real_time_query: 'Dispositif',
+    local_query: 'Local',
   },
   // 操作提示
   operation_tips: {
@@ -87,7 +89,7 @@ module.exports = {
     tips_17: 'Veuillez choisir le département',
     tips_18: 'Veuillez choisir la classification de travail',
     tips_19: 'Veuillez télécharger un avatar',
-    tips_20: 'Entre 1 et 18 caractères',
+    tips_20: 'Entre 1 et 19 caractères',
 
     tips_21: "Êtes-vous sûr de supprimer l'élément sélectionné?",
     tips_22: 'Aucune ligne sélectionnée',
@@ -162,7 +164,8 @@ module.exports = {
     auto_refresh_on: 'Activer le rafraîchissement automatique des listes',
     auto_refresh_off: 'Désactivé actualiser automatiquement la liste',
     auto_refresh: 'Rafraîchir automatiquement',
-    issue_finished: 'La livraison est terminée'
+    issue_finished: 'La livraison est terminée',
+    choose_device: 'Veuillez sélectionner un appareil',
   },
   // 首页
   home: {
@@ -605,6 +608,7 @@ module.exports = {
     noteTitle: 'Conseils importants',
     notes: 
     "1. Ordre d'émission des règles: classification des emplois - > Ministère - > employé individuel. C'est - à - dire, si trois types de règles d'émission sont ajoutés en même temps, la classification des emplois sera publiée en premier, puis le Ministère, et enfin l'employé individuel. Les règles publiées plus tard écraseront Les règles publiées en premier.2. Ordre dans lequel il est recommandé d'ajouter des règles: classification des emplois - > Ministère - > employé individuel.3. Pour les règles de distribution du Ministère, les dépendances des ministères supérieurs et inférieurs du Ministère ne seront pas trouvées, c'est - à - dire que si un employé appartient au Ministère a, le Ministère a doit être sélectionné lors de l'ajout des règles de distribution du Ministère, et le parent du Ministère a ne distribuera pas l'employé.",
+    issueTip:'S’il vous plaît assurez-vous que le personnel a été envoyé avec succès, sinon les règles de planification ne seront pas en vigueur, continuer?',
     refresh: 'Rafraîchir',
     createdTime: 'Temps de création',
     progress: 'Progrès accomplis',
@@ -616,6 +620,7 @@ module.exports = {
     selectedItemAlreadyExists: "L'élément sélectionné existe déjà",
     thereIsUnfinishedTask: "Une tâche assignée est en cours d'exécution et ne peut pas continuer à ajouter",
     taskCreatedSuccessfully: 'Création réussie de la tâche assignée',
+    ruleTips:'Définition de la période passable pendant laquelle la personne correspondante n’est pas passable',
 
   }
 }

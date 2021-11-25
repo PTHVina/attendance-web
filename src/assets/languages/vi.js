@@ -64,6 +64,8 @@ btn_text_31: 'Cài đặt xuất',
 btn_text_32: 'Đăng ký bằng một cú nhấp chuột',
 btn_text_33: 'Tình trạng đăng ký',
 btn_text_34: 'Làm mới',
+real_time_query: 'thiết bị',
+local_query: 'địa phương',
   },
   // 操作提示
 operation_tips: {
@@ -86,7 +88,7 @@ tips_16: 'Vui lòng nhập đúng địa chỉ email',
 tips_17: 'Vui lòng chọn bộ phận',
 tips_18: 'Vui lòng chọn chức vụ',
 tips_19: 'Vui lòng tải lên hình đại diện của bạn',
-tips_20: 'Độ dài từ 1 đến 18 ký tự',
+tips_20: 'Độ dài từ 1 đến 19 ký tự',
 tips_21: 'Bạn có chắc chắn muốn xóa khoản mục đã chọn không?',
 tips_22: 'Không có hàng nào được chọn',
 tips_23: 'Đăng ký thành công!',
@@ -159,7 +161,8 @@ tips_79: 'Xác định tất cả nhân viên để thiết bị này',
 auto_refresh_on: 'Bật danh sách cập nhật tự động', 
 auto_refresh_off: 'Tắt danh sách cập nhật tự động',
 auto_refresh: 'Tự động cập nhật',
-issue_finished: 'Phát hành đã hoàn thành'
+issue_finished: 'Phát hành đã hoàn thành',
+choose_device: 'Hãy chọn thiết bị',
   },
   // 首页
   home: {
@@ -595,6 +598,7 @@ text_88:
     noteTitle: 'Lưu ý:',
     notes: 
     '1. Thứ tự cập nhật múi giờ: Chức vụ  - > Bộ phận - > Nhân viên. Nghĩa là, nếu cả ba loại múi giờ được thêm vào cùng một lúc thì "Chức vụ" được cập nhật trước, sau đó là "Bộ phận", và cuối cùng là "Nhân viên". Các múi giờ được cập nhật sau đó sẽ ghi đè lên các múi giờ được cập nhật đầu tiên. 2. Thứ tự thêm múi giờ được khuyến nghị: Chức vụ - > Bộ phận - > Nhân viên. 3. Đối với múi giờ theo bộ phận, Khi thêm một múi giờ theo bộ phận thì bộ phận cấp dưới của nhân viên đó sẽ được cập nhật, cập nhật không có tác dụng đối với bộ phận cấp trên của nhân viên đó.',
+    issueTip:'Hãy chắc chắn rằng tất cả các nhân viên đã được phát hành thành công, nếu không các quy định không có hiệu lực, cho dù tiếp tục?',
     refresh: 'Làm mới',
     createdTime: 'Thời gian cập nhật',
     progress: 'Tiến trình',
@@ -609,5 +613,6 @@ text_88:
     noAccess: 'Không thể truy cập',
     fullAccess: 'Truy cập đầy',
     defaultAccess: 'Múi giờ mặc định:',
+    ruleTips:'Định nghĩa các khoảng thời gian có thể đi qua, và các đối tượng không thể đi qua trong khoảng thời gian đó',
   }
 }

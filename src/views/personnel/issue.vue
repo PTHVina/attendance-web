@@ -305,7 +305,7 @@
             this.$t('operation_tips.auto_refresh_on'),
             'success'
           )
-          this.timer = setInterval(this.refreshCurrentPage, 10000)
+          this.timer = setInterval(this.refreshCurrentPage, 5000)
         } else {
           this.$baseMessage(this.$t('operation_tips.auto_refresh_off'), 'info')
           this.timer && clearInterval(this.timer)

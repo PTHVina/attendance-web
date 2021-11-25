@@ -1180,7 +1180,7 @@
                 this.$baseMessage(res.data, 'warning')
               }
             } catch {
-              this.$baseMessage(this.$t('personnel.pl_17'), 'success')
+              this.$baseMessage(this.$t('personnel.pl_17'), 'error')
               if (!this.form.idcardtype) {
                 this.form.idcardtype = '32'
               }
