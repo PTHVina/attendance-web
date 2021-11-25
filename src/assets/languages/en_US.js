@@ -613,6 +613,6 @@ module.exports = {
     noAccess: 'No Access',
     fullAccess: 'Full Access',
     defaultAccess: 'Default Rule:',
-    ruleTips:'Define the passable time segment. The corresponding personnel are not allowed to pass during the time segment',
+    ruleTips:'Define the accessible time slot, duing which the corresponding personnel can access the door',
   }
 }
