@@ -613,6 +613,6 @@ module.exports = {
     noAccess: 'No Access',
     fullAccess: 'Full Access',
     defaultAccess: 'Default Rule:',
-    ruleTips:'Define the accessible time slot, duing which the corresponding personnel can access the door',
+    ruleTips:'Define the accessible time slots, duing which the authorized personnels can access the door',
   }
 }
