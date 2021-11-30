@@ -73,11 +73,11 @@
               {{ $t('operation_btn.btn_text_34') }}
             </el-button>
           </el-form-item>
-          <el-form-item>
+          <!-- <el-form-item>
             <el-checkbox v-model="autoRefresh">
               {{ $t('operation_tips.auto_refresh') }}
             </el-checkbox>
-          </el-form-item>
+          </el-form-item>取消显示自动刷新选择框 -->
           <!--下发进度-->
           <el-form-item v-if="allCount != 0">
             <el-popover
@@ -239,7 +239,7 @@
 
 <script>
   import { getIssueList, getIssueInfo } from '@/api/personnel'
-  import { getDeviceList } from '@/api/device'
+  import { getDeviceList, getDistributeStatus } from '@/api/device'
   export default {
     name: 'Issue',
     data() {
@@ -301,14 +301,20 @@
     watch: {
       autoRefresh(val) {
         if (val) {
-          this.$baseMessage(
-            this.$t('operation_tips.auto_refresh_on'),
-            'success'
-          )
-          this.timer = setInterval(this.refreshCurrentPage, 5000)
+          // this.$baseMessage(
+          //   this.$t('operation_tips.auto_refresh_on'),
+          //   'success'
+          // )取消提示
+          //获取下发完成状态（0代表下发未结束，1代表下发已结束），如果是0则刷新页面，如果是1则不刷新页面
+          this.timer = setInterval(() => {
+            let res = getDistributeStatus()
+            if (res == 0 || this.successCount != this.allCount) {
+              this.refreshCurrentPage()
+            }
+          }, 3000)
         } else {
-          this.$baseMessage(this.$t('operation_tips.auto_refresh_off'), 'info')
-          this.timer && clearInterval(this.timer)
+          //this.$baseMessage(this.$t('operation_tips.auto_refresh_off'), 'info')取消提示
+          this.timer && this.clearInterval(this.timer)
         }
       },
     },
