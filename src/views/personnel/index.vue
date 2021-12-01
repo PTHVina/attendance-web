@@ -25,6 +25,23 @@
               :placeholder="$t('personnel.title_5')"
             />
           </el-form-item>
+          <!-- 部门 -->
+          <el-form-item>
+            <span>{{ $t('attendance.text_12') }}</span>
+            <el-select
+              v-model="queryForm.dep"
+              multiple
+              collapse-tags
+              :placeholder="$t('accessControl.pleaseChooseDepartment')"
+            >
+              <el-option
+                v-for="item in allDepartments"
+                :key="item.id"
+                :label="item.name"
+                :value="item.name"
+              ></el-option>
+            </el-select>
+          </el-form-item>
           <!-- 电话号码 -->
           <el-form-item>
             <span>{{ $t('personnel.text_3') }}</span>
@@ -475,6 +492,7 @@
         <el-form-item :label="$t('personnel.text_2')" prop="Employee_code">
           <el-input
             v-model="form.Employee_code"
+            :disabled.sync="isEdit"
             :placeholder="
               deliveryMethod ? $t('personnel.pl_15') : $t('personnel.title_5')
             "
@@ -774,10 +792,14 @@
     setInform,
   } from '@/api/personnel'
   import { getParam } from '@/api/sysPage'
+  import { getAllDepartment } from '@/api/accesscontrol'
   export default {
     name: 'PersonnelIndex',
     data() {
       return {
+        //departments: [],
+        allDepartments: [],
+        isEdit: false,
         authorized_time: [],
         lang: this.$lang,
         list: [],
@@ -791,6 +813,7 @@
           name: '',
           no: '',
           qu_phone: '',
+          dep: '',
         },
         page: {
           pageNo: 1,
@@ -911,6 +934,7 @@
       this.deliveryMethod = getParam()
       this.typeList()
       this.init()
+      this.loadAllDepartments()
     },
     mounted() {
       let firstLogin = JSON.parse(localStorage.getItem('firstLogin'))
@@ -1175,6 +1199,7 @@
           this.form.Employetypename = this.options[0].value
         }
         if (data.id) {
+          this.isEdit = true
           this.form = {
             id: data.id,
             name: data.name,
@@ -1197,6 +1222,8 @@
             name: data.departmentname,
             title: data.departmentname,
           }
+        } else {
+          this.isEdit = false
         }
         this.form.term_start &&
           this.authorized_time.push(new Date(this.form.term_start))
@@ -1603,6 +1630,11 @@
         s = s <= 9 ? '0' + s : s
 
         return [Y + '-' + M + '-' + D, h + ':' + m + ':' + s]
+      },
+      //加载组织机构
+      loadAllDepartments() {
+        const depts = getAllDepartment()
+        this.allDepartments = depts
       },
     },
   }
