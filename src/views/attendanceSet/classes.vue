@@ -6,6 +6,14 @@
         <el-button icon="el-icon-plus" type="primary" @click="openFormDialog">
           {{ $t('operation_btn.btn_text_7') }}
         </el-button>
+        <span class="tips2">
+          <el-alert
+            :title="$t('attendanceSet.attendance_tip3')"
+            type="info"
+            show-icon
+            :closable="false"
+          ></el-alert>
+        </span>
       </div>
     </div>
 
@@ -105,356 +113,386 @@
 
     <!-- 新增/修改弹窗 -->
     <!-- 班次信息 -->
-    <el-dialog
+    <el-drawer
+      ref="drawer"
       :title="$t('attendanceSet.text_10')"
       :visible.sync="dialogFormVisible"
+      direction="rtl"
       :width="lang == 'zh_CN' ? '610px' : '670px'"
       :destroy-on-close="true"
       :before-close="closeFn"
+      :wrapper-closable="false"
+      custom-class="demo-drawer"
     >
-      <el-form
-        ref="formData"
-        :model="form"
-        :label-width="lang == 'zh_CN' ? '140px' : '220px'"
-        :rules="rules"
-        size="medium"
-        style="max-height: 60vh; overflow: auto"
-        :style="
-          form.radio == '2' && isShow ? 'padding-right:10px !important;' : ''
-        "
-      >
-        <!-- 班次类型 -->
-        <el-form-item :label="$t('attendanceSet.text_74')">
-          <el-switch
-            v-model="form.IsAcrossNight"
-            :active-text="$t('attendanceSet.text_73')"
-            :disabled="form.id ? true : false"
-            @change="changeShift"
-          ></el-switch>
-        </el-form-item>
-        <!-- 班次 -->
-        <el-form-item :label="$t('attendanceSet.text_3')" prop="name">
-          <el-input
-            v-model="form.name"
-            :placeholder="$t('attendanceSet.text_3')"
-          ></el-input>
-        </el-form-item>
-        <!-- 时段数 -->
-        <el-form-item :label="$t('attendanceSet.text_12')">
-          <el-radio-group v-model="form.radio" @change="radioChange">
-            <el-radio label="1" border>
-              {{ $t('attendanceSet.text_13') }}
-            </el-radio>
-            <el-radio v-if="!form.IsAcrossNight" label="2" border>
-              {{ $t('attendanceSet.text_14') }}
-            </el-radio>
-            <el-radio v-if="false" label="3" border>
-              {{ $t('attendanceSet.text_15') }}
-            </el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <!-- 上下班时间段-白班 -->
-        <el-form-item
-          v-if="!form.IsAcrossNight"
-          :label="$t('attendanceSet.text_16')"
-          prop="commuter"
+      <div class="demo-drawer__content">
+        <el-form
+          ref="formData"
+          :model="form"
+          :label-width="lang == 'zh_CN' ? '140px' : '220px'"
+          :rules="rules"
+          size="medium"
+          style="overflow: auto; flex: 1"
+          :style="
+            form.radio == '2' && isShow ? 'padding-right:10px !important;' : ''
+          "
         >
-          <el-time-picker
-            v-model="form.commuter"
-            is-range
-            :editable="false"
-            :clearable="false"
-            :range-separator="$t('attendanceSet.text_17')"
-            value-format="HH:mm"
-            format="HH:mm"
-            :start-placeholder="$t('attendanceSet.text_18')"
-            :end-placeholder="$t('attendanceSet.text_19')"
-            :placeholder="$t('attendanceSet.text_20')"
-            style="width: 100%"
-            @change="commuter1Change"
-          ></el-time-picker>
-        </el-form-item>
-        <!-- 上下班时间段-白班-2 -->
-        <el-form-item
-          v-if="!form.IsAcrossNight && form.radio == '2'"
-          :label="$t('attendanceSet.text_16') + '2'"
-          prop="commuter2"
-        >
-          <el-time-picker
-            v-model="form.commuter2"
-            is-range
-            :editable="false"
-            :clearable="false"
-            :range-separator="$t('attendanceSet.text_17')"
-            value-format="HH:mm"
-            format="HH:mm"
-            :start-placeholder="$t('attendanceSet.text_18')"
-            :end-placeholder="$t('attendanceSet.text_19')"
-            :placeholder="$t('attendanceSet.text_20')"
-            style="width: 100%"
-            @change="commuterBChange"
-          ></el-time-picker>
-        </el-form-item>
-        <!-- 休息时间段-白班 -->
-        <el-form-item
-          v-if="!form.IsAcrossNight && form.radio == '1'"
-          :label="$t('attendanceSet.text_8')"
-          prop="rest"
-        >
-          <el-time-picker
-            v-model="form.rest"
-            is-range
-            :editable="false"
-            :clearable="false"
-            :range-separator="$t('attendanceSet.text_17')"
-            value-format="HH:mm"
-            format="HH:mm"
-            :start-placeholder="$t('attendanceSet.text_18')"
-            :end-placeholder="$t('attendanceSet.text_19')"
-            :placeholder="$t('attendanceSet.text_20')"
-            style="width: 100%"
-            @change="restChange"
-          ></el-time-picker>
-        </el-form-item>
-        <!-- 上下班时间段-夜班 -->
-        <el-form-item
-          v-if="form.IsAcrossNight"
-          :label="$t('attendanceSet.text_16')"
-          prop="clockIn1"
-        >
-          <div style="display: flex; align-items: center">
-            <el-time-picker
-              v-model="form.clockIn1"
-              value-format="HH:mm"
-              format="HH:mm"
-              :picker-options="{
-                selectableRange: '12:00:00 - 23:59:00',
-              }"
-              :placeholder="$t('attendanceSet.text_18')"
-              style="flex: 0.5"
-            ></el-time-picker>
-            <span style="margin: 0 10px">
-              {{ $t('attendanceSet.text_17') }}
-            </span>
-            <el-tag style="margin-right: 10px">
-              {{ $t('attendanceSet.text_29') }}
-            </el-tag>
-            <el-time-picker
-              v-model="form.clockIn2"
-              value-format="HH:mm"
-              format="HH:mm"
-              :picker-options="{
-                selectableRange: '00:00:00 - 11:59:00',
-              }"
-              :placeholder="$t('attendanceSet.text_19')"
-              style="flex: 0.5"
-            ></el-time-picker>
-          </div>
-        </el-form-item>
-        <!-- 休息时间段-夜班 -->
-        <el-form-item
-          v-if="form.IsAcrossNight"
-          :label="$t('attendanceSet.text_8')"
-          prop="repose1"
-        >
-          <div style="display: flex; align-items: center">
-            <el-time-picker
-              v-model="form.repose1"
-              value-format="HH:mm"
-              format="HH:mm"
-              :picker-options="{
-                selectableRange: repose1_SR,
-              }"
-              :placeholder="$t('attendanceSet.text_18')"
-              style="flex: 0.5"
-            ></el-time-picker>
-            <span style="margin: 0 10px">
-              {{ $t('attendanceSet.text_17') }}
-            </span>
-            <el-tag
-              v-if="
-                form.repose1 &&
-                form.repose2 &&
-                Number(form.repose1.replace(':', '')) >
-                  Number(form.repose2.replace(':', ''))
-              "
-              style="margin-right: 10px"
+          <!-- 班次类型 -->
+          <el-form-item :label="$t('attendanceSet.text_74')">
+            <el-switch
+              v-model="form.IsAcrossNight"
+              :active-text="$t('attendanceSet.text_73')"
+              :disabled="form.id ? true : false"
+              @change="changeShift"
+            ></el-switch>
+          </el-form-item>
+          <!-- 班次 -->
+          <el-form-item :label="$t('attendanceSet.text_3')" prop="name">
+            <el-input
+              v-model="form.name"
+              :placeholder="$t('attendanceSet.text_3')"
+            ></el-input>
+          </el-form-item>
+          <!-- 时段数 -->
+          <el-form-item :label="$t('attendanceSet.text_12')" prop="radio">
+            <el-radio-group
+              v-model="form.radio"
+              size="small"
+              @change="radioChange"
             >
-              {{ $t('attendanceSet.text_29') }}
+              <el-radio-button label="1" border>
+                {{ $t('attendanceSet.text_13') }}
+              </el-radio-button>
+              <el-radio-button v-if="!form.IsAcrossNight" label="2" border>
+                {{ $t('attendanceSet.text_14') }}
+              </el-radio-button>
+              <el-radio-button v-if="false" label="3" border>
+                {{ $t('attendanceSet.text_15') }}
+              </el-radio-button>
+            </el-radio-group>
+          </el-form-item>
+          <!-- 上下班时间段-白班 -->
+          <el-form-item
+            v-if="!form.IsAcrossNight"
+            :label="$t('attendanceSet.work_time1')"
+            prop="commuter"
+          >
+            <el-time-picker
+              v-model="form.commuter"
+              is-range
+              :editable="false"
+              :clearable="false"
+              :range-separator="$t('attendanceSet.text_17')"
+              value-format="HH:mm"
+              format="HH:mm"
+              :start-placeholder="$t('attendanceSet.text_18')"
+              :end-placeholder="$t('attendanceSet.text_19')"
+              :placeholder="$t('attendanceSet.text_20')"
+              style="width: 100%"
+              @change="commuter1Change"
+            ></el-time-picker>
+          </el-form-item>
+          <!-- 上下班时间段-白班-2 -->
+          <el-form-item
+            v-if="!form.IsAcrossNight && form.radio == '2'"
+            :label="$t('attendanceSet.work_time2')"
+            prop="commuter2"
+          >
+            <el-time-picker
+              v-model="form.commuter2"
+              is-range
+              :editable="false"
+              :clearable="false"
+              :range-separator="$t('attendanceSet.text_17')"
+              value-format="HH:mm"
+              format="HH:mm"
+              :start-placeholder="$t('attendanceSet.text_18')"
+              :end-placeholder="$t('attendanceSet.text_19')"
+              :placeholder="$t('attendanceSet.text_20')"
+              style="width: 100%"
+              @change="commuterBChange"
+            ></el-time-picker>
+          </el-form-item>
+          <!-- 休息时间段-白班 -->
+          <el-form-item
+            v-if="!form.IsAcrossNight && form.radio == '1'"
+            :label="$t('attendanceSet.text_8')"
+            prop="rest"
+          >
+            <el-time-picker
+              v-model="form.rest"
+              is-range
+              :editable="false"
+              :clearable="false"
+              :range-separator="$t('attendanceSet.text_17')"
+              value-format="HH:mm"
+              format="HH:mm"
+              :start-placeholder="$t('attendanceSet.text_18')"
+              :end-placeholder="$t('attendanceSet.text_19')"
+              :placeholder="$t('attendanceSet.text_20')"
+              style="width: 100%"
+              @change="restChange"
+            ></el-time-picker>
+          </el-form-item>
+          <!-- 上下班时间段-夜班 -->
+          <el-form-item
+            v-if="form.IsAcrossNight"
+            :label="$t('attendanceSet.work_time1')"
+            prop="clockIn1"
+          >
+            <div style="display: flex; align-items: center">
+              <el-time-picker
+                v-model="form.clockIn1"
+                value-format="HH:mm"
+                format="HH:mm"
+                :picker-options="{
+                  selectableRange: '12:00:00 - 23:59:00',
+                }"
+                :placeholder="$t('attendanceSet.text_18')"
+                style="flex: 0.5"
+              ></el-time-picker>
+              <span style="margin: 0 10px">
+                {{ $t('attendanceSet.text_17') }}
+              </span>
+              <el-tag style="margin-right: 10px">
+                {{ $t('attendanceSet.text_29') }}
+              </el-tag>
+              <el-time-picker
+                v-model="form.clockIn2"
+                value-format="HH:mm"
+                format="HH:mm"
+                :picker-options="{
+                  selectableRange: '00:00:00 - 11:59:00',
+                }"
+                :placeholder="$t('attendanceSet.text_19')"
+                style="flex: 0.5"
+              ></el-time-picker>
+            </div>
+          </el-form-item>
+          <!-- 休息时间段-夜班 -->
+          <el-form-item
+            v-if="form.IsAcrossNight"
+            :label="$t('attendanceSet.text_8')"
+            prop="repose1"
+          >
+            <div style="display: flex; align-items: center">
+              <el-time-picker
+                v-model="form.repose1"
+                value-format="HH:mm"
+                format="HH:mm"
+                :picker-options="{
+                  selectableRange: repose1_SR,
+                }"
+                :placeholder="$t('attendanceSet.text_18')"
+                style="flex: 0.5"
+              ></el-time-picker>
+              <span style="margin: 0 10px">
+                {{ $t('attendanceSet.text_17') }}
+              </span>
+              <el-tag
+                v-if="
+                  form.repose1 &&
+                  form.repose2 &&
+                  Number(form.repose1.replace(':', '')) >
+                    Number(form.repose2.replace(':', ''))
+                "
+                style="margin-right: 10px"
+              >
+                {{ $t('attendanceSet.text_29') }}
+              </el-tag>
+              <el-time-picker
+                v-model="form.repose2"
+                value-format="HH:mm"
+                format="HH:mm"
+                :picker-options="{
+                  selectableRange: repose2_SR,
+                }"
+                :placeholder="$t('attendanceSet.text_18')"
+                style="flex: 0.5"
+              ></el-time-picker>
+            </div>
+          </el-form-item>
+          <!-- 出勤时长 -->
+          <el-form-item :label="$t('attendanceSet.text_21')">
+            <el-tag size="medium">
+              {{ timeLong }}{{ $t('attendanceSet.text_22') }}
             </el-tag>
+          </el-form-item>
+          <el-divider></el-divider>
+          <el-form-item :label="$t('attendanceSet.text_28')">
+            <el-switch v-model="isShow"></el-switch>
+            <el-tooltip placement="top">
+              <div slot="content">
+                {{ $t('attendanceSet.attendance_tip1') }}
+                <br />
+                {{ $t('attendanceSet.attendance_tip2') }}
+              </div>
+              <vab-icon
+                style="margin-left: 8px; cursor: pointer"
+                :icon="['fas', 'question-circle']"
+              ></vab-icon>
+            </el-tooltip>
+          </el-form-item>
+          <span
+            v-if="isShow"
+            style="display: inline-block; margin: 0 0 10px 10px; color: #999"
+          >
+            {{ $t('attendanceSet.work_time1') }}
+          </span>
+          <!-- 上班有效打卡区间-白班 -->
+          <el-form-item
+            v-if="isShow && !form.IsAcrossNight"
+            :label="$t('attendanceSet.text_23')"
+          >
             <el-time-picker
-              v-model="form.repose2"
+              v-model="form.punchCard1"
+              is-range
+              :range-separator="$t('attendanceSet.text_17')"
               value-format="HH:mm"
               format="HH:mm"
-              :picker-options="{
-                selectableRange: repose2_SR,
-              }"
-              :placeholder="$t('attendanceSet.text_18')"
-              style="flex: 0.5"
+              :start-placeholder="$t('attendanceSet.text_18')"
+              :end-placeholder="$t('attendanceSet.text_19')"
+              :placeholder="$t('attendanceSet.text_20')"
+              style="width: 100%"
+              @change="punchCard1Change"
             ></el-time-picker>
-          </div>
-        </el-form-item>
-        <!-- 出勤时长 -->
-        <el-form-item :label="$t('attendanceSet.text_21')">
-          <el-tag size="medium">
-            {{ timeLong }}{{ $t('attendanceSet.text_22') }}
-          </el-tag>
-        </el-form-item>
-        <div class="set_btn" @click="setShow">
-          {{ $t('attendanceSet.text_28') }}
-          <i v-if="isShow" class="el-icon-open"></i>
-          <i v-if="!isShow" class="el-icon-turn-off"></i>
+          </el-form-item>
+          <!-- 下班有效打卡区间-白班 -->
+          <el-form-item
+            v-if="isShow && !form.IsAcrossNight"
+            :label="$t('attendanceSet.text_24')"
+          >
+            <el-time-picker
+              v-model="form.punchCard2"
+              is-range
+              :range-separator="$t('attendanceSet.text_17')"
+              value-format="HH:mm"
+              format="HH:mm"
+              :start-placeholder="$t('attendanceSet.text_18')"
+              :end-placeholder="$t('attendanceSet.text_19')"
+              :placeholder="$t('attendanceSet.text_20')"
+              style="width: 100%"
+              @change="punchCard2Change"
+            ></el-time-picker>
+          </el-form-item>
+          <span
+            v-if="isShow && form.radio == '2'"
+            style="display: inline-block; margin: 0 0 10px 10px; color: #999"
+          >
+            {{ $t('attendanceSet.work_time2') }}
+          </span>
+          <!-- 上班有效打卡区间-白班-时段2 -->
+          <el-form-item
+            v-if="isShow && !form.IsAcrossNight && form.radio == '2'"
+            :label="$t('attendanceSet.text_23') + '2'"
+          >
+            <el-time-picker
+              v-model="form.punchCardB1"
+              is-range
+              :range-separator="$t('attendanceSet.text_17')"
+              value-format="HH:mm"
+              format="HH:mm"
+              :start-placeholder="$t('attendanceSet.text_18')"
+              :end-placeholder="$t('attendanceSet.text_19')"
+              :placeholder="$t('attendanceSet.text_20')"
+              style="width: 100%"
+              @change="punchCardB1Change"
+            ></el-time-picker>
+          </el-form-item>
+          <!-- 下班有效打卡区间-白班-时段2 -->
+          <el-form-item
+            v-if="isShow && !form.IsAcrossNight && form.radio == '2'"
+            :label="$t('attendanceSet.text_24') + '2'"
+          >
+            <el-time-picker
+              v-model="form.punchCardB2"
+              is-range
+              :range-separator="$t('attendanceSet.text_17')"
+              value-format="HH:mm"
+              format="HH:mm"
+              :start-placeholder="$t('attendanceSet.text_18')"
+              :end-placeholder="$t('attendanceSet.text_19')"
+              :placeholder="$t('attendanceSet.text_20')"
+              style="width: 100%"
+              @change="punchCardB2Change"
+            ></el-time-picker>
+          </el-form-item>
+          <!-- 上班有效打卡区间-夜班 -->
+          <el-form-item
+            v-if="isShow && form.IsAcrossNight"
+            :label="$t('attendanceSet.text_23')"
+          >
+            <div style="display: flex; align-items: center">
+              <el-time-picker
+                v-model="form.CIARange1"
+                value-format="HH:mm"
+                format="HH:mm"
+                :picker-options="{
+                  selectableRange: CIARange1SR,
+                }"
+                :placeholder="$t('attendanceSet.text_18')"
+                style="flex: 0.5"
+              ></el-time-picker>
+              <span style="margin: 0 10px">
+                {{ $t('attendanceSet.text_17') }}
+              </span>
+              <el-time-picker
+                v-model="form.CIARange2"
+                value-format="HH:mm"
+                format="HH:mm"
+                :picker-options="{
+                  selectableRange: CIARange2SR,
+                }"
+                :placeholder="$t('attendanceSet.text_19')"
+                style="flex: 0.5"
+              ></el-time-picker>
+            </div>
+          </el-form-item>
+          <!-- 下班有效打卡区间-夜班 -->
+          <el-form-item
+            v-if="isShow && form.IsAcrossNight"
+            :label="$t('attendanceSet.text_24')"
+          >
+            <div style="display: flex; align-items: center">
+              <el-time-picker
+                v-model="form.CIBRange1"
+                value-format="HH:mm"
+                format="HH:mm"
+                :picker-options="{
+                  selectableRange: CIBRange1SR,
+                }"
+                :placeholder="$t('attendanceSet.text_18')"
+                style="flex: 0.5"
+              ></el-time-picker>
+              <span style="margin: 0 10px">
+                {{ $t('attendanceSet.text_17') }}
+              </span>
+              <el-time-picker
+                v-model="form.CIBRange2"
+                value-format="HH:mm"
+                format="HH:mm"
+                :picker-options="{
+                  selectableRange: CIBRange2SR,
+                }"
+                :placeholder="$t('attendanceSet.text_19')"
+                style="flex: 0.5"
+              ></el-time-picker>
+            </div>
+          </el-form-item>
+        </el-form>
+        <div class="demo-drawer__footer">
+          <el-button class="flex1" @click="closeFn">
+            {{ $t('operation_btn.btn_text_4') }}
+          </el-button>
+          <el-button
+            class="flex1"
+            type="primary"
+            @click="setFormData('formData')"
+          >
+            {{ $t('operation_btn.btn_text_5') }}
+          </el-button>
         </div>
-        <!-- 上班有效打卡区间-白班 -->
-        <el-form-item
-          v-if="isShow && !form.IsAcrossNight"
-          :label="$t('attendanceSet.text_23')"
-        >
-          <el-time-picker
-            v-model="form.punchCard1"
-            is-range
-            :range-separator="$t('attendanceSet.text_17')"
-            value-format="HH:mm"
-            format="HH:mm"
-            :start-placeholder="$t('attendanceSet.text_18')"
-            :end-placeholder="$t('attendanceSet.text_19')"
-            :placeholder="$t('attendanceSet.text_20')"
-            style="width: 100%"
-            @change="punchCard1Change"
-          ></el-time-picker>
-        </el-form-item>
-        <!-- 下班有效打卡区间-白班 -->
-        <el-form-item
-          v-if="isShow && !form.IsAcrossNight"
-          :label="$t('attendanceSet.text_24')"
-        >
-          <el-time-picker
-            v-model="form.punchCard2"
-            is-range
-            :range-separator="$t('attendanceSet.text_17')"
-            value-format="HH:mm"
-            format="HH:mm"
-            :start-placeholder="$t('attendanceSet.text_18')"
-            :end-placeholder="$t('attendanceSet.text_19')"
-            :placeholder="$t('attendanceSet.text_20')"
-            style="width: 100%"
-            @change="punchCard2Change"
-          ></el-time-picker>
-        </el-form-item>
-        <span
-          v-if="isShow && form.radio == '2'"
-          style="display: inline-block; margin: 0 0 10px 10px; color: #999"
-        >
-          时段二
-        </span>
-        <!-- 上班有效打卡区间-白班-时段2 -->
-        <el-form-item
-          v-if="isShow && !form.IsAcrossNight && form.radio == '2'"
-          :label="$t('attendanceSet.text_23') + '2'"
-        >
-          <el-time-picker
-            v-model="form.punchCardB1"
-            is-range
-            :range-separator="$t('attendanceSet.text_17')"
-            value-format="HH:mm"
-            format="HH:mm"
-            :start-placeholder="$t('attendanceSet.text_18')"
-            :end-placeholder="$t('attendanceSet.text_19')"
-            :placeholder="$t('attendanceSet.text_20')"
-            style="width: 100%"
-            @change="punchCardB1Change"
-          ></el-time-picker>
-        </el-form-item>
-        <!-- 下班有效打卡区间-白班-时段2 -->
-        <el-form-item
-          v-if="isShow && !form.IsAcrossNight && form.radio == '2'"
-          :label="$t('attendanceSet.text_24') + '2'"
-        >
-          <el-time-picker
-            v-model="form.punchCardB2"
-            is-range
-            :range-separator="$t('attendanceSet.text_17')"
-            value-format="HH:mm"
-            format="HH:mm"
-            :start-placeholder="$t('attendanceSet.text_18')"
-            :end-placeholder="$t('attendanceSet.text_19')"
-            :placeholder="$t('attendanceSet.text_20')"
-            style="width: 100%"
-            @change="punchCardB2Change"
-          ></el-time-picker>
-        </el-form-item>
-        <!-- 上班有效打卡区间-夜班 -->
-        <el-form-item
-          v-if="isShow && form.IsAcrossNight"
-          :label="$t('attendanceSet.text_23')"
-        >
-          <div style="display: flex; align-items: center">
-            <el-time-picker
-              v-model="form.CIARange1"
-              value-format="HH:mm"
-              format="HH:mm"
-              :picker-options="{
-                selectableRange: CIARange1SR,
-              }"
-              :placeholder="$t('attendanceSet.text_18')"
-              style="flex: 0.5"
-            ></el-time-picker>
-            <span style="margin: 0 10px">
-              {{ $t('attendanceSet.text_17') }}
-            </span>
-            <el-time-picker
-              v-model="form.CIARange2"
-              value-format="HH:mm"
-              format="HH:mm"
-              :picker-options="{
-                selectableRange: CIARange2SR,
-              }"
-              :placeholder="$t('attendanceSet.text_19')"
-              style="flex: 0.5"
-            ></el-time-picker>
-          </div>
-        </el-form-item>
-        <!-- 下班有效打卡区间-夜班 -->
-        <el-form-item
-          v-if="isShow && form.IsAcrossNight"
-          :label="$t('attendanceSet.text_24')"
-        >
-          <div style="display: flex; align-items: center">
-            <el-time-picker
-              v-model="form.CIBRange1"
-              value-format="HH:mm"
-              format="HH:mm"
-              :picker-options="{
-                selectableRange: CIBRange1SR,
-              }"
-              :placeholder="$t('attendanceSet.text_18')"
-              style="flex: 0.5"
-            ></el-time-picker>
-            <span style="margin: 0 10px">
-              {{ $t('attendanceSet.text_17') }}
-            </span>
-            <el-time-picker
-              v-model="form.CIBRange2"
-              value-format="HH:mm"
-              format="HH:mm"
-              :picker-options="{
-                selectableRange: CIBRange2SR,
-              }"
-              :placeholder="$t('attendanceSet.text_19')"
-              style="flex: 0.5"
-            ></el-time-picker>
-          </div>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="closeFn">
-          {{ $t('operation_btn.btn_text_4') }}
-        </el-button>
-        <el-button type="primary" @click="setFormData('formData')">
-          {{ $t('operation_btn.btn_text_5') }}
-        </el-button>
       </div>
-    </el-dialog>
+    </el-drawer>
   </div>
 </template>
 
@@ -510,6 +548,13 @@
           CIBRange2: '', //下班有效打卡区间结束-夜班
         },
         rules: {
+          radio: [
+            {
+              required: true,
+              message: '',
+              trigger: 'blur',
+            },
+          ],
           name: [
             {
               required: true,
@@ -1485,7 +1530,7 @@
     padding: 0 !important;
   }
   .set_btn {
-    color: blueviolet;
+    color: rgb(50, 150, 250);
     font-size: 16px;
     cursor: pointer;
     margin: 0 10px 20px;
@@ -1515,5 +1560,21 @@
   }
   .el-dialog *::-webkit-scrollbar-track:hover {
     background-color: #f8fafc;
+  }
+  .demo-drawer__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .demo-drawer__footer {
+      display: flex;
+      margin: 5px 5px;
+      .flex1 {
+        flex: 1;
+      }
+    }
+  }
+  .tips2 {
+    display: inline-block;
+    margin-left: 10px;
   }
 </style>

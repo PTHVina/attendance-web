@@ -575,6 +575,12 @@ module.exports = {
     text_87: '',
     text_88:
       'The effective clock-in start time after get off work should be greater than the on-duty time and less than the off-duty time',
+    work_time1:'First commute',
+    work_time2:'Second commute',
+    work_time3:'Third commute',
+    attendance_tip1: 'Punching outside the valid punching zone will not count as attendance.',
+    attendance_tip2: 'If this parameter is not specified, the system uses the default valid punch interval.',
+    attendance_tip3: 'Editing shifts will only apply to subsequent clocking records, and generated attendance records will not be updated.',
   },
   //调度规则
   accessControl: {
