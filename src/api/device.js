@@ -56,6 +56,13 @@ export function getDeviceByLocal() {
     })
   })
 }
+//获取下发状态(0代表未完成，1代表已完成)
+export function getDistributeStatus() {
+  var res = window.top.myExtension.getDistributePersonStatus()
+  var data_json = JSON.parse(res)
+  return data_json
+}
+
 //修改IP
 export function changeIP(data) {
   let res = window.top.myExtension.changeIP(

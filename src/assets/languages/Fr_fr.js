@@ -585,6 +585,12 @@ module.exports = {
     text_87: '',
     text_88:
       "L'heure de début de pointage valide après travail doit être supérieure à l'heure de début du travail et inférieure à l'heure de fin du travail",
+    work_time1:'Première fois au travail',
+    work_time2:'Deuxième trajet',
+    work_time3:'Troisième trajet',
+    attendance_tip1: 'Les pointages effectués en dehors de l’intervalle de pointage valide ne seront pas considérés comme des pointages.',
+    attendance_tip2: 'Si cet élément n’est pas défini, l’intervalle de pointage valide par défaut sera utilisé par le système.',
+    attendance_tip3: 'L’édition des quarts ne sera effective que pour les enregistrements de pointage ultérieurs. Les enregistrements de présence déjà générés ne seront pas mis à jour.',
   },
   //调度规则
   accessControl: {

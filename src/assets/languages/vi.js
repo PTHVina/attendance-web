@@ -575,6 +575,12 @@ text_86:
 text_87: '',
 text_88:
 'Thời gian bắt đầu đồng hồ hiệu quả sau khi nghỉ làm nên lớn hơn thời gian làm việc và ít hơn thời gian làm việc',
+work_time1:'Công việc đầu tiên',
+work_time2:'Công việc thứ hai',
+work_time3:'Công việc thứ ba',
+attendance_tip1: 'Một cú đấm ngoài phạm vi đồng hồ có hiệu quả sẽ không được coi là điểm số.',
+attendance_tip2: 'Nếu không đặt điều này, hệ thống sẽ dùng một khoảng đồng hồ hợp lệ mặc định.',
+attendance_tip3: 'Ca sửa đổi chỉ có hiệu lực cho các hồ sơ đồng hồ sau đó, và hồ sơ thời gian đã được tạo ra sẽ không được cập nhật.',
   },
  //调度规则
   accessControl: {

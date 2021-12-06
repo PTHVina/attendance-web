@@ -6,7 +6,8 @@ export function getEverydayCount(data) {
     data.name,
     data.late.toString(),
     data.Leaveearly.toString(),
-    data.isAbsenteeism.toString()
+    data.isAbsenteeism.toString(),
+    data.departments.toString()
   )
   var res_json = JSON.parse(res)[0].count
   return res_json
