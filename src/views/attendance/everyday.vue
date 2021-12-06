@@ -119,9 +119,6 @@
             >
               {{ $t('operation_btn.btn_text_30') }}
             </el-button>
-            <el-button @click="exportDailyAttendance">
-              {{ $t('attendance.text_daily_report') }}
-            </el-button>
             <!-- 导出设置 -->
             <el-button icon="el-icon-setting" type="primary" @click="setExport">
               {{ $t('operation_btn.btn_text_31') }}
@@ -622,7 +619,6 @@
     defaultSet,
     saveSetting,
     getCaptureDataByIdForDate,
-    exportDailyAttendance,
   } from '@/api/attendance'
   import { getAllDepartment } from '@/api/accesscontrol'
   import dayjs from 'dayjs'
@@ -1053,9 +1049,6 @@
       loadAllDepartments() {
         const depts = getAllDepartment()
         this.allDepartments = depts
-      },
-      exportDailyAttendance() {
-        exportDailyAttendance()
       },
     },
   }
