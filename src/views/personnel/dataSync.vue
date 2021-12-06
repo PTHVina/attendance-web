@@ -105,13 +105,13 @@
             >
               {{ $t('operation_btn.btn_text_6') }}
             </el-button>
-            <!-- 一键注册 -->
+            <!-- 一键下载 -->
             <el-button
               icon="el-icon-thumb"
               type="success"
               @click="registerAll()"
             >
-              {{ $t('operation_btn.btn_text_32') }}
+              {{ $t('operation_btn.one_click_download') }}
             </el-button>
           </el-form-item>
         </el-form>
@@ -221,7 +221,7 @@
             style="margin-right: 10px"
             @click="openFormDialog(row)"
           >
-            {{ $t('operation_btn.btn_text_27') }}
+            {{ $t('operation_btn.download') }}
           </el-button>
           <!-- 删除 -->
           <el-popconfirm
@@ -532,12 +532,19 @@
 
         deliveryMethod: false, //下发方式
         isRealTime: 0, //实时查询
+        isFirstRegist: true, //首次查询将给出提示，设备注册后不带人脸图片
       }
+    },
+    watch: {
+      isRealTime(val) {
+        this.handleQuery()
+      },
     },
     created() {
       this.deliveryMethod = getParam()
       this.init()
       this.typeList()
+      this.showRegisterTip()
     },
     methods: {
       //获取设置数据
@@ -607,7 +614,8 @@
           Email: '',
           departmentname: '',
           Employetypename: '',
-          picture: data.imge,
+          //picture: data.imge,
+          picture: '',
           line_userid: '',
           line_type: '1',
           device_sn: data.device_sn,
@@ -888,6 +896,19 @@
             }
           })
           .catch(() => {})
+      },
+
+      //弹窗提示，设备人员图片分辨率太低，需重新上传人脸图片
+      showRegisterTip() {
+        if (this.isFirstRegist) {
+          this.isFirstRegist = false
+          this.$baseNotify(
+            this.$t('operation_tips.reupload_face'),
+            this.$t('operation_tips.tips_42'),
+            'info',
+            null
+          )
+        }
       },
     },
   }

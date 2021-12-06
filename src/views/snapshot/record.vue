@@ -1312,7 +1312,24 @@
         }
       },
       exportList(type) {
-        BatchXport(this.queryForm, type)
+        let ids = []
+        if (this.selectRows.length > 0) {
+          this.selectRows.forEach((item) => {
+            ids.push(item.id)
+          })
+          this.queryForm = {
+            name: '',
+            devname: '',
+            accreditTime: [],
+            statime: '',
+            endtime: '',
+            selectedPersonTypes: [],
+            codestus: '',
+            temp_from: '',
+            temp_to: '',
+          }
+        }
+        BatchXport(this.queryForm, type, ids)
       },
 
       refreshList() {

@@ -33,16 +33,17 @@ export function delRecord(id) {
   return res
 }
 // 批量导出
-export function BatchXport(data, type) {
+export function BatchXport(data, type, ids) {
   window.top.myExtension.BatchXportforCapture(
     data.startTime,
     data.endTime,
     data.name,
-    data.no,
+    data.devname,
     data.selectedPersonTypes.toString(),
     data.codestus,
     type,
     data.temp_from,
-    data.temp_to
+    data.temp_to,
+    ids.toString()
   )
 }

@@ -66,6 +66,8 @@ module.exports = {
     btn_text_34: '刷新',
     real_time_query: '设备',
     local_query: '本地',
+    one_click_download: '一键下载',
+    download: '下载',
   },
   // 操作提示
   operation_tips: {
@@ -156,7 +158,8 @@ module.exports = {
     auto_refresh_off: '关闭自动刷新列表',
     auto_refresh: '自动刷新',
     issue_finished: '下发已完成',
-    choose_device: '请选择设备'
+    choose_device: '请选择设备',
+    reupload_face: '由于设备人员图片不满足注册条件，因此下载需重新上传人脸图片',
   },
   // 首页
   home: {

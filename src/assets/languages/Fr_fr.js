@@ -66,6 +66,8 @@ module.exports = {
     btn_text_34: 'Rafraîchir',
     real_time_query: 'Dispositif',
     local_query: 'Local',
+    one_click_download: 'Télécharger en un clic',
+    download: 'Le téléchargement',
   },
   // 操作提示
   operation_tips: {
@@ -166,6 +168,7 @@ module.exports = {
     auto_refresh: 'Rafraîchir automatiquement',
     issue_finished: 'La livraison est terminée',
     choose_device: 'Veuillez sélectionner un appareil',
+    reupload_face: 'La résolution de l’image du personnel de l’équipement est trop basse, vous devez télécharger à nouveau l’image du visage',
   },
   // 首页
   home: {

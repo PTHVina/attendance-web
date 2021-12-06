@@ -66,6 +66,8 @@ module.exports = {
     btn_text_34: 'Refresh',
     real_time_query: 'Device',
     local_query: 'Local',
+    one_click_download: 'One click to download',
+    download: 'download',
   },
   // 操作提示
   operation_tips: {
@@ -162,7 +164,8 @@ module.exports = {
     auto_refresh_off: 'Close the automatic refresh list',
     auto_refresh: 'Automatically refresh',
     issue_finished: 'Delivery completed',
-    choose_device: 'Please select device'
+    choose_device: 'Please select device',
+    reupload_face: 'The device personnel picture resolution is too low, need to upload face picture again',
   },
   // 首页
   home: {

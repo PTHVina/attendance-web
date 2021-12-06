@@ -308,10 +308,13 @@
           //获取下发完成状态（0代表下发未结束，1代表下发已结束），如果是0则刷新页面，如果是1则不刷新页面
           this.timer = setInterval(() => {
             let res = getDistributeStatus()
-            if (res == 0 || this.successCount != this.allCount) {
+            if (
+              res == 0 ||
+              this.successCount + this.failCount != this.allCount
+            ) {
               this.refreshCurrentPage()
             }
-          }, 3000)
+          }, 5000)
         } else {
           //this.$baseMessage(this.$t('operation_tips.auto_refresh_off'), 'info')取消提示
           this.timer && this.clearInterval(this.timer)

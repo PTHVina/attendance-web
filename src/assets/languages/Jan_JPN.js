@@ -66,6 +66,8 @@ module.exports = {
     btn_text_34: '状態を更新',
     real_time_query: '装置',
     local_query: 'ローカル',
+    one_click_download: 'ワンクリックでダウンロード',
+    download: 'ダウンロード',
   },
   // 操作提示
   operation_tips: {
@@ -162,6 +164,7 @@ module.exports = {
     auto_refresh: '自動リフレッシュ',
     issue_finished: '配付はすでに完了した',
     choose_device: '装置を選んでください',
+    reupload_face: '解像度が低すぎるため、顔写真を再アップロードする必要がある',
   },
   // 首页
   home: {

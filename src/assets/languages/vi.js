@@ -66,6 +66,8 @@ btn_text_33: 'Tình trạng đăng ký',
 btn_text_34: 'Làm mới',
 real_time_query: 'thiết bị',
 local_query: 'địa phương',
+one_click_download: 'Một phím để tải về',
+download: 'Tải về',
   },
   // 操作提示
 operation_tips: {
@@ -163,6 +165,7 @@ auto_refresh_off: 'Tắt danh sách cập nhật tự động',
 auto_refresh: 'Tự động cập nhật',
 issue_finished: 'Phát hành đã hoàn thành',
 choose_device: 'Hãy chọn thiết bị',
+reupload_face: 'Thiết bị nhân viên hình ảnh độ phân giải là quá thấp, bạn cần phải tải lại hình ảnh khuôn mặt',
   },
   // 首页
   home: {
