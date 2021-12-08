@@ -57,7 +57,41 @@
               {{ $t('operation_btn.btn_text_6') }}
             </el-button>
             <!-- 导出 -->
-            <el-button icon="el-icon-folder" type="primary" @click="exportData">
+            <el-popover
+              v-if="lang == 'en_US'"
+              style="margin-left: 5px"
+              trigger="click"
+            >
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: stretch;
+                "
+              >
+                <el-button
+                  style="margin-bottom: 5px"
+                  @click="exportAttendanceMasterReport"
+                >
+                  Attendance Master
+                </el-button>
+                <el-button
+                  style="margin-left: 0px"
+                  @click="exportPeriodicMasterReport"
+                >
+                  Periodic Master
+                </el-button>
+              </div>
+              <el-button slot="reference" icon="el-icon-folder" type="primary">
+                {{ $t('operation_btn.btn_text_30') }}
+              </el-button>
+            </el-popover>
+            <el-button
+              v-else
+              icon="el-icon-folder"
+              type="primary"
+              @click="exportData"
+            >
               {{ $t('operation_btn.btn_text_30') }}
             </el-button>
           </el-form-item>
@@ -426,6 +460,8 @@
     getMonthlyList,
     exportData,
     getEverydayAllList,
+    exportAttendanceMasterReport,
+    exportPeriodicMasterReport,
   } from '@/api/attendance'
   import {
     formatCellTemperatureString,
@@ -538,6 +574,12 @@
         ]
         var myDate = new Date(Date.parse(date))
         return weekDay[myDate.getDay()]
+      },
+      exportAttendanceMasterReport() {
+        exportAttendanceMasterReport(this.queryForm.date)
+      },
+      exportPeriodicMasterReport() {
+        exportPeriodicMasterReport(this.queryForm.date)
       },
     },
   }
