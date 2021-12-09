@@ -110,6 +110,14 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <!-- 门禁卡号 -->
+          <el-form-item>
+            <span>{{ $t('snapshot.text_18') }}</span>
+            <el-input
+              v-model="queryForm.wg_card_id"
+              :placeholder="$t('snapshot.text_18')"
+            />
+          </el-form-item>
           <el-form-item>
             <!-- 查询 -->
             <el-button
@@ -138,6 +146,7 @@
         </el-button>
         <!-- 批量导出 -->
         <el-button
+          v-if="false"
           icon="el-icon-folder-opened"
           type="primary"
           @click="exportList('0')"
@@ -777,6 +786,7 @@
           codestus: '', //健康码
           temp_from: '',
           temp_to: '',
+          wg_card_id: '',
         },
         page: {
           pageNo: 1,
@@ -1047,6 +1057,7 @@
           codestus: '',
           temp_from: '',
           temp_to: '',
+          wg_card_id: '',
         }
         this.page.pageNo = 1
         this.init()
@@ -1327,6 +1338,7 @@
             codestus: '',
             temp_from: '',
             temp_to: '',
+            wg_card_id: '',
           }
         }
         BatchXport(this.queryForm, type, ids)

@@ -544,7 +544,6 @@
       this.deliveryMethod = getParam()
       this.init()
       this.typeList()
-      this.showRegisterTip()
     },
     methods: {
       //获取设置数据
@@ -625,6 +624,9 @@
         }
         if (this.options.length != 0) {
           this.form.Employetypename = this.options[0].value
+        }
+        if (!this.form.face_idcard) {
+          this.form.face_idcard = 8
         }
         this.dialogFormVisible = true
       },
@@ -720,6 +722,9 @@
                 this.$baseMessage(this.$t('operation_tips.tips_29'), 'warning')
                 return
               }
+            }
+            if (!this.form.face_idcard) {
+              this.form.face_idcard = 8
             }
 
             try {
@@ -878,7 +883,10 @@
         this.$confirm(
           this.$t('personnel.pl_19') +
             this.page.total +
-            this.$t('personnel.pl_20'),
+            this.$t('personnel.pl_20') +
+            ' (' +
+            this.$t('operation_tips.reupload_face') +
+            ')',
           this.$t('operation_tips.tips_42'),
           {
             confirmButtonText: this.$t('operation_btn.btn_text_5'),
@@ -896,19 +904,6 @@
             }
           })
           .catch(() => {})
-      },
-
-      //弹窗提示，设备人员图片分辨率太低，需重新上传人脸图片
-      showRegisterTip() {
-        if (this.isFirstRegist) {
-          this.isFirstRegist = false
-          this.$baseNotify(
-            this.$t('operation_tips.reupload_face'),
-            this.$t('operation_tips.tips_42'),
-            'info',
-            null
-          )
-        }
       },
     },
   }

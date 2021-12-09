@@ -1224,6 +1224,7 @@
           }
         } else {
           this.isEdit = false
+          this.form.face_idcard = 8
         }
         this.form.term_start &&
           this.authorized_time.push(new Date(this.form.term_start))

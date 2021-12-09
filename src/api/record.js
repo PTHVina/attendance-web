@@ -8,7 +8,8 @@ export function getRecordList(data, page) {
     data.selectedPersonTypes.toString(),
     data.codestus,
     data.temp_from,
-    data.temp_to
+    data.temp_to,
+    data.wg_card_id
   )
   let res = window.top.myExtension.getCapture_Data(
     data.startTime,
@@ -20,7 +21,8 @@ export function getRecordList(data, page) {
     data.temp_from,
     data.temp_to,
     page.pageNo.toString(),
-    page.pageSize.toString()
+    page.pageSize.toString(),
+    data.wg_card_id
   )
   let counts = JSON.parse(count)[0].count
   let list = JSON.parse(res)
@@ -44,6 +46,7 @@ export function BatchXport(data, type, ids) {
     type,
     data.temp_from,
     data.temp_to,
-    ids.toString()
+    ids.toString(),
+    data.wg_card_id
   )
 }
