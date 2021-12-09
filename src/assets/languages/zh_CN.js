@@ -159,7 +159,7 @@ module.exports = {
     auto_refresh: '自动刷新',
     issue_finished: '下发已完成',
     choose_device: '请选择设备',
-    reupload_face: '由于设备人员图片不满足注册条件，因此下载需重新上传人脸图片',
+    reupload_face: '需重新上传人脸图片',
   },
   // 首页
   home: {
