@@ -73,10 +73,10 @@ export function setData(data) {
 // 编辑人员
 export function editData(data) {
   var re = window.top.myExtension.EditStaff(
-    data.name,
-    data.Employee_code,
-    data.phone,
-    data.Email,
+    data.name || '',
+    data.Employee_code || '',
+    data.phone || '',
+    data.Email || '',
     data.departmentname.toString(),
     data.Employetypename.toString(),
     data.picture.toString(),

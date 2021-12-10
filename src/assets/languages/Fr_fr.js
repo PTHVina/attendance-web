@@ -68,6 +68,8 @@ module.exports = {
     local_query: 'Local',
     one_click_download: 'Télécharger en un clic',
     download: 'Le téléchargement',
+    empty_device_face: 'Vider l’équipement visage',
+    tips_confirm: 'Assurez-vous de vider la galerie de visage de cet appareil:',
   },
   // 操作提示
   operation_tips: {

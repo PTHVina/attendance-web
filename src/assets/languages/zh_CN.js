@@ -68,6 +68,7 @@ module.exports = {
     local_query: '本地',
     one_click_download: '一键下载',
     download: '下载',
+    empty_device_face: '清空设备人脸',
   },
   // 操作提示
   operation_tips: {
@@ -160,6 +161,7 @@ module.exports = {
     issue_finished: '下发已完成',
     choose_device: '请选择设备',
     reupload_face: '需重新上传人脸图片',
+    tips_confirm: '确定清空该设备人脸库吗：',
   },
   // 首页
   home: {
