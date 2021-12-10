@@ -68,6 +68,7 @@ module.exports = {
     local_query: 'ローカル',
     one_click_download: 'ワンクリックでダウンロード',
     download: 'ダウンロード',
+    empty_device_face: '空にする装置の顔',
   },
   // 操作提示
   operation_tips: {
@@ -165,6 +166,7 @@ module.exports = {
     issue_finished: '配付はすでに完了した',
     choose_device: '装置を選んでください',
     reupload_face: '解像度が低すぎるため、顔写真を再アップロードする必要がある',
+    tips_confirm: 'デバイスの顔バンクを空にすることを確認しますか:',
   },
   // 首页
   home: {

@@ -113,6 +113,15 @@
             >
               {{ $t('operation_btn.one_click_download') }}
             </el-button>
+            <!-- 批量删除 -->
+            <el-button
+              icon="el-icon-delete"
+              type="danger"
+              style="opacity: 0.6"
+              @click="handleDeleteDeviceFace"
+            >
+              {{ $t('operation_btn.empty_device_face') }}
+            </el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -422,7 +431,10 @@
     registerAll,
   } from '@/api/personnel'
   import { getParam } from '@/api/sysPage'
-  import { getDeviceList as getDeviceList2 } from '@/api/device'
+  import {
+    getDeviceList as getDeviceList2,
+    emptyDeviceFace,
+  } from '@/api/device'
   export default {
     name: 'DataSync',
     data() {
@@ -876,6 +888,40 @@
           this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
         }
         this.init()
+      },
+
+      //清空设备人脸
+      handleDeleteDeviceFace() {
+        if (!this.queryForm.addr_name) {
+          this.$baseMessage(this.$t('operation_tips.choose_device'), 'warning')
+          return
+        }
+        this.$confirm(
+          this.$t('operation_tips.tips_confirm') + this.queryForm.addr_name,
+          this.$t('operation_tips.tips_42'),
+          {
+            confirmButtonText: this.$t('operation_btn.btn_text_5'),
+            cancelButtonText: this.$t('operation_btn.btn_text_4'),
+            type: 'warning',
+          }
+        )
+          .then(() => {
+            try {
+              this.listLoading = true
+              let result = emptyDeviceFace(this.queryForm.addr_name)
+              setTimeout(() => {
+                this.listLoading = false
+              }, 500)
+              if (result) {
+                this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
+              } else {
+                this.$baseMessage(this.$t('operation_tips.tips_5'), 'error')
+              }
+            } catch {
+              this.$baseMessage(this.$t('personnel.pl_17'), 'warning')
+            }
+          })
+          .catch(() => {})
       },
 
       //一键注册

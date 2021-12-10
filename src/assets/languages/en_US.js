@@ -68,6 +68,8 @@ module.exports = {
     local_query: 'Local',
     one_click_download: 'One click to download',
     download: 'download',
+    empty_device_face: 'Clear the device face',
+    tips_confirm: 'Are you sure to empty the face library?',
   },
   // 操作提示
   operation_tips: {

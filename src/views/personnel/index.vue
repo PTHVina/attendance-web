@@ -1204,7 +1204,7 @@
             id: data.id,
             name: data.name,
             Employee_code: data.Employee_code,
-            phone: data.phone,
+            phone: data.phone ?? '',
             face_idcard: data.face_idcard,
             idcardtype: data.idcardtype ? data.idcardtype : '32',
             Email: data.Email?.replace(/\s*/g, ''),

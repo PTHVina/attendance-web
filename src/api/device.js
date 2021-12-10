@@ -46,6 +46,11 @@ export function delDevice(ip) {
 
   return res
 }
+//清空设备人脸
+export function emptyDeviceFace(addr_name) {
+  var res = window.top.myExtension.emptyDeviceFaceByAddr(addr_name)
+  return res
+}
 //获取局域网设备
 export function getDeviceByLocal() {
   return new Promise(function (resolve, reject) {
