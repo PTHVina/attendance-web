@@ -534,7 +534,7 @@ module.exports = {
     text_49: 'Select personnel',
     text_50: 'people',
     text_51: 'Special date',
-    text_52: 'No clocking in date',
+    text_52: 'Holiday Assignment',
     text_53: 'Must check in date',
     text_54: 'select',
     text_55: 'Name',
