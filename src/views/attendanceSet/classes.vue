@@ -1561,6 +1561,11 @@
   .el-dialog *::-webkit-scrollbar-track:hover {
     background-color: #f8fafc;
   }
+
+  .demo-drawer {
+    overflow: auto !important;
+  }
+
   .demo-drawer__content {
     display: flex;
     flex-direction: column;
