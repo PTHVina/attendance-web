@@ -19,7 +19,7 @@ module.exports = {
     title_16: 'Attendance management',
     title_17: 'Daily attendance',
     title_18: 'Monthly attendance',
-    title_19: 'Equipment personnel',
+    title_19: 'Employee assignment',
     title_20: 'Parameter settings',
     title_21: 'Documentation',
     title_22: 'Job classification',
