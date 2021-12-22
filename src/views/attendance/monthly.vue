@@ -576,10 +576,10 @@
         return weekDay[myDate.getDay()]
       },
       exportAttendanceMasterReport() {
-        exportAttendanceMasterReport(this.queryForm.date)
+        exportAttendanceMasterReport(this.queryForm)
       },
       exportPeriodicMasterReport() {
-        exportPeriodicMasterReport(this.queryForm.date)
+        exportPeriodicMasterReport(this.queryForm)
       },
     },
   }
