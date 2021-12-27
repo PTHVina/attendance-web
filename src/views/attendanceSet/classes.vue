@@ -1327,12 +1327,20 @@
           }
         }
       },
+      //remove white space from string
+      removeWhiteSpace(str) {
+        if (str) {
+          return str.replace(/\s+/g, '')
+        }
+        return str
+      },
       //打开弹窗
       openFormDialog(data) {
         this.dialogFormVisible = true
         this.isShow = false
+        data.gotowork2 = this.removeWhiteSpace(data.gotowork2)
         if (data.id) {
-          console.log('选中参数', data)
+          //console.log('选中参数', data)
           this.form = {
             id: data.id,
             IsAcrossNight:
@@ -1343,10 +1351,10 @@
               data.gotowork1.split('-')[0],
               data.gotowork1.split('-')[1],
             ],
-            commuter2: [
-              data.gotowork2.split('-')[0],
-              data.gotowork2.split('-')[1],
-            ],
+            commuter2:
+              data.gotowork2 == ''
+                ? null
+                : [data.gotowork2.split('-')[0], data.gotowork2.split('-')[1]],
             rest: data.rest_time
               ? [data.rest_time.split('-')[0], data.rest_time.split('-')[1]]
               : '',
@@ -1384,7 +1392,7 @@
             CIBRange1: data.EffectiveTime.split(',')[1].split('-')[0],
             CIBRange2: data.EffectiveTime.split(',')[1].split('-')[1],
           }
-          // console.log(this.form)
+          //console.log('form:', this.form)
         }
       },
       //提交信息
