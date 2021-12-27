@@ -955,10 +955,6 @@
         this.queryForm.isAbsenteeism ? this.queryForm.isAbsenteeism : '0'
         this.queryForm.late ? this.queryForm.late : '0'
         this.queryForm.Leaveearly ? this.queryForm.Leaveearly : '0'
-        if (this.list.length == 0) {
-          this.$baseMessage(this.$t('attendance.text_33'), 'warning')
-          return
-        }
         exportList(this.queryForm)
       },
 
