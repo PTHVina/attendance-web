@@ -26,7 +26,7 @@
   import { mapGetters } from 'vuex'
   import { logo } from '@/config'
   import { getLogo } from '@/api/index'
-  import { getUserConfigObject } from '@/api/sysPage'
+  import { getUserConfigObject, getBrandObject } from '@/api/sysPage'
 
   export default {
     name: 'VabLogo',
@@ -64,6 +64,11 @@
       let configObject = getUserConfigObject()
       if (configObject.EnableTitleShort && configObject.TitleShort) {
         this.title = configObject.TitleShort
+      } else {
+        let brandObject = getBrandObject()
+        if (brandObject.titleShort) {
+          this.title = brandObject.titleShort
+        }
       }
     },
   }

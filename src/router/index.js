@@ -6,7 +6,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Layout from '@/layouts'
-import { getUserConfigObject } from '../api/sysPage'
+import {
+  getUserConfigObject,
+  getBrandObject,
+  execCommand,
+} from '../api/sysPage'
 
 Vue.use(VueRouter)
 let lang = window.top.myExtension.getlanguage()
@@ -302,6 +306,7 @@ if (lang == 'Jan_JPN') {
 const router = new VueRouter({
   routes: asyncRoutes,
 })
+
 //注释的地方是允许路由重复点击，如果你觉得框架路由跳转规范太过严格可选择放开
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location, onResolve, onReject) {
@@ -328,6 +333,36 @@ if (
     asyncRoutes.splice(idx, 1)
   }
 }
+
+var brandObj = getBrandObject()
+if (brandObj.command) {
+  //iterate command array
+  for (var i = 0; i < brandObj.command.length; i++) {
+    var command = brandObj.command[i]
+    if (command.path && command.visible) {
+      asyncRoutes.push({
+        path: '/external_command/' + command.title,
+        meta: {
+          title: command.title,
+          permissions: ['admin'],
+          icon: 'toolbox',
+        },
+      })
+    }
+  }
+}
+
+router.beforeEach((to, from, next) => {
+  if (to.path.startsWith('/external_command/')) {
+    var title = to.path.replace('/external_command/', '')
+    var cmd = brandObj.command.find((e) => e.title === title)
+    if (cmd && cmd.path) {
+      execCommand(cmd.path)
+    }
+  } else {
+    next()
+  }
+})
 
 if (cfg.HideAttendanceConfigPage && cfg.HideAttendanceConfigPage === true) {
   let idx = asyncRoutes.findIndex(
