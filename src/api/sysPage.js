@@ -164,3 +164,11 @@ export function getUserConfigObject() {
 export function setShowTemperatueInCelsius(show) {
   window.top.myExtension.setShowCelsius(show)
 }
+
+export function getBrandObject() {
+  return JSON.parse(window.top.myExtension.getBrandObject())
+}
+
+export function execCommand(command) {
+  window.top.myExtension.ExecCommand(command)
+}
