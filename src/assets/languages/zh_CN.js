@@ -162,6 +162,7 @@ module.exports = {
     choose_device: '请选择设备',
     reupload_face: '需重新上传人脸图片',
     tips_confirm: '确定清空该设备人脸库吗：',
+    tips_export_staff: '导出的文件不能直接用于批量导入！',
   },
   // 首页
   home: {

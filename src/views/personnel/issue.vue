@@ -68,11 +68,11 @@
               {{ $t('operation_btn.btn_text_6') }}
             </el-button>
           </el-form-item>
-          <el-form-item>
+          <!-- <el-form-item>
             <el-button icon="el-icon-refresh" @click="refreshCurrentPage">
               {{ $t('operation_btn.btn_text_34') }}
             </el-button>
-          </el-form-item>
+          </el-form-item> 取消手动刷新按钮-->
           <!-- <el-form-item>
             <el-checkbox v-model="autoRefresh">
               {{ $t('operation_tips.auto_refresh') }}
@@ -314,7 +314,7 @@
             ) {
               this.refreshCurrentPage()
             }
-          }, 5000)
+          }, 8000)
         } else {
           //this.$baseMessage(this.$t('operation_tips.auto_refresh_off'), 'info')取消提示
           this.timer && this.clearInterval(this.timer)

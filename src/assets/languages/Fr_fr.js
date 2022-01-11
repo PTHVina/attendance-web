@@ -171,6 +171,7 @@ module.exports = {
     issue_finished: 'La livraison est terminée',
     choose_device: 'Veuillez sélectionner un appareil',
     reupload_face: 'La résolution de l’image du personnel de l’équipement est trop basse, vous devez télécharger à nouveau l’image du visage',
+    tips_export_staff: 'Les fichiers exportés ne peuvent pas être utilisés directement pour l’importation en vrac',
   },
   // 首页
   home: {

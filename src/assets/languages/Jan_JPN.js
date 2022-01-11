@@ -167,6 +167,7 @@ module.exports = {
     choose_device: '装置を選んでください',
     reupload_face: '解像度が低すぎるため、顔写真を再アップロードする必要がある',
     tips_confirm: 'デバイスの顔バンクを空にすることを確認しますか:',
+    tips_export_staff: '導き出されたファイルを一括導入に直接使うことはできない',
   },
   // 首页
   home: {

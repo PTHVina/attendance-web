@@ -90,23 +90,29 @@
           {{ $t('operation_btn.btn_text_7') }}
         </el-button>
         <!-- 导出列表 -->
-        <el-button icon="el-icon-upload2" type="primary" @click="downList">
+        <el-button icon="el-icon-upload2" @click="downList">
           {{ $t('operation_btn.btn_text_8') }}
+        </el-button>
+        <!-- 下载模板 -->
+        <el-button
+          icon="el-icon-download"
+          type="primary"
+          plain
+          @click="downDemo"
+        >
+          {{ $t('operation_btn.btn_text_10') }}
         </el-button>
         <!-- 批量导入 -->
         <el-button
           icon="el-icon-folder-opened"
           type="primary"
+          plain
           @click="importExcel"
         >
           {{ $t('operation_btn.btn_text_9') }}
         </el-button>
-        <!-- 下载模板 -->
-        <el-button icon="el-icon-download" type="primary" @click="downDemo">
-          {{ $t('operation_btn.btn_text_10') }}
-        </el-button>
         <!-- 批量下发 -->
-        <el-button icon="el-icon-connection" type="primary" @click="issue">
+        <el-button icon="el-icon-connection" @click="issue">
           {{ $t('operation_btn.btn_text_11') }}
         </el-button>
         <!-- 全员下发 -->
@@ -1158,7 +1164,13 @@
       },
       //导出
       downList() {
-        downList()
+        this.$baseConfirm(
+          this.$t('operation_tips.tips_export_staff'),
+          null,
+          () => {
+            downList()
+          }
+        )
       },
       // 切换显示条数
       handleSizeChange(val) {

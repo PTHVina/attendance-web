@@ -168,6 +168,7 @@ module.exports = {
     issue_finished: 'Delivery completed',
     choose_device: 'Please select device',
     reupload_face: 'The device personnel picture resolution is too low, need to upload face picture again',
+    tips_export_staff: 'The exported files cannot be directly imported in batches',
   },
   // 首页
   home: {
