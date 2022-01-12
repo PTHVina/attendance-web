@@ -58,7 +58,7 @@
             </el-button>
             <!-- 导出 -->
             <el-popover
-              v-if="lang == 'en_US'"
+              v-if="lang == 'en_US' || lang == 'vi'"
               style="margin-left: 5px"
               trigger="click"
             >
