@@ -257,6 +257,13 @@ export function issueVisitor(data) {
 
   return res
 }
+//多选equipment_distribution的id下发
+export function issueByEdIds(data) {
+  let res = window.top.myExtension.issueByEquipmentDistributionIds(
+    JSON.stringify(data)
+  )
+  return parseInt(res) //返回
+}
 //下发统计
 export function getIssueInfo() {
   var success_res = window.top.myExtension.getcountforEquipment_distribution(
