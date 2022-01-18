@@ -58,6 +58,7 @@
               ></el-option>
             </el-select>
           </el-form-item>
+          <!--查询-->
           <el-form-item>
             <el-button
               icon="el-icon-search"
@@ -68,16 +69,12 @@
               {{ $t('operation_btn.btn_text_6') }}
             </el-button>
           </el-form-item>
-          <!-- <el-form-item>
-            <el-button icon="el-icon-refresh" @click="refreshCurrentPage">
-              {{ $t('operation_btn.btn_text_34') }}
+          <!--重新下发-->
+          <el-form-item>
+            <el-button icon="el-icon-thumb" @click="manualIssue">
+              {{ $t('operation_btn.btn_text_15') }}
             </el-button>
-          </el-form-item> 取消手动刷新按钮-->
-          <!-- <el-form-item>
-            <el-checkbox v-model="autoRefresh">
-              {{ $t('operation_tips.auto_refresh') }}
-            </el-checkbox>
-          </el-form-item>取消显示自动刷新选择框 -->
+          </el-form-item>
           <!--下发进度-->
           <el-form-item v-if="allCount != 0">
             <el-popover
@@ -130,10 +127,11 @@
           ? 'calc(100vh - 206px)'
           : 'calc(100vh - 255px)'
       "
+      @selection-change="handleSelectionChange"
       @sort-change="tableSortChange"
     >
       <!-- 序号 -->
-      <el-table-column
+      <!-- <el-table-column
         show-overflow-tooltip
         :label="$t('personnel.title_15')"
         :width="lang == 'en_US' ? '120' : lang == 'Fr_fr' ? '150' : '95'"
@@ -141,7 +139,10 @@
         <template #default="scope">
           {{ scope.$index + 1 }}
         </template>
-      </el-table-column>
+      </el-table-column> -->
+      <!--多选框-->
+      <el-table-column type="selection" width="55"></el-table-column>
+
       <!-- 设备名称 -->
       <el-table-column
         show-overflow-tooltip
@@ -238,7 +239,7 @@
 </template>
 
 <script>
-  import { getIssueList, getIssueInfo } from '@/api/personnel'
+  import { getIssueList, getIssueInfo, issueByEdIds } from '@/api/personnel'
   import { getDeviceList, getDistributeStatus } from '@/api/device'
   export default {
     name: 'Issue',
@@ -301,10 +302,6 @@
     watch: {
       autoRefresh(val) {
         if (val) {
-          // this.$baseMessage(
-          //   this.$t('operation_tips.auto_refresh_on'),
-          //   'success'
-          // )取消提示
           //获取下发完成状态（0代表下发未结束，1代表下发已结束），如果是0则刷新页面，如果是1则不刷新页面
           this.timer = setInterval(() => {
             let res = getDistributeStatus()
@@ -314,7 +311,7 @@
             ) {
               this.refreshCurrentPage()
             }
-          }, 8000)
+          }, 15000)
         } else {
           //this.$baseMessage(this.$t('operation_tips.auto_refresh_off'), 'info')取消提示
           this.timer && this.clearInterval(this.timer)
@@ -340,13 +337,13 @@
         this.listLoading = true
         let list = getIssueList(this.page, this.queryForm)
         this.list = list[0]
-        console.log('下发记录', this.list)
+        //console.log('下发记录', this.list)
         this.page.total = list[1][0].count >= 0 ? list[1][0].count : 0
         let issueInfo = getIssueInfo()
         this.successCount = issueInfo[0]
         this.failCount = issueInfo[1]
         this.allCount = issueInfo[2]
-        console.log(issueInfo)
+        //console.log(issueInfo)
         setTimeout(() => {
           this.listLoading = false
         }, 500)
@@ -371,6 +368,29 @@
       //刷新当前页面下发状态
       refreshCurrentPage() {
         this.init()
+      },
+      //重新下发
+      manualIssue() {
+        console.log(this.selectRows)
+        if (this.selectRows && this.selectRows.length > 0) {
+          let ids = this.selectRows.map((val) => val.id)
+          console.log('重新下发ids:', ids)
+          let res = issueByEdIds(ids)
+          if (res) {
+            this.$baseMessage(this.$t('operation_tips.tips_24'), 'success')
+          } else {
+            this.$baseMessage(this.$t('operation_tips.btn_text_25'), 'error')
+            return false
+          }
+        } else {
+          this.$baseMessage(this.$t('operation_tips.tips_22'), 'warning')
+          return false
+        }
+        this.init()
+      },
+      // 选中
+      handleSelectionChange(val) {
+        this.selectRows = val
       },
     },
   }
