@@ -937,6 +937,12 @@
     },
     watch: {},
     created() {
+      if (Object.keys(this.$route.query).length != 0) {
+        this.queryForm.name = this.$route.query.name
+        let path = this.$router.history.current.path
+        this.$router.push({ path, query: {} })
+      }
+
       this.deliveryMethod = getParam()
       this.typeList()
       this.init()
@@ -1007,7 +1013,8 @@
       },
       init() {
         this.listLoading = true
-        let list = getDataList(this.page)
+        //let list = getDataList(this.page)
+        let list = queryList(this.page, this.queryForm)
         this.list = list[0]
         console.log('人员列表', list)
         this.page.total = list[1]

@@ -165,12 +165,13 @@
         sortable
       ></el-table-column>
       <!-- 人员姓名 -->
-      <el-table-column
-        show-overflow-tooltip
-        :label="$t('personnel.pl_1')"
-        prop="name"
-        sortable
-      ></el-table-column>
+      <el-table-column show-overflow-tooltip :label="$t('personnel.pl_1')">
+        <template slot-scope="scope">
+          <el-link type="primary" @click="queryStaff(scope.row)">
+            {{ scope.row.name }}
+          </el-link>
+        </template>
+      </el-table-column>
       <!-- 时间 -->
       <el-table-column
         show-overflow-tooltip
@@ -391,6 +392,10 @@
       // 选中
       handleSelectionChange(val) {
         this.selectRows = val
+      },
+      //查询员工详细信息
+      queryStaff(row) {
+        this.$router.push({ path: '/personnel/personnelIndex', query: row })
       },
     },
   }
