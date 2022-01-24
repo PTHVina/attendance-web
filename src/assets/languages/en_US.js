@@ -295,7 +295,9 @@ module.exports = {
     pl_32: 'Add Manually',
     pl_33: 'Batch Import',
     pl_34: 'Error code:',
-    pl_35: 'User-defined text'
+    pl_35: 'User-defined text',
+    please_upgrade: 'The device version is too old, please upgrade',
+    issue_details: 'Details of Delivery',
   },
   //设备管理
   device: {

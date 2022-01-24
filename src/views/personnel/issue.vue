@@ -218,6 +218,9 @@
             <span v-else-if="row.code == 40">{{ $t('personnel.pl_28') }}</span>
             <span v-else-if="row.code == 41">{{ $t('personnel.pl_29') }}</span>
             <span v-else-if="row.code == 16">{{ $t('personnel.pl_30') }}</span>
+            <span v-else-if="row.code == 2">
+              {{ $t('personnel.please_upgrade') }}
+            </span>
             <span v-else-if="row.code">
               {{ $t('personnel.pl_34') + ' ' + row.code }}
             </span>
@@ -393,7 +396,7 @@
       handleSelectionChange(val) {
         this.selectRows = val
       },
-      //查询员工详细信息
+      //跳转到人员管理，查询员工详细信息
       queryStaff(row) {
         this.$router.push({ path: '/personnel/personnelIndex', query: row })
       },

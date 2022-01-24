@@ -295,7 +295,9 @@ pl_31: 'Đồng bộ hóa dữ liệu',
 pl_32: 'Thêm thủ công',
 pl_33: 'Nhập hàng loạt',
 pl_34: 'Mã lỗi:',
-pl_35: 'User-defined text'
+pl_35: 'User-defined text',
+please_upgrade: 'Phiên bản thiết bị là quá cũ, xin nâng cấp',
+issue_details: 'Gửi chi tiết',
   },
   //设备管理
 device: {

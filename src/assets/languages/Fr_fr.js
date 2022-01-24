@@ -301,6 +301,8 @@ module.exports = {
     pl_33: 'Importation par lots',
     pl_34: "Code d'erreur:",
     pl_35: "Texte défini par l'utilisateur",
+    please_upgrade: 'La version de l’appareil est trop ancienne, veuillez mettre à jour',
+    issue_details: 'Détails de l’envoi',
   },
   //设备管理
   device: {
