@@ -238,7 +238,7 @@ module.exports = {
     title_4: '部门',
     title_5: '人员编号',
     title_6: '工作分类',
-    title_7: '已下发总数',
+    title_7: '已下发数',
     title_8: '相机总数',
     title_9: '操作',
     title_10: '门禁卡号',
@@ -288,7 +288,9 @@ module.exports = {
     pl_32: '手动添加',
     pl_33: '批量导入',
     pl_34: '错误代码:',
-    pl_35: '自定义字段'
+    pl_35: '自定义字段',
+    please_upgrade: '设备版本太旧，请升级',
+    issue_details: '下发详情',
   },
   //设备管理
   device: {

@@ -237,7 +237,7 @@
         "
       ></el-table-column>
       <!-- 已下发总数 -->
-      <el-table-column
+      <!-- <el-table-column
         show-overflow-tooltip
         :label="$t('personnel.title_7')"
         prop="eqcount"
@@ -251,15 +251,28 @@
             ? '100'
             : ''
         "
-      ></el-table-column>
+      ></el-table-column> -->
       <!-- 相机总数 -->
-      <el-table-column
+      <!-- <el-table-column
         show-overflow-tooltip
         :label="$t('personnel.title_8')"
         prop="decount"
         sortable
         :width="lang == 'en_US' ? '220' : lang == 'Fr_fr' ? '220' : '140'"
-      ></el-table-column>
+      ></el-table-column> -->
+      <!--下发详情-->
+      <el-table-column :label="$t('personnel.issue_details')">
+        <template slot-scope="scope">
+          <el-tooltip effect="dark">
+            <el-link type="primary" @click="issueRecord(scope.row)">
+              {{ scope.row.eqcount }}/{{ scope.row.decount }}
+            </el-link>
+            <div slot="content">
+              {{ $t('personnel.title_7') }}/{{ $t('personnel.title_8') }}
+            </div>
+          </el-tooltip>
+        </template>
+      </el-table-column>
       <!-- 人员来源 -->
       <el-table-column
         show-overflow-tooltip
@@ -415,13 +428,13 @@
             </span>
           </span>
           <!-- 下发记录 -->
-          <el-button
+          <!-- <el-button
             type="text"
             icon="el-icon-document"
             @click="issueRecord(row)"
           >
             {{ $t('operation_btn.btn_text_33') }}
-          </el-button>
+          </el-button> -->
           <!-- 删除 -->
           <el-button
             type="text"
