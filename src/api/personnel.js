@@ -246,13 +246,14 @@ export function delVisitor(id) {
   return res
 }
 // 下发访客
-export function issueVisitor(data) {
+export function issueVisitor(data, devices) {
   let res = window.top.myExtension.downVisitorForid(
     data.name.toString(),
     data.imge.toString(),
     data.staTime.toString(),
     data.endTime.toString(),
-    data.id.toString()
+    data.id.toString(),
+    JSON.stringify(devices)
   )
 
   return res

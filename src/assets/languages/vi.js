@@ -298,6 +298,10 @@ pl_34: 'Mã lỗi:',
 pl_35: 'User-defined text',
 please_upgrade: 'Phiên bản thiết bị là quá cũ, xin nâng cấp',
 issue_details: 'Gửi chi tiết',
+to_be_issued: 'Để phát hành',
+issueing: 'Phát hành',
+success: 'Thành công',
+fail: 'Thất bại',
   },
   //设备管理
 device: {

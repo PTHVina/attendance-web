@@ -298,6 +298,10 @@ module.exports = {
     pl_35: 'User-defined text',
     please_upgrade: 'The device version is too old, please upgrade',
     issue_details: 'Details of Delivery',
+    to_be_issued: 'to be issued',
+    issueing: 'Is issued',
+    success: 'succeed',
+    fail: 'failed',
   },
   //设备管理
   device: {
