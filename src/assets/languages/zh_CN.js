@@ -223,7 +223,7 @@ module.exports = {
     text_7: '至',
     text_8: '授权起始时间',
     text_9: '授权结束时间',
-    text_10: '是否下发',
+    text_10: '下发状态',
     text_11: '是/否',
     text_12: '是',
     text_13: '授权时间区间',
@@ -291,6 +291,10 @@ module.exports = {
     pl_35: '自定义字段',
     please_upgrade: '设备版本太旧，请升级',
     issue_details: '下发详情',
+    to_be_issued: '待下发',
+    issueing: '下发中',
+    success: '成功',
+    fail: '失败',
   },
   //设备管理
   device: {

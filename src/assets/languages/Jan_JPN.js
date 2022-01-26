@@ -296,6 +296,10 @@ module.exports = {
     pl_35: 'ユーザー定義フィールド',
     please_upgrade: '装置のバージョンが古いのでアップグレードしてください',
     issue_details: '下記の詳細',
+    to_be_issued: '発令を待つ',
+    issueing: '発令中',
+    success: '成功',
+    fail: '失敗',
   },
   //设备管理
   device: {

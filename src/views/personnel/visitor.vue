@@ -173,7 +173,7 @@
         :width="lang == 'Fr_fr' ? '240px' : ''"
       ></el-table-column>
       <!-- 是否下发 -->
-      <el-table-column
+      <!-- <el-table-column
         show-overflow-tooltip
         :label="$t('personnel.text_10')"
         prop="isDown"
@@ -183,6 +183,51 @@
           <span v-if="row.isDown == 1">{{ $t('personnel.text_12') }}</span>
           <span v-else></span>
         </template>
+      </el-table-column> -->
+      <!--是否下发2-->
+      <el-table-column :label="$t('personnel.text_10')" sortable>
+        <template slot-scope="scope">
+          <el-popover trigger="hover" placement="left">
+            <div
+              v-for="(item, index) in filter_downDetail(scope.row.downDetail)"
+              :key="index"
+            >
+              <p>
+                <el-tag type="" effect="plain">{{ item.deviceIp }}</el-tag>
+                <el-tag v-if="item.status == 0" type="success" effect="plain">
+                  {{ $t('personnel.success') }}
+                </el-tag>
+                <el-tag v-else type="danger" effect="plain">
+                  {{ $t('personnel.fail') }}
+                </el-tag>
+                <el-tag v-if="item.errMsg" type="danger" effect="plain">
+                  {{ item.errMsg }}
+                </el-tag>
+              </p>
+              <el-divider></el-divider>
+            </div>
+            <div slot="reference" class="name-wrapper">
+              <el-tag
+                size="medium"
+                :type="
+                  scope.row.isDown == 0
+                    ? 'info'
+                    : scope.row.isDown == 1
+                    ? 'success'
+                    : 'danger'
+                "
+              >
+                {{
+                  scope.row.isDown == 0
+                    ? $t('personnel.to_be_issued')
+                    : scope.row.isDown == 1
+                    ? $t('personnel.success')
+                    : $t('personnel.fail')
+                }}
+              </el-tag>
+            </div>
+          </el-popover>
+        </template>
       </el-table-column>
       <!-- 操作 -->
       <el-table-column
@@ -191,6 +236,10 @@
         :width="lang == 'Fr_fr' ? '280px' : ''"
       >
         <template #default="{ row }">
+          <!-- 下发 -->
+          <el-button type="text" icon="el-icon-thumb" @click="issue(row)">
+            {{ $t('operation_btn.btn_text_15') }}
+          </el-button>
           <!-- 编辑 -->
           <el-button
             type="text"
@@ -198,10 +247,6 @@
             @click="openFormDialog(row)"
           >
             {{ $t('operation_btn.btn_text_14') }}
-          </el-button>
-          <!-- 下发 -->
-          <el-button type="text" icon="el-icon-thumb" @click="issue(row)">
-            {{ $t('operation_btn.btn_text_15') }}
           </el-button>
           <!-- 删除 -->
           <el-button
@@ -318,6 +363,55 @@
         </el-button>
       </div>
     </el-dialog>
+
+    <!-- 设备弹窗 -->
+    <!-- 下发设备 -->
+    <el-dialog
+      :title="$t('personnel.text_5')"
+      :visible.sync="dialogTableVisible"
+    >
+      <el-table
+        ref="multipleTable"
+        :data="gridData"
+        @selection-change="getSelectRows"
+      >
+        <el-table-column
+          show-overflow-tooltip
+          type="selection"
+          width="55"
+        ></el-table-column>
+        <!-- IP地址 -->
+        <el-table-column
+          property="IP"
+          sortable
+          :label="$t('personnel.title_3')"
+        ></el-table-column>
+        <!-- 设备名称 -->
+        <el-table-column
+          property="DeviceName"
+          sortable
+          :label="$t('personnel.title_13')"
+        ></el-table-column>
+        <!-- 设备编号 -->
+        <el-table-column
+          property="DeviceNo"
+          sortable
+          :label="$t('personnel.title_14')"
+        ></el-table-column>
+      </el-table>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogTableVisible = false">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
+        <el-button
+          type="primary"
+          :disabled="deviceRows.length == 0"
+          @click="setIssue"
+        >
+          {{ $t('operation_btn.btn_text_15') }}
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -331,6 +425,7 @@
     delVisitor,
     issueVisitor,
     photograph,
+    getDeviceList,
   } from '@/api/personnel'
   export default {
     name: 'Visitor',
@@ -342,6 +437,10 @@
         listLoading: false, //列表加载
         layout: 'total, sizes, prev, pager, next, jumper',
         elementLoadingText: this.$t('operation_tips.tips_12'),
+        dialogTableVisible: false, //表格弹窗控制
+        gridData: [], //设备列表
+        deviceRows: [], //设备选中列表
+        row: '', //被选中的访客
         queryForm: {
           name: '',
           phone: '',
@@ -419,15 +518,18 @@
       }
     },
     created() {
+      this.getDeviceList()
       this.init()
     },
     beforeDestroy() {},
     mounted() {},
     methods: {
       init() {
+        this.dialogTableVisible = false
         this.listLoading = true
         let count = getVisitorCount(this.queryForm)
         let list = getVisitorList(this.queryForm, this.page)
+        console.log(list)
         this.page.total = count
         this.list = list
         let imageList = []
@@ -548,11 +650,19 @@
       },
       // 下发
       issue(row) {
-        let res = issueVisitor(row)
-        if (res) {
-          this.$baseMessage(this.$t('operation_tips.tips_24'), 'success')
-        } else {
-          this.$baseMessage(this.$t('operation_tips.tips_25'), 'error')
+        this.row = row
+        let that = this
+        if (row.id) {
+          this.deviceRows = []
+          this.dialogTableVisible = true
+          this.$nextTick(() => {
+            this.$refs.multipleTable.clearSelection()
+            if (this.gridData) {
+              this.gridData.forEach((r) => {
+                that.$refs.multipleTable.toggleRowSelection(r)
+              })
+            }
+          })
         }
       },
       //导出
@@ -690,6 +800,97 @@
           endTime: '',
           img: '',
         }
+      },
+      // 获取设备列表
+      getDeviceList() {
+        //设备列表
+        let deviceList = getDeviceList()
+        this.gridData = deviceList
+      },
+      //人员下发
+      setIssue() {
+        //console.log('设备', this.deviceRows)
+        //console.log('被选中访客:', this.row)
+
+        let res = issueVisitor(this.row, this.deviceRows)
+        if (res) {
+          this.$baseMessage(this.$t('operation_tips.tips_24'), 'success')
+        } else {
+          this.$baseMessage(this.$t('operation_tips.tips_25'), 'error')
+        }
+        this.init()
+      },
+      //设备列表选中
+      getSelectRows(val) {
+        this.deviceRows = val
+      },
+      // 下发返回值code翻译
+      showErrTips(code) {
+        var re = ''
+        switch (code) {
+          case 0:
+            re = ''
+            break
+          case 30:
+            re = this.$t('personnel.pl_22')
+            break
+          case 35:
+            re = this.$t('personnel.pl_23')
+            break
+          case 36:
+            re = this.$t('personnel.pl_24')
+            break
+          case 37:
+            re = this.$t('personnel.pl_25')
+            break
+          case 38:
+            re = this.$t('personnel.pl_26')
+            break
+          case 39:
+            re = this.$t('personnel.pl_27')
+            break
+          case 40:
+            re = this.$t('personnel.pl_28')
+            break
+          case 41:
+            re = this.$t('personnel.pl_29')
+            break
+          case 16:
+            re = this.$t('personnel.pl_30')
+            break
+          case undefined:
+            re = this.$t('operation_tips.tips_25')
+          default:
+            re = this.$t('personnel.pl_34') + ' ' + code
+        }
+        return re
+      },
+      // 下载明细
+      filter_downDetail(value) {
+        if (!value) return ''
+        let arrDetail = JSON.parse(value)
+        // console.log(value)
+        // console.log(this.gridData)
+        console.log()
+        // let arrDetail = value
+        for (let i = 0; i < arrDetail.length; i++) {
+          //console.log(detail)
+          let targetDevices = this.gridData.filter(
+            (device) => device.Deviceid == arrDetail[i].Deviceid
+          )
+          //console.log(targetDevices)
+          arrDetail[i].deviceIp = targetDevices ? targetDevices[0].IP : ''
+          //console.log('返回错误码：' + arrDetail[i].code)
+          arrDetail[i].status = arrDetail[i].code
+          // arrDetail[i].code == 0
+          //   ? this.$t('personnel.success')
+          //   : this.$t('personnel.fail')
+
+          arrDetail[i].errMsg = arrDetail[i].errMsg
+            ? arrDetail[i].errMsg
+            : this.showErrTips(arrDetail[i].code)
+        }
+        return arrDetail
       },
     },
   }

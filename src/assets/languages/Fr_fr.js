@@ -303,6 +303,10 @@ module.exports = {
     pl_35: "Texte défini par l'utilisateur",
     please_upgrade: 'La version de l’appareil est trop ancienne, veuillez mettre à jour',
     issue_details: 'Détails de l’envoi',
+    to_be_issued: 'À expédier',
+    issueing: 'Envoyer en cours',
+    success: 'Le succès',
+    fail: 'l’échec',
   },
   //设备管理
   device: {
