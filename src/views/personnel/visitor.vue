@@ -188,11 +188,19 @@
       <el-table-column :label="$t('personnel.text_10')" sortable>
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="left">
+            <p
+              v-if="!filter_downDetail(scope.row.downDetail)"
+              style="text-align: center"
+            >
+              <el-link type="info">
+                {{ $t('personnel.please_issue_visitor') }}
+              </el-link>
+            </p>
             <div
               v-for="(item, index) in filter_downDetail(scope.row.downDetail)"
               :key="index"
             >
-              <p>
+              <p v-if="item.deviceIp">
                 <el-tag type="" effect="plain">{{ item.deviceIp }}</el-tag>
                 <el-tag v-if="item.status == 0" type="success" effect="plain">
                   {{ $t('personnel.success') }}
@@ -204,7 +212,7 @@
                   {{ item.errMsg }}
                 </el-tag>
               </p>
-              <el-divider></el-divider>
+              <el-divider v-if="item.deviceIp"></el-divider>
             </div>
             <div slot="reference" class="name-wrapper">
               <el-tag
@@ -878,8 +886,8 @@
           let targetDevices = this.gridData.filter(
             (device) => device.Deviceid == arrDetail[i].Deviceid
           )
-          //console.log(targetDevices)
-          arrDetail[i].deviceIp = targetDevices ? targetDevices[0].IP : ''
+          console.log(targetDevices)
+          arrDetail[i].deviceIp = targetDevices[0] ? targetDevices[0].IP : ''
           //console.log('返回错误码：' + arrDetail[i].code)
           arrDetail[i].status = arrDetail[i].code
           // arrDetail[i].code == 0

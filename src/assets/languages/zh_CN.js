@@ -295,6 +295,7 @@ module.exports = {
     issueing: '下发中',
     success: '成功',
     fail: '失败',
+    please_issue_visitor: '请下发访客',
   },
   //设备管理
   device: {

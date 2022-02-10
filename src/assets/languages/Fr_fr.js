@@ -307,6 +307,7 @@ module.exports = {
     issueing: 'Envoyer en cours',
     success: 'Le succès',
     fail: 'l’échec',
+    please_issue_visitor: 'Envoyer un visiteur',
   },
   //设备管理
   device: {
