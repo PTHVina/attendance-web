@@ -300,6 +300,7 @@ module.exports = {
     issueing: '発令中',
     success: '成功',
     fail: '失敗',
+    please_issue_visitor: '訪問者を送ってください',
   },
   //设备管理
   device: {

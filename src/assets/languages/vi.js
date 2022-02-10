@@ -302,6 +302,7 @@ to_be_issued: 'Để phát hành',
 issueing: 'Phát hành',
 success: 'Thành công',
 fail: 'Thất bại',
+please_issue_visitor: 'Xin vui lòng gửi cho khách',
   },
   //设备管理
 device: {

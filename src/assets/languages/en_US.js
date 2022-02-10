@@ -302,6 +302,7 @@ module.exports = {
     issueing: 'Is issued',
     success: 'succeed',
     fail: 'failed',
+    please_issue_visitor: 'Please issue visitors.',
   },
   //设备管理
   device: {

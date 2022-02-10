@@ -80,6 +80,22 @@
           </span>
         </template>
       </el-table-column>
+      <!-- 设备型号 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('device.text_13')"
+        prop="platForm"
+      >
+        <template #default="{ row }">
+          <el-tooltip
+            class="item"
+            effect="dark"
+            :content="row.master_buildtime"
+          >
+            <el-link type="info">{{ row.platForm }}</el-link>
+          </el-tooltip>
+        </template>
+      </el-table-column>
       <!-- 状态 -->
       <el-table-column
         show-overflow-tooltip
