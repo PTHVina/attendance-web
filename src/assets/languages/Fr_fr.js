@@ -219,6 +219,8 @@ module.exports = {
     title_11: "Abréviation du système*",
     title_12: "Cacher la page*",
     title_temperature: "Affichage de la température",
+    auto_datasyn: 'Synchronisation automatique du personnel des équipements',
+    auto_capture_syn: 'Obtenez automatiquement les enregistrements de capture',
   },
   //人员管理
   personnel: {

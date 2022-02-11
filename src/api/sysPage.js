@@ -133,6 +133,16 @@ export function setParam2(data) {
   window.top.myExtension.setIsauto_syn(data.toString())
 }
 
+//设置人员同步
+export function setParamDatasyn(data) {
+  window.top.myExtension.setParamData_syn(data.toString())
+}
+
+//设置获取抓拍记录
+export function setParamCaptureSyn(data) {
+  window.top.myExtension.setParamCapture_syn(data.toString())
+}
+
 export function enableLongTitle(enable) {
   window.top.myExtension.enableLongTitle(enable)
 }

@@ -216,6 +216,8 @@ title_10: "Tên hệ thống*",
 title_11: "Tên viết tắt hệ thống*",
 title_12: "Ẩn trang*",
 title_temperature: "Hiển thị nhiệt độ",
+auto_datasyn: 'Nhân viên thiết bị đồng bộ tự động',
+auto_capture_syn: 'Tự động lấy hồ sơ chụp ảnh',
   },
   //人员管理
  personnel: {
