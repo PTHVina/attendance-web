@@ -110,6 +110,54 @@
           </el-tooltip>
         </div>
       </li>
+      <!--分割线-->
+      <el-divider></el-divider>
+      <!--自动获取抓拍记录-->
+      <li class="setting_row">
+        <div
+          class="set_item"
+          :style="
+            lang == 'en_US'
+              ? 'width:800px'
+              : lang == 'Fr_fr'
+              ? 'width:950px'
+              : lang == 'Jan_JPN'
+              ? 'width:600px'
+              : ''
+          "
+        >
+          <span class="item_title">{{ $t('system.auto_capture_syn') }}*</span>
+          <el-switch
+            v-model="autoCaptureSyn"
+            :active-text="$t('device.text_28')"
+            :inactive-text="$t('device.text_44')"
+            @change="setParamCaptureSyn"
+          ></el-switch>
+        </div>
+      </li>
+      <!--自动获取设备人员-->
+      <li class="setting_row">
+        <div
+          class="set_item"
+          :style="
+            lang == 'en_US'
+              ? 'width:800px'
+              : lang == 'Fr_fr'
+              ? 'width:950px'
+              : lang == 'Jan_JPN'
+              ? 'width:600px'
+              : ''
+          "
+        >
+          <span class="item_title">{{ $t('system.auto_datasyn') }}*</span>
+          <el-switch
+            v-model="autoDataSyn"
+            :active-text="$t('device.text_28')"
+            :inactive-text="$t('device.text_44')"
+            @change="setParamDatasyn"
+          ></el-switch>
+        </div>
+      </li>
       <!--自定义系统名称-->
       <li class="setting_row">
         <div
@@ -200,6 +248,8 @@
 <script>
   import { setSwitch, getSwitch } from '@/api/device'
   import {
+    setParamCaptureSyn,
+    setParamDatasyn,
     setParam,
     setParam2,
     getParam,
@@ -227,6 +277,8 @@
         hideAttendanceConfigPage: false,
         showTemperatureInCelsius: true,
         autoIssue: true,
+        autoDataSyn: false,
+        autoCaptureSyn: true,
       }
     },
     created() {
@@ -241,8 +293,30 @@
       this.hideAttendanceConfigPage = cfg.HideAttendanceConfigPage
       this.showTemperatureInCelsius = cfg.ShowTemperatureInCelsius === true
       this.autoIssue = cfg.AutoIssue
+      this.autoDataSyn = cfg.AutoDataSyn
+      this.autoCaptureSyn = cfg.AutoCaptureSyn
+      // console.log(cfg)
+      // console.log('this.autoDataSyn', this.autoDataSyn)
     },
     methods: {
+      //设置自动获取抓拍记录
+      setParamCaptureSyn(e) {
+        try {
+          setParamCaptureSyn(e)
+          this.$baseMessage(this.$t('device.text_48'), 'success')
+        } catch (error) {
+          this.$baseMessage(this.$t('device.text_49'), 'warning')
+        }
+      },
+      //设置自动同步设备人员
+      setParamDatasyn(e) {
+        try {
+          setParamDatasyn(e)
+          this.$baseMessage(this.$t('device.text_48'), 'success')
+        } catch (error) {
+          this.$baseMessage(this.$t('device.text_49'), 'warning')
+        }
+      },
       //设置下发方式
       setParam(e) {
         let res = setParam(e)

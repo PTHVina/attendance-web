@@ -210,7 +210,8 @@ module.exports = {
     title_11: "自定义系统简称*",
     title_12: "隐藏页面*",
     title_temperature: "温度显示",
-
+    auto_datasyn: '自动同步设备人员',
+    auto_capture_syn: '自动获取抓拍记录',
   },
   //人员管理
   personnel: {

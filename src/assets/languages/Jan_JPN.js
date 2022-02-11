@@ -215,6 +215,8 @@ module.exports = {
     title_11: "システム略称*",
     title_12: "ページを隠す*",
     title_temperature: "温度表示",
+    auto_datasyn: '自動同期装置係',
+    auto_capture_syn: 'スナップ記録を自動取得',
   },
   //人员管理
   personnel: {

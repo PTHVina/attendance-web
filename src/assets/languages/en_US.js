@@ -216,6 +216,8 @@ module.exports = {
     title_11: "System Abbrev. Name*",
     title_12: "Hide Pages*",
     title_temperature: "Temperature Display",
+    auto_datasyn: 'Automatic synchronization of equipment personnel',
+    auto_capture_syn: 'Automatic capture record',
   },
   //人员管理
   personnel: {
