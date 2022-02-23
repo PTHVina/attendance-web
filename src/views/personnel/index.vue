@@ -894,7 +894,7 @@
           ],
           phone: [
             {
-              pattern: /^1[345789]\d{9}$/,
+              pattern: /^1[345789]\d{9}(,1[345789]\d{9})*$/,
               message: this.$t('operation_tips.tips_3'),
               trigger: 'blur',
             },
