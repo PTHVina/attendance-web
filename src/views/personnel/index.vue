@@ -923,7 +923,7 @@
           ],
           customer_text: [
             {
-              max: 22,
+              max: 200,
               message: this.$t('operation_tips.tips_78'),
               trigger: 'blur',
             },
