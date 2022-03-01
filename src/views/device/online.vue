@@ -17,6 +17,14 @@
           >
             <i class="icon el-icon-video-play" @click="playVideo(item)"></i>
           </el-tooltip>
+          <el-tooltip
+            class="item"
+            effect="dark"
+            :content="$t('operation_btn.btn_text_24')"
+            placement="top-end"
+          >
+            <i class="icon el-icon-thumb" @click="openDoor(item)"></i>
+          </el-tooltip>
         </li>
       </ul>
     </div>
@@ -217,7 +225,13 @@
   </div>
 </template>
 <script>
-  import { getDeviceList, play, setDome, closePage } from '@/api/device'
+  import {
+    getDeviceList,
+    play,
+    setDome,
+    closePage,
+    openDoor,
+  } from '@/api/device'
   export default {
     name: 'Online',
     data() {
@@ -277,6 +291,16 @@
       //播放视频
       playVideo(item) {
         play(item.IP)
+      },
+
+      openDoor(item) {
+        openDoor(item.IP).then((res) => {
+          if (res) {
+            this.$baseMessage(this.$t('operation_tips.tips_40'), 'success')
+          } else {
+            this.$baseMessage(this.$t('operation_tips.tips_41'), 'warning')
+          }
+        })
       },
     },
   }
