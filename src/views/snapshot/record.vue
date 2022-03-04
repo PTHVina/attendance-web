@@ -86,7 +86,7 @@
             </el-select>
           </el-form-item>
           <!-- 健康码状态 -->
-          <el-form-item v-if="lang == 'zh_CN'">
+          <el-form-item v-if="lang == 'zh_CN' && showCode">
             <span>{{ $t('snapshot.text_11') }}</span>
             <el-select
               v-model="queryForm.codestus"
@@ -109,6 +109,15 @@
                 {{ $t('snapshot.text_14') }}
               </el-option>
             </el-select>
+          </el-form-item>
+          <!--自定义字段-->
+          <el-form-item v-else>
+            <span>{{ $t('personnel.title_18') }}</span>
+            <el-input
+              v-model="queryForm.codestus"
+              :placeholder="$t('personnel.pl_35')"
+              style="width: 140px"
+            />
           </el-form-item>
           <!-- 门禁卡号 -->
           <el-form-item>
@@ -225,7 +234,7 @@
       <el-table-column
         show-overflow-tooltip
         prop="person_id"
-        :label="$t('snapshot.text_49')"
+        :label="$t('personnel.title_5')"
         width="100px"
       ></el-table-column>
       <!-- 体温 -->
@@ -271,6 +280,17 @@
         prop="addr_name"
         width="140px"
       ></el-table-column>
+      <!--自定义字段-->
+      <el-table-column
+        v-if="!showCode"
+        :label="$t('personnel.pl_35')"
+        show-overflow-tooltip
+        prop="QRcodestatus"
+      >
+        <template #default="{ row }">
+          <span>{{ row.QRcodestatus }}</span>
+        </template>
+      </el-table-column>
       <!-- 健康码 -->
       <el-table-column
         v-if="showCode"
@@ -337,7 +357,8 @@
             "
           >
             <span v-if="row.QRcodestatus.split('(')[0].split(':').length > 1">
-              {{ row.QRcodestatus.split('(')[0].split(':')[1] }}
+              <!-- {{ row.QRcodestatus.split('(')[0].split(':')[1] }} -->
+              {{ row.QRcodestatus.split(':')[1].split(';')[0] }}
             </span>
           </span>
         </template>
@@ -365,6 +386,7 @@
         </template>
       </el-table-column>
       <!-- 行程信息 -->
+      <!--
       <el-table-column
         v-if="showCode"
         :label="$t('snapshot.text_44')"
@@ -411,13 +433,15 @@
           </el-popover>
         </template>
       </el-table-column>
+      -->
       <!-- 身份证号码 -->
-      <el-table-column
+      <!-- <el-table-column
+        v-if="showCode"
         show-overflow-tooltip
         :label="$t('snapshot.text_17')"
         prop="idcard_number"
         :width="lang == 'Fr_fr' ? '240px' : '160px'"
-      ></el-table-column>
+      ></el-table-column> -->
       <!-- 门禁卡号 -->
       <el-table-column
         show-overflow-tooltip
@@ -911,6 +935,11 @@
         ],
       }
     },
+    watch: {
+      showCode(val) {
+        this.queryForm.codestus = ''
+      },
+    },
     created() {
       this.deliveryMethod = getParam()
       this.typeList()
@@ -942,7 +971,7 @@
       init() {
         this.listLoading = true
         this.queryForm.stranger ? this.queryForm.stranger : '0'
-        this.queryForm.codestus < 3 ? this.queryForm.codestus : '3'
+        //this.queryForm.codestus < 3 ? this.queryForm.codestus : '3'
         let { counts, list } = getRecordList(this.queryForm, this.page)
         this.page.total = counts
         this.list = list
