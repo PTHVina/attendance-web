@@ -42,6 +42,23 @@
               ></el-option>
             </el-select>
           </el-form-item>
+          <!-- 人员分类 -->
+          <el-form-item>
+            <span>{{ $t('personnel.title_6') }}</span>
+            <el-select
+              v-model="queryForm.employeeTypeName"
+              multiple
+              collapse-tags
+              :placeholder="$t('personnel.pl_4')"
+            >
+              <el-option
+                v-for="item in allEmployeeTypes"
+                :key="item.id"
+                :label="item.Employetype_name"
+                :value="item.Employetype_name"
+              ></el-option>
+            </el-select>
+          </el-form-item>
           <!-- 电话号码 -->
           <el-form-item>
             <span>{{ $t('personnel.text_3') }}</span>
@@ -811,13 +828,14 @@
     setInform,
   } from '@/api/personnel'
   import { getParam } from '@/api/sysPage'
-  import { getAllDepartment } from '@/api/accesscontrol'
+  import { getAllDepartment, getAllEmployeeType } from '@/api/accesscontrol'
   export default {
     name: 'PersonnelIndex',
     data() {
       return {
         //departments: [],
         allDepartments: [],
+        allEmployeeTypes: [],
         isEdit: false,
         authorized_time: [],
         lang: this.$lang,
@@ -833,6 +851,7 @@
           no: '',
           qu_phone: '',
           dep: '',
+          employeeTypeName: '',
         },
         page: {
           pageNo: 1,
@@ -960,6 +979,7 @@
       this.typeList()
       this.init()
       this.loadAllDepartments()
+      this.loadAllEmployeeTypes()
     },
     mounted() {
       let firstLogin = JSON.parse(localStorage.getItem('firstLogin'))
@@ -1668,6 +1688,10 @@
       loadAllDepartments() {
         const depts = getAllDepartment()
         this.allDepartments = depts
+      },
+      loadAllEmployeeTypes() {
+        const types = getAllEmployeeType()
+        this.allEmployeeTypes = types
       },
     },
   }

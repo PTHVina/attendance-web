@@ -426,6 +426,12 @@
           :label="$t('attendanceSet.text_57')"
           show-overflow-tooltip
         ></el-table-column>
+        <!-- 人员类别 -->
+        <el-table-column
+          prop="Employetypename"
+          :label="$t('personnel.title_6')"
+          show-overflow-tooltip
+        ></el-table-column>
       </el-table>
       <div
         slot="footer"
@@ -905,7 +911,8 @@
           if (
             String(item.name).indexOf(text) != -1 ||
             String(item.Employee_code).indexOf(text) != -1 ||
-            String(item.departmentname).indexOf(text) != -1
+            String(item.departmentname).indexOf(text) != -1 ||
+            String(item.Employetypename).indexOf(text) != -1
           ) {
             list.push(item)
           }

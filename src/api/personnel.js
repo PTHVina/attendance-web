@@ -19,14 +19,16 @@ export function queryList(page, data) {
     data.qu_phone.toString(),
     page.pageNo.toString(),
     page.pageSize.toString(),
-    data.dep ? data.dep.toString() : ''
+    data.dep ? data.dep.toString() : '',
+    data.employeeTypeName?.toString() ?? ''
   )
   let re_json1 = JSON.parse(list)
   let count = window.top.myExtension.getStaffDataQueyforcount(
     data.name,
     data.no.toString(),
     data.qu_phone.toString(),
-    data.dep ? data.dep.toString() : ''
+    data.dep ? data.dep.toString() : '',
+    data.employeeTypeName?.toString() ?? ''
   )
   let re_json2 = JSON.parse(count)
 
