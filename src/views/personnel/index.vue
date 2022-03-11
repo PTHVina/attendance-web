@@ -901,7 +901,7 @@
             },
             {
               min: 1,
-              max: 18,
+              max: 19,
               message: this.$t('operation_tips.tips_20'),
               trigger: 'blur',
             },
