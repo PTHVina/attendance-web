@@ -45,6 +45,7 @@ export const asyncRoutes = [
   {
     path: '/',
     component: Layout,
+    name: 'Home',
     redirect: 'index',
     children: [
       {
@@ -334,7 +335,7 @@ if (
   }
 }
 
-var brandObj = getBrandObject()
+const brandObj = getBrandObject()
 if (brandObj.command) {
   //iterate command array
   for (var i = 0; i < brandObj.command.length; i++) {
@@ -351,6 +352,41 @@ if (brandObj.command) {
     }
   }
 }
+
+//定制菜单
+function removeChild(parentName, childName) {
+  let idx = asyncRoutes.findIndex((e) => e.name === parentName)
+  if (idx !== -1) {
+    let childIdx = asyncRoutes[idx].children.findIndex(
+      (e) => e.name === childName
+    )
+    if (childIdx !== -1) {
+      asyncRoutes[idx].children.splice(childIdx, 1)
+    }
+  }
+}
+
+function removeRoute(routeName) {
+  let idx = asyncRoutes.findIndex((e) => e.name === routeName)
+  if (idx !== -1) {
+    asyncRoutes.splice(idx, 1)
+  }
+}
+
+const menus = brandObj.menus
+Object.entries(menus).forEach(([key, value]) => {
+  if (value.visible === false) {
+    removeRoute(key)
+  } else {
+    if (value.children) {
+      Object.entries(value.children).forEach(([subkey, value]) => {
+        if (value === false) {
+          removeChild(key, subkey)
+        }
+      })
+    }
+  }
+})
 
 router.beforeEach((to, from, next) => {
   if (to.path.startsWith('/external_command/')) {
