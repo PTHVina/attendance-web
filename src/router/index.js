@@ -233,6 +233,12 @@ export const asyncRoutes = [
         component: () => import('@/views/system/parameter'),
         meta: { title: i18.router.title_20, permissions: ['admin'] }, //参数设置
       },
+      {
+        path: 'releasenotes',
+        name: 'ReleaseNotes',
+        component: () => import('@/views/system/releasenotes'),
+        meta: { title: '关于', permissions: ['admin'] }, //参数设置
+      },
     ],
   },
   {
@@ -407,6 +413,10 @@ if (cfg.HideAttendanceConfigPage && cfg.HideAttendanceConfigPage === true) {
   if (idx !== -1) {
     asyncRoutes.splice(idx, 1)
   }
+}
+
+if (lang !== 'zh_CN') {
+  removeChild('System', 'ReleaseNotes')
 }
 
 export default router

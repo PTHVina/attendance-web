@@ -182,3 +182,7 @@ export function getBrandObject() {
 export function execCommand(command) {
   window.top.myExtension.ExecCommand(command)
 }
+
+export function getReadme() {
+  return window.top.myExtension.GetReadme()
+}
