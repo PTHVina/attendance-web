@@ -129,6 +129,155 @@
     </div>
 
     <el-table
+      v-if="lang == 'en_US'"
+      v-loading="listLoading"
+      stripe
+      :data="list"
+      :height="lang == 'zh_CN' ? '745' : '700'"
+      :highlight-current-row="true"
+      :element-loading-text="elementLoadingText"
+      border="true"
+      @row-dblclick="loadDetails"
+    >
+      <!-- 姓名 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.text_1')"
+        :width="
+          lang == 'en_US' ? '130px' : lang == 'Jan_JPN' ? '120px' : '100px'
+        "
+      >
+        <template #default="{ row }">
+          <a
+            href="#"
+            style="text-decoration: underline"
+            @click.prevent="loadDetails(row)"
+          >
+            {{ row.Name }}
+          </a>
+        </template>
+      </el-table-column>
+      <!-- 部门 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.text_12')"
+        prop="Department"
+        sortable
+        :width="
+          lang == 'en_US' ? '160px' : lang == 'Jan_JPN' ? '150px' : '140px'
+        "
+      ></el-table-column>
+      <!-- 人员编号 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.text_13')"
+        prop="PersonalNo"
+        sortable
+        :width="
+          lang == 'en_US'
+            ? '170px'
+            : lang == 'Jan_JPN'
+            ? '170px'
+            : lang == 'Fr_fr'
+            ? '170px'
+            : '150px'
+        "
+      ></el-table-column>
+      <!-- 考勤日期 -->
+      <el-table-column
+        show-overflow-tooltip
+        prop="Date"
+        :label="$t('attendance.text_8')"
+        sortable
+        :width="lang == 'en_US' ? '160px' : lang == 'Fr_fr' ? '170px' : '130px'"
+      ></el-table-column>
+      <!-- 班次信息 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.text_14')"
+        prop="Shift"
+        sortable
+        :width="lang == 'en_US' ? '170px' : lang == 'Fr_fr' ? '190px' : '170px'"
+      ></el-table-column>
+      <!-- 打卡信息 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.text_15')"
+        prop="CheckIn1"
+      ></el-table-column>
+      <!-- 打卡信息-时段二 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.text_35')"
+        prop="CheckOut1"
+      ></el-table-column>
+      <!-- 体温(℃) -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.text_20')"
+        prop="Temperature"
+        sortable
+        :width="lang == 'en_US' ? '160px' : lang == 'Fr_fr' ? '230px' : '100px'"
+      ></el-table-column>
+      <!-- 迟到(分钟) -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.text_21')"
+        prop="LateMinutes"
+        sortable
+        :width="
+          lang == 'en_US'
+            ? '130px'
+            : lang == 'Jan_JPN'
+            ? '100px'
+            : lang == 'Fr_fr'
+            ? '170px'
+            : '110px'
+        "
+      ></el-table-column>
+      <!-- 早退 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.text_7')"
+        prop="EarlyMinutes"
+        sortable
+        :width="lang == 'en_US' ? '140px' : lang == 'Fr_fr' ? '170px' : '80px'"
+      ></el-table-column>
+      <!-- WorkHours -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.text_3')"
+        prop="WorkHour"
+        sortable
+        :width="
+          lang == 'en_US'
+            ? '150px'
+            : lang == 'Jan_JPN'
+            ? '120px'
+            : lang == 'Fr_fr'
+            ? '170px'
+            : '80px'
+        "
+      ></el-table-column>
+      <!-- Status -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.text_22')"
+        prop="Status"
+        sortable
+        :width="
+          lang == 'en_US'
+            ? '150px'
+            : lang == 'Jan_JPN'
+            ? '120px'
+            : lang == 'Fr_fr'
+            ? '170px'
+            : '80px'
+        "
+      ></el-table-column>
+    </el-table>
+    <el-table
+      v-else
       v-loading="listLoading"
       stripe
       :data="list"
@@ -437,6 +586,7 @@
         </template>
       </el-table-column>
     </el-table>
+
     <el-pagination
       :current-page="page.pageNo"
       :layout="layout"
