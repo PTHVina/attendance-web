@@ -3,11 +3,7 @@
     <router-link v-if="lang != 'Jan_JPN'" to="/">
       <!-- 这里是logo变更的位置 -->
       <!-- <vab-remix-icon v-if="logo" class="logo" :icon-class="logo" /> -->
-      <img
-        :src="logoImg ? logoImg : require('@/assets/logo-2.png')"
-        class="logo"
-        alt=""
-      />
+      <img :src="logoImg" class="logo" alt="" />
       <span
         id="admin_title"
         class="title"
