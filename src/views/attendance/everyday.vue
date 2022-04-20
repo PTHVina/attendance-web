@@ -17,7 +17,7 @@
               :placeholder="$t('attendance.text_2')"
             />
           </el-form-item>
-          <!-- 部门 -->
+          <!-- 组织机构 -->
           <el-form-item>
             <span>{{ $t('attendance.text_12') }}</span>
             <el-select
@@ -156,7 +156,7 @@
           </a>
         </template>
       </el-table-column>
-      <!-- 部门 -->
+      <!-- 组织机构 -->
       <el-table-column
         show-overflow-tooltip
         :label="$t('attendance.text_12')"
@@ -643,7 +643,7 @@
           late: '', //迟到
           Leaveearly: '', //早退
           daterangetime: [], //考勤日期
-          departments: '', //部门
+          departments: '', //组织机构
         },
         page: {
           pageNo: 1,
@@ -730,7 +730,7 @@
         //模拟数据
         var dataZn = [
           { value: 'name', title: '姓名' },
-          { value: 'department', title: '部门' },
+          { value: 'department', title: '组织机构' },
           { value: 'Employee_code', title: '员工编号' },
           { value: 'Date', title: '考勤日期' },
           { value: 'Punchinformation', title: '上班打卡' },

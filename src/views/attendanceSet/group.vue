@@ -420,7 +420,7 @@
           :label="$t('attendanceSet.text_56')"
           :width="lang == 'Fr_fr' ? '170px' : ''"
         ></el-table-column>
-        <!-- 部门 -->
+        <!-- 组织机构 -->
         <el-table-column
           prop="departmentname"
           :label="$t('attendanceSet.text_57')"

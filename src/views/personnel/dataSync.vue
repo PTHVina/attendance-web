@@ -343,7 +343,7 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <!-- 部门 -->
+        <!-- 组织机构 -->
         <el-form-item :label="$t('snapshot.text_30')">
           <el-cascader
             v-model="form.departmentname"
@@ -359,7 +359,7 @@
             style="width: 100%"
           ></el-cascader>
         </el-form-item>
-        <!-- 工作分类 -->
+        <!-- 人员类别 -->
         <el-form-item :label="$t('snapshot.text_32')" prop="Employetypename">
           <el-select
             v-model="form.Employetypename"
@@ -464,8 +464,8 @@
           face_idcard: '', //门禁编号
           idcardtype: '32', //门禁编号位数
           Email: '',
-          departmentname: '', //部门
-          Employetypename: '', //工作分类
+          departmentname: '', //组织机构
+          Employetypename: '', //人员类别
           picture: '',
           line_userid: '', //Line_ueserid
           line_type: '1', //送信モード
@@ -539,8 +539,8 @@
           //   },
           // ],
         },
-        option: [], // 部门列表
-        options: [], // 工作分类
+        option: [], // 组织机构列表
+        options: [], // 人员类别
 
         deliveryMethod: false, //下发方式
         isRealTime: 0, //实时查询
@@ -560,7 +560,7 @@
     methods: {
       //获取设置数据
       typeList() {
-        // 人员分类、部门列表
+        // 人员分类、组织机构列表
         let list = getTypeList()
         this.option = list[0]
         this.options = list[1]

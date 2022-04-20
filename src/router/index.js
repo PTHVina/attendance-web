@@ -219,13 +219,13 @@ export const asyncRoutes = [
         path: 'department',
         name: 'Department',
         component: () => import('@/views/system/department'),
-        meta: { title: i18.router.title_3, permissions: ['admin'] }, //部门设置
+        meta: { title: i18.router.title_3, permissions: ['admin'] }, //组织机构设置
       },
       {
         path: 'classification',
         name: 'Classification',
         component: () => import('@/views/system/classification'),
-        meta: { title: i18.router.title_22, permissions: ['admin'] }, //工作分类
+        meta: { title: i18.router.title_22, permissions: ['admin'] }, //人员类别
       },
       {
         path: 'parameter',

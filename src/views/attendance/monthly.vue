@@ -21,7 +21,7 @@
               :clearable="false"
             ></el-date-picker>
           </el-form-item>
-          <!-- 部门 -->
+          <!-- 组织机构 -->
           <el-form-item>
             <span>{{ $t('attendance.text_12') }}</span>
             <el-select
@@ -133,7 +133,7 @@
         :width="lang == 'en_US' ? '170px' : lang == 'Fr_fr' ? '200px' : ''"
         sortable
       ></el-table-column>
-      <!-- 部门 -->
+      <!-- 组织机构 -->
       <el-table-column
         show-overflow-tooltip
         prop="department"
@@ -226,7 +226,7 @@
             lang == 'en_US' ? '130px' : lang == 'Jan_JPN' ? '120px' : '100px'
           "
         ></el-table-column>
-        <!-- 部门 -->
+        <!-- 组织机构 -->
         <el-table-column
           show-overflow-tooltip
           :label="$t('attendance.text_12')"

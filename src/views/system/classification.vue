@@ -1,7 +1,7 @@
 <template>
   <div class="test-container">
     <div class="personnel">
-      <!-- 工作分类 -->
+      <!-- 人员类别 -->
       <div class="tree_title">{{ $t('system.text_3') }}</div>
       <div v-for="(tag, key) in dynamicTags" :key="tag" class="tag_list">
         <el-tag v-if="isChange != key" closable @close="handleClose(tag, key)">

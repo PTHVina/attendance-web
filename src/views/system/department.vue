@@ -1,7 +1,7 @@
 <template>
   <div class="test-container">
     <div class="left_box">
-      <!-- 部门 -->
+      <!-- 组织机构 -->
       <div class="tree_title">{{ $t('system.text_1') }}</div>
       <div class="tree_box">
         <el-tree
@@ -38,13 +38,13 @@
           </span>
         </el-tree>
       </div>
-      <!-- 去除添加一级部门 -->
+      <!-- 去除添加一级组织机构 -->
       <div v-if="false" class="tree_add" @click="appendNode({ id: '0' })">
         {{ $t('system.text_6') }}
       </div>
     </div>
     <div class="info_box">
-      <!-- 部门详情 -->
+      <!-- 组织机构详情 -->
       <div class="tree_title">{{ $t('system.text_2') }}</div>
       <el-form
         ref="ruleForm"
@@ -65,7 +65,7 @@
         <el-form-item :label="$t('system.title_1')" prop="code">
           <el-input v-model="ruleForm.no" disabled></el-input>
         </el-form-item>
-        <!-- 部门名称 -->
+        <!-- 组织机构名称 -->
         <el-form-item :label="$t('system.title_2')" prop="name">
           <el-input v-model="ruleForm.name" :disabled="!ruleForm.id"></el-input>
         </el-form-item>
@@ -102,7 +102,7 @@
       </el-form>
     </div>
 
-    <!-- 添加部门 -->
+    <!-- 添加组织机构 -->
     <el-dialog
       :title="$t('system.text_4')"
       :visible.sync="dialogFormVisible"
@@ -117,15 +117,15 @@
         :rules="rules"
         style="padding: 0"
       >
-        <!-- 部门编码 -->
+        <!-- 组织机构编码 -->
         <el-form-item v-if="form.no" :label="$t('system.title_6')" prop="no">
           <el-input v-model="form.no" autocomplete="off" disabled></el-input>
         </el-form-item>
-        <!-- 部门名称 -->
+        <!-- 组织机构名称 -->
         <el-form-item :label="$t('system.title_2')" prop="name">
           <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
-        <!-- 部门描述 -->
+        <!-- 组织机构描述 -->
         <el-form-item :label="$t('system.title_3')" prop="explain">
           <el-input v-model="form.explain" autocomplete="off"></el-input>
         </el-form-item>
@@ -164,7 +164,7 @@
           children: 'children',
           label: 'name',
         },
-        // 修改部门信息
+        // 修改组织机构信息
         ruleForm: {
           no: '',
           name: '',

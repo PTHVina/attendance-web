@@ -34,7 +34,7 @@ export function queryList(page, data) {
 
   return [re_json1, re_json2[0].count]
 }
-//获取部门列表、工作分类
+//获取组织机构列表、人员类别
 export function getTypeList() {
   var data = window.top.myExtension.getDepartmentData()
   data = JSON.parse(data)
