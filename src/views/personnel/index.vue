@@ -25,7 +25,7 @@
               :placeholder="$t('personnel.title_5')"
             />
           </el-form-item>
-          <!-- 部门 -->
+          <!-- 组织机构 -->
           <el-form-item>
             <span>{{ $t('attendance.text_12') }}</span>
             <el-select
@@ -213,7 +213,7 @@
             : ''
         "
       ></el-table-column>
-      <!-- 部门 -->
+      <!-- 组织机构 -->
       <el-table-column
         show-overflow-tooltip
         :label="$t('personnel.title_4')"
@@ -237,7 +237,7 @@
             : ''
         "
       ></el-table-column>
-      <!-- 工作分类 -->
+      <!-- 人员类别 -->
       <el-table-column
         show-overflow-tooltip
         :label="$t('personnel.title_6')"
@@ -569,7 +569,7 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <!-- 部门 -->
+        <!-- 组织机构 -->
         <el-form-item v-if="form.id" :label="$t('personnel.title_4')">
           <!-- 归属=>编辑 -->
           <el-cascader
@@ -608,7 +608,7 @@
             @change="changeDepartment"
           ></el-cascader>
         </el-form-item>
-        <!-- 工作分类 -->
+        <!-- 人员类别 -->
         <el-form-item :label="$t('personnel.title_6')" prop="Employetypename">
           <el-select
             v-model="form.Employetypename"
@@ -859,8 +859,8 @@
           total: 0, //总数
         },
         dialogFormVisible: false, //表单弹窗控制
-        option: [], // 部门列表
-        options: [], // 工作分类
+        option: [], // 组织机构列表
+        options: [], // 人员类别
         // 新增、编辑
         form: {
           name: '',
@@ -869,8 +869,8 @@
           face_idcard: '', //门禁编号
           idcardtype: '32', //门禁编号位数
           Email: '',
-          departmentname: '', //部门
-          Employetypename: '', //工作分类
+          departmentname: '', //组织机构
+          Employetypename: '', //人员类别
           picture: '',
           line_userid: '', //Line_ueserid
           line_type: '1', //送信モード
@@ -878,7 +878,7 @@
           term_start: '', //有效期起始时间
           term: '', //有效期截止时间
         },
-        departmentData: {}, //选中部门数据
+        departmentData: {}, //选中组织机构数据
         rules: {
           name: [
             {
@@ -1036,7 +1036,7 @@
         }
       },
       typeList() {
-        // 人员分类、部门列表
+        // 人员分类、组织机构列表
         let list = getTypeList()
         this.option = list[0]
         this.options = list[1]
@@ -1286,7 +1286,7 @@
         }
         this.dialogFormVisible = true
       },
-      //部门切换
+      //组织机构切换
       changeDepartment(e) {
         let data = this.$refs.cascader.panel.getNodeByValue(e)
         if (data.level == 1) {

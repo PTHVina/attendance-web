@@ -74,7 +74,7 @@
               :value="item.id"
             ></el-option>
           </el-select>
-          <!--部门类型-->
+          <!--组织机构类型-->
           <el-select
             v-if="row.DistributionItemType === 2"
             v-model="selectedItemIds[$index]"
