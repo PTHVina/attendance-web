@@ -204,12 +204,14 @@
         show-overflow-tooltip
         :label="$t('attendance.text_15')"
         prop="CheckIn1"
+        :formatter="formatTime"
       ></el-table-column>
       <!-- 打卡信息-时段二 -->
       <el-table-column
         show-overflow-tooltip
         :label="$t('attendance.text_35')"
         prop="CheckOut1"
+        :formatter="formatTime"
       ></el-table-column>
       <!-- 体温(℃) -->
       <el-table-column
@@ -224,6 +226,7 @@
         show-overflow-tooltip
         :label="$t('attendance.text_21')"
         prop="LateMinutes"
+        :formatter="formatDuration"
         sortable
         :width="
           lang == 'en_US'
@@ -240,6 +243,7 @@
         show-overflow-tooltip
         :label="$t('attendance.text_7')"
         prop="EarlyMinutes"
+        :formatter="formatDuration"
         sortable
         :width="lang == 'en_US' ? '140px' : lang == 'Fr_fr' ? '170px' : '80px'"
       ></el-table-column>
@@ -248,6 +252,7 @@
         show-overflow-tooltip
         :label="$t('attendance.text_3')"
         prop="WorkHour"
+        :formatter="formatDuration"
         sortable
         :width="
           lang == 'en_US'
@@ -1190,7 +1195,15 @@
         this.currentDetailDate = nextDay.format('YYYY-MM-DD')
       },
       formatDate(row, column, cellValue) {
-        return dayjs(cellValue).format('HH:mm')
+        return cellValue ? dayjs(cellValue).format('HH:mm') : ''
+      },
+      formatDuration(row, column, cellValue) {
+        return cellValue?.indexOf('T') > -1
+          ? dayjs.duration(cellValue).format('HH:mm')
+          : ''
+      },
+      formatTime(row, column, cellValue) {
+        return cellValue?.match(/(\d{2,2}:\d{2,2}):\d{2,2}/)?.[1] ?? ''
       },
       loadAllDepartments() {
         const depts = getAllDepartment()

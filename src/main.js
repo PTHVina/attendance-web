@@ -20,6 +20,10 @@ import localeJa from '../node_modules/element-ui/lib/locale/lang/ja'
 import localeCn from '../node_modules/element-ui/lib/locale/lang/zh-CN'
 import localeFr from '../node_modules/element-ui/lib/locale/lang/fr'
 import localeVi from '../node_modules/element-ui/lib/locale/lang/vi'
+import dayjs from 'dayjs'
+import duration from 'dayjs/plugin/duration'
+
+dayjs.extend(duration)
 
 let lang = window.top.myExtension.getlanguage()
 Vue.use(VueI18n)
