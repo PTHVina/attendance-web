@@ -70,6 +70,7 @@ module.exports = {
     download: 'Le téléchargement',
     empty_device_face: 'Vider l’équipement visage',
     tips_confirm: 'Assurez-vous de vider la galerie de visage de cet appareil:',
+    empty_record: 'Vider les enregistrements',
   },
   // 操作提示
   operation_tips: {
@@ -172,6 +173,7 @@ module.exports = {
     choose_device: 'Veuillez sélectionner un appareil',
     reupload_face: 'La résolution de l’image du personnel de l’équipement est trop basse, vous devez télécharger à nouveau l’image du visage',
     tips_export_staff: 'Les fichiers exportés ne peuvent pas être utilisés directement pour l’importation en vrac',
+    confirm_empty: 'Confirmez que vous voulez vider l’enregistrement?',
   },
   // 首页
   home: {

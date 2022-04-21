@@ -69,6 +69,7 @@ local_query: 'địa phương',
 one_click_download: 'Một phím để tải về',
 download: 'Tải về',
 empty_device_face: 'Làm sạch khuôn mặt thiết bị',
+empty_record: 'Dọn sạch hồ sơ',
   },
   // 操作提示
 operation_tips: {
@@ -169,6 +170,7 @@ choose_device: 'Hãy chọn thiết bị',
 reupload_face: 'Thiết bị nhân viên hình ảnh độ phân giải là quá thấp, bạn cần phải tải lại hình ảnh khuôn mặt',
 tips_confirm: 'Đã xóa sạch khuôn mặt của thiết bị này.',
 tips_export_staff: 'Tập tin xuất khẩu không thể được dùng trực tiếp để nhập khẩu hàng loạt',
+confirm_empty: 'Xác nhận có muốn xóa hồ sơ không?',
   },
   // 首页
   home: {

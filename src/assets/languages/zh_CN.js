@@ -69,6 +69,7 @@ module.exports = {
     one_click_download: '一键下载',
     download: '下载',
     empty_device_face: '清空设备人脸',
+    empty_record: '清空记录',
   },
   // 操作提示
   operation_tips: {
@@ -163,6 +164,7 @@ module.exports = {
     reupload_face: '需重新上传人脸图片',
     tips_confirm: '确定清空该设备人脸库吗：',
     tips_export_staff: '导出的文件不能直接用于批量导入！',
+    confirm_empty: '确认要清空记录吗？',
   },
   // 首页
   home: {

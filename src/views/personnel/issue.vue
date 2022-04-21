@@ -75,6 +75,17 @@
               {{ $t('operation_btn.btn_text_15') }}
             </el-button>
           </el-form-item>
+          <!--清空下发记录-->
+          <el-form-item>
+            <el-button
+              icon="el-icon-delete"
+              type="danger"
+              style="opacity: 0.6"
+              @click="handleDeleteAll"
+            >
+              {{ $t('operation_btn.empty_record') }}
+            </el-button>
+          </el-form-item>
           <!--下发进度-->
           <el-form-item v-if="allCount != 0">
             <el-popover
@@ -243,7 +254,12 @@
 </template>
 
 <script>
-  import { getIssueList, getIssueInfo, issueByEdIds } from '@/api/personnel'
+  import {
+    getIssueList,
+    getIssueInfo,
+    issueByEdIds,
+    emptyData,
+  } from '@/api/personnel'
   import { getDeviceList, getDistributeStatus } from '@/api/device'
   export default {
     name: 'Issue',
@@ -399,6 +415,19 @@
       //跳转到人员管理，查询员工详细信息
       queryStaff(row) {
         this.$router.push({ path: '/personnel/personnelIndex', query: row })
+      },
+      // 删除
+      handleDeleteAll() {
+        this.$baseConfirm(this.$t('operation_tips.confirm_empty'), null, () => {
+          let res = emptyData()
+          if (res) {
+            this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
+            this.init()
+          } else {
+            this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
+            this.init()
+          }
+        })
       },
     },
   }
