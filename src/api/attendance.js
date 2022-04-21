@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 //获取每日考勤列表总条数
 export function getEverydayCount(data) {
   var res = window.top.myExtension.queryAttendanceinformationcount(
@@ -115,4 +117,8 @@ export function exportPeriodicMasterReport(data) {
     data.name,
     data.departments
   )
+}
+
+export function formatDuration(value) {
+  return value?.indexOf('T') > -1 ? dayjs.duration(value).format('HH:mm') : ''
 }

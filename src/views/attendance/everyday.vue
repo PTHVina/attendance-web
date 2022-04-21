@@ -137,16 +137,11 @@
       :highlight-current-row="true"
       :element-loading-text="elementLoadingText"
       border="true"
+      :fit="true"
       @row-dblclick="loadDetails"
     >
       <!-- 姓名 -->
-      <el-table-column
-        show-overflow-tooltip
-        :label="$t('attendance.text_1')"
-        :width="
-          lang == 'en_US' ? '130px' : lang == 'Jan_JPN' ? '120px' : '100px'
-        "
-      >
+      <el-table-column show-overflow-tooltip :label="$t('attendance.text_1')">
         <template #default="{ row }">
           <a
             href="#"
@@ -163,9 +158,6 @@
         :label="$t('attendance.text_12')"
         prop="Department"
         sortable
-        :width="
-          lang == 'en_US' ? '160px' : lang == 'Jan_JPN' ? '150px' : '140px'
-        "
       ></el-table-column>
       <!-- 人员编号 -->
       <el-table-column
@@ -173,15 +165,6 @@
         :label="$t('attendance.text_13')"
         prop="PersonalNo"
         sortable
-        :width="
-          lang == 'en_US'
-            ? '170px'
-            : lang == 'Jan_JPN'
-            ? '170px'
-            : lang == 'Fr_fr'
-            ? '170px'
-            : '150px'
-        "
       ></el-table-column>
       <!-- 考勤日期 -->
       <el-table-column
@@ -202,15 +185,26 @@
       <!-- 打卡信息 -->
       <el-table-column
         show-overflow-tooltip
-        :label="$t('attendance.text_15')"
+        :label="$t('attendance.checkin1')"
         prop="CheckIn1"
         :formatter="formatTime"
       ></el-table-column>
-      <!-- 打卡信息-时段二 -->
       <el-table-column
         show-overflow-tooltip
-        :label="$t('attendance.text_35')"
+        :label="$t('attendance.checkout1')"
         prop="CheckOut1"
+        :formatter="formatTime"
+      ></el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.checkin2')"
+        prop="CheckIn2"
+        :formatter="formatTime"
+      ></el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.checkout2')"
+        prop="CheckOut2"
         :formatter="formatTime"
       ></el-table-column>
       <!-- 体温(℃) -->
@@ -226,7 +220,7 @@
         show-overflow-tooltip
         :label="$t('attendance.text_21')"
         prop="LateMinutes"
-        :formatter="formatDuration"
+        :formatter="formatMinutes"
         sortable
         :width="
           lang == 'en_US'
@@ -243,14 +237,14 @@
         show-overflow-tooltip
         :label="$t('attendance.text_7')"
         prop="EarlyMinutes"
-        :formatter="formatDuration"
+        :formatter="formatMinutes"
         sortable
         :width="lang == 'en_US' ? '140px' : lang == 'Fr_fr' ? '170px' : '80px'"
       ></el-table-column>
       <!-- WorkHours -->
       <el-table-column
         show-overflow-tooltip
-        :label="$t('attendance.text_3')"
+        :label="$t('attendance.workhour')"
         prop="WorkHour"
         :formatter="formatDuration"
         sortable
@@ -267,8 +261,9 @@
       <!-- Status -->
       <el-table-column
         show-overflow-tooltip
-        :label="$t('attendance.text_22')"
+        :label="$t('attendance.status')"
         prop="Status"
+        :formatter="formatStatus"
         sortable
         :width="
           lang == 'en_US'
@@ -774,6 +769,7 @@
     defaultSet,
     saveSetting,
     getCaptureDataByIdForDate,
+    formatDuration,
   } from '@/api/attendance'
   import { getAllDepartment } from '@/api/accesscontrol'
   import dayjs from 'dayjs'
@@ -1198,12 +1194,26 @@
         return cellValue ? dayjs(cellValue).format('HH:mm') : ''
       },
       formatDuration(row, column, cellValue) {
-        return cellValue?.indexOf('T') > -1
-          ? dayjs.duration(cellValue).format('HH:mm')
-          : ''
+        return formatDuration(cellValue)
       },
       formatTime(row, column, cellValue) {
         return cellValue?.match(/(\d{2,2}:\d{2,2}):\d{2,2}/)?.[1] ?? ''
+      },
+      formatMinutes(row, column, cellValue) {
+        return cellValue?.indexOf('T') > -1
+          ? dayjs.duration(cellValue).asMinutes().toString()
+          : ''
+      },
+      formatStatus(row, column, cellValue) {
+        switch (cellValue) {
+          case 0:
+          case 1:
+            return this.$t('attendance.status_present')
+          case 2:
+            return this.$t('attendance.status_absent')
+          default:
+            return ''
+        }
       },
       loadAllDepartments() {
         const depts = getAllDepartment()
