@@ -599,7 +599,9 @@
       this.loadAllDepartments()
     },
     beforeDestroy() {},
-    mounted() {},
+    async mounted() {
+      await this.loadData()
+    },
     methods: {
       loadAllDepartments() {
         const depts = getAllDepartment()
