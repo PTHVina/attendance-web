@@ -98,8 +98,102 @@
         </el-form>
       </div>
     </div>
-
     <el-table
+      v-if="lang == 'en_US'"
+      ref="tableSort"
+      v-loading="listLoading"
+      stripe
+      :data="list"
+      :highlight-current-row="true"
+      :element-loading-text="elementLoadingText"
+      height="calc(100vh - 258px)"
+    >
+      <!-- Department -->
+      <el-table-column
+        show-overflow-tooltip
+        prop="Department"
+        :label="$t('attendance.text_12')"
+        sortable
+      ></el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        prop="Designation"
+        :label="$t('attendance.designation')"
+        sortable
+      ></el-table-column>
+      <!-- 人员编号 -->
+      <el-table-column
+        show-overflow-tooltip
+        prop="EmployeeNo"
+        :label="$t('attendance.text_13')"
+        sortable
+      ></el-table-column>
+      <!-- 姓名 -->
+      <el-table-column
+        show-overflow-tooltip
+        prop="EmployeeName"
+        :label="$t('attendance.text_1')"
+        sortable
+      ></el-table-column>
+      <!-- 日期 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.month')"
+        prop="YearMonth"
+      ></el-table-column>
+      <!-- 出勤(天) -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.pr')"
+        prop="PresentDaysCount"
+        sortable
+      ></el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.ab')"
+        prop="AbsentDaysCount"
+        sortable
+      ></el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.ho')"
+        prop="HolidaysCount"
+        sortable
+      ></el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.wo')"
+        prop="LeaveDaysCount"
+        sortable
+      ></el-table-column>
+      <!-- 迟到次数/总时长(分钟) -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.totalLateDuration')"
+        prop="TotalLateHours"
+        :formatter="formatDuration"
+      ></el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.totalLateCount')"
+        prop="TotalLateDays"
+      ></el-table-column>
+      <!-- 早退次数/总时长(分钟) -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.totalEarlyLeaveDuration')"
+        prop="TotalEarlyHours"
+        :formatter="formatDuration"
+      ></el-table-column>
+      <!-- 旷工天数 -->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('attendance.totalEarlyLeaveCount')"
+        prop="TotalEarlyDays"
+      ></el-table-column>
+    </el-table>
+    <el-table
+      v-else
       ref="tableSort"
       v-loading="listLoading"
       stripe
@@ -462,6 +556,7 @@
     getEverydayAllList,
     exportAttendanceMasterReport,
     exportPeriodicMasterReport,
+    formatDuration,
   } from '@/api/attendance'
   import {
     formatCellTemperatureString,
@@ -504,8 +599,8 @@
       this.loadAllDepartments()
     },
     beforeDestroy() {},
-    mounted() {
-      this.init()
+    async mounted() {
+      await this.loadData()
     },
     methods: {
       loadAllDepartments() {
@@ -514,13 +609,14 @@
       },
       formatCellTemperatureString,
       formatTemperatureString,
-      init() {
+      async loadData() {
         if (this.queryForm.date) {
           this.listLoading = true
           this.queryForm.departments = this.departments.join(',')
-          let list = getMonthlyList(this.queryForm)
-          this.list = list
-          this.page.total = list.length
+          let lst = await getMonthlyList(this.queryForm)
+          this.list = lst
+          this.page.total = lst.length
+          this.listLoading = false
           setTimeout(() => {
             this.listLoading = false
           }, 500)
@@ -529,19 +625,19 @@
         }
       },
       //查询
-      handleQuery() {
+      async handleQuery() {
         this.page.pageNo = 1
-        this.init()
+        await this.loadData()
       },
       // 切换显示条数
-      handleSizeChange(val) {
+      async handleSizeChange(val) {
         this.page.pageSize = val
-        this.init()
+        await this.loadData()
       },
       //切换页数
-      handleCurrentChange(val) {
+      async handleCurrentChange(val) {
         this.page.pageNo = val
-        this.init()
+        await this.loadData()
       },
       //导出数据
       exportData() {
@@ -580,6 +676,9 @@
       },
       exportPeriodicMasterReport() {
         exportPeriodicMasterReport(this.queryForm)
+      },
+      formatDuration(row, column, cellValue) {
+        return formatDuration(cellValue)
       },
     },
   }

@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 //获取每日考勤列表总条数
 export function getEverydayCount(data) {
   var res = window.top.myExtension.queryAttendanceinformationcount(
@@ -70,14 +72,17 @@ export function saveSetting(key, val) {
 
 //月度考勤列表
 export function getMonthlyList(data) {
-  let res = window.top.myExtension.getMonthlyData(
-    data.date,
-    data.name,
-    data.departments
-  )
-  let data_json = JSON.parse(res)
-
-  return data_json
+  return new Promise(function (resolve, reject) {
+    window.top.myExtension.getMonthlyData(
+      function (param) {
+        let data_json = JSON.parse(param)
+        resolve(data_json)
+      },
+      data.date,
+      data.name,
+      data.departments
+    )
+  })
 }
 //导出数据
 export function exportData(data) {
@@ -115,4 +120,8 @@ export function exportPeriodicMasterReport(data) {
     data.name,
     data.departments
   )
+}
+
+export function formatDuration(value) {
+  return value?.indexOf('T') > -1 ? dayjs.duration(value).format('HH:mm') : ''
 }
