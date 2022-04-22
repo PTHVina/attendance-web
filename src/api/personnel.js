@@ -267,6 +267,11 @@ export function issueByEdIds(data) {
   )
   return parseInt(res) //返回
 }
+//清空下发记录
+export function emptyData() {
+  let res = window.top.myExtension.emptyEquipmentDistribution()
+  return res
+}
 //下发统计
 export function getIssueInfo() {
   var success_res = window.top.myExtension.getcountforEquipment_distribution(

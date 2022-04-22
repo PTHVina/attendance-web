@@ -69,6 +69,7 @@ module.exports = {
     one_click_download: 'ワンクリックでダウンロード',
     download: 'ダウンロード',
     empty_device_face: '空にする装置の顔',
+    empty_record: '記録を空にする',
   },
   // 操作提示
   operation_tips: {
@@ -168,6 +169,7 @@ module.exports = {
     reupload_face: '解像度が低すぎるため、顔写真を再アップロードする必要がある',
     tips_confirm: 'デバイスの顔バンクを空にすることを確認しますか:',
     tips_export_staff: '導き出されたファイルを一括導入に直接使うことはできない',
+    confirm_empty: '記録を空にすることを確認しますか?',
   },
   // 首页
   home: {

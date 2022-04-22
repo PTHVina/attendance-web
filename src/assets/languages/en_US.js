@@ -70,6 +70,7 @@ module.exports = {
     download: 'download',
     empty_device_face: 'Clear the device face',
     tips_confirm: 'Are you sure to empty the face library?',
+    empty_record: 'Empty record',
   },
   // 操作提示
   operation_tips: {
@@ -169,6 +170,7 @@ module.exports = {
     choose_device: 'Please select device',
     reupload_face: 'The device personnel picture resolution is too low, need to upload face picture again',
     tips_export_staff: 'The exported files cannot be directly imported in batches',
+    confirm_empty: 'Are you sure you want to clear the records?',
   },
   // 首页
   home: {
