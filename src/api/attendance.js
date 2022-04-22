@@ -72,14 +72,17 @@ export function saveSetting(key, val) {
 
 //月度考勤列表
 export function getMonthlyList(data) {
-  let res = window.top.myExtension.getMonthlyData(
-    data.date,
-    data.name,
-    data.departments
-  )
-  let data_json = JSON.parse(res)
-
-  return data_json
+  return new Promise(function (resolve, reject) {
+    window.top.myExtension.getMonthlyData(
+      function (param) {
+        let data_json = JSON.parse(param)
+        resolve(data_json)
+      },
+      data.date,
+      data.name,
+      data.departments
+    )
+  })
 }
 //导出数据
 export function exportData(data) {

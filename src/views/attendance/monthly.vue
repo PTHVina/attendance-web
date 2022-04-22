@@ -599,9 +599,7 @@
       this.loadAllDepartments()
     },
     beforeDestroy() {},
-    mounted() {
-      this.init()
-    },
+    mounted() {},
     methods: {
       loadAllDepartments() {
         const depts = getAllDepartment()
@@ -609,13 +607,14 @@
       },
       formatCellTemperatureString,
       formatTemperatureString,
-      init() {
+      async loadData() {
         if (this.queryForm.date) {
           this.listLoading = true
           this.queryForm.departments = this.departments.join(',')
-          let list = getMonthlyList(this.queryForm)
-          this.list = list
-          this.page.total = list.length
+          let lst = await getMonthlyList(this.queryForm)
+          this.list = lst
+          this.page.total = lst.length
+          this.listLoading = false
           setTimeout(() => {
             this.listLoading = false
           }, 500)
@@ -624,19 +623,19 @@
         }
       },
       //查询
-      handleQuery() {
+      async handleQuery() {
         this.page.pageNo = 1
-        this.init()
+        await this.loadData()
       },
       // 切换显示条数
-      handleSizeChange(val) {
+      async handleSizeChange(val) {
         this.page.pageSize = val
-        this.init()
+        await this.loadData()
       },
       //切换页数
-      handleCurrentChange(val) {
+      async handleCurrentChange(val) {
         this.page.pageNo = val
-        this.init()
+        await this.loadData()
       },
       //导出数据
       exportData() {
