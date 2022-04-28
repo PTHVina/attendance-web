@@ -1162,8 +1162,8 @@
         }
       },
       loadDetails(row, column, event) {
-        this.currentDetailPersonId = row.personId
-        this.currentDetailPersonName = row.name
+        this.currentDetailPersonId = row.personId ?? row.Id
+        this.currentDetailPersonName = row.name ?? row.Name
         this.currentDetailStartDate = row.Date
         this.currentDetailDate = row.Date
         this.captureDataDetailsList = []
