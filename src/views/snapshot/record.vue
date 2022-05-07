@@ -358,7 +358,12 @@
           >
             <span v-if="row.QRcodestatus.split('(')[0].split(':').length > 1">
               <!-- {{ row.QRcodestatus.split('(')[0].split(':')[1] }} -->
-              {{ row.QRcodestatus.split(':')[1].split(';')[0] }}
+              {{
+                row.QRcodestatus.substring(
+                  row.QRcodestatus.indexOf(':') + 1,
+                  row.QRcodestatus.indexOf(')') + 1
+                )
+              }}
             </span>
           </span>
         </template>
