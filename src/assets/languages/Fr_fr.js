@@ -312,6 +312,7 @@ module.exports = {
     success: 'Le succès',
     fail: 'l’échec',
     please_issue_visitor: 'Envoyer un visiteur',
+    rec_pic: 'Extraction des caractéristiques échoue, s’il vous plaît changer l’image',
   },
   //设备管理
   device: {
