@@ -113,7 +113,8 @@
       <!--分割线-->
       <el-divider></el-divider>
       <!--自动获取抓拍记录-->
-      <li class="setting_row">
+      <!--取消了-->
+      <!-- <li class="setting_row">
         <div
           class="set_item"
           :style="
@@ -134,7 +135,7 @@
             @change="setParamCaptureSyn"
           ></el-switch>
         </div>
-      </li>
+      </li> -->
       <!--自动获取设备人员-->
       <li class="setting_row">
         <div

@@ -11,7 +11,7 @@
         >
           <!-- 设备名称 -->
           <el-form-item>
-            <span>{{ $t('personnel.title_13') }}</span>
+            <span>{{ $t('operation_btn.real_time_query') }}</span>
             <el-select
               v-model="queryForm.addr_name"
               clearable
@@ -19,7 +19,7 @@
             >
               <el-option
                 key="0"
-                :label="$t('personnel.pl_14')"
+                :label="$t('snapshot.text_9')"
                 value=""
               ></el-option>
               <el-option
@@ -84,7 +84,7 @@
             </el-select>
           </el-form-item> -->
 
-          <el-form-item>
+          <el-form-item v-if="false">
             <!--查询类型-->
             <el-radio-group v-model="isRealTime" size="small">
               <el-radio :label="0" border style="margin-right: 0px">
@@ -543,7 +543,7 @@
         options: [], // 人员类别
 
         deliveryMethod: false, //下发方式
-        isRealTime: 0, //实时查询
+        isRealTime: 1, //实时查询
         isFirstRegist: true, //首次查询将给出提示，设备注册后不带人脸图片
       }
     },
@@ -578,9 +578,14 @@
             this.list = []
             this.count = 0
             this.listLoading = false
-            this.$baseMessage(
+            this.$confirm(
               this.$t('operation_tips.choose_device'),
-              'warning'
+              this.$t('operation_tips.tips_42'),
+              {
+                confirmButtonText: null,
+                cancelButtonText: null,
+                type: 'warning',
+              }
             )
             return
           }

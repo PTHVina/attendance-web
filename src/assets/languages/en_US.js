@@ -307,6 +307,7 @@ module.exports = {
     success: 'succeed',
     fail: 'failed',
     please_issue_visitor: 'Please issue visitors.',
+    rec_pic: 'Failed to extract feature. Please replace image',
   },
   //设备管理
   device: {

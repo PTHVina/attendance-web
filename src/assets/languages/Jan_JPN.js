@@ -305,6 +305,7 @@ module.exports = {
     success: '成功',
     fail: '失敗',
     please_issue_visitor: '訪問者を送ってください',
+    rec_pic: '特徴抽出に失敗した場合は、画像を変更してください',
   },
   //设备管理
   device: {
