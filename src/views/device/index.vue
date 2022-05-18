@@ -382,7 +382,10 @@
         </el-form-item> -->
 
         <!-- 补光模式 -->
-        <el-form-item :label="$t('device.text_34')">
+        <el-form-item
+          v-if="setForm.fillLight !== ''"
+          :label="$t('device.text_34')"
+        >
           <el-radio-group v-model="setForm.fillLight">
             <el-radio label="2">{{ $t('device.text_36') }}</el-radio>
             <el-radio label="1">{{ $t('device.text_35') }}</el-radio>
@@ -398,18 +401,24 @@
           </el-radio-group>
         </el-form-item> -->
         <!-- 补光灯亮度 -->
-        <el-form-item :label="$t('device.text_42')">
+        <el-form-item
+          v-if="setForm.brightness !== ''"
+          :label="$t('device.text_42')"
+        >
           <el-slider v-model="setForm.brightness" show-input></el-slider>
         </el-form-item>
         <!-- 音量大小 -->
         <el-form-item
-          v-if="setForm.volume != 'no'"
+          v-if="setForm.volume !== ''"
           :label="$t('device.text_53')"
         >
           <el-slider v-model="setForm.volume" show-input></el-slider>
         </el-form-item>
         <!-- 活体检测 -->
-        <el-form-item :label="$t('device.text_30')">
+        <el-form-item
+          v-if="setForm.enableAlive !== ''"
+          :label="$t('device.text_30')"
+        >
           <el-switch
             v-model="setForm.enableAlive"
             :active-text="$t('device.text_28')"
@@ -417,7 +426,10 @@
           ></el-switch>
         </el-form-item>
         <!-- 自动息屏 -->
-        <el-form-item :label="$t('device.text_43')">
+        <el-form-item
+          v-if="setForm.screensaver_mode !== ''"
+          :label="$t('device.text_43')"
+        >
           <el-switch
             v-model="setForm.screensaver_mode"
             :active-text="$t('device.text_28')"
@@ -428,7 +440,7 @@
         </el-form-item>
         <!-- 陌生人上传 -->
         <el-form-item
-          v-if="setForm.output_not_matched != 'no'"
+          v-if="setForm.output_not_matched !== ''"
           :label="$t('device.text_52')"
         >
           <el-switch
@@ -438,7 +450,10 @@
           ></el-switch>
         </el-form-item>
         <!-- 体温检测 -->
-        <el-form-item :label="$t('device.text_31')">
+        <el-form-item
+          v-if="setForm.enable !== ''"
+          :label="$t('device.text_31')"
+        >
           <el-switch
             v-model="setForm.enable"
             :active-text="$t('device.text_28')"
@@ -446,7 +461,11 @@
           ></el-switch>
         </el-form-item>
         <!-- 体温预警阀值 -->
-        <el-form-item :label="$t('device.text_32')" prop="limit">
+        <el-form-item
+          v-if="setForm.limit !== ''"
+          :label="$t('device.text_32')"
+          prop="limit"
+        >
           <el-input
             v-model="setForm.limit"
             :placeholder="$t('device.text_33')"
@@ -713,8 +732,8 @@
           sensitivity: '', //灵敏度
           brightness: '', //led亮度
           screensaver_mode: '', //屏保模式
-          output_not_matched: 'no', //是否输出对比失败图像
-          volume: 'no', //音量
+          output_not_matched: '', //是否输出对比失败图像
+          volume: '', //音量
         }, //设置
 
         ipParameters: {
@@ -971,28 +990,26 @@
           return
         }
         this.dialogTypeVisible = true
-        // console.log('res', res)
+        console.log('res', res)
         this.setForm = {
           ip: row.ipAddress,
           // dereplication: res.face.enable_dereplication, //允许注册重复
-          dereplication: 'false', //允许注册重复
+          dereplication: 'true', //允许注册重复
           enableAlive: res.face.enable_alive, //活体检测开关
           enable: res.face.body_temperature.enable, //体温监测
           limit: Number(res.face.body_temperature.limit).toFixed(2).toString(), //开闸体温限制数值
-          fillLight: res.led_control.led_mode.toString(), //补光模式
-          sensitivity: res.led_control.led_sensitivity, //灵敏度
-          brightness: res.led_control.led_brightness, //led亮度
-          screensaver_mode: res.screensaver_mode
-            ? res.screensaver_mode
-            : 'none', //屏保模式
+          fillLight: res.led_control ? res.led_control.led_mode.toString() : '', //补光模式
+          sensitivity: res.led_control ? res.led_control.led_sensitivity : '', //灵敏度
+          brightness: res.led_control ? res.led_control.led_brightness : '', //led亮度
+          screensaver_mode: res.screensaver_mode ? res.screensaver_mode : '', //屏保模式
           output_not_matched:
             res.face.output_not_matched == true ||
             res.face.output_not_matched == false
               ? res.face.output_not_matched
-              : 'no',
-          volume: res.volume ? Number(res.volume) : 'no',
+              : '',
+          volume: res.volume ? Number(res.volume) : '',
         }
-        // console.log(this.setForm)
+        console.log(this.setForm)
       },
       // 设置相机参数
       setting(formName) {
