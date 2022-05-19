@@ -73,10 +73,16 @@
             <img :src="require('@/assets/undefined.svg')" alt="door icon" />
           </span>
           <span v-else-if="row.IsEnter === 1">
-            <img :src="require('@/assets/in.svg')" alt="in icon" />
+            <!-- <img :src="require('@/assets/in.svg')" alt="in icon" /> -->
+            <el-tag type="info" effect="plain">
+              {{ $t('device.text_66') }}
+            </el-tag>
           </span>
           <span v-else-if="row.IsEnter === 0">
-            <img :src="require('@/assets/out.svg')" alt="out icon" />
+            <!-- <img :src="require('@/assets/out.svg')" alt="out icon" /> -->
+            <el-tag type="info" effect="plain">
+              {{ $t('device.text_67') }}
+            </el-tag>
           </span>
         </template>
       </el-table-column>
