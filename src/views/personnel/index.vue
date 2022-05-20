@@ -67,6 +67,23 @@
               :placeholder="$t('personnel.text_3')"
             />
           </el-form-item>
+          <!--头像-->
+          <el-form-item>
+            <span>{{ $t('personnel.title_1') }}</span>
+            <el-select v-model="queryForm.haspicture">
+              <el-option :key="-1" :label="' '" :value="-1"></el-option>
+              <el-option
+                :key="1"
+                :label="$t('operation_tips.tips_30')"
+                :value="1"
+              ></el-option>
+              <el-option
+                :key="0"
+                :label="$t('operation_tips.tips_31')"
+                :value="0"
+              ></el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item>
             <!-- 查询 -->
             <el-button
@@ -852,6 +869,7 @@
           qu_phone: '',
           dep: '',
           employeeTypeName: '',
+          haspicture: '',
         },
         page: {
           pageNo: 1,
