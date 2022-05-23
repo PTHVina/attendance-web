@@ -120,7 +120,15 @@ export function queryPerson(id) {
 
   return data_json
 }
-//下发所有人员到某相机
+//下发所有人员到相机
+export function toIssue3(deviceId) {
+  return new Promise(function (resolve) {
+    window.top.myExtension.AllpersonToEquipment_distribution((res) => {
+      resolve(res)
+    }, deviceId.toString())
+  })
+}
+//下发所有人员到某相机(废弃)
 export function toIssue2(deviceId) {
   let flag = false
   try {

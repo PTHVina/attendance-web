@@ -599,7 +599,7 @@
     getLocalIp,
     getAllMyDevices,
   } from '@/api/device'
-  import { toIssue2 } from '@/api/personnel'
+  import { toIssue3 } from '@/api/personnel'
   export default {
     name: 'DeviceIndex',
     data() {
@@ -857,12 +857,19 @@
       //一键下发
       oneClickIssue(row) {
         this.$baseConfirm(this.$t('operation_tips.tips_79'), null, () => {
-          let res = toIssue2(row.id)
-          if (res) {
-            this.$baseMessage(this.$t('operation_tips.tips_24'), 'success')
-          } else {
-            this.$baseMessage(this.$t('personnel.pl_17'), 'warning')
-          }
+          toIssue3(row.id).then((res) => {
+            if (res == 'success') {
+              this.$baseMessage(this.$t('operation_tips.tips_8'), 'success')
+            } else {
+              this.$baseMessage(res, 'error')
+            }
+          })
+          // let res = toIssue2(row.id)
+          // if (res) {
+          //   this.$baseMessage(this.$t('operation_tips.tips_24'), 'success')
+          // } else {
+          //   this.$baseMessage(this.$t('personnel.pl_17'), 'warning')
+          // }
         })
       },
       //开闸
