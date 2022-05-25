@@ -29,7 +29,8 @@ export function queryList(page, data) {
     data.no.toString(),
     data.qu_phone.toString(),
     data.dep ? data.dep.toString() : '',
-    data.employeeTypeName?.toString() ?? ''
+    data.employeeTypeName?.toString() ?? '',
+    data.haspicture.toString()
   )
   let re_json2 = JSON.parse(count)
 

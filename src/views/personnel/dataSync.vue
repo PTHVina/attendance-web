@@ -106,13 +106,13 @@
               {{ $t('operation_btn.btn_text_6') }}
             </el-button>
             <!-- 一键下载 -->
-            <el-button
+            <!-- <el-button
               icon="el-icon-thumb"
               type="success"
               @click="registerAll()"
             >
               {{ $t('operation_btn.one_click_download') }}
-            </el-button>
+            </el-button> -->
             <!-- 批量删除 -->
             <el-button
               icon="el-icon-delete"
