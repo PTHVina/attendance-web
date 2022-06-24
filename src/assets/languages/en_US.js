@@ -171,6 +171,12 @@ module.exports = {
     reupload_face: 'The device personnel picture resolution is too low, need to upload face picture again',
     tips_export_staff: 'The exported files cannot be directly imported in batches',
     confirm_empty: 'Are you sure you want to clear the records?',
+    light_dim: 'Light is too dim',
+    no_face: 'No face detected',
+    no_infrared_targets: 'The specified number of infrared targets was not detected',
+    redlight_is_poor: 'Visible infrared light aberration is too large',
+    light_bright: 'The light is too bright',
+    face_fuzzy: 'The face of a fuzzy',
   },
   // 首页
   home: {

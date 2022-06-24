@@ -137,7 +137,7 @@ module.exports = {
     tips_61: '张嘴幅度过大',
     tips_62: '光照不均匀',
     tips_63: '图片不能超过4M',
-    tips_64: '人脸图像不符合下发条件',
+    tips_64: '人脸图像不合格',
 
     tips_65: '是否开始新手引导?',
     tips_66: '上一步',
@@ -165,6 +165,14 @@ module.exports = {
     tips_confirm: '确定清空该设备人脸库吗：',
     tips_export_staff: '导出的文件不能直接用于批量导入！',
     confirm_empty: '确认要清空记录吗？',
+
+    light_dim: '光照太暗',
+    no_face: '未检出人脸',
+    no_infrared_targets: '未检出指定个数红外光目标',
+    redlight_is_poor: '可见光红外光像差过大',
+    light_bright: '光线太亮',
+    face_fuzzy: '人脸模糊',
+
   },
   // 首页
   home: {

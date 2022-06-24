@@ -171,6 +171,13 @@ reupload_face: 'Thiết bị nhân viên hình ảnh độ phân giải là quá
 tips_confirm: 'Đã xóa sạch khuôn mặt của thiết bị này.',
 tips_export_staff: 'Tập tin xuất khẩu không thể được dùng trực tiếp để nhập khẩu hàng loạt',
 confirm_empty: 'Xác nhận có muốn xóa hồ sơ không?',
+
+light_dim: 'Ánh sáng là quá tối',
+no_face: 'Không thấy khuôn mặt',
+no_infrared_targets: 'Không phát hiện ra mục tiêu tia hồng ngoại',
+redlight_is_poor: 'Sự khác biệt giữa ánh sáng hồng ngoại nhìn thấy là quá lớn',
+light_bright: 'Ánh sáng là quá sáng',
+face_fuzzy: 'Khuôn mặt mờ',
   },
   // 首页
   home: {

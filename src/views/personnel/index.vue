@@ -1155,6 +1155,7 @@
             })
             if (isFind) {
               this.dialogTableVisible = true
+              this.$nextTick(() => this.$refs.multipleTable.clearSelection())
             } else {
               this.issueUser = []
               this.deviceRows = []
@@ -1374,13 +1375,31 @@
           case '-52':
             re = this.$t('operation_tips.tips_62')
             break
+          case '-53':
+            re = this.$t('operation_tips.light_dim')
+            break
+          case '-54':
+            re = this.$t('operation_tips.no_face')
+            break
+          case '-55':
+            re = this.$t('operation_tips.no_infrared_targets')
+            break
+          case '-56':
+            re = this.$t('operation_tips.redlight_is_poor')
+            break
+          case '-57':
+            re = this.$t('operation_tips.light_bright')
+            break
+          case '-58':
+            re = this.$t('operation_tips.face_fuzzy')
+            break
           case '100':
             re = this.$t('operation_tips.tips_63')
             break
           default:
-            re = this.$t('operation_tips.tips_64') + ' ' + type
+            re = type
         }
-        return re
+        return this.$t('operation_tips.tips_64') + '：' + re
       },
       //拍照
       photograph() {

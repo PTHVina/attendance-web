@@ -170,6 +170,12 @@ module.exports = {
     tips_confirm: 'デバイスの顔バンクを空にすることを確認しますか:',
     tips_export_staff: '導き出されたファイルを一括導入に直接使うことはできない',
     confirm_empty: '記録を空にすることを確認しますか?',
+    light_dim: '光が暗すぎる',
+    no_face: '人の顔は検出されない',
+    no_infrared_targets: '赤外光目標の指定個数は検出されなかった',
+    redlight_is_poor: '可視光赤外光収差が大きすぎる',
+    light_bright: '光が明るすぎる',
+    face_fuzzy: '顔がぼやける',
   },
   // 首页
   home: {
