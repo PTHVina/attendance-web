@@ -26,7 +26,7 @@ module.exports = {
     title_23: '调度规则',
     title_24: '规则下发',
     title_rule_edit: '规则编辑',
-    title_rule_deploy_tasks: "下发任务",
+    title_rule_deploy_tasks: '下发任务',
   },
   //操作按钮
   operation_btn: {
@@ -66,7 +66,7 @@ module.exports = {
     btn_text_34: '刷新',
     real_time_query: '设备',
     local_query: '本地',
-    one_click_download: '一键下载',
+    one_click_download: '下载人员',
     download: '下载',
     empty_device_face: '清空设备人脸',
     empty_record: '清空记录',
@@ -172,7 +172,6 @@ module.exports = {
     redlight_is_poor: '可见光红外光像差过大',
     light_bright: '光线太亮',
     face_fuzzy: '人脸模糊',
-
   },
   // 首页
   home: {
@@ -201,11 +200,10 @@ module.exports = {
     text_9: 'ID下发',
     text_10: '选择<编号下发>时新增人员编号必须填写为身份证号码',
     text_11: '*: 重新启动程序生效',
-    text_celsius: "摄氏度",
-    text_fahreinheit: "华氏度",
+    text_celsius: '摄氏度',
+    text_fahreinheit: '华氏度',
     auto_issue: '自动下发',
     manual_issue: '手动下发',
-
 
     title_1: '编码',
     title_2: '组织机构名称',
@@ -216,10 +214,10 @@ module.exports = {
     title_7: '组织机构名称',
     title_8: '组织机构描述',
     title_9: '电话',
-    title_10: "自定义系统名称*",
-    title_11: "自定义系统简称*",
-    title_12: "隐藏页面*",
-    title_temperature: "温度显示",
+    title_10: '自定义系统名称*',
+    title_11: '自定义系统简称*',
+    title_12: '隐藏页面*',
+    title_temperature: '温度显示',
     auto_datasyn: '自动同步设备人员',
     auto_capture_syn: '自动获取抓拍记录',
   },
@@ -380,7 +378,6 @@ module.exports = {
     text_67: '出',
     username: '账号',
     password: '密码',
-
   },
   //抓拍管理
   snapshot: {
@@ -435,7 +432,6 @@ module.exports = {
     text_49: 'ID',
     text_50: '人员类别',
     text_51: '白名单',
-
   },
   //考勤管理
   attendance: {
@@ -584,12 +580,13 @@ module.exports = {
     text_86: '上班有效打卡结束时间应大于时段2上班时间小于时段2下班时间',
     text_87: '',
     text_88: '下班有效打卡开始时间应大于上班时间小于下班时间',
-    work_time1:'第1次上下班',
-    work_time2:'第2次上下班',
-    work_time3:'第3次上下班',
+    work_time1: '第1次上下班',
+    work_time2: '第2次上下班',
+    work_time3: '第3次上下班',
     attendance_tip1: '在有效打卡区间外打卡将不计为考勤。',
     attendance_tip2: '若不设置该项，系统将使用默认有效打卡区间。',
-    attendance_tip3: '编辑班次只会对之后的打卡记录生效，已经生成的考勤记录将不会更新。',
+    attendance_tip3:
+      '编辑班次只会对之后的打卡记录生效，已经生成的考勤记录将不会更新。',
   },
   //调度规则
   accessControl: {
@@ -607,22 +604,27 @@ module.exports = {
     rule: '规则',
     pleaseChooseEmployeeType: '请选择人员类别',
     pleaseChooseDepartment: '请选择组织机构',
-    pleaseChooseDevice:'请选择设备',
+    pleaseChooseDevice: '请选择设备',
     pleaseChoose: '请选择',
     pleaseInputName: '请输入人员姓名',
     noteTitle: '重要提示',
-    notes: 
-    '1. 规则下发顺序：人员类别 -> 组织机构 -> 个人员工, 即如果同时添加了三类下发规则，那么最先下发人员类别，然后是组织机构，最后是个人员工，后下发的规则覆盖先下发的规则。2. 推荐添加规则的顺序：人员类别 -> 组织机构 -> 个人员工。3. 对于组织机构下发规则，不会查找该组织机构的上下级组织机构的从属关系，即某个员工如果属于A组织机构，那么当添加组织机构下发规则时，必须选择A组织机构，选择A组织机构的上级不会下发该员工。',
-    note1:'1.调度规则是用于限制已下发人员的通行时间，请确保员工已全部下发至设备再生成下发任务！',
-    note2:'2.规则下发顺序是：人员类别->组织机构->员工。如出现重复，组织机构规则将覆盖人员类别规则，员工规则覆盖前两个。',
-    note3:'3.对于组织机构下发规则，不会查找该组织机构的上下级组织机构的从属关系，即某个员工如果属于A组织机构，那么当添加组织机构下发规则时，必须选择A组织机构，选择A组织机构的上级不会下发该员工。',
-    note4:'4.匹配上的员工将更新调度类别，未匹配上的员工将使用‘默认规则’进行处理。',
-    note5:'5.调度规则为‘不得进出’的人员，系统会将该人员从对应设备中删除；为‘不限制进出’的人员，系统将不做处理。',
-    issueTip:'请确保人员已全部下发成功，否则调度规则不生效，是否继续？',
+    notes:
+      '1. 规则下发顺序：人员类别 -> 组织机构 -> 个人员工, 即如果同时添加了三类下发规则，那么最先下发人员类别，然后是组织机构，最后是个人员工，后下发的规则覆盖先下发的规则。2. 推荐添加规则的顺序：人员类别 -> 组织机构 -> 个人员工。3. 对于组织机构下发规则，不会查找该组织机构的上下级组织机构的从属关系，即某个员工如果属于A组织机构，那么当添加组织机构下发规则时，必须选择A组织机构，选择A组织机构的上级不会下发该员工。',
+    note1:
+      '1.调度规则是用于限制已下发人员的通行时间，请确保员工已全部下发至设备再生成下发任务！',
+    note2:
+      '2.规则下发顺序是：人员类别->组织机构->员工。如出现重复，组织机构规则将覆盖人员类别规则，员工规则覆盖前两个。',
+    note3:
+      '3.对于组织机构下发规则，不会查找该组织机构的上下级组织机构的从属关系，即某个员工如果属于A组织机构，那么当添加组织机构下发规则时，必须选择A组织机构，选择A组织机构的上级不会下发该员工。',
+    note4:
+      '4.匹配上的员工将更新调度类别，未匹配上的员工将使用‘默认规则’进行处理。',
+    note5:
+      '5.调度规则为‘不得进出’的人员，系统会将该人员从对应设备中删除；为‘不限制进出’的人员，系统将不做处理。',
+    issueTip: '请确保人员已全部下发成功，否则调度规则不生效，是否继续？',
     refresh: '刷新',
     createdTime: '创建时间',
     progress: '进度',
-    total:'总数',
+    total: '总数',
     success: '成功',
     fail: '失败',
     state: '状态',
@@ -633,7 +635,6 @@ module.exports = {
     noAccess: '不得进出',
     fullAccess: '不限制进出',
     defaultAccess: '默认规则:',
-    ruleTips:'定义可通行时间段',
-
-  }
+    ruleTips: '定义可通行时间段',
+  },
 }

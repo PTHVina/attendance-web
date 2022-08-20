@@ -122,6 +122,10 @@
             >
               {{ $t('operation_btn.empty_device_face') }}
             </el-button>
+            <!--导出设备人员-->
+            <el-button icon="el-icon-download" @click="downloadAll()">
+              {{ $t('operation_btn.one_click_download') }}
+            </el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -429,6 +433,7 @@
     deleteDataSynRealTime,
     registerDataSync,
     registerAll,
+    exportDataSynRealTime,
   } from '@/api/personnel'
   import { getParam } from '@/api/sysPage'
   import {
@@ -439,6 +444,7 @@
     name: 'DataSync',
     data() {
       return {
+        showTip: false,
         lang: this.$lang,
         list: [],
         listLoading: false, //列表加载
@@ -573,7 +579,7 @@
         this.deviceList = deviceList
         console.log('设备列表', this.deviceList)
         let obj
-        if (this.isRealTime === 1) {
+        if (this.isRealTime === 1 && this.showTip) {
           if (!this.queryForm.addr_name) {
             this.list = []
             this.count = 0
@@ -598,6 +604,7 @@
         this.page.total = obj.count
         this.list = obj.list
         console.log('人员列表', this.list)
+        this.showTip = true
         setTimeout(() => {
           this.listLoading = false
         }, 500)
@@ -955,6 +962,27 @@
             }
           })
           .catch(() => {})
+      },
+
+      //一键下载
+      downloadAll() {
+        console.log('一键下载')
+        if (!this.queryForm.addr_name) {
+          this.list = []
+          this.count = 0
+          this.listLoading = false
+          this.$confirm(
+            this.$t('operation_tips.choose_device'),
+            this.$t('operation_tips.tips_42'),
+            {
+              confirmButtonText: null,
+              cancelButtonText: null,
+              type: 'warning',
+            }
+          )
+          return
+        }
+        exportDataSynRealTime(this.queryForm.addr_name)
       },
     },
   }

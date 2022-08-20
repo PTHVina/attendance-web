@@ -377,6 +377,13 @@ export function getDataSyncListRealTime(data, page) {
   return res_data
 }
 
+//导出设备所有人员图片,返回成功失败条数
+export function exportDataSynRealTime(addr_name) {
+  let res = window.top.myExtension.exportDataSynRealTime(addr_name.toString())
+  var res_data = JSON.parse(res)
+  return res_data
+}
+
 //设备人员列表
 export function getDataSyncList(data, page) {
   let res = window.top.myExtension.getDataSyn(
