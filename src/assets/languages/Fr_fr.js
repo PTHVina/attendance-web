@@ -26,7 +26,7 @@ module.exports = {
     title_23: 'Règles de programmation',
     title_24: 'Publication des règles',
     title_rule_edit: 'Édition des règles',
-    title_rule_deploy_tasks: "Affectation",
+    title_rule_deploy_tasks: 'Affectation',
   },
   //操作按钮
   operation_btn: {
@@ -171,12 +171,15 @@ module.exports = {
     auto_refresh: 'Rafraîchir automatiquement',
     issue_finished: 'La livraison est terminée',
     choose_device: 'Veuillez sélectionner un appareil',
-    reupload_face: 'La résolution de l’image du personnel de l’équipement est trop basse, vous devez télécharger à nouveau l’image du visage',
-    tips_export_staff: 'Les fichiers exportés ne peuvent pas être utilisés directement pour l’importation en vrac',
+    reupload_face:
+      'La résolution de l’image du personnel de l’équipement est trop basse, vous devez télécharger à nouveau l’image du visage',
+    tips_export_staff:
+      'Les fichiers exportés ne peuvent pas être utilisés directement pour l’importation en vrac',
     confirm_empty: 'Confirmez que vous voulez vider l’enregistrement?',
     light_dim: 'Éclairage trop sombre',
     no_face: 'Visage non détecté',
-    no_infrared_targets: 'Le nombre spécifié de cibles infrarouges n’est pas détecté',
+    no_infrared_targets:
+      'Le nombre spécifié de cibles infrarouges n’est pas détecté',
     redlight_is_poor: 'Aberration excessive de la lumière infrarouge visible',
     light_bright: 'La lumière est trop brillante',
     face_fuzzy: 'Visage humain flou',
@@ -209,8 +212,8 @@ module.exports = {
     text_10:
       "Lors de la sélection de <émission du numéro>, le numéro du personnel nouvellement ajouté doit être renseigné comme numéro d'identification",
     text_11: "*: Prend effet après le redémarrage de l'application",
-    text_celsius: "C",
-    text_fahreinheit: "Fahrenheit",
+    text_celsius: 'C',
+    text_fahreinheit: 'Fahrenheit',
     auto_issue: 'Envoi automatique de',
     manual_issue: 'Livrer manuellement',
 
@@ -223,10 +226,10 @@ module.exports = {
     title_7: 'Nom du département',
     title_8: 'Description du département',
     title_9: 'Numéro de téléphone',
-    title_10: "Nom du système*",
-    title_11: "Abréviation du système*",
-    title_12: "Cacher la page*",
-    title_temperature: "Affichage de la température",
+    title_10: 'Nom du système*',
+    title_11: 'Abréviation du système*',
+    title_12: 'Cacher la page*',
+    title_temperature: 'Affichage de la température',
     auto_datasyn: 'Synchronisation automatique du personnel des équipements',
     auto_capture_syn: 'Obtenez automatiquement les enregistrements de capture',
   },
@@ -270,7 +273,7 @@ module.exports = {
     title_18: "Texte défini par l'utilisateur",
     title_19: 'Valable depuis',
     title_20: "Valable jusqu'à",
-    authorized_time: 'Durée du mandat',
+    authorized_time: 'Durée du mandat',
 
     pl_1: 'Nom du personnel',
     pl_2: 'Adresse mail',
@@ -311,14 +314,18 @@ module.exports = {
     pl_33: 'Importation par lots',
     pl_34: "Code d'erreur:",
     pl_35: "Texte défini par l'utilisateur",
-    please_upgrade: 'La version de l’appareil est trop ancienne, veuillez mettre à jour',
+    please_upgrade:
+      'La version de l’appareil est trop ancienne, veuillez mettre à jour',
     issue_details: 'Détails de l’envoi',
     to_be_issued: 'À expédier',
     issueing: 'Envoyer en cours',
     success: 'Le succès',
     fail: 'l’échec',
     please_issue_visitor: 'Envoyer un visiteur',
-    rec_pic: 'Extraction des caractéristiques échoue, s’il vous plaît changer l’image',
+    rec_pic:
+      'Extraction des caractéristiques échoue, s’il vous plaît changer l’image',
+    photo_named_by_name: 'Les photos sont nommées par des noms',
+    photo_named_by_card_number: 'Photo nommée par numéro de carte',
   },
   //设备管理
   device: {
@@ -576,7 +583,8 @@ module.exports = {
     text_65: "Type de l'équipe",
     text_66: 'Plus',
     text_67: 'Entrer le nom, le code et le département pour rechercher',
-    text_68: "Note: la personne ne peut pas être retirée, elle ne peut être ajoutée qu'à un autre groupe de présence.",
+    text_68:
+      "Note: la personne ne peut pas être retirée, elle ne peut être ajoutée qu'à un autre groupe de présence.",
 
     text_70: "Veuillez choisir l'heure de début du travail",
     text_71: "Veuillez choisir l'heure de fin du travail",
@@ -609,12 +617,15 @@ module.exports = {
     text_87: '',
     text_88:
       "L'heure de début de pointage valide après travail doit être supérieure à l'heure de début du travail et inférieure à l'heure de fin du travail",
-    work_time1:'Première fois au travail',
-    work_time2:'Deuxième trajet',
-    work_time3:'Troisième trajet',
-    attendance_tip1: 'Les pointages effectués en dehors de l’intervalle de pointage valide ne seront pas considérés comme des pointages.',
-    attendance_tip2: 'Si cet élément n’est pas défini, l’intervalle de pointage valide par défaut sera utilisé par le système.',
-    attendance_tip3: 'L’édition des quarts ne sera effective que pour les enregistrements de pointage ultérieurs. Les enregistrements de présence déjà générés ne seront pas mis à jour.',
+    work_time1: 'Première fois au travail',
+    work_time2: 'Deuxième trajet',
+    work_time3: 'Troisième trajet',
+    attendance_tip1:
+      'Les pointages effectués en dehors de l’intervalle de pointage valide ne seront pas considérés comme des pointages.',
+    attendance_tip2:
+      'Si cet élément n’est pas défini, l’intervalle de pointage valide par défaut sera utilisé par le système.',
+    attendance_tip3:
+      'L’édition des quarts ne sera effective que pour les enregistrements de pointage ultérieurs. Les enregistrements de présence déjà générés ne seront pas mis à jour.',
   },
   //调度规则
   accessControl: {
@@ -623,34 +634,38 @@ module.exports = {
     name: 'Nom',
     inputTimeSlot: 'Veuillez saisir une période',
     timeSlotPlaceHolder: '12:00-13:00 ou 12001300',
-    addEmployeeTypeDeployRule: 'Ajouter une règle de publication de la catégorie de travail',
+    addEmployeeTypeDeployRule:
+      'Ajouter une règle de publication de la catégorie de travail',
     addDepartmentDeployRule: 'Ajouter une règle de distribution du Ministère',
     addEmployeeDeployRule: 'Ajouter une règle de distribution du personnel',
     generateDeployTask: 'Générer des tâches distribuées',
-    personDepartmentEmployeeType: 'Personnel / Département / classification du travail',
+    personDepartmentEmployeeType:
+      'Personnel / Département / classification du travail',
     device: 'Matériel',
     rule: 'Les règles',
     pleaseChooseEmployeeType: "Veuillez sélectionner une catégorie d'emploi",
     pleaseChooseDepartment: 'Veuillez sélectionner un département',
-    pleaseChooseDevice:'Veuillez sélectionner un périphérique',
+    pleaseChooseDevice: 'Veuillez sélectionner un périphérique',
     pleaseChoose: 'Veuillez sélectionner',
     pleaseInputName: 'Veuillez saisir le nom de la personne',
     noteTitle: 'Conseils importants',
-    notes: 
-    "1. Ordre d'émission des règles: classification des emplois - > Ministère - > employé individuel. C'est - à - dire, si trois types de règles d'émission sont ajoutés en même temps, la classification des emplois sera publiée en premier, puis le Ministère, et enfin l'employé individuel. Les règles publiées plus tard écraseront Les règles publiées en premier.2. Ordre dans lequel il est recommandé d'ajouter des règles: classification des emplois - > Ministère - > employé individuel.3. Pour les règles de distribution du Ministère, les dépendances des ministères supérieurs et inférieurs du Ministère ne seront pas trouvées, c'est - à - dire que si un employé appartient au Ministère a, le Ministère a doit être sélectionné lors de l'ajout des règles de distribution du Ministère, et le parent du Ministère a ne distribuera pas l'employé.",
-    issueTip:'S’il vous plaît assurez-vous que le personnel a été envoyé avec succès, sinon les règles de planification ne seront pas en vigueur, continuer?',
+    notes:
+      "1. Ordre d'émission des règles: classification des emplois - > Ministère - > employé individuel. C'est - à - dire, si trois types de règles d'émission sont ajoutés en même temps, la classification des emplois sera publiée en premier, puis le Ministère, et enfin l'employé individuel. Les règles publiées plus tard écraseront Les règles publiées en premier.2. Ordre dans lequel il est recommandé d'ajouter des règles: classification des emplois - > Ministère - > employé individuel.3. Pour les règles de distribution du Ministère, les dépendances des ministères supérieurs et inférieurs du Ministère ne seront pas trouvées, c'est - à - dire que si un employé appartient au Ministère a, le Ministère a doit être sélectionné lors de l'ajout des règles de distribution du Ministère, et le parent du Ministère a ne distribuera pas l'employé.",
+    issueTip:
+      'S’il vous plaît assurez-vous que le personnel a été envoyé avec succès, sinon les règles de planification ne seront pas en vigueur, continuer?',
     refresh: 'Rafraîchir',
     createdTime: 'Temps de création',
     progress: 'Progrès accomplis',
-    total:'Total général',
+    total: 'Total général',
     success: 'Succès',
     fail: 'Échec',
     state: 'Statut',
     finished: 'Terminé.',
     selectedItemAlreadyExists: "L'élément sélectionné existe déjà",
-    thereIsUnfinishedTask: "Une tâche assignée est en cours d'exécution et ne peut pas continuer à ajouter",
+    thereIsUnfinishedTask:
+      "Une tâche assignée est en cours d'exécution et ne peut pas continuer à ajouter",
     taskCreatedSuccessfully: 'Création réussie de la tâche assignée',
-    ruleTips:'Définition de la période passable pendant laquelle la personne correspondante n’est pas passable',
-
-  }
+    ruleTips:
+      'Définition de la période passable pendant laquelle la personne correspondante n’est pas passable',
+  },
 }
