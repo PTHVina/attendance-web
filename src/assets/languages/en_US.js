@@ -26,7 +26,7 @@ module.exports = {
     title_23: 'Access Rules',
     title_24: 'Rule Deployment',
     title_rule_edit: 'Edit Rule',
-    title_rule_deploy_tasks: "Deploy Task",
+    title_rule_deploy_tasks: 'Deploy Task',
   },
   //操作按钮
   operation_btn: {
@@ -168,12 +168,15 @@ module.exports = {
     auto_refresh: 'Automatically refresh',
     issue_finished: 'Delivery completed',
     choose_device: 'Please select device',
-    reupload_face: 'The device personnel picture resolution is too low, need to upload face picture again',
-    tips_export_staff: 'The exported files cannot be directly imported in batches',
+    reupload_face:
+      'The device personnel picture resolution is too low, need to upload face picture again',
+    tips_export_staff:
+      'The exported files cannot be directly imported in batches',
     confirm_empty: 'Are you sure you want to clear the records?',
     light_dim: 'Light is too dim',
     no_face: 'No face detected',
-    no_infrared_targets: 'The specified number of infrared targets was not detected',
+    no_infrared_targets:
+      'The specified number of infrared targets was not detected',
     redlight_is_poor: 'Visible infrared light aberration is too large',
     light_bright: 'The light is too bright',
     face_fuzzy: 'The face of a fuzzy',
@@ -206,8 +209,8 @@ module.exports = {
     text_10:
       'When selecting <number issuance>, the new personnel number must be filled in as the ID',
     text_11: '*: Take effect after restart application',
-    text_celsius: "Celsius",
-    text_fahreinheit: "Fahreinheit",
+    text_celsius: 'Celsius',
+    text_fahreinheit: 'Fahreinheit',
     auto_issue: 'Automatic issued',
     manual_issue: 'Manual issued',
 
@@ -220,10 +223,10 @@ module.exports = {
     title_7: 'Department name',
     title_8: 'Department description',
     title_9: 'Telephone',
-    title_10: "System Name*",
-    title_11: "System Abbrev. Name*",
-    title_12: "Hide Pages*",
-    title_temperature: "Temperature Display",
+    title_10: 'System Name*',
+    title_11: 'System Abbrev. Name*',
+    title_12: 'Hide Pages*',
+    title_temperature: 'Temperature Display',
     auto_datasyn: 'Automatic synchronization of equipment personnel',
     auto_capture_syn: 'Automatic capture record',
   },
@@ -267,7 +270,7 @@ module.exports = {
     title_18: 'User-defined text',
     title_19: 'Valid from',
     title_20: 'Valid through',
-    authorized_time: 'Validity',
+    authorized_time: 'Validity',
 
     pl_1: 'Name of personnel',
     pl_2: 'mail box',
@@ -314,6 +317,8 @@ module.exports = {
     fail: 'failed',
     please_issue_visitor: 'Please issue visitors.',
     rec_pic: 'Failed to extract feature. Please replace image',
+    photo_named_by_name: 'Photo Named By Person Name',
+    photo_named_by_card_number: 'Photo Named By Person Number',
   },
   //设备管理
   device: {
@@ -518,7 +523,6 @@ module.exports = {
     totalLateCount: 'Total Late Count',
     totalEarlyLeaveCount: 'Total Early Leave Count',
     totalEarlyLeaveDuration: 'Total Early Leave Duration',
-
   },
   //考勤设置
   attendanceSet: {
@@ -590,7 +594,8 @@ module.exports = {
     text_65: 'Shift type',
     text_66: 'More',
     text_67: 'Enter name, number, department query',
-    text_68: 'Note: the employee cannot be moved out and can only be added to another attendance group.',
+    text_68:
+      'Note: the employee cannot be moved out and can only be added to another attendance group.',
 
     text_70: 'Please choose working time',
     text_71: 'Please select an off-duty time',
@@ -620,12 +625,15 @@ module.exports = {
     text_87: '',
     text_88:
       'The effective clock-in start time after get off work should be greater than the on-duty time and less than the off-duty time',
-    work_time1:'First commute',
-    work_time2:'Second commute',
-    work_time3:'Third commute',
-    attendance_tip1: 'Punching outside the valid punching zone will not count as attendance.',
-    attendance_tip2: 'If this parameter is not specified, the system uses the default valid punch interval.',
-    attendance_tip3: 'Editing shifts will only apply to subsequent clocking records, and generated attendance records will not be updated.',
+    work_time1: 'First commute',
+    work_time2: 'Second commute',
+    work_time3: 'Third commute',
+    attendance_tip1:
+      'Punching outside the valid punching zone will not count as attendance.',
+    attendance_tip2:
+      'If this parameter is not specified, the system uses the default valid punch interval.',
+    attendance_tip3:
+      'Editing shifts will only apply to subsequent clocking records, and generated attendance records will not be updated.',
   },
   //调度规则
   accessControl: {
@@ -643,17 +651,18 @@ module.exports = {
     rule: 'Rule',
     pleaseChooseEmployeeType: 'Please Choose Employee Type',
     pleaseChooseDepartment: 'Please Choose Department',
-    pleaseChooseDevice:'Please Choose Device',
+    pleaseChooseDevice: 'Please Choose Device',
     pleaseChoose: 'Please Choose',
     pleaseInputName: 'Please Input Name',
     noteTitle: 'Notes',
-    notes: 
-    '1. Rule distribution order: Employee Type  - > Department - > individual employee. That is, if three types of distribution rules are added at the same time, the employee type is distributed first, then the Department, and finally the individual employee. The later distributed rules overwrite the first distributed rules. 2. The order of adding rules is recommended: job classification - > Department - > individual employee. 3. For Department distribution rules, the subordinate relationship between the superior and subordinate departments of the Department will not be found, that is, if an employee belongs to department a, when adding Department distribution rules, department a must be selected, and the superior of department a will not distribute the employee.',
-    issueTip:'Ensure that all personnel have been successfully delivered. Otherwise, the scheduling rule does not take effect. Determine whether to continue?',
+    notes:
+      '1. Rule distribution order: Employee Type  - > Department - > individual employee. That is, if three types of distribution rules are added at the same time, the employee type is distributed first, then the Department, and finally the individual employee. The later distributed rules overwrite the first distributed rules. 2. The order of adding rules is recommended: job classification - > Department - > individual employee. 3. For Department distribution rules, the subordinate relationship between the superior and subordinate departments of the Department will not be found, that is, if an employee belongs to department a, when adding Department distribution rules, department a must be selected, and the superior of department a will not distribute the employee.',
+    issueTip:
+      'Ensure that all personnel have been successfully delivered. Otherwise, the scheduling rule does not take effect. Determine whether to continue?',
     refresh: 'Refresh',
     createdTime: 'Created',
     progress: 'Progress',
-    total:'Total',
+    total: 'Total',
     success: 'Success',
     fail: 'Fail',
     state: 'State',
@@ -664,6 +673,7 @@ module.exports = {
     noAccess: 'No Access',
     fullAccess: 'Full Access',
     defaultAccess: 'Default Rule:',
-    ruleTips:'Define the accessible time slots, duing which the authorized personnels can access the door',
-  }
+    ruleTips:
+      'Define the accessible time slots, duing which the authorized personnels can access the door',
+  },
 }

@@ -306,6 +306,8 @@ module.exports = {
     fail: '失败',
     please_issue_visitor: '请下发访客',
     re_pic: '提取特征失败，请更换图片',
+    photo_named_by_name: '图像以人员姓名命名',
+    photo_named_by_card_number: '图像以人员编号命名',
   },
   //设备管理
   device: {

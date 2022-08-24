@@ -163,9 +163,9 @@ export function download() {
   window.top.myExtension.Download()
 }
 //批量导入
-export function importExcel() {
+export function importExcel(photoNaming) {
   return new Promise(function (resolve, reject) {
-    window.top.myExtension.BatchIimport((res) => {
+    window.top.myExtension.BatchIimport(photoNaming, (res) => {
       var re_json = JSON.parse(res)
       resolve(re_json)
     })

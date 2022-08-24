@@ -137,14 +137,25 @@
           {{ $t('operation_btn.btn_text_10') }}
         </el-button>
         <!-- 批量导入 -->
-        <el-button
-          icon="el-icon-folder-opened"
-          type="primary"
-          plain
-          @click="importExcel"
-        >
-          {{ $t('operation_btn.btn_text_9') }}
-        </el-button>
+        <el-popover style="margin-left: 5px" trigger="click">
+          <div
+            style="display: flex; flex-direction: column; align-items: stretch"
+          >
+            <el-button style="margin-bottom: 5px" @click="() => importExcel(0)">
+              {{ $t('personnel.photo_named_by_name') }}
+            </el-button>
+            <el-button style="margin-left: 0px" @click="() => importExcel(1)">
+              {{ $t('personnel.photo_named_by_card_number') }}
+            </el-button>
+          </div>
+          <el-button
+            slot="reference"
+            icon="el-icon-folder-opened"
+            type="primary"
+          >
+            {{ $t('operation_btn.btn_text_9') }}
+          </el-button>
+        </el-popover>
         <!-- 批量下发 -->
         <el-button icon="el-icon-connection" @click="issue">
           {{ $t('operation_btn.btn_text_11') }}
@@ -1209,8 +1220,8 @@
         download()
       },
       //批量导入
-      importExcel() {
-        importExcel().then((res) => {
+      importExcel(photoNaming) {
+        importExcel(photoNaming).then((res) => {
           if (res.result == 2) {
             this.$baseMessage(this.$t('operation_tips.tips_26'), 'success')
           } else if (res.result == 1) {
