@@ -5,7 +5,6 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-  "workbench.colorTheme": "Visual Studio Light",
   "editor.tabSize": 2,
   "editor.detectIndentation": false,
   "emmet.triggerExpansionOnTab": true,
