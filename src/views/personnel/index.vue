@@ -151,15 +151,56 @@
           <el-button
             slot="reference"
             icon="el-icon-folder-opened"
+            style="margin-left: 10px"
             type="primary"
           >
             {{ $t('operation_btn.btn_text_9') }}
           </el-button>
         </el-popover>
+
+        <el-popover trigger="hover">
+          <div style="max-height: 50vh; overflow: scroll">
+            <div v-for="row in totalSelectedRows" :key="row.id">
+              <el-tag
+                style="margin-top: 5px"
+                closable
+                @close="deleteSelectedRowFromTotalSelectedRows(row)"
+              >
+                {{ row.name }}
+              </el-tag>
+            </div>
+          </div>
+          <el-button-group slot="reference">
+            <el-button
+              style="margin-left: 10px"
+              icon="el-icon-plus"
+              :disabled="selectRows.length === 0"
+              @click="addCurrectSelectedRows"
+            >
+              {{
+                totalSelectedRows.length == 0
+                  ? null
+                  : `(${totalSelectedRows.length})`
+              }}
+            </el-button>
+            <el-button
+              style="margin-right: 10px"
+              icon="el-icon-delete"
+              @click="clearTotalSelectedRows"
+            ></el-button>
+          </el-button-group>
+        </el-popover>
+
         <!-- 批量下发 -->
-        <el-button icon="el-icon-connection" @click="issue">
+        <el-button
+          style="margin-left: 10px"
+          icon="el-icon-connection"
+          :disabled="totalSelectedRows.length === 0"
+          @click="issue"
+        >
           {{ $t('operation_btn.btn_text_11') }}
         </el-button>
+
         <!-- 全员下发 -->
         <el-button icon="el-icon-thumb" type="primary" @click="oneClickIssue">
           {{ $t('operation_btn.btn_text_12') }}
@@ -872,6 +913,7 @@
         listLoading: false, //列表加载
         layout: 'total, sizes, prev, pager, next, jumper',
         selectRows: '', //选中行
+        totalSelectedRows: [], //总共选中的行
         elementLoadingText: this.$t('operation_tips.tips_12'),
         // 查询表单
         queryForm: {
@@ -987,7 +1029,7 @@
         dialogTableVisible: false, //表格弹窗控制
         gridData: [], //设备列表
         deviceRows: [], //设备选中列表
-        issueUser: [], //选中人员
+        selectedStaffsToDeploy: [], //选中人员
         lineDialogVisible: false,
         informDialogVisible: false,
         setList: [],
@@ -996,6 +1038,7 @@
         deliveryMethod: false, //下发方式
       }
     },
+    computed: {},
     watch: {},
     created() {
       if (Object.keys(this.$route.query).length != 0) {
@@ -1006,7 +1049,7 @@
 
       this.deliveryMethod = getParam()
       this.typeList()
-      this.init()
+      this.loadPage()
       this.loadAllDepartments()
       this.loadAllEmployeeTypes()
     },
@@ -1073,7 +1116,7 @@
         let deviceList = getDeviceList()
         this.gridData = deviceList
       },
-      init() {
+      loadPage() {
         this.listLoading = true
         //let list = getDataList(this.page)
         let list = queryList(this.page, this.queryForm)
@@ -1108,10 +1151,10 @@
             let res = delData([row.id])
             if (res) {
               this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
-              this.init()
+              this.loadPage()
             } else {
               this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
-              this.init()
+              this.loadPage()
             }
           })
         } else {
@@ -1124,10 +1167,10 @@
               let res = delData(ids)
               if (res) {
                 this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
-                this.init()
+                this.loadPage()
               } else {
                 this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
-                this.init()
+                this.loadPage()
               }
             })
           } else {
@@ -1145,30 +1188,30 @@
             return
           } else if (res.result == 'success') {
             this.deviceRows = []
-            this.issueUser = []
-            this.issueUser.push(row)
+            this.selectedStaffsToDeploy = []
+            this.selectedStaffsToDeploy.push(row)
             this.dialogTableVisible = true
             this.$nextTick(() => this.$refs.multipleTable.clearSelection())
           }
         } else {
-          if (this.selectRows.length > 0) {
+          if (this.totalSelectedRows.length > 0) {
             this.deviceRows = []
-            this.issueUser = []
+            this.selectedStaffsToDeploy = []
             let isFind = true
-            this.selectRows.forEach((item) => {
+            this.totalSelectedRows.forEach((item) => {
               let res = queryPerson(item.id)
               if (res.result == 'error') {
                 this.$baseMessage(this.$t('operation_tips.tips_19'), 'warning')
                 isFind = false
               } else if (res.result == 'success') {
-                this.issueUser.push(item)
+                this.selectedStaffsToDeploy.push(item)
               }
             })
             if (isFind) {
               this.dialogTableVisible = true
               this.$nextTick(() => this.$refs.multipleTable.clearSelection())
             } else {
-              this.issueUser = []
+              this.selectedStaffsToDeploy = []
               this.deviceRows = []
               this.dialogTableVisible = fasle
             }
@@ -1189,7 +1232,7 @@
       //人员下发
       setIssue() {
         let data = []
-        this.issueUser.forEach((item, index) => {
+        this.selectedStaffsToDeploy.forEach((item, index) => {
           this.deviceRows.forEach((item2) => {
             let obj = { userid: item.id, deviceid: item2.Deviceid }
             data.push(obj)
@@ -1199,7 +1242,7 @@
         if (res) {
           this.$baseMessage(this.$t('operation_tips.tips_23'), 'success')
           this.dialogTableVisible = false
-          this.init()
+          this.loadPage()
         }
       },
       //全员下发
@@ -1211,7 +1254,7 @@
             } else {
               this.$baseMessage(this.$t('operation_tips.tips_25'), 'warning')
             }
-            this.init()
+            this.loadPage()
           })
         })
       },
@@ -1229,7 +1272,7 @@
           } else {
             this.$baseMessage(this.$t('operation_tips.tips_27'), 'error')
           }
-          this.init()
+          this.loadPage()
         })
       },
       //导出
@@ -1245,12 +1288,12 @@
       // 切换显示条数
       handleSizeChange(val) {
         this.page.pageSize = val
-        this.init()
+        this.loadPage()
       },
       //切换页数
       handleCurrentChange(val) {
         this.page.pageNo = val
-        this.init()
+        this.loadPage()
       },
       //查询
       handleQuery(formName) {
@@ -1457,7 +1500,7 @@
               if (res.result == 2) {
                 this.$baseMessage(res.data, 'success')
                 this.closeFn()
-                this.init()
+                this.loadPage()
               } else {
                 this.$baseMessage(res.data, 'warning')
               }
@@ -1626,7 +1669,7 @@
           loading.close()
           if (param.indexOf('success') >= 0) {
             this.$baseMessage('登録成功', 'success')
-            this.init()
+            this.loadPage()
           } else {
             this.$baseMessage('登録に失敗しました。', 'warning')
           }
@@ -1645,7 +1688,7 @@
             loading.close()
             if (param == 'success') {
               this.$baseMessage('送信成功。', 'success')
-              this.init()
+              this.loadPage()
               return
             } else {
               this.$baseMessage('獲得に失敗する。', 'warning')
@@ -1673,7 +1716,7 @@
             loading.close()
             if (param.indexOf('success') >= 0) {
               this.$baseMessage('登録成功。', 'success')
-              this.init()
+              this.loadPage()
               return
             } else {
               this.$baseMessage('登録に失敗しました。', 'warning')
@@ -1694,7 +1737,7 @@
             loading.close()
             if (param == 'success') {
               this.$baseMessage('送信成功。', 'success')
-              this.init()
+              this.loadPage()
               return
             } else {
               this.$baseMessage('獲得に失敗する。', 'warning')
@@ -1740,6 +1783,24 @@
       loadAllEmployeeTypes() {
         const types = getAllEmployeeType()
         this.allEmployeeTypes = types
+      },
+      clearTotalSelectedRows() {
+        this.totalSelectedRows = []
+      },
+      addCurrectSelectedRows() {
+        this.selectRows.forEach((row) => {
+          if (
+            this.totalSelectedRows.findIndex((el) => el.id === row.id) === -1
+          ) {
+            this.totalSelectedRows.push(row)
+          }
+        })
+      },
+      deleteSelectedRowFromTotalSelectedRows(row) {
+        let i = this.totalSelectedRows.findIndex((v) => v.id === row.id)
+        if (i !== -1) {
+          this.totalSelectedRows.splice(i, 1)
+        }
       },
     },
   }
