@@ -157,10 +157,9 @@
             {{ $t('operation_btn.btn_text_9') }}
           </el-button>
         </el-popover>
-        <!-- 批量下发 -->
 
-        <el-popover width="200" trigger="hover">
-          <div>
+        <el-popover trigger="hover">
+          <div style="max-height: 50vh; overflow: scroll">
             <div v-for="row in totalSelectedRows" :key="row.id">
               <el-tag
                 style="margin-top: 5px"
@@ -171,26 +170,36 @@
               </el-tag>
             </div>
           </div>
-          <el-button
-            slot="reference"
-            style="margin-left: 10px"
-            icon="el-icon-connection"
-            @click="issue"
-          >
-            {{
-              totalSelectedRows.length == 0
-                ? $t('operation_btn.btn_text_11')
-                : $t('operation_btn.btn_text_11') +
-                  `(${totalSelectedRows.length})`
-            }}
-          </el-button>
+          <el-button-group slot="reference">
+            <el-button
+              style="margin-left: 10px"
+              icon="el-icon-plus"
+              :disabled="selectRows.length === 0"
+              @click="addCurrectSelectedRows"
+            >
+              {{
+                totalSelectedRows.length == 0
+                  ? null
+                  : `(${totalSelectedRows.length})`
+              }}
+            </el-button>
+            <el-button
+              style="margin-right: 10px"
+              icon="el-icon-delete"
+              @click="clearTotalSelectedRows"
+            ></el-button>
+          </el-button-group>
         </el-popover>
 
+        <!-- 批量下发 -->
         <el-button
-          style="margin-right: 10px"
-          icon="el-icon-delete"
-          @click="clearTotalSelectedRows"
-        ></el-button>
+          style="margin-left: 10px"
+          icon="el-icon-connection"
+          :disabled="totalSelectedRows.length === 0"
+          @click="issue"
+        >
+          {{ $t('operation_btn.btn_text_11') }}
+        </el-button>
 
         <!-- 全员下发 -->
         <el-button icon="el-icon-thumb" type="primary" @click="oneClickIssue">
@@ -1029,11 +1038,7 @@
         deliveryMethod: false, //下发方式
       }
     },
-    computed: {
-      selectedNames() {
-        return this.totalSelectedRows.map((v) => v.name)
-      },
-    },
+    computed: {},
     watch: {},
     created() {
       if (Object.keys(this.$route.query).length != 0) {
@@ -1189,7 +1194,6 @@
             this.$nextTick(() => this.$refs.multipleTable.clearSelection())
           }
         } else {
-          this.addCurrectSelectedRows()
           if (this.totalSelectedRows.length > 0) {
             this.deviceRows = []
             this.selectedStaffsToDeploy = []
@@ -1288,13 +1292,11 @@
       },
       //切换页数
       handleCurrentChange(val) {
-        this.addCurrectSelectedRows()
         this.page.pageNo = val
         this.loadPage()
       },
       //查询
       handleQuery(formName) {
-        this.addCurrectSelectedRows()
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.listLoading = true
