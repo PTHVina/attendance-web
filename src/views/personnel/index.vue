@@ -170,25 +170,29 @@
               </el-tag>
             </div>
           </div>
-          <el-button-group slot="reference">
-            <el-button
-              style="margin-left: 10px"
-              icon="el-icon-plus"
-              :disabled="selectRows.length === 0"
-              @click="addCurrectSelectedRows"
-            >
-              {{
-                totalSelectedRows.length == 0
-                  ? null
-                  : `(${totalSelectedRows.length})`
-              }}
-            </el-button>
-            <el-button
-              style="margin-right: 10px"
-              icon="el-icon-delete"
-              @click="clearTotalSelectedRows"
-            ></el-button>
-          </el-button-group>
+
+          <el-badge
+            slot="reference"
+            class="item"
+            type="info"
+            :hidden="totalSelectedRows.length === 0"
+            :value="totalSelectedRows.length"
+            :max="99"
+          >
+            <el-button-group>
+              <el-button
+                style="margin-left: 10px"
+                icon="el-icon-plus"
+                :disabled="selectRows.length === 0"
+                @click="addCurrectSelectedRows"
+              ></el-button>
+              <el-button
+                style="margin-right: 10px"
+                icon="el-icon-delete"
+                @click="clearTotalSelectedRows"
+              ></el-button>
+            </el-button-group>
+          </el-badge>
         </el-popover>
 
         <!-- 批量下发 -->
