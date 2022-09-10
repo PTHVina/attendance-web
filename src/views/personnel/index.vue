@@ -195,28 +195,37 @@
           </el-badge>
         </el-popover>
 
-        <!-- 批量下发 -->
-        <el-button
-          style="margin-left: 10px"
-          icon="el-icon-connection"
-          :disabled="totalSelectedRows.length === 0"
-          @click="issue"
-        >
-          {{ $t('operation_btn.btn_text_11') }}
-        </el-button>
+        <el-button-group>
+          <!-- 批量下发 -->
+          <el-button
+            style="margin-left: 15px"
+            icon="el-icon-connection"
+            :disabled="totalSelectedRows.length === 0"
+            @click="issue"
+          >
+            {{ $t('operation_btn.btn_text_11') }}
+          </el-button>
+
+          <!-- 批量删除 -->
+          <el-button
+            icon="el-icon-delete"
+            type="danger"
+            style="opacity: 0.6"
+            :disabled="totalSelectedRows.length === 0"
+            @click="handleDelete"
+          >
+            {{ $t('operation_btn.btn_text_13') }}
+          </el-button>
+        </el-button-group>
 
         <!-- 全员下发 -->
-        <el-button icon="el-icon-thumb" type="primary" @click="oneClickIssue">
-          {{ $t('operation_btn.btn_text_12') }}
-        </el-button>
-        <!-- 批量删除 -->
         <el-button
-          icon="el-icon-delete"
-          type="danger"
-          style="opacity: 0.6"
-          @click="handleDelete"
+          style="margin-left: 10px"
+          icon="el-icon-thumb"
+          type="primary"
+          @click="oneClickIssue"
         >
-          {{ $t('operation_btn.btn_text_13') }}
+          {{ $t('operation_btn.btn_text_12') }}
         </el-button>
       </div>
     </div>
@@ -1162,15 +1171,16 @@
             }
           })
         } else {
-          if (this.selectRows.length > 0) {
+          if (this.totalSelectedRows.length > 0) {
             let ids = []
-            this.selectRows.forEach((item) => {
+            this.totalSelectedRows.forEach((item) => {
               ids.push(item.id)
             })
             this.$baseConfirm(this.$t('operation_tips.tips_21'), null, () => {
               let res = delData(ids)
               if (res) {
                 this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
+                this.totalSelectedRows = []
                 this.loadPage()
               } else {
                 this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
