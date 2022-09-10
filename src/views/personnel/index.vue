@@ -1180,7 +1180,7 @@
               let res = delData(ids)
               if (res) {
                 this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
-                this.totalSelectedRows = []
+                this.clearTotalSelectedRows()
                 this.loadPage()
               } else {
                 this.$baseMessage(this.$t('operation_tips.tips_5'), 'warning')
