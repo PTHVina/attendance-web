@@ -70,6 +70,7 @@ module.exports = {
     download: '下载',
     empty_device_face: '清空设备人脸',
     empty_record: '清空记录',
+    export_image: '导出头像',
   },
   // 操作提示
   operation_tips: {
@@ -308,6 +309,7 @@ module.exports = {
     re_pic: '提取特征失败，请更换图片',
     photo_named_by_name: '图像以人员姓名命名',
     photo_named_by_card_number: '图像以人员编号命名',
+    photo_named_by_phone: '图像以电话号码命名',
   },
   //设备管理
   device: {

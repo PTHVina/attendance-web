@@ -70,6 +70,7 @@ module.exports = {
     download: 'ダウンロード',
     empty_device_face: '空にする装置の顔',
     empty_record: '記録を空にする',
+    export_image: 'アイコンを導き出す',
   },
   // 操作提示
   operation_tips: {
@@ -314,6 +315,7 @@ module.exports = {
     rec_pic: '特徴抽出に失敗した場合は、画像を変更してください',
     photo_named_by_name: '人の名前',
     photo_named_by_card_number: '写真番号で名付けられた写真',
+    photo_named_by_phone: '画像は携帯電話の名前です',
   },
   //设备管理
   device: {

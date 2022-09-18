@@ -171,6 +171,15 @@ export function importExcel(photoNaming) {
     })
   })
 }
+//导出图像
+export function downPicture(photoNaming) {
+  return new Promise(function (resolve, reject) {
+    window.top.myExtension.DownloadPicture(photoNaming, (res) => {
+      var re_json = JSON.parse(res)
+      resolve(re_json)
+    })
+  })
+}
 //导出
 export function downList() {
   window.top.myExtension.export()

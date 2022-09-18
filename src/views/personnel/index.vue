@@ -127,6 +127,28 @@
         <el-button icon="el-icon-upload2" @click="downList">
           {{ $t('operation_btn.btn_text_8') }}
         </el-button>
+        <!--导出头像-->
+        <el-popover style="margin-right: 5px" trigger="click">
+          <div
+            style="display: flex; flex-direction: column; align-items: stretch"
+          >
+            <el-button style="margin-bottom: 5px" @click="() => downPicture(0)">
+              {{ $t('personnel.photo_named_by_name') }}
+            </el-button>
+            <el-button
+              style="margin-bottom: 5px; margin-left: 0px"
+              @click="() => downPicture(1)"
+            >
+              {{ $t('personnel.photo_named_by_card_number') }}
+            </el-button>
+            <el-button style="margin-left: 0px" @click="() => downPicture(2)">
+              {{ $t('personnel.photo_named_by_phone') }}
+            </el-button>
+          </div>
+          <el-button slot="reference" icon="el-icon-upload2">
+            {{ $t('operation_btn.export_image') }}
+          </el-button>
+        </el-popover>
         <!-- 下载模板 -->
         <el-button
           icon="el-icon-download"
@@ -908,6 +930,7 @@
     photograph,
     getInformList,
     setInform,
+    downPicture,
   } from '@/api/personnel'
   import { getParam } from '@/api/sysPage'
   import { getAllDepartment, getAllEmployeeType } from '@/api/accesscontrol'
@@ -1815,6 +1838,19 @@
         if (i !== -1) {
           this.totalSelectedRows.splice(i, 1)
         }
+      },
+      //导出图像
+      downPicture(photoNaming) {
+        downPicture(photoNaming).then((res) => {
+          if (res.result == 2) {
+            this.$baseMessage(this.$t('operation_tips.tips_26'), 'success')
+          } else if (res.result == 1) {
+            this.$baseMessage(res.data, 'warning')
+          } else {
+            this.$baseMessage(this.$t('operation_tips.tips_27'), 'error')
+          }
+          this.loadPage()
+        })
       },
     },
   }

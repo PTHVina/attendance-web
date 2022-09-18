@@ -70,6 +70,7 @@ module.exports = {
     download: 'Tải về',
     empty_device_face: 'Làm sạch khuôn mặt thiết bị',
     empty_record: 'Dọn sạch hồ sơ',
+    export_image: 'Xuất khẩu avatar',
   },
   // 操作提示
   operation_tips: {
@@ -319,6 +320,8 @@ module.exports = {
     rec_pic: 'Lỗi khai thác đặc điểm, xin vui lòng thay đổi hình ảnh',
     photo_named_by_name: 'Ảnh được đặt theo tên người:',
     photo_named_by_card_number: 'Ảnh được đặt tên theo Số thẻ',
+    photo_named_by_phone:
+      'Bức ảnh được đặt tên theo số điện thoại của nhân viên',
   },
   //设备管理
   device: {

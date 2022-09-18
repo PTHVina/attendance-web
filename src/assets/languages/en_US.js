@@ -71,6 +71,7 @@ module.exports = {
     empty_device_face: 'Clear the device face',
     tips_confirm: 'Are you sure to empty the face library?',
     empty_record: 'Empty record',
+    export_image: 'Export the avatar',
   },
   // 操作提示
   operation_tips: {
@@ -319,6 +320,7 @@ module.exports = {
     rec_pic: 'Failed to extract feature. Please replace image',
     photo_named_by_name: 'Photo Named By Person Name',
     photo_named_by_card_number: 'Photo Named By Person Number',
+    photo_named_by_phone: 'Photo Named By Phone Number',
   },
   //设备管理
   device: {

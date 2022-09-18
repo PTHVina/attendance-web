@@ -71,6 +71,7 @@ module.exports = {
     empty_device_face: 'Vider l’équipement visage',
     tips_confirm: 'Assurez-vous de vider la galerie de visage de cet appareil:',
     empty_record: 'Vider les enregistrements',
+    export_image: 'Exporter un avatar',
   },
   // 操作提示
   operation_tips: {
@@ -326,6 +327,8 @@ module.exports = {
       'Extraction des caractéristiques échoue, s’il vous plaît changer l’image',
     photo_named_by_name: 'Les photos sont nommées par des noms',
     photo_named_by_card_number: 'Photo nommée par numéro de carte',
+    photo_named_by_phone:
+      'Image nommée d’après le numéro de téléphone de la personne',
   },
   //设备管理
   device: {
