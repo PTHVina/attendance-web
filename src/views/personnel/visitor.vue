@@ -654,7 +654,7 @@
             this.$t('operation_tips.tips_4'),
             null,
             async () => {
-              let res = delVisitor(row.id + ',')
+              let res = delVisitor(row.id)
               if (res) {
                 this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
               } else {
@@ -669,11 +669,11 @@
               this.$t('operation_tips.tips_4'),
               null,
               async () => {
-                let ids = ''
+                let ids = []
                 this.selectRows.forEach((item) => {
-                  ids += item.id + ','
+                  ids.push(item.id)
                 })
-                let res = delVisitor(ids)
+                let res = delVisitor(ids.join(','))
                 this.init()
               }
             )
