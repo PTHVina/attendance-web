@@ -18,6 +18,15 @@
               :style="lang == 'en_US' ? 'width:150px;' : ''"
             />
           </el-form-item>
+          <!-- 身份证号码 -->
+          <el-form-item v-if="lang == supportedLocales.zh">
+            <span>{{ $t('snapshot.text_17') }}</span>
+            <el-input
+              v-model.trim="queryForm.idNumber"
+              :placeholder="$t('snapshot.text_17')"
+              :style="'width:250px;'"
+            />
+          </el-form-item>
           <!-- 电话号码 -->
           <el-form-item>
             <span>{{ $t('personnel.text_3') }}</span>
@@ -149,6 +158,13 @@
         show-overflow-tooltip
         prop="name"
         :label="$t('personnel.text_1')"
+      ></el-table-column>
+      <!-- 身份证号码 -->
+      <el-table-column
+        v-if="lang == supportedLocales.zh"
+        show-overflow-tooltip
+        prop="idNumber"
+        :label="$t('snapshot.text_17')"
       ></el-table-column>
       <!-- 电话号码 -->
       <el-table-column
@@ -303,6 +319,14 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
+        <!-- 身份证号码 -->
+        <el-form-item :label="$t('snapshot.text_17')" prop="idNumber">
+          <el-input
+            v-model.trim="form.idNumber"
+            :placeholder="$t('snapshot.text_17')"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
         <!-- 电话号码 -->
         <el-form-item
           :label="$t('personnel.text_3')"
@@ -435,11 +459,13 @@
     photograph,
     getDeviceList,
   } from '@/api/personnel'
+  import { supportedLocales } from '@/api/consts'
   export default {
     name: 'Visitor',
     data() {
       return {
         lang: this.$lang,
+        supportedLocales,
         list: [],
         imageList: [],
         listLoading: false, //列表加载
@@ -459,6 +485,7 @@
           endDate: '',
           endTime: '',
           isDown: '', //是否下发
+          idNumber: '', //身份证编号
         }, //搜索表单
         page: {
           pageNo: 1,
@@ -688,6 +715,7 @@
             startTime: data.staTime,
             endTime: data.endTime,
             img: data.imge,
+            idNumber: data.idNumber,
           }
         }
       },
