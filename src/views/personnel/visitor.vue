@@ -325,6 +325,7 @@
             v-model.trim="form.idNumber"
             :placeholder="$t('snapshot.text_17')"
             autocomplete="off"
+            :disabled="form.isEdit"
           ></el-input>
         </el-form-item>
         <!-- 电话号码 -->
@@ -513,6 +514,8 @@
           startTime: '',
           endTime: '',
           img: '',
+          idNumber: '',
+          isEdit: false,
         },
         rules: {
           name: [
@@ -716,6 +719,7 @@
             endTime: data.endTime,
             img: data.imge,
             idNumber: data.idNumber,
+            isEdit: true,
           }
         }
       },
@@ -835,6 +839,8 @@
           startTime: '',
           endTime: '',
           img: '',
+          idNumber: '',
+          isEdit: false,
         }
       },
       // 获取设备列表
