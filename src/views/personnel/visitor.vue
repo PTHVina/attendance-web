@@ -320,7 +320,11 @@
           ></el-input>
         </el-form-item>
         <!-- 身份证号码 -->
-        <el-form-item :label="$t('snapshot.text_17')" prop="idNumber">
+        <el-form-item
+          v-if="lang === supportedLocales.zh"
+          :label="$t('snapshot.text_17')"
+          prop="idNumber"
+        >
           <el-input
             v-model.trim="form.idNumber"
             :placeholder="$t('snapshot.text_17')"
@@ -460,7 +464,7 @@
     photograph,
     getDeviceList,
   } from '@/api/personnel'
-  import { supportedLocales } from '@/api/consts'
+  import { supportedLocales, validateIdNumber } from '@/api/common'
   export default {
     name: 'Visitor',
     data() {
@@ -806,6 +810,13 @@
       setInfo(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            if (
+              this.form.idNumber &&
+              !validateIdNumber(this.form.idNumber)?.success
+            ) {
+              this.$baseMessage(this.$t('personnel.pl_16'), 'warning')
+              return
+            }
             let res
             if (this.form.id) {
               res = editVisitor(this.form)

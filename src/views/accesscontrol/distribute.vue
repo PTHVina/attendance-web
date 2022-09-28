@@ -220,7 +220,7 @@
     canAddAccessControlDeployTask,
     setDefaultAccess,
   } from '@/api/accesscontrol'
-  import { accessControl } from '@/api/consts'
+  import { accessControl } from '@/api/common'
   import { getUserConfigObject } from '@/api/sysPage'
   import { getAllMyDevices } from '@/api/device'
 
