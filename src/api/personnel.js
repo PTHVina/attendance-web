@@ -211,6 +211,7 @@ export function getVisitorList(data, page) {
     data.name.toString(),
     data.phone.toString(),
     data.isDown.toString(),
+    data.idNumber.toString(),
     page.pageNo.toString(),
     page.pageSize.toString()
   )
@@ -227,7 +228,8 @@ export function getVisitorCount(data) {
     data.endTime.toString(),
     data.name.toString(),
     data.phone.toString(),
-    data.isDown.toString()
+    data.isDown.toString(),
+    data.idNumber.toString()
   )
   let res_json = JSON.parse(res)[0].count
 
@@ -240,7 +242,8 @@ export function addVisitor(data) {
     data.phone.toString(),
     data.img.toString(),
     data.startTime.toString(),
-    data.endTime.toString()
+    data.endTime.toString(),
+    data.idNumber.toString()
   )
   var res_json = JSON.parse(res)
 
@@ -254,7 +257,8 @@ export function editVisitor(data) {
     data.img.toString(),
     data.startTime.toString(),
     data.endTime.toString(),
-    data.id.toString()
+    data.id.toString(),
+    data.idNumber.toString()
   )
   var res_json = JSON.parse(res)
 
@@ -274,6 +278,7 @@ export function issueVisitor(data, devices) {
     data.staTime.toString(),
     data.endTime.toString(),
     data.id.toString(),
+    data.idNumber,
     JSON.stringify(devices)
   )
 

@@ -18,6 +18,15 @@
               :style="lang == 'en_US' ? 'width:150px;' : ''"
             />
           </el-form-item>
+          <!-- 身份证号码 -->
+          <el-form-item v-if="lang == supportedLocales.zh">
+            <span>{{ $t('snapshot.text_17') }}</span>
+            <el-input
+              v-model.trim="queryForm.idNumber"
+              :placeholder="$t('snapshot.text_17')"
+              :style="'width:250px;'"
+            />
+          </el-form-item>
           <!-- 电话号码 -->
           <el-form-item>
             <span>{{ $t('personnel.text_3') }}</span>
@@ -149,6 +158,13 @@
         show-overflow-tooltip
         prop="name"
         :label="$t('personnel.text_1')"
+      ></el-table-column>
+      <!-- 身份证号码 -->
+      <el-table-column
+        v-if="lang == supportedLocales.zh"
+        show-overflow-tooltip
+        prop="idNumber"
+        :label="$t('snapshot.text_17')"
       ></el-table-column>
       <!-- 电话号码 -->
       <el-table-column
@@ -303,6 +319,19 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
+        <!-- 身份证号码 -->
+        <el-form-item
+          v-if="lang === supportedLocales.zh"
+          :label="$t('snapshot.text_17')"
+          prop="idNumber"
+        >
+          <el-input
+            v-model.trim="form.idNumber"
+            :placeholder="$t('snapshot.text_17')"
+            autocomplete="off"
+            :disabled="form.isEdit"
+          ></el-input>
+        </el-form-item>
         <!-- 电话号码 -->
         <el-form-item
           :label="$t('personnel.text_3')"
@@ -435,11 +464,13 @@
     photograph,
     getDeviceList,
   } from '@/api/personnel'
+  import { supportedLocales, validateIdNumber } from '@/api/common'
   export default {
     name: 'Visitor',
     data() {
       return {
         lang: this.$lang,
+        supportedLocales,
         list: [],
         imageList: [],
         listLoading: false, //列表加载
@@ -459,6 +490,7 @@
           endDate: '',
           endTime: '',
           isDown: '', //是否下发
+          idNumber: '', //身份证编号
         }, //搜索表单
         page: {
           pageNo: 1,
@@ -486,6 +518,8 @@
           startTime: '',
           endTime: '',
           img: '',
+          idNumber: '',
+          isEdit: false,
         },
         rules: {
           name: [
@@ -627,7 +661,7 @@
             this.$t('operation_tips.tips_4'),
             null,
             async () => {
-              let res = delVisitor(row.id + ',')
+              let res = delVisitor(row.id)
               if (res) {
                 this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
               } else {
@@ -642,11 +676,11 @@
               this.$t('operation_tips.tips_4'),
               null,
               async () => {
-                let ids = ''
+                let ids = []
                 this.selectRows.forEach((item) => {
-                  ids += item.id + ','
+                  ids.push(item.id)
                 })
-                let res = delVisitor(ids)
+                let res = delVisitor(ids.join(','))
                 this.init()
               }
             )
@@ -688,6 +722,8 @@
             startTime: data.staTime,
             endTime: data.endTime,
             img: data.imge,
+            idNumber: data.idNumber,
+            isEdit: true,
           }
         }
       },
@@ -774,6 +810,13 @@
       setInfo(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            if (
+              this.form.idNumber &&
+              !validateIdNumber(this.form.idNumber)?.success
+            ) {
+              this.$baseMessage(this.$t('personnel.pl_16'), 'warning')
+              return
+            }
             let res
             if (this.form.id) {
               res = editVisitor(this.form)
@@ -807,6 +850,8 @@
           startTime: '',
           endTime: '',
           img: '',
+          idNumber: '',
+          isEdit: false,
         }
       },
       // 获取设备列表
