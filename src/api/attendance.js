@@ -95,9 +95,13 @@ export function exportData(data) {
 //获取单个人员每天数据
 export function getEverydayAllList(data) {
   return new Promise(function (resolve, reject) {
-    window.top.myExtension.queryAttendanceinByid((res) => {
-      resolve(JSON.parse(res))
-    }, data.personId)
+    window.top.myExtension.queryAttendanceinByid(
+      (res) => {
+        resolve(JSON.parse(res))
+      },
+      data.personId,
+      data.nowdate.toString()
+    )
   })
 }
 

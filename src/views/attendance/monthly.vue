@@ -652,6 +652,7 @@
       openDialog(row) {
         this.dialogTableVisible = true
         this.listLoading2 = true
+        console.log(row)
         getEverydayAllList(row).then((res) => {
           this.everydayList = res
           this.listLoading2 = false
