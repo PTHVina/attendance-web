@@ -488,16 +488,7 @@
       >
         <template #default="{ row }">
           <!-- 注册 -->
-          <el-button
-            v-if="
-              String(row.person_id).length == 0 ||
-              row.person_id == null ||
-              row.person_id == 0
-            "
-            type="text"
-            icon="el-icon-edit"
-            @click="register(row)"
-          >
+          <el-button type="text" icon="el-icon-edit" @click="register(row)">
             {{ $t('operation_btn.btn_text_27') }}
           </el-button>
           <!-- 删除 -->
