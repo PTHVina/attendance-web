@@ -394,6 +394,7 @@ module.exports = {
     text_67: 'Ra',
     username: 'Tài khoản',
     password: 'Mật khẩu',
+    personCount: 'Số lượng nhân viên',
   },
   //抓拍管理
   snapshot: {

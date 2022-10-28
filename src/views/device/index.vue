@@ -15,14 +15,18 @@
         >
           {{ $t('operation_btn.btn_text_23') }}
         </el-button>
-        <span class="tips2">
+        <!--刷新-->
+        <!-- <el-button icon="el-icon-refresh-left" @click="updatePersonCount()">
+          {{ $t('operation_btn.btn_text_34') }}
+        </el-button> -->
+        <!-- <span class="tips2">
           <el-alert
             :title="$t('operation_tips.tips_39')"
             type="info"
             show-icon
             :closable="false"
           ></el-alert>
-        </span>
+        </span> -->
       </div>
     </div>
 
@@ -93,13 +97,16 @@
         prop="platForm"
       >
         <template #default="{ row }">
-          <el-tooltip
+          <!-- <el-tooltip
             class="item"
             effect="dark"
             :content="row.master_buildtime"
           >
-            <el-link type="info">{{ row.platForm }}</el-link>
-          </el-tooltip>
+            <el-tag v-if="row.platform" type="info">{{ row.platform }}|{{row.master_buildtime}}</el-tag>
+          </el-tooltip> -->
+          <span v-if="row.platform">
+            {{ row.platform }} | {{ row.master_buildtime }}
+          </span>
         </template>
       </el-table-column>
       <!-- 状态 -->
@@ -116,6 +123,20 @@
           <el-tag v-else type="danger">{{ $t('device.text_8') }}</el-tag>
         </template>
       </el-table-column>
+      <!--人数-->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('device.personCount')"
+        prop="personCount"
+        sortable
+      >
+        <template #default="{ row }">
+          <span v-if="row.personCount" :key="row.number">
+            {{ row.personCount }}
+          </span>
+        </template>
+      </el-table-column>
+
       <!-- 操作 -->
       <el-table-column
         :label="$t('device.text_6')"
@@ -586,6 +607,7 @@
 <script>
   import {
     getDeviceList,
+    getDeviceListExt,
     addDevice,
     editDevice,
     openDoor,
@@ -819,11 +841,17 @@
         this.loadMyDevices()
         setTimeout(() => {
           this.listLoading = false
-          this.updateConnectState()
-        }, 500)
+          this.updatePersonCount()
+        }, 1000)
+        // setTimeout(() => {
+        //   this.updatePersonCount()
+        // }, 7000)
+        // setInterval(() => {
+        //   this.updateConnectState()
+        // }, 5000)
         setInterval(() => {
-          this.updateConnectState()
-        }, 2000)
+          this.updatePersonCount()
+        }, 8 * 1000)
       },
       loadMyDevices() {
         let list = getAllMyDevices()
@@ -839,7 +867,26 @@
           this.loadMyDevices()
           this.updateConnectState()
           this.listLoading = false
-        }, 3000)
+        }, 5000)
+      },
+      //更新设备人员数量
+      updatePersonCount() {
+        let state = getDeviceListExt()
+        state.forEach((el) => {
+          let idx = this.list.findIndex((e) => e.ipAddress === el.IP)
+          if (idx !== -1) {
+            this.list[idx].IsConnected = el.IsConnected
+            if (el.DeviceNo) {
+              this.list[idx].number = el.DeviceNo
+              this.list[idx].platform = el.platform
+              this.list[idx].master_buildtime = el.master_buildtime
+              this.list[idx].personCount = el.personCount
+              console.log(el)
+            }
+            this.list[idx].state = el
+          }
+        })
+        this.list = [...this.list]
       },
       updateConnectState() {
         let state = getDeviceList()
@@ -849,6 +896,10 @@
             this.list[idx].IsConnected = el.IsConnected
             if (el.DeviceNo) {
               this.list[idx].number = el.DeviceNo
+              this.list[idx].platform = el.platform
+              this.list[idx].master_buildtime = el.master_buildtime
+              //this.list[idx].personCount = el.personCount ? el.personCount : ''
+              //console.log(el)
             }
             this.list[idx].state = el
           }

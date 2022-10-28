@@ -382,6 +382,7 @@ module.exports = {
     text_67: '出',
     username: '账号',
     password: '密码',
+    personCount: '人数',
   },
   //抓拍管理
   snapshot: {

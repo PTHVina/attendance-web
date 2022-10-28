@@ -394,6 +394,7 @@ module.exports = {
     text_67: 'Exit',
     username: 'username',
     password: 'password',
+    personCount: 'perconCount',
   },
   //抓拍管理
   snapshot: {

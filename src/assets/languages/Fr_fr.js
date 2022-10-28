@@ -403,6 +403,7 @@ module.exports = {
     text_67: 'Exportations',
     username: 'Le compte',
     password: 'Les mots de passe',
+    personCount: 'Nombre de personnes',
   },
   //抓拍管理
   snapshot: {

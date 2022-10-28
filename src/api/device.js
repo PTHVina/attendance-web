@@ -5,6 +5,13 @@ export function getDeviceList() {
 
   return data_json
 }
+//设备人员数量统计
+export function getDeviceListExt() {
+  let res = window.top.myExtension.getDevicePerconCount()
+  let data_json = JSON.parse(res)
+
+  return data_json
+}
 //添加设备
 export function addDevice(data) {
   var res = window.top.myExtension.AddIPtoMydevice(

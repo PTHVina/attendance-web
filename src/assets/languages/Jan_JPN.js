@@ -389,6 +389,7 @@ module.exports = {
     text_67: '出ます',
     username: 'アカウント',
     password: 'パスワード',
+    personCount: '人員の数',
   },
   //抓拍管理
   snapshot: {
