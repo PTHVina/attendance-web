@@ -239,6 +239,7 @@
     formatCellTemperatureString,
     formatTemperatureString,
   } from '@/utils/index'
+  import socket from '@/api/websocket'
   export default {
     name: 'Index',
     data() {
@@ -295,6 +296,7 @@
       clearInterval(this.interval)
       clearInterval(this.interval2)
       clearInterval(this.intervalInOutCounter)
+      socket.removeEventListener('message', this.onMessage)
     },
     mounted() {
       let myEchart = this.$echarts.init(document.getElementById('echarts'))
@@ -333,6 +335,7 @@
         ],
       }
       myEchart.setOption(option)
+      socket.addEventListener('message', this.onMessage)
     },
     methods: {
       formatCellTemperatureString,
@@ -425,6 +428,9 @@
       },
       loadInOutCount() {
         this.inOutCount = getInOutCount()
+      },
+      onMessage(e) {
+        console.log('Message from server ', e.data)
       },
     },
   }
