@@ -180,7 +180,7 @@
           </el-button>
         </el-popover>
 
-        <el-popover trigger="hover">
+        <!-- <el-popover trigger="hover">
           <div style="max-height: 50vh; overflow: scroll">
             <div v-for="row in totalSelectedRows" :key="row.id">
               <el-tag
@@ -196,7 +196,6 @@
           <el-badge
             slot="reference"
             class="item"
-            type="info"
             :hidden="totalSelectedRows.length === 0"
             :value="totalSelectedRows.length"
             :max="99"
@@ -215,34 +214,60 @@
               ></el-button>
             </el-button-group>
           </el-badge>
+        </el-popover> -->
+
+        <!--批量操作-->
+        <el-popover trigger="hover">
+          <div style="max-height: 50vh; overflow: scroll">
+            <div v-for="row in totalSelectedRows" :key="row.id">
+              <el-tag
+                style="margin-top: 5px"
+                closable
+                @close="deleteSelectedRowFromTotalSelectedRows(row)"
+              >
+                {{ row.name }}
+              </el-tag>
+            </div>
+          </div>
+          <el-badge
+            slot="reference"
+            class="item"
+            :hidden="totalSelectedRows.length === 0"
+            :value="totalSelectedRows.length"
+            :max="99"
+          >
+            <el-button-group>
+              <!-- 批量下发 -->
+              <el-button
+                style="margin-left: 15px"
+                icon="el-icon-connection"
+                :disabled="totalSelectedRows.length === 0"
+                @click="issue"
+              >
+                {{ $t('operation_btn.btn_text_11') }}
+              </el-button>
+              <!-- 批量删除 -->
+              <el-button
+                icon="el-icon-delete"
+                type="danger"
+                style="opacity: 0.6"
+                :disabled="totalSelectedRows.length === 0"
+                @click="handleDelete"
+              >
+                {{ $t('operation_btn.btn_text_13') }}
+              </el-button>
+              <!--清空选项-->
+              <el-button
+                icon="el-icon-refresh-left"
+                @click="clearTotalSelectedRows"
+              ></el-button>
+            </el-button-group>
+          </el-badge>
         </el-popover>
-
-        <el-button-group>
-          <!-- 批量下发 -->
-          <el-button
-            style="margin-left: 15px"
-            icon="el-icon-connection"
-            :disabled="totalSelectedRows.length === 0"
-            @click="issue"
-          >
-            {{ $t('operation_btn.btn_text_11') }}
-          </el-button>
-
-          <!-- 批量删除 -->
-          <el-button
-            icon="el-icon-delete"
-            type="danger"
-            style="opacity: 0.6"
-            :disabled="totalSelectedRows.length === 0"
-            @click="handleDelete"
-          >
-            {{ $t('operation_btn.btn_text_13') }}
-          </el-button>
-        </el-button-group>
 
         <!-- 全员下发 -->
         <el-button
-          style="margin-left: 10px"
+          style="margin-left: 15px"
           icon="el-icon-thumb"
           type="primary"
           @click="oneClickIssue"
@@ -261,6 +286,7 @@
       height="calc(100vh - 305px)"
       @selection-change="setSelectRows"
       @sort-change="tableSortChange"
+      @select="setSelectRow"
     >
       <el-table-column
         show-overflow-tooltip
@@ -1158,7 +1184,7 @@
         //let list = getDataList(this.page)
         let list = queryList(this.page, this.queryForm)
         this.list = list[0]
-        console.log('人员列表', list)
+        // console.log('人员列表', list)
         this.page.total = list[1]
         let imageList = []
         this.list.forEach((item, index) => {
@@ -1177,9 +1203,15 @@
         })
         this.imageList = imageList
       },
+      //选中某行
+      setSelectRow(selection, row) {
+        this.deleteSelectedRowFromTotalSelectedRows(row)
+      },
       // 选中
       setSelectRows(val) {
+        // console.log(val)
         this.selectRows = val
+        this.addCurrectSelectedRows()
       },
       // 删除
       handleDelete(row) {
