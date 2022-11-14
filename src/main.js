@@ -20,6 +20,7 @@ import localeJa from '../node_modules/element-ui/lib/locale/lang/ja'
 import localeCn from '../node_modules/element-ui/lib/locale/lang/zh-CN'
 import localeFr from '../node_modules/element-ui/lib/locale/lang/fr'
 import localeVi from '../node_modules/element-ui/lib/locale/lang/vi'
+import localeRu from '../node_modules/element-ui/lib/locale/lang/ru-RU'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 
@@ -35,6 +36,7 @@ const i18n = new VueI18n({
     en_US: require('@/assets/languages/en_US'),
     Fr_fr: require('@/assets/languages/Fr_fr'),
     vi: require('@/assets/languages/vi'),
+    ru: require('@/assets/languages/ru'),
   },
 })
 Vue.prototype.$lang = lang
@@ -47,6 +49,8 @@ if (lang == 'Jan_JPN') {
   locale = localeFr
 } else if (lang == 'vi') {
   locale = localeVi
+} else if (lang == 'ru') {
+  locale = localeRu
 }
 
 Vue.use(ElementUI, { locale, size: 'small' })

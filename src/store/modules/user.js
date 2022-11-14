@@ -94,7 +94,7 @@ const actions = {
       const hour = new Date().getHours()
       const thisTime =
         hour < 8 ? a : hour <= 11 ? b : hour <= 13 ? c : hour < 18 ? d : e
-      Vue.prototype.$baseNotify(tip1, `${thisTime}！`)
+      //Vue.prototype.$baseNotify(tip1, `${thisTime}！`)
     } else {
       Vue.prototype.$baseMessage(tip2 + `${tokenName}...`, 'error')
     }
