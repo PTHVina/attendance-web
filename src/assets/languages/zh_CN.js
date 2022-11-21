@@ -310,6 +310,10 @@ module.exports = {
     photo_named_by_name: '图像以人员姓名命名',
     photo_named_by_card_number: '图像以人员编号命名',
     photo_named_by_phone: '图像以电话号码命名',
+    property: '属性',
+    sex: '性别',
+    male: '男',
+    female: '女',
   },
   //设备管理
   device: {

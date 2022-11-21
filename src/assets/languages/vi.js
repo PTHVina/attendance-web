@@ -322,6 +322,10 @@ module.exports = {
     photo_named_by_card_number: 'Ảnh được đặt tên theo Số thẻ',
     photo_named_by_phone:
       'Bức ảnh được đặt tên theo số điện thoại của nhân viên',
+    property: 'Thuộc tính',
+    sex: 'Giới tính',
+    male: 'Người đàn ông',
+    female: 'Phụ nữ',
   },
   //设备管理
   device: {

@@ -606,219 +606,303 @@
 
     <!-- 新增/修改弹窗 -->
     <!-- 人员信息 -->
-    <el-dialog
+    <el-drawer
+      direction="ltr"
       :title="$t('personnel.text_4')"
       :close-on-click-modal="false"
       :visible.sync="dialogFormVisible"
-      :width="lang == 'zh_CN' ? '600px' : '720px'"
+      :width="lang == 'zh_CN' ? '610px' : '720px'"
       :destroy-on-close="true"
       :before-close="closeFn"
+      :wrapper-closable="false"
       top="50px"
+      custom-class="demo-drawer"
     >
-      <el-form
-        ref="setForm"
-        :model="form"
-        :label-width="
-          lang == 'zh_CN'
-            ? '80px'
-            : lang == 'Jan_JPN'
-            ? '140px'
-            : lang == 'en_US'
-            ? '160px'
-            : '180px'
-        "
-        :rules="rules"
-        size="medium"
-      >
-        <!-- 姓名 -->
-        <el-form-item :label="$t('personnel.text_1')" prop="name">
-          <el-input
-            v-model="form.name"
-            :placeholder="$t('personnel.pl_1')"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <!-- Line_userid -->
-        <el-form-item v-if="lang == 'Jan_JPN'" label="Line_userid">
-          <el-input
-            v-model="form.line_userid"
-            placeholder="Line_ueserid"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <!-- 送信モード -->
-        <el-form-item v-if="lang == 'Jan_JPN'" label="送信モード">
-          <el-radio-group v-model="form.line_type">
-            <el-radio label="1">Line</el-radio>
-            <el-radio label="2">メール</el-radio>
-            <el-radio label="3">Line メール</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <!-- 编号 -->
-        <el-form-item :label="$t('personnel.text_2')" prop="Employee_code">
-          <el-input
-            v-model="form.Employee_code"
-            :disabled.sync="isEdit"
-            :placeholder="
-              deliveryMethod ? $t('personnel.pl_15') : $t('personnel.title_5')
-            "
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <!-- 电话号码 -->
-        <el-form-item
-          :label="$t('personnel.text_3')"
-          :prop="lang == 'zh_CN' ? 'phone' : ''"
+      <div class="demo-drawer__content">
+        <el-form
+          ref="setForm"
+          style="overflow: auto; flex: 1"
+          :model="form"
+          :label-width="
+            lang == 'zh_CN'
+              ? '80px'
+              : lang == 'Jan_JPN'
+              ? '140px'
+              : lang == 'en_US'
+              ? '160px'
+              : '180px'
+          "
+          :rules="rules"
+          size="medium"
         >
-          <el-input
-            v-model="form.phone"
-            :placeholder="$t('personnel.text_3')"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <!-- 门禁卡号 -->
-        <el-form-item :label="$t('personnel.title_10')">
-          <el-input
-            v-model="form.face_idcard"
-            :placeholder="$t('personnel.title_10')"
-            autocomplete="off"
-            type="number"
-            style="width: 60%; margin-right: 20px"
-            :style="lang == 'Fr_fr' ? 'width:50%;' : ''"
-          ></el-input>
-          <el-radio-group v-model="form.idcardtype">
-            <el-radio label="32">32{{ $t('personnel.title_2') }}</el-radio>
-            <el-radio label="64">64{{ $t('personnel.title_2') }}</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <!-- 邮箱 -->
-        <el-form-item :label="$t('personnel.title_11')" prop="Email">
-          <el-input
-            v-model="form.Email"
-            :placeholder="$t('personnel.pl_2')"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <!-- 组织机构 -->
-        <el-form-item v-if="form.id" :label="$t('personnel.title_4')">
-          <!-- 归属=>编辑 -->
-          <el-cascader
-            ref="cascader"
-            key="cascader1"
-            v-model="form.departmentname"
-            :options="option"
-            :props="{
-              checkStrictly: true,
-              label: 'name',
-              value: 'name',
-              emitPath: false,
-            }"
-            :show-all-levels="false"
-            :placeholder="$t('personnel.pl_3')"
-            style="width: 100%"
-            @change="changeDepartment"
-          ></el-cascader>
-        </el-form-item>
-        <el-form-item v-else :label="$t('personnel.title_4')">
-          <!-- 归属=>新增 -->
-          <el-cascader
-            ref="cascader"
-            key="cascader2"
-            v-model="form.departmentname"
-            :options="option"
-            :props="{
-              checkStrictly: true,
-              label: 'name',
-              value: 'id',
-              emitPath: false,
-            }"
-            :show-all-levels="false"
-            :placeholder="$t('personnel.pl_3')"
-            style="width: 100%"
-            @change="changeDepartment"
-          ></el-cascader>
-        </el-form-item>
-        <!-- 人员类别 -->
-        <el-form-item :label="$t('personnel.title_6')" prop="Employetypename">
-          <el-select
-            v-model="form.Employetypename"
-            :placeholder="$t('personnel.pl_4')"
-            autocomplete="off"
-            style="width: 100%"
+          <!-- 姓名 -->
+          <el-form-item :label="$t('personnel.text_1')" prop="name">
+            <el-input
+              v-model="form.name"
+              :placeholder="$t('personnel.pl_1')"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <!--性别-->
+          <el-form-item :label="$t('personnel.sex')" prop="sex">
+            <el-radio-group v-model="form.sex">
+              <el-radio :label="$t('personnel.female')"></el-radio>
+              <el-radio :label="$t('personnel.male')"></el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <!-- Line_userid -->
+          <el-form-item v-if="lang == 'Jan_JPN'" label="Line_userid">
+            <el-input
+              v-model="form.line_userid"
+              placeholder="Line_ueserid"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <!-- 送信モード -->
+          <el-form-item v-if="lang == 'Jan_JPN'" label="送信モード">
+            <el-radio-group v-model="form.line_type">
+              <el-radio label="1">Line</el-radio>
+              <el-radio label="2">メール</el-radio>
+              <el-radio label="3">Line メール</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <!-- 编号 -->
+          <el-form-item :label="$t('personnel.text_2')" prop="Employee_code">
+            <el-input
+              v-model="form.Employee_code"
+              :disabled.sync="isEdit"
+              :placeholder="
+                deliveryMethod ? $t('personnel.pl_15') : $t('personnel.title_5')
+              "
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <!-- 电话号码 -->
+          <el-form-item
+            :label="$t('personnel.text_3')"
+            :prop="lang == 'zh_CN' ? 'phone' : ''"
           >
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.name"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <!-- 照片 -->
-        <el-form-item :label="$t('personnel.title_12')" prop="picture">
-          <div class="add_img">
-            <el-image
-              v-if="form.picture"
-              class="show_img"
-              :src="form.picture"
-              :preview-src-list="[form.picture]"
-              fit="contain"
-            ></el-image>
-            <i v-else class="el-icon-picture-outline"></i>
-            <div class="add_box">
-              <span
-                class="uploading"
-                :style="
-                  lang == 'zh_CN'
-                    ? ''
-                    : 'font-size:12px !important;margin-right:10px;'
-                "
-                @click="checkImg"
-              >
-                {{ $t('operation_btn.btn_text_16') }}
-              </span>
-              <span
-                class="photo"
-                :style="lang == 'zh_CN' ? '' : 'font-size:12px !important;'"
-                @click="photograph"
-              >
-                {{ $t('operation_btn.btn_text_17') }}
-              </span>
+            <el-input
+              v-model="form.phone"
+              :placeholder="$t('personnel.text_3')"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <!-- 门禁卡号 -->
+          <el-form-item :label="$t('personnel.title_10')">
+            <el-input
+              v-model="form.face_idcard"
+              :placeholder="$t('personnel.title_10')"
+              autocomplete="off"
+              type="number"
+              style="width: 60%; margin-right: 20px"
+              :style="lang == 'Fr_fr' ? 'width:50%;' : ''"
+            ></el-input>
+            <el-radio-group v-model="form.idcardtype">
+              <el-radio label="32">32{{ $t('personnel.title_2') }}</el-radio>
+              <el-radio label="64">64{{ $t('personnel.title_2') }}</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <!-- 邮箱 -->
+          <el-form-item :label="$t('personnel.title_11')" prop="Email">
+            <el-input
+              v-model="form.Email"
+              :placeholder="$t('personnel.pl_2')"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <!-- 组织机构 -->
+          <el-form-item v-if="form.id" :label="$t('personnel.title_4')">
+            <!-- 归属=>编辑 -->
+            <el-cascader
+              ref="cascader"
+              key="cascader1"
+              v-model="form.departmentname"
+              :options="option"
+              :props="{
+                checkStrictly: true,
+                label: 'name',
+                value: 'name',
+                emitPath: false,
+              }"
+              :show-all-levels="false"
+              :placeholder="$t('personnel.pl_3')"
+              style="width: 100%"
+              @change="changeDepartment"
+            ></el-cascader>
+          </el-form-item>
+          <el-form-item v-else :label="$t('personnel.title_4')">
+            <!-- 归属=>新增 -->
+            <el-cascader
+              ref="cascader"
+              key="cascader2"
+              v-model="form.departmentname"
+              :options="option"
+              :props="{
+                checkStrictly: true,
+                label: 'name',
+                value: 'id',
+                emitPath: false,
+              }"
+              :show-all-levels="false"
+              :placeholder="$t('personnel.pl_3')"
+              style="width: 100%"
+              @change="changeDepartment"
+            ></el-cascader>
+          </el-form-item>
+          <!-- 人员类别 -->
+          <el-form-item :label="$t('personnel.title_6')" prop="Employetypename">
+            <el-select
+              v-model="form.Employetypename"
+              :placeholder="$t('personnel.pl_4')"
+              autocomplete="off"
+              style="width: 100%"
+            >
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.name"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <!-- 照片 -->
+          <el-form-item :label="$t('personnel.title_12')" prop="picture">
+            <div class="add_img">
+              <el-image
+                v-if="form.picture"
+                class="show_img"
+                :src="form.picture"
+                :preview-src-list="[form.picture]"
+                fit="contain"
+              ></el-image>
+              <i v-else class="el-icon-picture-outline"></i>
+              <div class="add_box">
+                <span
+                  class="uploading"
+                  :style="
+                    lang == 'zh_CN'
+                      ? ''
+                      : 'font-size:12px !important;margin-right:10px;'
+                  "
+                  @click="checkImg"
+                >
+                  {{ $t('operation_btn.btn_text_16') }}
+                </span>
+                <span
+                  class="photo"
+                  :style="lang == 'zh_CN' ? '' : 'font-size:12px !important;'"
+                  @click="photograph"
+                >
+                  {{ $t('operation_btn.btn_text_17') }}
+                </span>
+              </div>
             </div>
+          </el-form-item>
+          <!--授权时间-->
+          <el-form-item :label="$t('personnel.authorized_time')">
+            <el-date-picker
+              v-model="authorized_time"
+              type="datetimerange"
+              unlink-panels="true"
+              :range-separator="$t('personnel.text_7')"
+              :start-placeholder="$t('personnel.text_8')"
+              :end-placeholder="$t('personnel.text_9')"
+              :default-time="['00:00:00', '23:59:59']"
+              style="width: 100%"
+              @change="checkTime"
+            ></el-date-picker>
+          </el-form-item>
+          <!-- 自定义字段 -->
+          <el-form-item :label="$t('personnel.title_18')" prop="customer_text">
+            <el-input
+              v-model="form.customer_text"
+              :placeholder="$t('personnel.pl_35')"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <div style="padding-left: 10px">
+            <el-link type="primary" @click="showExtra = !showExtra">
+              {{ $t('attendanceSet.text_66') }}
+              <i v-if="!showExtra" class="el-icon-arrow-down"></i>
+              <i v-else class="el-icon-arrow-up"></i>
+            </el-link>
           </div>
-        </el-form-item>
-        <!--授权时间-->
-        <el-form-item :label="$t('personnel.authorized_time')">
-          <el-date-picker
-            v-model="authorized_time"
-            type="datetimerange"
-            unlink-panels="true"
-            :range-separator="$t('personnel.text_7')"
-            :start-placeholder="$t('personnel.text_8')"
-            :end-placeholder="$t('personnel.text_9')"
-            :default-time="['00:00:00', '23:59:59']"
-            style="width: 100%"
-            @change="checkTime"
-          ></el-date-picker>
-        </el-form-item>
-        <!-- 自定义字段 -->
-        <el-form-item :label="$t('personnel.title_18')" prop="customer_text">
-          <el-input
-            v-model="form.customer_text"
-            :placeholder="$t('personnel.pl_35')"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="closeFn">
-          {{ $t('operation_btn.btn_text_4') }}
-        </el-button>
-        <el-button type="primary" @click="setFormData('setForm')">
-          {{ $t('operation_btn.btn_text_5') }}
-        </el-button>
+          <!-- 附加字段1 -->
+          <el-form-item
+            v-if="showExtra"
+            :label="propertyForm.extra1"
+            prop="extra1"
+          >
+            <el-input
+              v-model="form.extra1"
+              :placeholder="propertyForm.extra1"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <!-- 附加字段2 -->
+          <el-form-item
+            v-if="showExtra"
+            :label="propertyForm.extra2"
+            prop="extra2"
+          >
+            <el-input
+              v-model="form.extra2"
+              :placeholder="propertyForm.extra2"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <!-- 附加字段3 -->
+          <el-form-item
+            v-if="showExtra"
+            :label="propertyForm.extra3"
+            prop="extra3"
+          >
+            <el-input
+              v-model="form.extra3"
+              :placeholder="propertyForm.extra3"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <!-- 附加字段4 -->
+          <el-form-item
+            v-if="showExtra"
+            :label="propertyForm.extra4"
+            prop="extra4"
+          >
+            <el-input
+              v-model="form.extra4"
+              :placeholder="propertyForm.extra4"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <!-- 附加字段5 -->
+          <el-form-item
+            v-if="showExtra"
+            :label="propertyForm.extra5"
+            prop="extra5"
+          >
+            <el-input
+              v-model="form.extra5"
+              :placeholder="propertyForm.extra5"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="demo-drawer__footer">
+          <el-button class="flex1" @click="closeFn">
+            {{ $t('operation_btn.btn_text_4') }}
+          </el-button>
+          <el-button
+            type="primary"
+            class="flex1"
+            @click="setFormData('setForm')"
+          >
+            {{ $t('operation_btn.btn_text_5') }}
+          </el-button>
+        </div>
       </div>
-    </el-dialog>
+    </el-drawer>
 
     <!-- 设备弹窗 -->
     <!-- 下发设备 -->
@@ -958,13 +1042,14 @@
     setInform,
     downPicture,
   } from '@/api/personnel'
-  import { getParam } from '@/api/sysPage'
+  import { getParam, getPersonProperty } from '@/api/sysPage'
   import { getAllDepartment, getAllEmployeeType } from '@/api/accesscontrol'
   import { validateIdNumber } from '@/api/common'
   export default {
     name: 'PersonnelIndex',
     data() {
       return {
+        showExtra: false, //显示额外字段
         //departments: [],
         allDepartments: [],
         allEmployeeTypes: [],
@@ -986,6 +1071,14 @@
           dep: '',
           employeeTypeName: '',
           haspicture: '',
+        },
+        //人员属性
+        propertyForm: {
+          extra1: 'extra1',
+          extra2: 'extra2',
+          extra3: 'extra3',
+          extra4: 'extra4',
+          extra5: 'extra5',
         },
         page: {
           pageNo: 1,
@@ -1104,6 +1197,7 @@
     computed: {},
     watch: {},
     created() {
+      this.propertyForm = getPersonProperty()
       if (Object.keys(this.$route.query).length != 0) {
         this.queryForm.name = this.$route.query.name
         let path = this.$router.history.current.path
@@ -1184,7 +1278,7 @@
         //let list = getDataList(this.page)
         let list = queryList(this.page, this.queryForm)
         this.list = list[0]
-        // console.log('人员列表', list)
+        console.log('人员列表', list)
         this.page.total = list[1]
         let imageList = []
         this.list.forEach((item, index) => {
@@ -1411,6 +1505,12 @@
             customer_text: data.customer_text ?? '',
             term_start: data.term_start ?? '',
             term: data.term ?? '',
+            sex: data.sex ?? '',
+            extra1: data.extra1 ?? '',
+            extra2: data.extra2 ?? '',
+            extra3: data.extra3 ?? '',
+            extra4: data.extra4 ?? '',
+            extra5: data.extra5 ?? '',
           }
           this.departmentData = {
             id: data.department_id,
@@ -1907,6 +2007,23 @@
   .jan_btn {
     .el-button {
       margin-left: 10px !important;
+    }
+  }
+
+  .demo-drawer {
+    overflow: auto !important;
+  }
+
+  .demo-drawer__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .demo-drawer__footer {
+      display: flex;
+      margin: 5px 5px;
+      .flex1 {
+        flex: 1;
+      }
     }
   }
 </style>

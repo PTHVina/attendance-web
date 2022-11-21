@@ -316,6 +316,10 @@ module.exports = {
     photo_named_by_name: '人の名前',
     photo_named_by_card_number: '写真番号で名付けられた写真',
     photo_named_by_phone: '画像は携帯電話の名前です',
+    property: '・フィールド',
+    sex: '性別',
+    male: '男',
+    female: '女',
   },
   //设备管理
   device: {

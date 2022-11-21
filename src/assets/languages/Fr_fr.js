@@ -329,6 +329,10 @@ module.exports = {
     photo_named_by_card_number: 'Photo nommée par numéro de carte',
     photo_named_by_phone:
       'Image nommée d’après le numéro de téléphone de la personne',
+    property: 'Les champs',
+    sex: 'Le sexe',
+    male: 'Les hommes',
+    female: 'Les femmes',
   },
   //设备管理
   device: {

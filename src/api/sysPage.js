@@ -186,3 +186,12 @@ export function execCommand(command) {
 export function getReadme() {
   return window.top.myExtension.GetReadme()
 }
+
+export function setPersonProperty(property) {
+  let str = JSON.stringify(property)
+  return window.top.myExtension.SetPersonPropertyAlias(str)
+}
+
+export function getPersonProperty() {
+  return JSON.parse(window.top.myExtension.GetPersonPropertyAlias())
+}

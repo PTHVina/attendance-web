@@ -321,6 +321,10 @@ module.exports = {
     photo_named_by_name: 'Photo Named By Person Name',
     photo_named_by_card_number: 'Photo Named By Person Number',
     photo_named_by_phone: 'Photo Named By Phone Number',
+    property: 'field',
+    sex: 'gender',
+    male: 'male',
+    female: 'female',
   },
   //设备管理
   device: {

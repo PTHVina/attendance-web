@@ -68,7 +68,13 @@ export function setData(data) {
     data.idcardtype.toString(),
     data.customer_text ? data.customer_text.toString() : '',
     data.term_start ? data.term_start.toString() : '',
-    data.term ? data.term.toString() : ''
+    data.term ? data.term.toString() : '',
+    data.sex || '',
+    data.extra1 || '',
+    data.extra2 || '',
+    data.extra3 || '',
+    data.extra4 || '',
+    data.extra5 || ''
   )
   var re_json = JSON.parse(re)
 
@@ -91,7 +97,13 @@ export function editData(data) {
     data.idcardtype.toString(),
     data.customer_text.toString(),
     data.term_start.toString(),
-    data.term.toString()
+    data.term.toString(),
+    data.sex || '',
+    data.extra1 || '',
+    data.extra2 || '',
+    data.extra3 || '',
+    data.extra4 || '',
+    data.extra5 || ''
   )
   var re_json = JSON.parse(re)
 

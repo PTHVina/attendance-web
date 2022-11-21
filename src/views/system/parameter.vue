@@ -110,6 +110,69 @@
           </el-tooltip>
         </div>
       </li>
+      <!--人员属性-->
+      <li class="setting_row">
+        <div
+          class="set_item"
+          :style="
+            lang == 'en_US'
+              ? 'width:800px'
+              : lang == 'Fr_fr'
+              ? 'width:950px'
+              : lang == 'Jan_JPN'
+              ? 'width:600px'
+              : ''
+          "
+        >
+          <span class="item_title">{{ $t('personnel.text_4') }}</span>
+          <el-popover
+            v-model="showExtra"
+            placement="bottom"
+            width="200"
+            trigger="manual"
+          >
+            <div style="max-height: 90vh; overflow: scroll">
+              <el-form ref="form" :model="form" label-width="80px" size="mini">
+                <el-form-item :label="$t('personnel.property') + 1">
+                  <el-input v-model="form.extra1"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('personnel.property') + 2">
+                  <el-input v-model="form.extra2"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('personnel.property') + 3">
+                  <el-input v-model="form.extra3"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('personnel.property') + 4">
+                  <el-input v-model="form.extra4"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('personnel.property') + 5">
+                  <el-input v-model="form.extra5"></el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button
+                    type="primary"
+                    style="width: 100%"
+                    @click="onSubmit"
+                  >
+                    {{ $t('operation_btn.btn_text_5') }}
+                  </el-button>
+                </el-form-item>
+              </el-form>
+            </div>
+            <el-link
+              slot="reference"
+              type="primary"
+              @click="showExtra = !showExtra"
+            >
+              {{ $t('attendanceSet.text_66') }}
+              <i v-if="!showExtra" class="el-icon-arrow-down"></i>
+              <i v-else class="el-icon-arrow-up"></i>
+            </el-link>
+          </el-popover>
+        </div>
+      </li>
+
+      <li class="setting_row"></li>
       <!--分割线-->
       <el-divider></el-divider>
       <!--自动获取抓拍记录-->
@@ -261,6 +324,8 @@
     hideAttendanceConfigPage,
     getUserConfigObject,
     setShowTemperatueInCelsius,
+    setPersonProperty,
+    getPersonProperty,
   } from '@/api/sysPage'
   export default {
     name: 'Parameter',
@@ -279,12 +344,21 @@
         autoIssue: true,
         autoDataSyn: false,
         autoCaptureSyn: true,
+        showExtra: false,
+        form: {
+          extra1: '',
+          extra2: '',
+          extra3: '',
+          extra4: '',
+          extra5: '',
+        },
       }
     },
     created() {
       const cfg = getUserConfigObject()
       this.synchronizationTime = getSwitch()
       this.value = getParam()
+      this.form = getPersonProperty()
       this.enableLongTitle = cfg.EnableTitleLong
       this.longTitle = cfg.TitleLong
       this.shortTitle = cfg.TitleShort
@@ -366,6 +440,12 @@
       },
       setShowTemperature() {
         setShowTemperatueInCelsius(this.showTemperatureInCelsius)
+      },
+      onSubmit() {
+        setPersonProperty(this.form)
+        this.$nextTick(() => {
+          this.showExtra = !this.showExtra
+        })
       },
     },
   }
