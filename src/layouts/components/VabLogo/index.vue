@@ -53,6 +53,8 @@
         this.title = 'Système de visage'
       } else if (this.$lang == 'vi') {
         this.title = 'FaceRASystem'
+      } else if (this.$lang == 'ru') {
+        this.title = 'FaceRASystem'
       } else {
         this.title = this.$baseTitle
       }
