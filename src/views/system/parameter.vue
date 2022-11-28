@@ -171,6 +171,27 @@
           </el-popover>
         </div>
       </li>
+      <li class="setting_row">
+        <div
+          class="set_item"
+          :style="
+            lang == 'en_US'
+              ? 'width:800px'
+              : lang == 'Fr_fr'
+              ? 'width:950px'
+              : lang == 'Jan_JPN'
+              ? 'width:600px'
+              : ''
+          "
+        >
+          <span class="item_title">{{ $t('system.text_7') }}</span>
+          <el-input
+            v-model.number="currentScaleInPercent"
+            style="width: 200px"
+            @change="setScaleInPercent"
+          />
+        </div>
+      </li>
 
       <li class="setting_row"></li>
       <!--分割线-->
@@ -326,6 +347,7 @@
     setShowTemperatueInCelsius,
     setPersonProperty,
     getPersonProperty,
+    setScaleInPercent,
   } from '@/api/sysPage'
   export default {
     name: 'Parameter',
@@ -345,6 +367,7 @@
         autoDataSyn: false,
         autoCaptureSyn: true,
         showExtra: false,
+        currentScaleInPercent: 100,
         form: {
           extra1: '',
           extra2: '',
@@ -369,6 +392,7 @@
       this.autoIssue = cfg.AutoIssue
       this.autoDataSyn = cfg.AutoDataSyn
       this.autoCaptureSyn = cfg.AutoCaptureSyn
+      this.currentScaleInPercent = cfg.CurrentScaleInPercent
       // console.log(cfg)
       // console.log('this.autoDataSyn', this.autoDataSyn)
     },
@@ -440,6 +464,9 @@
       },
       setShowTemperature() {
         setShowTemperatueInCelsius(this.showTemperatureInCelsius)
+      },
+      setScaleInPercent() {
+        setScaleInPercent(this.currentScaleInPercent)
       },
       onSubmit() {
         setPersonProperty(this.form)

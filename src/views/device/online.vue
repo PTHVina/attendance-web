@@ -28,200 +28,7 @@
         </li>
       </ul>
     </div>
-    <div v-if="false" class="videoPage">
-      <div class="video_title">
-        <span
-          class="title_btn btn_1"
-          :class="box_num == 1 ? 'is_active' : ''"
-          @click="changeVideoType(1)"
-        ></span>
-        <span
-          class="title_btn btn_2"
-          :class="box_num == 2 ? 'is_active' : ''"
-          @click="changeVideoType(2)"
-        ></span>
-        <span
-          class="title_btn btn_3"
-          :class="box_num == 3 ? 'is_active' : ''"
-          @click="changeVideoType(3)"
-        ></span>
-        <span
-          class="title_btn btn_4"
-          :class="box_num == 4 ? 'is_active' : ''"
-          @click="changeVideoType(4)"
-        ></span>
-        <span
-          class="title_btn btn_5"
-          :class="box_num == 5 ? 'is_active' : ''"
-          @click="changeVideoType(5)"
-        ></span>
-        <span
-          class="title_btn btn_6"
-          :class="box_num == 6 ? 'is_active' : ''"
-          @click="changeVideoType(6)"
-        ></span>
-        <span
-          class="title_btn btn_7"
-          :class="box_num == 7 ? 'is_active' : ''"
-          @click="changeVideoType(7)"
-        ></span>
-        <span
-          class="title_btn btn_8"
-          :class="box_num == 8 ? 'is_active' : ''"
-          @click="changeVideoType(8)"
-        ></span>
-        <span
-          class="title_btn btn_9"
-          :class="box_num == 9 ? 'is_active' : ''"
-          @click="changeVideoType(9)"
-        ></span>
-        <span
-          class="title_btn btn_10"
-          :class="box_num == 10 ? 'is_active' : ''"
-          @click="changeVideoType(10)"
-        ></span>
-        <span
-          class="title_btn btn_11"
-          :class="box_num == 11 ? 'is_active' : ''"
-          @click="changeVideoType(11)"
-        ></span>
-        <span
-          class="title_btn btn_12"
-          :class="box_num == 12 ? 'is_active' : ''"
-          @click="changeVideoType(12)"
-        ></span>
-      </div>
-      <div class="video_box">
-        <!-- 1 -->
-        <div v-if="box_num == 1" class="box_1">
-          <div class="num_1">
-            <video src="" controls="controls"></video>
-            <div class="video_btn">
-              <span class="el-icon-video-play"></span>
-              <span v-if="false" class="el-icon-video-pause"></span>
-              <span class="el-icon-rank"></span>
-            </div>
-          </div>
-        </div>
-        <!-- 2 -->
-        <div v-if="box_num == 2" class="box_2">
-          <div class="num_1">
-            <video src="" controls="controls"></video>
-            <div class="video_btn">
-              <span class="el-icon-video-play"></span>
-              <span v-if="false" class="el-icon-video-pause"></span>
-              <span class="el-icon-rank"></span>
-            </div>
-          </div>
-          <div class="num_2">
-            <video src="" controls="controls"></video>
-            <div class="video_btn">
-              <span class="el-icon-video-play"></span>
-              <span v-if="false" class="el-icon-video-pause"></span>
-              <span class="el-icon-rank"></span>
-            </div>
-          </div>
-        </div>
-        <!-- 4 -->
-        <div
-          v-if="box_num == 3 || box_num == 4"
-          :class="box_num == 3 ? 'box_3' : 'box_4'"
-        >
-          <div class="num_1"></div>
-          <div class="num_2"></div>
-          <div class="num_3"></div>
-          <div class="num_4"></div>
-        </div>
-        <!-- 6 -->
-        <div
-          v-if="box_num == 5 || box_num == 6"
-          :class="box_num == 5 ? 'box_5' : 'box_6'"
-        >
-          <div class="num_1"></div>
-          <div class="num_2"></div>
-          <div class="num_3"></div>
-          <div class="num_4"></div>
-          <div class="num_5"></div>
-          <div class="num_6"></div>
-        </div>
-        <!-- 8 -->
-        <div v-if="box_num == 7" class="box_7">
-          <div class="num_1"></div>
-          <div class="num_2"></div>
-          <div class="num_3"></div>
-          <div class="num_4"></div>
-          <div class="num_5"></div>
-          <div class="num_6"></div>
-          <div class="num_7"></div>
-          <div class="num_8"></div>
-        </div>
-        <!-- 9 -->
-        <div
-          v-if="box_num == 8 || box_num == 9"
-          :class="box_num == 8 ? 'box_8' : 'box_9'"
-        >
-          <div class="num_1"></div>
-          <div class="num_2"></div>
-          <div class="num_3"></div>
-          <div class="num_4"></div>
-          <div class="num_5"></div>
-          <div class="num_6"></div>
-          <div class="num_7"></div>
-          <div class="num_8"></div>
-          <div class="num_9"></div>
-        </div>
-        <!-- 10 -->
-        <div v-if="box_num == 10" class="box_10">
-          <div class="num_1"></div>
-          <div class="num_2"></div>
-          <div class="num_3"></div>
-          <div class="num_4"></div>
-          <div class="num_5"></div>
-          <div class="num_6"></div>
-          <div class="num_7"></div>
-          <div class="num_8"></div>
-          <div class="num_9"></div>
-          <div class="num_10"></div>
-        </div>
-        <!-- 12 -->
-        <div v-if="box_num == 11" class="box_11">
-          <div class="num_1"></div>
-          <div class="num_2"></div>
-          <div class="num_3"></div>
-          <div class="num_4"></div>
-          <div class="num_5"></div>
-          <div class="num_6"></div>
-          <div class="num_7"></div>
-          <div class="num_8"></div>
-          <div class="num_9"></div>
-          <div class="num_10"></div>
-          <div class="num_11"></div>
-          <div class="num_12"></div>
-        </div>
-        <!-- 13 -->
-        <div v-if="box_num == 12" class="box_12">
-          <div class="num_1"></div>
-          <div class="num_2"></div>
-          <div class="num_3"></div>
-          <div class="num_4"></div>
-          <div class="num_5"></div>
-          <div class="num_6"></div>
-          <div class="num_7"></div>
-          <div class="num_8"></div>
-          <div class="num_9"></div>
-          <div class="num_10"></div>
-          <div class="num_11"></div>
-          <div class="num_12"></div>
-          <div class="num_13">
-            <div class="video_btn">
-              <span class="el-icon-video-play"></span>
-              <span v-if="false" class="el-icon-video-pause"></span>
-              <span class="el-icon-rank"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div ref="player" class="player"></div>
   </div>
 </template>
 <script>
@@ -232,6 +39,7 @@
     closePage,
     openDoor,
   } from '@/api/device'
+  import { getUserConfigObject } from '@/api/sysPage'
   export default {
     name: 'Online',
     data() {
@@ -242,28 +50,18 @@
         box_height: '', //容器高度
         box_left: '', //容器位置
         box_top: '', //容器位置
-
         box_num: 1, //选择按钮编号
       }
     },
     created() {},
     mounted() {
-      console.log(
-        this.$refs.videoList.offsetWidth,
-        this.$refs.videoBox.offsetWidth -
-          this.$refs.videoList.offsetWidth -
-          this.$refs.videoList.offsetLeft * 2
-      )
-      this.box_width =
-        this.$refs.videoBox.offsetWidth -
-        this.$refs.videoList.offsetWidth -
-        this.$refs.videoList.offsetLeft * 2
-      this.box_height = this.$refs.videoBox.offsetHeight
-      this.box_left =
-        this.$refs.videoBox.getBoundingClientRect().left +
-        this.$refs.videoList.offsetWidth +
-        this.$refs.videoList.offsetLeft * 2
-      this.box_top = this.$refs.videoBox.getBoundingClientRect().top
+      let config = getUserConfigObject()
+      let boundingRect = this.$refs.player.getBoundingClientRect()
+      this.box_left = (boundingRect.left * config.CurrentScaleInPercent) / 100
+      this.box_top = (boundingRect.top * config.CurrentScaleInPercent) / 100
+      this.box_width = (boundingRect.width * config.CurrentScaleInPercent) / 100
+      this.box_height =
+        (boundingRect.height * config.CurrentScaleInPercent) / 100
       console.log(this.box_width, this.box_height, this.box_left, this.box_top)
       this.init()
     },
@@ -307,6 +105,9 @@
 </script>
 
 <style lang="scss" scoped>
+  .player {
+    flex-grow: 1;
+  }
   #content {
     height: calc(100vh - 145px) !important;
     display: flex;
