@@ -171,7 +171,6 @@
           </el-popover>
         </div>
       </li>
-
       <li class="setting_row"></li>
       <!--分割线-->
       <el-divider></el-divider>

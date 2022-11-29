@@ -195,3 +195,7 @@ export function setPersonProperty(property) {
 export function getPersonProperty() {
   return JSON.parse(window.top.myExtension.GetPersonPropertyAlias())
 }
+
+export function setScaleInPercent(percent) {
+  window.top.myExtension.SetScaleInPercent(percent)
+}

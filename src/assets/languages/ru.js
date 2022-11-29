@@ -395,6 +395,7 @@ module.exports = {
     username: 'Имя пользователя',
     password: 'Пароль',
     personCount: 'perconCount',
+    playerPosAdjustment: 'Player Position',
   },
   //抓拍管理
   snapshot: {
