@@ -387,6 +387,7 @@ module.exports = {
     username: '账号',
     password: '密码',
     personCount: '人数',
+    playerPosAdjustment: '视频位置调整',
   },
   //抓拍管理
   snapshot: {

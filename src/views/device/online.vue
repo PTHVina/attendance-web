@@ -27,6 +27,17 @@
           </el-tooltip>
         </li>
       </ul>
+      <div class="scale-container">
+        <label for="">{{ $t('device.playerPosAdjustment') }}</label>
+        <el-input-number
+          v-model="scaleInPercent"
+          controls-position="right"
+          :min="100"
+          :max="300"
+          step="1"
+          @change="setScale"
+        ></el-input-number>
+      </div>
     </div>
     <div ref="player" class="player"></div>
   </div>
@@ -35,51 +46,52 @@
   import {
     getDeviceList,
     play,
-    setDome,
     closePage,
     openDoor,
+    setPlayerPos,
+    displayPlayer,
   } from '@/api/device'
-  import { getUserConfigObject } from '@/api/sysPage'
+  import { getUserConfigObject, setScaleInPercent } from '@/api/sysPage'
   export default {
     name: 'Online',
     data() {
       return {
         value: '', //设备ip
         options: [], //设备列表
-        box_width: '', //容器宽度
-        box_height: '', //容器高度
-        box_left: '', //容器位置
-        box_top: '', //容器位置
         box_num: 1, //选择按钮编号
+        scaleInPercent: 100,
       }
     },
     created() {},
     mounted() {
       let config = getUserConfigObject()
-      let boundingRect = this.$refs.player.getBoundingClientRect()
-      this.box_left = (boundingRect.left * config.CurrentScaleInPercent) / 100
-      this.box_top = (boundingRect.top * config.CurrentScaleInPercent) / 100
-      this.box_width = (boundingRect.width * config.CurrentScaleInPercent) / 100
-      this.box_height =
-        (boundingRect.height * config.CurrentScaleInPercent) / 100
-      console.log(this.box_width, this.box_height, this.box_left, this.box_top)
+      this.scaleInPercent = config.CurrentScaleInPercent
+
       this.init()
     },
     beforeDestroy() {
       closePage()
     },
     methods: {
+      playerPos() {
+        let boundingRect = this.$refs.player.getBoundingClientRect()
+        let left = (boundingRect.left * this.scaleInPercent) / 100
+        let top = (boundingRect.top * this.scaleInPercent) / 100
+        let width = (boundingRect.width * this.scaleInPercent) / 100
+        let height = (boundingRect.height * this.scaleInPercent) / 100
+
+        return {
+          left,
+          top,
+          width,
+          height,
+        }
+      },
       init() {
         let list = getDeviceList()
         this.options = list
-        // console.log(list, System, window)
-        let data = {
-          width: this.box_width,
-          height: this.box_height,
-          locationW: this.box_left,
-          locationH: this.box_top,
-        }
-        setDome(data)
+        setPlayerPos(this.playerPos())
+        displayPlayer()
       },
 
       changeVideoType(num) {
@@ -100,13 +112,18 @@
           }
         })
       },
+
+      setScale() {
+        setScaleInPercent(this.scaleInPercent)
+        setPlayerPos(this.playerPos())
+      },
     },
   }
 </script>
 
 <style lang="scss" scoped>
   .player {
-    flex-grow: 1;
+    flex: 1;
   }
   #content {
     height: calc(100vh - 145px) !important;
@@ -389,7 +406,6 @@
     background: white;
     border: 1px solid #eee;
     border-radius: 0 0 5px 5px;
-    cursor: pointer;
     li {
       width: calc(100% - 20px);
       min-height: 30px;
@@ -422,5 +438,10 @@
     li:last-child() {
       border: none;
     }
+  }
+  .scale-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 </style>

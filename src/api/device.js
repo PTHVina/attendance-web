@@ -155,14 +155,19 @@ export function getLocalIp() {
 }
 
 //显示监控
-export function setDome(data) {
-  window.top.myExtension.displayPanel(
-    data.width.toString(),
-    data.height.toString(),
-    data.locationW.toString(),
-    data.locationH.toString()
+export function displayPlayer() {
+  window.top.myExtension.displayPanel()
+}
+
+export function setPlayerPos(data) {
+  window.top.myExtension.setPlayerPos(
+    Math.round(data.left),
+    Math.round(data.top),
+    Math.round(data.width),
+    Math.round(data.height)
   )
 }
+
 //播放视屏
 export function play(ip) {
   window.top.myExtension.AppIp(ip)
