@@ -399,7 +399,7 @@ module.exports = {
     username: 'username',
     password: 'password',
     personCount: 'perconCount',
-    playerPosAdjustment: 'Player Position',
+    playerPosAdjustment: 'Player Pos',
   },
   //抓拍管理
   snapshot: {
