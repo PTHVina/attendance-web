@@ -1136,7 +1136,11 @@
             let res = ''
             if (this.form.IsConnected) {
               res = setCameraIP(this.ipParameters)
-              // console.log('res', res)
+              console.log('res', res)
+              if (!res) {
+                loading.close()
+                return
+              }
             }
             let data = {
               editIp: this.ipParameters.cameraIp,
