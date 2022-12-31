@@ -1,5 +1,5 @@
 <div align="center">
-<h1> vue-admin-beautiful（element-ui） </h1>
+<h1> Note: 高版本npm首次安装: npm install --force </h1>
 </div>
 
 ## 地址
