@@ -31,6 +31,7 @@
             <el-select
               v-model="queryForm.dep"
               multiple
+              filterable
               collapse-tags
               :placeholder="$t('accessControl.pleaseChooseDepartment')"
             >
@@ -48,6 +49,7 @@
             <el-select
               v-model="queryForm.employeeTypeName"
               multiple
+              filterable
               collapse-tags
               :placeholder="$t('personnel.pl_4')"
             >
