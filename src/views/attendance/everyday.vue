@@ -123,18 +123,14 @@
             <el-button icon="el-icon-setting" type="primary" @click="setExport">
               {{ $t('operation_btn.btn_text_31') }}
             </el-button>
-            <el-popover
-              v-model="datesPopoverVisible"
-              placement="bottom"
-              width="160"
-            >
+            <el-popover v-model="datesPopoverVisible" placement="bottom">
               <p>Select dates to recalculate attendance</p>
               <el-date-picker
                 v-model="datesToRecalculateAttendance"
                 type="dates"
-                placeholder="Pick one or more dates"
+                placeholder="Select Dates"
               ></el-date-picker>
-              <div style="text-align: right; margin: 0">
+              <div style="text-align: right; margin: 8px">
                 <el-button type="text" @click="datesPopoverVisible = false">
                   Cancel
                 </el-button>
@@ -144,6 +140,7 @@
               </div>
               <el-button
                 slot="reference"
+                style="margin-left: 16px"
                 :disabled="disableCalcAttendanceButton"
                 :loading="busyCalcAttendance"
               >
@@ -852,7 +849,7 @@
         currentDetailStartDate: '',
         currentDetailPersonId: '',
         currentDetailPersonName: '',
-        datesToRecalculateAttendance: [],
+        datesToRecalculateAttendance: '',
         datesPopoverVisible: false,
         disableCalcAttendanceButton: false,
         busyCalcAttendance: false,
@@ -1257,9 +1254,8 @@
       },
       calculateAttendanceForDates() {
         this.datesPopoverVisible = false
-        window.top.myExtension.CalculateAttendanceForDates(
-          this.datesToRecalculateAttendance
-        )
+        var datesJson = JSON.stringify(this.datesToRecalculateAttendance)
+        window.top.myExtension.CalculateAttendanceForDates(datesJson)
       },
     },
   }
