@@ -531,6 +531,8 @@ module.exports = {
     totalLateCount: 'Total Late Count',
     totalEarlyLeaveCount: 'Total Early Leave Count',
     totalEarlyLeaveDuration: 'Total Early Leave Duration',
+    manual_calc_attendance: 'Manually Calc Attendance',
+    sel_dates: 'Select Dates',
   },
   //考勤设置
   attendanceSet: {
@@ -683,5 +685,9 @@ module.exports = {
     defaultAccess: 'Default Rule:',
     ruleTips:
       'Define the accessible time slots, duing which the authorized personnels can access the door',
+  },
+  common: {
+    ok: 'OK',
+    cancel: 'Cancel',
   },
 }

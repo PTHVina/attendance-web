@@ -124,18 +124,17 @@
               {{ $t('operation_btn.btn_text_31') }}
             </el-button>
             <el-popover v-model="datesPopoverVisible" placement="bottom">
-              <p>Select dates to recalculate attendance</p>
               <el-date-picker
                 v-model="datesToRecalculateAttendance"
                 type="dates"
-                placeholder="Select Dates"
+                :placeholder="$t('attendance.sel_dates')"
               ></el-date-picker>
               <div style="text-align: right; margin: 8px">
                 <el-button type="text" @click="datesPopoverVisible = false">
-                  Cancel
+                  {{ $t('common.cancel') }}
                 </el-button>
                 <el-button type="primary" @click="calculateAttendanceForDates">
-                  OK
+                  {{ $t('common.ok') }}
                 </el-button>
               </div>
               <el-button
@@ -144,7 +143,7 @@
                 :disabled="disableCalcAttendanceButton"
                 :loading="busyCalcAttendance"
               >
-                手动计算考勤
+                {{ $t('attendance.manual_calc_attendance') }}
               </el-button>
             </el-popover>
           </el-form-item>
@@ -853,6 +852,7 @@
         datesPopoverVisible: false,
         disableCalcAttendanceButton: false,
         busyCalcAttendance: false,
+        refreshCalculatorInterval: null,
       }
     },
     computed: {
@@ -879,7 +879,16 @@
       this.loadAllDepartments()
     },
     beforeDestroy() {},
-    mounted() {},
+    mounted() {
+      this.refreshCalculatorInterval = setInterval(() => {
+        this.loadAttendanceCalculatorStatus()
+      }, 2000)
+    },
+    destroyed() {
+      if (this.refreshCalculatorInterval) {
+        clearInterval(this.refreshCalculatorInterval)
+      }
+    },
     methods: {
       formatCellTemperatureString,
       formatTemperatureString,

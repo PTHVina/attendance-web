@@ -498,6 +498,8 @@ module.exports = {
     text_54: '星期四',
     text_55: '星期五',
     text_56: '星期六',
+    manual_calc_attendance: '手动计算考勤',
+    sel_dates: '选择日期',
   },
   //考勤设置
   attendanceSet: {
@@ -646,5 +648,9 @@ module.exports = {
     fullAccess: '不限制进出',
     defaultAccess: '默认规则:',
     ruleTips: '定义可通行时间段',
+  },
+  common: {
+    ok: '确定',
+    cancel: '取消',
   },
 }
