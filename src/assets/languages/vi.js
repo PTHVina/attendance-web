@@ -508,6 +508,8 @@ module.exports = {
     text_54: 'Thứ Năm',
     text_55: 'Thứ Sáu',
     text_56: 'Thứ Bảy',
+    manual_calc_attendance: 'Manually Calc Attendance',
+    sel_dates: 'Select Dates',
   },
   //考勤设置
   attendanceSet: {
@@ -661,5 +663,9 @@ module.exports = {
     defaultAccess: 'Múi giờ mặc định:',
     ruleTips:
       'Định nghĩa các khoảng thời gian có thể đi qua, và các đối tượng không thể đi qua trong khoảng thời gian đó',
+  },
+  common: {
+    ok: '确定',
+    cancel: '取消',
   },
 }

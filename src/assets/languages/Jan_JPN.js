@@ -503,6 +503,8 @@ module.exports = {
     text_54: '木曜日',
     text_55: '金曜日',
     text_56: '土曜日',
+    manual_calc_attendance: 'Manually Calc Attendance',
+    sel_dates: 'Select Dates',
   },
   //考勤设置
   attendanceSet: {
@@ -649,5 +651,9 @@ module.exports = {
       'は次のミッションが実行されていますが、追加はできません',
     taskCreatedSuccessfully: '作成下での任務成功',
     ruleTips: '通行可能時間帯を定義し、対応者がいない時間帯は通行不可',
+  },
+  common: {
+    ok: '确定',
+    cancel: '取消',
   },
 }

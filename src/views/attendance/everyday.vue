@@ -123,6 +123,29 @@
             <el-button icon="el-icon-setting" type="primary" @click="setExport">
               {{ $t('operation_btn.btn_text_31') }}
             </el-button>
+            <el-popover v-model="datesPopoverVisible" placement="bottom">
+              <el-date-picker
+                v-model="datesToRecalculateAttendance"
+                type="dates"
+                :placeholder="$t('attendance.sel_dates')"
+              ></el-date-picker>
+              <div style="text-align: right; margin: 8px">
+                <el-button type="text" @click="datesPopoverVisible = false">
+                  {{ $t('common.cancel') }}
+                </el-button>
+                <el-button type="primary" @click="calculateAttendanceForDates">
+                  {{ $t('common.ok') }}
+                </el-button>
+              </div>
+              <el-button
+                slot="reference"
+                style="margin-left: 16px"
+                :disabled="disableCalcAttendanceButton"
+                :loading="busyCalcAttendance"
+              >
+                {{ $t('attendance.manual_calc_attendance') }}
+              </el-button>
+            </el-popover>
           </el-form-item>
         </el-form>
       </div>
@@ -825,6 +848,11 @@
         currentDetailStartDate: '',
         currentDetailPersonId: '',
         currentDetailPersonName: '',
+        datesToRecalculateAttendance: '',
+        datesPopoverVisible: false,
+        disableCalcAttendanceButton: false,
+        busyCalcAttendance: false,
+        refreshCalculatorInterval: null,
       }
     },
     computed: {
@@ -851,7 +879,16 @@
       this.loadAllDepartments()
     },
     beforeDestroy() {},
-    mounted() {},
+    mounted() {
+      this.refreshCalculatorInterval = setInterval(() => {
+        this.loadAttendanceCalculatorStatus()
+      }, 2000)
+    },
+    destroyed() {
+      if (this.refreshCalculatorInterval) {
+        clearInterval(this.refreshCalculatorInterval)
+      }
+    },
     methods: {
       formatCellTemperatureString,
       formatTemperatureString,
@@ -1218,6 +1255,16 @@
       loadAllDepartments() {
         const depts = getAllDepartment()
         this.allDepartments = depts
+      },
+      loadAttendanceCalculatorStatus() {
+        const status = window.top.myExtension.GetAttendanceCalculatorStatus()
+        this.disableCalcAttendanceButton = status.busy
+        this.busyCalcAttendance = status.busy
+      },
+      calculateAttendanceForDates() {
+        this.datesPopoverVisible = false
+        var datesJson = JSON.stringify(this.datesToRecalculateAttendance)
+        window.top.myExtension.CalculateAttendanceForDates(datesJson)
       },
     },
   }

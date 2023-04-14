@@ -520,6 +520,8 @@ module.exports = {
     text_54: 'Jeudi',
     text_55: 'Vendredi',
     text_56: 'Samedi',
+    manual_calc_attendance: 'Manually Calc Attendance',
+    sel_dates: 'Select Dates',
   },
   //考勤设置
   attendanceSet: {
@@ -675,5 +677,9 @@ module.exports = {
     taskCreatedSuccessfully: 'Création réussie de la tâche assignée',
     ruleTips:
       'Définition de la période passable pendant laquelle la personne correspondante n’est pas passable',
+  },
+  common: {
+    ok: 'OK',
+    cancel: 'Cancel',
   },
 }
