@@ -692,14 +692,15 @@
           </el-form-item>
           <!-- 门禁卡号 -->
           <el-form-item :label="$t('personnel.title_10')">
-            <el-input
+            <el-input-number
               v-model="form.face_idcard"
+              controls-position="right"
               :placeholder="$t('personnel.title_10')"
-              autocomplete="off"
-              type="number"
+              :min="0"
+              size="small"
               style="width: 60%; margin-right: 20px"
               :style="lang == 'Fr_fr' ? 'width:50%;' : ''"
-            ></el-input>
+            ></el-input-number>
             <el-radio-group v-model="form.idcardtype">
               <el-radio label="32">32{{ $t('personnel.title_2') }}</el-radio>
               <el-radio label="64">64{{ $t('personnel.title_2') }}</el-radio>
