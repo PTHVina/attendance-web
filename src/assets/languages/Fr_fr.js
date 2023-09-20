@@ -184,6 +184,7 @@ module.exports = {
     redlight_is_poor: 'Aberration excessive de la lumière infrarouge visible',
     light_bright: 'La lumière est trop brillante',
     face_fuzzy: 'Visage humain flou',
+    confirm_delete: 'La suppression en vrac est sur le point de suivre le temps de capture. Confirmez-vous?'
   },
   // 首页
   home: {
@@ -333,6 +334,7 @@ module.exports = {
     sex: 'Le sexe',
     male: 'Les hommes',
     female: 'Les femmes',
+    card_error: 'Numéro de carte incorrect'
   },
   //设备管理
   device: {
@@ -408,6 +410,7 @@ module.exports = {
     username: 'Le compte',
     password: 'Les mots de passe',
     personCount: 'Nombre de personnes',
+    interval:'Intervalle de comparaison'
   },
   //抓拍管理
   snapshot: {

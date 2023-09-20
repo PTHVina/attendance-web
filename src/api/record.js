@@ -34,6 +34,14 @@ export function delRecord(id) {
   let res = window.top.myExtension.delCapture_DataForid(id)
   return res
 }
+//按条件批量删除
+export function delRecordByDatetime(data) {
+  let res = window.top.myExtension.delCapture_DataByDatetime(
+    data.startTime,
+    data.endTime
+  )
+  return res
+}
 // 批量导出
 export function BatchXport(data, type, ids) {
   window.top.myExtension.BatchXportforCapture(

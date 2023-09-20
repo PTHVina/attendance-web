@@ -691,17 +691,16 @@
             ></el-input>
           </el-form-item>
           <!-- 门禁卡号 -->
-          <el-form-item :label="$t('personnel.title_10')">
-            <el-input-number
+          <!-- style="width: 60%; margin-right: 20px" -->
+          <el-form-item :label="$t('personnel.title_10')" prop="face_idcard">
+            <el-input
               v-model="form.face_idcard"
               controls-position="right"
               :placeholder="$t('personnel.title_10')"
-              :min="0"
               size="small"
-              style="width: 60%; margin-right: 20px"
               :style="lang == 'Fr_fr' ? 'width:50%;' : ''"
-            ></el-input-number>
-            <el-radio-group v-model="form.idcardtype">
+            ></el-input>
+            <el-radio-group v-show="false" v-model="form.idcardtype">
               <el-radio label="32">32{{ $t('personnel.title_2') }}</el-radio>
               <el-radio label="64">64{{ $t('personnel.title_2') }}</el-radio>
             </el-radio-group>
@@ -1163,6 +1162,23 @@
               trigger: 'blur',
             },
           ],
+          face_idcard: [
+            {
+              trigger: 'blur',
+              validator: (rule, value, callback) => {
+                console.log('idcard' + value)
+                if (value === '') {
+                  console.log('卡号为空')
+                  return callback()
+                }
+                if (/^-?\d+$/.test(value) && value < 4294967296 && value >= 0) {
+                  console.log('卡号满足要求')
+                  return callback()
+                }
+                return callback(new Error(this.$t('personnel.card_error')))
+              },
+            },
+          ],
           Employetypename: [
             {
               required: true,
@@ -1302,13 +1318,17 @@
       },
       //选中某行
       setSelectRow(selection, row) {
+        console.log('setSelectRow:', row)
         this.deleteSelectedRowFromTotalSelectedRows(row)
       },
       // 选中
       setSelectRows(val) {
-        // console.log(val)
+        console.log('setSelectRows:', val)
         this.selectRows = val
         this.addCurrectSelectedRows()
+        if (val.length == 0) {
+          this.deleteCurrentPageRows()
+        }
       },
       // 删除
       handleDelete(row) {
@@ -1354,6 +1374,8 @@
             this.$baseMessage(this.$t('operation_tips.tips_19'), 'warning')
             return
           } else if (res.result == 'success') {
+            this.gridData = getDeviceList()
+            console.log('获取设备列表：', this.gridData)
             this.deviceRows = []
             this.selectedStaffsToDeploy = []
             this.selectedStaffsToDeploy.push(row)
@@ -1522,7 +1544,7 @@
           }
         } else {
           this.isEdit = false
-          this.form.face_idcard = 8
+          //this.form.face_idcard = 8
         }
         this.form.term_start &&
           this.authorized_time.push(new Date(this.form.term_start))
@@ -1648,7 +1670,8 @@
             }
             let res
             if (this.form.face_idcard.length == 0) {
-              this.form.idcardtype = ''
+              this.form.idcardtype = 32
+              this.form.face_idcard = 8
             }
             if (this.form.idcardtype == 32) {
               // Math.pow(2,32)=4294967296
@@ -1878,6 +1901,14 @@
             this.totalSelectedRows.findIndex((el) => el.id === row.id) === -1
           ) {
             this.totalSelectedRows.push(row)
+          }
+        })
+      },
+      deleteCurrentPageRows() {
+        this.list.forEach((row) => {
+          let index = this.totalSelectedRows.findIndex((el) => el.id === row.id)
+          if (index != -1) {
+            this.totalSelectedRows.splice(index, 1)
           }
         })
       },

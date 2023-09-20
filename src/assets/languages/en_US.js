@@ -181,6 +181,7 @@ module.exports = {
     redlight_is_poor: 'Visible infrared light aberration is too large',
     light_bright: 'The light is too bright',
     face_fuzzy: 'The face of a fuzzy',
+    confirm_delete: 'Are you sure that batch deletion will be performed according to the capture time?'
   },
   // 首页
   home: {
@@ -325,6 +326,7 @@ module.exports = {
     sex: 'gender',
     male: 'male',
     female: 'female',
+    card_error: 'card error'
   },
   //设备管理
   device: {
@@ -400,6 +402,7 @@ module.exports = {
     password: 'password',
     personCount: 'perconCount',
     playerPosAdjustment: 'Player Pos',
+    interval:'Comparison interval'
   },
   //抓拍管理
   snapshot: {

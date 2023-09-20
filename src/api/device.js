@@ -39,6 +39,17 @@ export function editDevice(data) {
 
   return res_json
 }
+
+//修改设备上次查询时间
+export function editDeviceLastQuery(data) {
+  var res = window.top.myExtension.UpdateDeviceLastQuery(
+    data.id,
+    data.queryTime
+  )
+  var res_json = JSON.parse(res)
+
+  return res_json
+}
 //开闸
 export function openDoor(ip) {
   return new Promise(function (resolve, reject) {
@@ -106,7 +117,8 @@ export function setCameraParameters(data) {
     data.sensitivity,
     data.screensaver_mode.toString(),
     data.output_not_matched.toString(),
-    data.volume.toString()
+    data.volume.toString(),
+    data.derep_timeout.toString()
   )
   let data_json = JSON.parse(res)
 

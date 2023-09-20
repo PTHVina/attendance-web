@@ -177,6 +177,7 @@ module.exports = {
     redlight_is_poor: '可視光赤外光収差が大きすぎる',
     light_bright: '光が明るすぎる',
     face_fuzzy: '顔がぼやける',
+    confirm_delete: 'スナップに合わせて一括削除しますが、確認しますか?'
   },
   // 首页
   home: {
@@ -320,6 +321,7 @@ module.exports = {
     sex: '性別',
     male: '男',
     female: '女',
+    card_error: 'カード番号が間違っています'
   },
   //设备管理
   device: {
@@ -394,6 +396,7 @@ module.exports = {
     username: 'アカウント',
     password: 'パスワード',
     personCount: '人員の数',
+    interval:'照合間隔です'
   },
   //抓拍管理
   snapshot: {

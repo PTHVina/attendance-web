@@ -179,6 +179,7 @@ module.exports = {
     redlight_is_poor: 'проблема настройки инфракрасного изображения',
     light_bright: 'Слишком яркий свет',
     face_fuzzy: 'Изображение нечеткое',
+    confirm_delete: 'Готов к массированному удалению во время съемки.'
   },
   // 首页
   home: {
@@ -320,6 +321,7 @@ module.exports = {
     photo_named_by_card_number:
       'Фото, названное номером лица(человека на фото)',
     photo_named_by_phone: 'Фото, названное номером телефона',
+    card_error: 'Ошибка номера.'
   },
   //设备管理
   device: {
@@ -394,6 +396,7 @@ module.exports = {
     password: 'Пароль',
     personCount: 'perconCount',
     playerPosAdjustment: 'Player Position',
+    interval:'Сравнительный интервал'
   },
   //抓拍管理
   snapshot: {

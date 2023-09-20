@@ -131,8 +131,21 @@
         sortable
       >
         <template #default="{ row }">
-          <span v-if="row.personCount" :key="row.number">
+          <span v-if="row.personCount">
             {{ row.personCount }}
+          </span>
+        </template>
+      </el-table-column>
+      <!--查询时间-->
+      <el-table-column
+        show-overflow-tooltip
+        :label="$t('personnel.title_16')"
+        prop="queryTime"
+        sortable
+      >
+        <template #default="{ row }">
+          <span v-if="row.queryTime" class="add" @click="editQueryTime(row)">
+            {{ row.queryTime }}
           </span>
         </template>
       </el-table-column>
@@ -441,6 +454,10 @@
         >
           <el-slider v-model="setForm.volume" show-input></el-slider>
         </el-form-item>
+        <!--比对间隔-->
+        <el-form-item :label="$t('device.interval')">
+          <el-slider v-model="setForm.derep_timeout" show-input></el-slider>
+        </el-form-item>
         <!-- 活体检测 -->
         <el-form-item
           v-if="setForm.enableAlive !== ''"
@@ -601,6 +618,33 @@
         </el-button>
       </div>
     </el-dialog>
+
+    <!--编辑上次查询时间弹窗-->
+    <el-dialog
+      :title="$t('snapshot.text_4')"
+      :close-on-click-modal="false"
+      :visible.sync="dialogTimeVisible"
+      :destroy-on-close="true"
+      :before-close="closeFn"
+      width="30%"
+      center
+    >
+      <div style="text-align: center">
+        <el-date-picker
+          v-model="form.queryTime"
+          type="datetime"
+          :placeholder="$t('snapshot.text_6')"
+        ></el-date-picker>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="closeFn">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
+        <el-button type="primary" @click="setTimeData">
+          {{ $t('operation_btn.btn_text_5') }}
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -620,6 +664,7 @@
     setCameraIP,
     getLocalIp,
     getAllMyDevices,
+    editDeviceLastQuery,
   } from '@/api/device'
   import { toIssue3 } from '@/api/personnel'
   export default {
@@ -631,6 +676,7 @@
         listLoading: false, //列表加载
         layout: 'total',
         elementLoadingText: this.$t('operation_tips.tips_12'),
+        dialogTimeVisible: false,
         page: {
           pageNo: 1,
           pageSize: 100,
@@ -643,6 +689,8 @@
           IP: '',
           DeviceName: '',
           InOut: -1,
+          id: '',
+          queryTime: '',
         },
         rules: {
           IP: [
@@ -858,6 +906,7 @@
         list.forEach((element) => {
           element.IsConnected = false
         })
+        // console.log(list)
         this.list = list
         this.page.total = list.length
       },
@@ -980,11 +1029,14 @@
           done()
         } else {
           this.dialogFormVisible = false
+          this.dialogTimeVisible = false
         }
         this.form = {
           IP: '',
           DeviceName: '',
           InOut: -1,
+          id: '',
+          queryTime: '',
         }
       },
 
@@ -1054,12 +1106,15 @@
           return
         }
         this.dialogTypeVisible = true
-        console.log('res', res)
+        // console.log('res', res)
         this.setForm = {
           ip: row.ipAddress,
-          // dereplication: res.face.enable_dereplication, //允许注册重复
-          dereplication: 'true', //允许注册重复
+          // dereplication: res.face.enable_dereplication, //比对间隔
+          dereplication: 'true',
           enableAlive: res.face.enable_alive, //活体检测开关
+          derep_timeout: res.face.enable_dereplication
+            ? res.face.derep_timeout
+            : 0, //比对间隔
           enable: res.face.body_temperature.enable, //体温监测
           limit: Number(res.face.body_temperature.limit).toFixed(2).toString(), //开闸体温限制数值
           fillLight: res.led_control ? res.led_control.led_mode.toString() : '', //补光模式
@@ -1073,7 +1128,7 @@
               : '',
           volume: res.volume ? Number(res.volume) : '',
         }
-        console.log(this.setForm)
+        // console.log(this.setForm)
       },
       // 设置相机参数
       setting(formName) {
@@ -1136,7 +1191,7 @@
             let res = ''
             if (this.form.IsConnected) {
               res = setCameraIP(this.ipParameters)
-              console.log('res', res)
+              // console.log('res', res)
               if (!res) {
                 loading.close()
                 return
@@ -1174,6 +1229,23 @@
             return false
           }
         })
+      },
+      //编辑上次查询时间
+      editQueryTime(row) {
+        this.form.id = row.id
+        this.form.queryTime = row.queryTime
+        // console.log(row)
+        this.dialogTimeVisible = true
+      },
+      //设置上次查询时间
+      setTimeData() {
+        if (this.form.id && this.form.queryTime) {
+          editDeviceLastQuery(this.form)
+          this.closeFn()
+          setTimeout(() => {
+            this.loadMyDevices()
+          }, 500)
+        }
       },
     },
   }
@@ -1243,5 +1315,9 @@
   }
   .dialog_size::-webkit-scrollbar-track:hover {
     background-color: #f8fafc;
+  }
+
+  .cell:hover .add {
+    cursor: pointer;
   }
 </style>

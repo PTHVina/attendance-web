@@ -777,7 +777,12 @@
     setData,
     photograph,
   } from '@/api/personnel'
-  import { getRecordList, delRecord, BatchXport } from '@/api/record'
+  import {
+    getRecordList,
+    delRecord,
+    BatchXport,
+    delRecordByDatetime,
+  } from '@/api/record'
   import { getParam } from '@/api/sysPage'
   import { getAllMyDevices } from '@/api/device'
   import {
@@ -800,7 +805,7 @@
           name: '',
           devname: '',
           accreditTime: [], //授权时间范围
-          statime: '',
+          startime: '',
           endtime: '',
           selectedPersonTypes: [], //人员类别
           codestus: '', //健康码
@@ -1050,8 +1055,27 @@
               this.init()
             })
           } else {
-            this.$baseMessage(this.$t('operation_tips.tips_22'), 'error')
-            return false
+            if (this.queryForm.startTime && this.queryForm.endTime) {
+              this.$baseConfirm(
+                this.$t('operation_tips.confirm_delete'),
+                null,
+                () => {
+                  let res = delRecordByDatetime(this.queryForm)
+                  if (res) {
+                    this.$baseMessage(
+                      this.$t('operation_tips.tips_6'),
+                      'success'
+                    )
+                  } else {
+                    this.$baseMessage(this.$t('operation_tips.tips_5'), 'error')
+                  }
+                  this.init()
+                }
+              )
+            } else {
+              this.$baseMessage(this.$t('operation_tips.tips_22'), 'error')
+              return false
+            }
           }
         }
       },

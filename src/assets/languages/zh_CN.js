@@ -173,6 +173,8 @@ module.exports = {
     redlight_is_poor: '可见光红外光像差过大',
     light_bright: '光线太亮',
     face_fuzzy: '人脸模糊',
+    confirm_delete: '即将按照抓拍时间进行批量删除，是否确认？'
+
   },
   // 首页
   home: {
@@ -314,6 +316,7 @@ module.exports = {
     sex: '性别',
     male: '男',
     female: '女',
+    card_error: '卡号不正确'
   },
   //设备管理
   device: {
@@ -388,6 +391,7 @@ module.exports = {
     password: '密码',
     personCount: '人数',
     playerPosAdjustment: '视频位置调整',
+    interval: '比对间隔'
   },
   //抓拍管理
   snapshot: {

@@ -182,6 +182,7 @@ module.exports = {
       'Sự khác biệt giữa ánh sáng hồng ngoại nhìn thấy là quá lớn',
     light_bright: 'Ánh sáng là quá sáng',
     face_fuzzy: 'Khuôn mặt mờ',
+    confirm_delete: 'Sẽ theo thời gian chụp ảnh để loại bỏ hàng loạt, xác nhận?'
   },
   // 首页
   home: {
@@ -326,6 +327,7 @@ module.exports = {
     sex: 'Giới tính',
     male: 'Người đàn ông',
     female: 'Phụ nữ',
+    card_error: '卡号不正确'
   },
   //设备管理
   device: {
@@ -399,6 +401,7 @@ module.exports = {
     username: 'Tài khoản',
     password: 'Mật khẩu',
     personCount: 'Số lượng nhân viên',
+    interval: 'So sánh khoảng cách'
   },
   //抓拍管理
   snapshot: {
