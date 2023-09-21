@@ -109,6 +109,17 @@ export function editData(data) {
 
   return re_json
 }
+//批量编辑人员
+export function batchEditData(data, queryForm) {
+  window.top.myExtension.BatchEditStaff(
+    JSON.stringify(data),
+    JSON.stringify(queryForm)
+  )
+}
+//批量删除人员
+export function batchDelData(queryForm) {
+  window.top.myExtension.BatchDelStaff(JSON.stringify(queryForm))
+}
 //获取电脑图片
 export function openImg() {
   return window.top.myExtension.openImgeUrl()

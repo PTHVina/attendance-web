@@ -71,6 +71,7 @@ module.exports = {
     empty_device_face: '清空设备人脸',
     empty_record: '清空记录',
     export_image: '导出头像',
+    batch_operate:'批量操作'
   },
   // 操作提示
   operation_tips: {
@@ -173,8 +174,8 @@ module.exports = {
     redlight_is_poor: '可见光红外光像差过大',
     light_bright: '光线太亮',
     face_fuzzy: '人脸模糊',
-    confirm_delete: '即将按照抓拍时间进行批量删除，是否确认？'
-
+    confirm_delete: '即将按照抓拍时间进行批量删除，是否确认？',
+    effect_data: '生效数据为当前搜索数据，总共0条'
   },
   // 首页
   home: {

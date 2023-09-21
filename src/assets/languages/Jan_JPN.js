@@ -71,6 +71,7 @@ module.exports = {
     empty_device_face: '空にする装置の顔',
     empty_record: '記録を空にする',
     export_image: 'アイコンを導き出す',
+    batch_operate:'バッチ操作です'
   },
   // 操作提示
   operation_tips: {
@@ -177,7 +178,8 @@ module.exports = {
     redlight_is_poor: '可視光赤外光収差が大きすぎる',
     light_bright: '光が明るすぎる',
     face_fuzzy: '顔がぼやける',
-    confirm_delete: 'スナップに合わせて一括削除しますが、確認しますか?'
+    confirm_delete: 'スナップに合わせて一括削除しますが、確認しますか?',
+    effect_data: '有効データは現在の検索データで0件です'
   },
   // 首页
   home: {

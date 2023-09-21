@@ -71,6 +71,7 @@ module.exports = {
     empty_device_face: 'Làm sạch khuôn mặt thiết bị',
     empty_record: 'Dọn sạch hồ sơ',
     export_image: 'Xuất khẩu avatar',
+    batch_operate:'Hoạt động hàng loạt'
   },
   // 操作提示
   operation_tips: {
@@ -182,7 +183,8 @@ module.exports = {
       'Sự khác biệt giữa ánh sáng hồng ngoại nhìn thấy là quá lớn',
     light_bright: 'Ánh sáng là quá sáng',
     face_fuzzy: 'Khuôn mặt mờ',
-    confirm_delete: 'Sẽ theo thời gian chụp ảnh để loại bỏ hàng loạt, xác nhận?'
+    confirm_delete: 'Sẽ theo thời gian chụp ảnh để loại bỏ hàng loạt, xác nhận?',
+    effect_data: 'Dữ liệu có hiệu lực là dữ liệu tìm kiếm hiện thời, tổng cộng là 0'
   },
   // 首页
   home: {

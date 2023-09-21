@@ -72,6 +72,7 @@ module.exports = {
     tips_confirm: 'Assurez-vous de vider la galerie de visage de cet appareil:',
     empty_record: 'Vider les enregistrements',
     export_image: 'Exporter un avatar',
+    batch_operate:'Opération par lots'
   },
   // 操作提示
   operation_tips: {
@@ -184,7 +185,8 @@ module.exports = {
     redlight_is_poor: 'Aberration excessive de la lumière infrarouge visible',
     light_bright: 'La lumière est trop brillante',
     face_fuzzy: 'Visage humain flou',
-    confirm_delete: 'La suppression en vrac est sur le point de suivre le temps de capture. Confirmez-vous?'
+    confirm_delete: 'La suppression en vrac est sur le point de suivre le temps de capture. Confirmez-vous?',
+    effect_data: 'Les données en vigueur sont les données de recherche en cours. Total 0 articles'
   },
   // 首页
   home: {

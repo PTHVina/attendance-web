@@ -130,7 +130,7 @@
           {{ $t('operation_btn.btn_text_8') }}
         </el-button>
         <!--导出头像-->
-        <el-popover style="margin-right: 5px" trigger="click">
+        <el-popover style="margin-right: 10px" trigger="click">
           <div
             style="display: flex; flex-direction: column; align-items: stretch"
           >
@@ -152,16 +152,11 @@
           </el-button>
         </el-popover>
         <!-- 下载模板 -->
-        <el-button
-          icon="el-icon-download"
-          type="primary"
-          plain
-          @click="downDemo"
-        >
+        <el-button icon="el-icon-download" @click="downDemo">
           {{ $t('operation_btn.btn_text_10') }}
         </el-button>
         <!-- 批量导入 -->
-        <el-popover style="margin-left: 5px" trigger="click">
+        <el-popover trigger="click">
           <div
             style="display: flex; flex-direction: column; align-items: stretch"
           >
@@ -175,7 +170,6 @@
           <el-button
             slot="reference"
             icon="el-icon-folder-opened"
-            style="margin-left: 10px"
             type="primary"
           >
             {{ $t('operation_btn.btn_text_9') }}
@@ -217,8 +211,15 @@
             </el-button-group>
           </el-badge>
         </el-popover> -->
-
-        <!--批量操作-->
+        <!-- 批量操作 -->
+        <el-button
+          icon="el-icon-user"
+          style="margin-left: 10px"
+          @click="oneClickOperate"
+        >
+          {{ $t('operation_btn.batch_operate') }}
+        </el-button>
+        <!--批量下发，批量删除-->
         <el-popover trigger="hover">
           <div style="max-height: 50vh; overflow: scroll">
             <div v-for="row in totalSelectedRows" :key="row.id">
@@ -1020,6 +1021,111 @@
         <el-button type="primary" @click="setInform">保存</el-button>
       </span>
     </el-dialog>
+
+    <!--批量操作-->
+    <el-dialog
+      :title="$t('operation_btn.batch_operate')"
+      :visible.sync="dialogOperateVisible"
+      width="30%"
+    >
+      <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane :label="$t('personnel.text_4')" name="first">
+          <el-form ref="form" :model="form" label-width="80px">
+            <!--人员部门-->
+            <el-form-item :label="$t('personnel.title_4')">
+              <el-cascader
+                ref="cascader"
+                key="cascader2"
+                v-model="form.departmentname"
+                :options="option"
+                clearable
+                :props="{
+                  checkStrictly: true,
+                  label: 'name',
+                  value: 'id',
+                  emitPath: false,
+                }"
+                :show-all-levels="false"
+                :placeholder="$t('personnel.pl_3')"
+                style="width: 100%"
+                @change="changeDepartment"
+              ></el-cascader>
+            </el-form-item>
+            <!-- 人员类别 -->
+            <el-form-item :label="$t('personnel.title_6')">
+              <el-select
+                v-model="form.Employetypename"
+                clearable
+                :placeholder="$t('personnel.pl_4')"
+                autocomplete="off"
+                style="width: 100%"
+              >
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.name"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+            <!--授权时间-->
+            <el-form-item :label="$t('personnel.authorized_time')">
+              <el-date-picker
+                v-model="authorized_time"
+                type="datetimerange"
+                unlink-panels="true"
+                :range-separator="$t('personnel.text_7')"
+                :start-placeholder="$t('personnel.text_8')"
+                :end-placeholder="$t('personnel.text_9')"
+                :default-time="['00:00:00', '23:59:59']"
+                style="width: 100%"
+                @change="checkTime"
+              ></el-date-picker>
+            </el-form-item>
+            <!-- 自定义字段 -->
+            <el-form-item
+              :label="$t('personnel.title_18')"
+              prop="customer_text"
+            >
+              <el-input
+                v-model="form.customer_text"
+                :placeholder="$t('personnel.pl_35')"
+                autocomplete="off"
+              ></el-input>
+            </el-form-item>
+            <el-alert
+              :title="$t('operation_tips.effect_data').replace('0', page.total)"
+              type="warning"
+              center
+              show-icon
+              :closable="false"
+            ></el-alert>
+          </el-form>
+        </el-tab-pane>
+        <el-tab-pane :label="$t('operation_btn.btn_text_13')" name="second">
+          <el-alert
+            :title="$t('operation_tips.effect_data').replace('0', page.total)"
+            type="warning"
+            center
+            show-icon
+            :closable="false"
+          ></el-alert>
+        </el-tab-pane>
+      </el-tabs>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="closeFn">
+          {{ $t('operation_btn.btn_text_4') }}
+        </el-button>
+        <el-button
+          type="primary"
+          :disabled="page.total == 0"
+          @click="setOpserate"
+        >
+          {{ $t('operation_btn.btn_text_5') }}
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -1043,6 +1149,8 @@
     getInformList,
     setInform,
     downPicture,
+    batchEditData,
+    batchDelData,
   } from '@/api/personnel'
   import { getParam, getPersonProperty } from '@/api/sysPage'
   import { getAllDepartment, getAllEmployeeType } from '@/api/accesscontrol'
@@ -1065,6 +1173,7 @@
         selectRows: '', //选中行
         totalSelectedRows: [], //总共选中的行
         elementLoadingText: this.$t('operation_tips.tips_12'),
+        activeName: 'first', //批量操作tab激活项
         // 查询表单
         queryForm: {
           name: '',
@@ -1088,8 +1197,10 @@
           total: 0, //总数
         },
         dialogFormVisible: false, //表单弹窗控制
+        dialogOperateVisible: false, //批量操作弹窗控制
         option: [], // 组织机构列表
         options: [], // 人员类别
+
         // 新增、编辑
         form: {
           name: '',
@@ -1447,6 +1558,11 @@
           })
         })
       },
+      //一键操作
+      oneClickOperate() {
+        this.form.Employetypename = ''
+        this.dialogOperateVisible = true
+      },
       //下载模板
       downDemo() {
         download()
@@ -1717,6 +1833,7 @@
           done()
         } else {
           this.dialogFormVisible = false
+          this.dialogOperateVisible = false
         }
         this.form = {
           name: '',
@@ -1930,6 +2047,44 @@
           }
           this.loadPage()
         })
+      },
+      //点击tab
+      handleClick(tab, event) {
+        // console.log('handleClick:', tab, event)
+      },
+      //tab确定
+      setOpserate() {
+        console.log('当前activename:' + this.activeName)
+        if (this.activeName == 'first') {
+          //修改人员信息
+          console.log(this.form)
+          try {
+            batchEditData(this.form, this.queryForm)
+            this.$baseMessage(this.$t('operation_tips.tips_10'), 'success')
+            this.closeFn()
+            this.loadPage()
+          } catch (e) {
+            console.log(e)
+            this.$baseMessage(this.$t('personnel.pl_17'), 'error')
+            if (!this.form.idcardtype) {
+              this.form.idcardtype = '32'
+            }
+          }
+          return
+        }
+        if (this.activeName == 'second') {
+          //删除人员
+          console.log(this.queryForm)
+          try {
+            batchDelData(this.queryForm)
+            this.$baseMessage(this.$t('operation_tips.tips_6'), 'success')
+            this.closeFn()
+            this.loadPage()
+          } catch (e) {
+            console.log(e)
+            this.$baseMessage(this.$t('personnel.pl_17'), 'error')
+          }
+        }
       },
     },
   }

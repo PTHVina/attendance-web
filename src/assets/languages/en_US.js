@@ -72,6 +72,7 @@ module.exports = {
     tips_confirm: 'Are you sure to empty the face library?',
     empty_record: 'Empty record',
     export_image: 'Export the avatar',
+    batch_operate:'batch operate'
   },
   // 操作提示
   operation_tips: {
@@ -181,7 +182,8 @@ module.exports = {
     redlight_is_poor: 'Visible infrared light aberration is too large',
     light_bright: 'The light is too bright',
     face_fuzzy: 'The face of a fuzzy',
-    confirm_delete: 'Are you sure that batch deletion will be performed according to the capture time?'
+    confirm_delete: 'Are you sure that batch deletion will be performed according to the capture time?',
+    effect_data: 'Valid data indicates the current search data, 0 in total'
   },
   // 首页
   home: {
