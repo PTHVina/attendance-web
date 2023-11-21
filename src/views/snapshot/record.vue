@@ -668,6 +668,28 @@
             </div>
           </div>
         </el-form-item>
+        <!--授权时间-->
+        <el-form-item :label="$t('personnel.authorized_time')">
+          <el-date-picker
+            v-model="authorized_time"
+            type="datetimerange"
+            unlink-panels="true"
+            :range-separator="$t('personnel.text_7')"
+            :start-placeholder="$t('personnel.text_8')"
+            :end-placeholder="$t('personnel.text_9')"
+            :default-time="['00:00:00', '23:59:59']"
+            style="width: 100%"
+            @change="checkTime2"
+          ></el-date-picker>
+        </el-form-item>
+        <!-- 自定义字段 -->
+        <el-form-item :label="$t('personnel.title_18')">
+          <el-input
+            v-model="form.customer_text"
+            :placeholder="$t('personnel.pl_35')"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="closeFn">
@@ -835,7 +857,9 @@
           picture: '',
           line_userid: '',
           line_type: '1',
+          customer_text: '',
         },
+        authorized_time: [],
         rules: {
           name: [
             {
@@ -998,6 +1022,18 @@
           this.queryForm.endTime = ''
         }
       },
+      checkTime2(e) {
+        if (e) {
+          let start = this.getTime(e[0])
+          let end = this.getTime(e[1])
+          this.form.term_start = start[0] + ' ' + start[1]
+          this.form.term = end[0] + ' ' + end[1]
+          // alert(this.form.term_start+"\n"+this.form.term)
+        } else {
+          this.form.term_start = ''
+          this.form.term = ''
+        }
+      },
       //处理时间
       getTime(time) {
         var date = new Date(time)
@@ -1128,8 +1164,14 @@
             picture: data.closeup,
             line_userid: '',
             line_type: '1',
+            customer_text: '',
+            term_start: data.term_start ?? '',
+            term: data.term ?? '',
           }
         }
+        this.form.term_start &&
+          this.authorized_time.push(new Date(this.form.term_start))
+        this.form.term && this.authorized_time.push(new Date(this.form.term))
         if (!this.form.Employee_code && !this.deliveryMethod) {
           this.form.Employee_code = new Date().getTime().toString()
         }
@@ -1231,6 +1273,10 @@
                 return
               }
             }
+            this.form.term_start &&
+              this.authorized_time.push(new Date(this.form.term_start))
+            this.form.term &&
+              this.authorized_time.push(new Date(this.form.term))
             try {
               let res = setData(this.form)
               if (res.result == 2) {
@@ -1269,6 +1315,8 @@
           picture: '',
           line_userid: '',
           line_type: '1',
+          term_start: '',
+          term: '',
         }
       },
 
