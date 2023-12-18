@@ -71,7 +71,8 @@ module.exports = {
     empty_device_face: 'Làm sạch khuôn mặt thiết bị',
     empty_record: 'Dọn sạch hồ sơ',
     export_image: 'Xuất khẩu avatar',
-    batch_operate:'Hoạt động hàng loạt'
+    batch_operate:'Hoạt động hàng loạt',
+    export_detail: 'Xuất khẩu thông tin',
   },
   // 操作提示
   operation_tips: {

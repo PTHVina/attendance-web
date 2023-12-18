@@ -71,7 +71,8 @@ module.exports = {
     empty_device_face: '清空设备人脸',
     empty_record: '清空记录',
     export_image: '导出头像',
-    batch_operate:'批量操作'
+    batch_operate:'批量操作',
+    export_detail: '导出明细',
   },
   // 操作提示
   operation_tips: {

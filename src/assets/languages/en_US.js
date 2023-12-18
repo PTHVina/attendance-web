@@ -72,7 +72,8 @@ module.exports = {
     tips_confirm: 'Are you sure to empty the face library?',
     empty_record: 'Empty record',
     export_image: 'Export the avatar',
-    batch_operate:'batch operate'
+    batch_operate:'batch operate',
+    export_detail: 'export detail'
   },
   // 操作提示
   operation_tips: {

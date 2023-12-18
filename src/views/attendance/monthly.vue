@@ -94,6 +94,13 @@
             >
               {{ $t('operation_btn.btn_text_30') }}
             </el-button>
+            <el-button
+              icon="el-icon-folder"
+              type="primary"
+              @click="exportDataDetail"
+            >
+              {{ $t('operation_btn.export_detail') }}
+            </el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -557,6 +564,7 @@
     exportAttendanceMasterReport,
     exportPeriodicMasterReport,
     formatDuration,
+    exportDataDetail,
   } from '@/api/attendance'
   import {
     formatCellTemperatureString,
@@ -643,6 +651,14 @@
       exportData() {
         if (this.queryForm.date) {
           exportData(this.queryForm)
+        } else {
+          this.$baseMessage(this.$t('attendance.text_47'), 'warning')
+        }
+      },
+      //导出考勤明细
+      exportDataDetail() {
+        if (this.queryForm.date) {
+          exportDataDetail(this.queryForm)
         } else {
           this.$baseMessage(this.$t('attendance.text_47'), 'warning')
         }

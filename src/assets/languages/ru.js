@@ -72,7 +72,8 @@ module.exports = {
     tips_confirm: 'Действительно хотите удалить библиотеку лиц?',
     empty_record: 'Пустая запись',
     export_image: 'Скачать список сотрудников',
-    batch_operate:'Операция оптом'
+    batch_operate:'Операция оптом',
+    export_detail: 'Выводите тонкости',
   },
   // 操作提示
   operation_tips: {

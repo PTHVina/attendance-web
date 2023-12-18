@@ -92,6 +92,14 @@ export function exportData(data) {
     data.departments
   )
 }
+//导出明细
+export function exportDataDetail(data) {
+  window.top.myExtension.exportAttendanceinformationCollect(
+    data.date,
+    data.name,
+    data.departments
+  )
+}
 //获取单个人员每天数据
 export function getEverydayAllList(data) {
   return new Promise(function (resolve, reject) {

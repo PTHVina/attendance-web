@@ -72,7 +72,8 @@ module.exports = {
     tips_confirm: 'Assurez-vous de vider la galerie de visage de cet appareil:',
     empty_record: 'Vider les enregistrements',
     export_image: 'Exporter un avatar',
-    batch_operate:'Opération par lots'
+    batch_operate:'Opération par lots',
+    export_detail: 'Détail des exportations',
   },
   // 操作提示
   operation_tips: {

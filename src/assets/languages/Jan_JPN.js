@@ -71,7 +71,8 @@ module.exports = {
     empty_device_face: '空にする装置の顔',
     empty_record: '記録を空にする',
     export_image: 'アイコンを導き出す',
-    batch_operate:'バッチ操作です'
+    batch_operate:'バッチ操作です',
+    export_detail: '明細を導出します',
   },
   // 操作提示
   operation_tips: {
