@@ -9,7 +9,9 @@ export function getRecordList(data, page) {
     data.codestus,
     data.temp_from,
     data.temp_to,
-    data.wg_card_id
+    data.wg_card_id,
+    data.department,
+    data.jobClassification
   )
   let res = window.top.myExtension.getCapture_Data(
     data.startTime,
@@ -22,7 +24,9 @@ export function getRecordList(data, page) {
     data.temp_to,
     page.pageNo.toString(),
     page.pageSize.toString(),
-    data.wg_card_id
+    data.wg_card_id,
+    data.department,
+    data.jobClassification
   )
   let counts = JSON.parse(count)[0].count
   let list = JSON.parse(res)

@@ -9,6 +9,40 @@
           size="medium"
           @submit.native.prevent
         >
+          <!-- 组织机构 -->
+          <el-form-item>
+            <span>{{ $t('snapshot.text_30') }}</span>
+            <el-cascader
+              v-model.number="queryForm.department"
+              :options="departments"
+              :props="{
+                checkStrictly: true,
+                label: 'name',
+                value: 'id',
+                emitPath: false,
+              }"
+              :show-all-levels="false"
+              :placeholder="$t('snapshot.text_31')"
+              style="width: 100%"
+            ></el-cascader>
+          </el-form-item>
+          <!-- 人员类别 -->
+          <el-form-item prop="Employetypename">
+            <span>{{ $t('snapshot.text_32') }}</span>
+            <el-select
+              v-model.number="queryForm.jobClassification"
+              :placeholder="$t('snapshot.text_33')"
+              autocomplete="off"
+              style="width: 100%"
+            >
+              <el-option
+                v-for="item in jobClassifications"
+                :key="item.value"
+                :label="item.name"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
           <!-- 姓名 -->
           <el-form-item>
             <span>{{ $t('snapshot.text_1') }}</span>
@@ -607,7 +641,7 @@
         <el-form-item :label="$t('snapshot.text_30')">
           <el-cascader
             v-model="form.departmentname"
-            :options="option"
+            :options="departments"
             :props="{
               checkStrictly: true,
               label: 'name',
@@ -628,7 +662,7 @@
             style="width: 100%"
           >
             <el-option
-              v-for="item in options"
+              v-for="item in jobClassifications"
               :key="item.value"
               :label="item.name"
               :value="item.value"
@@ -834,6 +868,8 @@
           temp_from: '',
           temp_to: '',
           wg_card_id: '',
+          department: null,
+          jobClassification: null,
         },
         page: {
           pageNo: 1,
@@ -841,8 +877,8 @@
           total: 0, //总数
         },
         dialogFormVisible: false, //表单弹窗控制
-        option: [], // 组织机构列表
-        options: [], // 人员类别
+        departments: [], // 组织机构列表
+        jobClassifications: [], // 人员类别
         gridData: [], //设备列表
         // 注册
         form: {
@@ -987,8 +1023,8 @@
       typeList() {
         // 人员分类、组织机构列表
         let list = getTypeList()
-        this.option = list[0]
-        this.options = list[1]
+        this.departments = list[0]
+        this.jobClassifications = list[1]
         //设备列表
         let deviceList = getDeviceList()
         this.gridData = deviceList
@@ -1175,8 +1211,8 @@
         if (!this.form.Employee_code && !this.deliveryMethod) {
           this.form.Employee_code = new Date().getTime().toString()
         }
-        if (this.options.length != 0) {
-          this.form.Employetypename = this.options[0].value
+        if (this.jobClassifications.length != 0) {
+          this.form.Employetypename = this.jobClassifications[0].value
         }
         this.dialogFormVisible = true
       },
