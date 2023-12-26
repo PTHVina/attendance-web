@@ -59,6 +59,8 @@ export function BatchXport(data, type, ids) {
     data.temp_from,
     data.temp_to,
     ids.toString(),
-    data.wg_card_id
+    data.wg_card_id,
+    data.department,
+    data.jobClassification
   )
 }
