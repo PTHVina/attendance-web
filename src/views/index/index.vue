@@ -162,9 +162,9 @@
         <el-table-column show-overflow-tooltip label="" width="100px">
           <template #default="{ row }">
             <el-image
-              v-if="row.TemplateImage"
+              v-if="row.Staff && row.Staff.picture"
               :preview-src-list="imageList2"
-              :src="row.TemplateImage"
+              :src="row.Staff && row.Staff.picture"
               style="width: 68px; height: 68px"
             ></el-image>
           </template>

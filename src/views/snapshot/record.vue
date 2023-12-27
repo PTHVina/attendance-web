@@ -254,8 +254,8 @@
       >
         <template #default="{ row }">
           <el-image
-            v-if="row.TemplateImage"
-            :src="row.TemplateImage"
+            v-if="row.Staff && row.Staff.picture"
+            :src="row.Staff && row.Staff.picture"
           ></el-image>
         </template>
       </el-table-column>
@@ -302,13 +302,10 @@
         show-overflow-tooltip
         :label="$t('snapshot.text_4')"
         prop="time"
+        :formatter="localDateTimeFormatter"
         sortable
         width="200"
-      >
-        <template #default="{ row }">
-          <span>{{ row.time.split('.')[0] }}</span>
-        </template>
-      </el-table-column>
+      ></el-table-column>
       <!-- 设备名称 -->
       <el-table-column
         show-overflow-tooltip
@@ -847,7 +844,7 @@
     formatCellTemperatureString,
     formatTemperatureString,
   } from '@/utils/index'
-  import { validateIdNumber } from '@/api/common'
+  import { validateIdNumber, localDateTimeFormatter } from '@/api/common'
   export default {
     name: 'Record',
     data() {
@@ -1022,6 +1019,7 @@
     methods: {
       formatCellTemperatureString,
       formatTemperatureString,
+      localDateTimeFormatter,
       typeList() {
         // 人员分类、组织机构列表
         let list = getTypeList()
