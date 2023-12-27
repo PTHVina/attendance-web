@@ -92,7 +92,7 @@
           <el-form-item>
             <span>{{ $t('snapshot.text_16') }}</span>
             <el-input
-              v-model="queryForm.temp_from"
+              v-model.number="queryForm.temp_from"
               type="number"
               step="0.01"
               maxlength="4"
@@ -101,7 +101,7 @@
             />
             -
             <el-input
-              v-model="queryForm.temp_to"
+              v-model.number="queryForm.temp_to"
               type="number"
               step="0.01"
               maxlength="4"
