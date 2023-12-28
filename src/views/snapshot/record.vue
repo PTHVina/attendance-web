@@ -13,13 +13,14 @@
           <el-form-item>
             <span>{{ $t('snapshot.text_30') }}</span>
             <el-cascader
-              v-model.number="queryForm.department"
+              v-model="queryForm.department"
               :options="departments"
               :props="{
-                checkStrictly: true,
+                checkStrictly: false,
                 label: 'name',
                 value: 'id',
                 emitPath: false,
+                multiple: true,
               }"
               :show-all-levels="false"
               :placeholder="$t('snapshot.text_31')"
@@ -30,10 +31,11 @@
           <el-form-item prop="Employetypename">
             <span>{{ $t('snapshot.text_32') }}</span>
             <el-select
-              v-model.number="queryForm.jobClassification"
+              v-model="queryForm.jobClassification"
               :placeholder="$t('snapshot.text_33')"
               autocomplete="off"
               style="width: 100%"
+              multiple="true"
             >
               <el-option
                 v-for="item in jobClassifications"
@@ -90,7 +92,7 @@
           <el-form-item>
             <span>{{ $t('snapshot.text_16') }}</span>
             <el-input
-              v-model="queryForm.temp_from"
+              v-model.number="queryForm.temp_from"
               type="number"
               step="0.01"
               maxlength="4"
@@ -99,7 +101,7 @@
             />
             -
             <el-input
-              v-model="queryForm.temp_to"
+              v-model.number="queryForm.temp_to"
               type="number"
               step="0.01"
               maxlength="4"
@@ -252,8 +254,8 @@
       >
         <template #default="{ row }">
           <el-image
-            v-if="row.TemplateImage"
-            :src="row.TemplateImage"
+            v-if="row.Staff && row.Staff.picture"
+            :src="row.Staff && row.Staff.picture"
           ></el-image>
         </template>
       </el-table-column>
@@ -269,6 +271,22 @@
         show-overflow-tooltip
         prop="person_id"
         :label="$t('personnel.title_5')"
+        width="100px"
+      ></el-table-column>
+      <!-- 组织机构 -->
+      <el-table-column
+        if="Staff && Staff.Department && Staff.Department.name"
+        show-overflow-tooltip
+        prop="Staff.Department.name"
+        :label="$t('snapshot.text_30')"
+        width="100px"
+      ></el-table-column>
+      <!-- 工作类别 -->
+      <el-table-column
+        if="Staff && Staff.EmployeeType && Staff.EmployeeType.name"
+        show-overflow-tooltip
+        prop="Staff.EmployeeType.name"
+        :label="$t('snapshot.text_32')"
         width="100px"
       ></el-table-column>
       <!-- 体温 -->
@@ -300,13 +318,10 @@
         show-overflow-tooltip
         :label="$t('snapshot.text_4')"
         prop="time"
+        :formatter="localDateTimeFormatter"
         sortable
         width="200"
-      >
-        <template #default="{ row }">
-          <span>{{ row.time.split('.')[0] }}</span>
-        </template>
-      </el-table-column>
+      ></el-table-column>
       <!-- 设备名称 -->
       <el-table-column
         show-overflow-tooltip
@@ -845,7 +860,7 @@
     formatCellTemperatureString,
     formatTemperatureString,
   } from '@/utils/index'
-  import { validateIdNumber } from '@/api/common'
+  import { validateIdNumber, localDateTimeFormatter } from '@/api/common'
   export default {
     name: 'Record',
     data() {
@@ -868,8 +883,8 @@
           temp_from: '',
           temp_to: '',
           wg_card_id: '',
-          department: null,
-          jobClassification: null,
+          department: [],
+          jobClassification: [],
         },
         page: {
           pageNo: 1,
@@ -1020,6 +1035,7 @@
     methods: {
       formatCellTemperatureString,
       formatTemperatureString,
+      localDateTimeFormatter,
       typeList() {
         // 人员分类、组织机构列表
         let list = getTypeList()
@@ -1033,6 +1049,7 @@
         this.listLoading = true
         this.queryForm.stranger ? this.queryForm.stranger : '0'
         //this.queryForm.codestus < 3 ? this.queryForm.codestus : '3'
+        console.log(this.queryForm.department, this.queryForm.jobClassification)
         let { counts, list } = getRecordList(this.queryForm, this.page)
         this.page.total = counts
         this.list = list
