@@ -273,6 +273,22 @@
         :label="$t('personnel.title_5')"
         width="100px"
       ></el-table-column>
+      <!-- 组织机构 -->
+      <el-table-column
+        if="Staff && Staff.Department && Staff.Department.name"
+        show-overflow-tooltip
+        prop="Staff.Department.name"
+        :label="$t('snapshot.text_30')"
+        width="100px"
+      ></el-table-column>
+      <!-- 工作类别 -->
+      <el-table-column
+        if="Staff && Staff.EmployeeType && Staff.EmployeeType.name"
+        show-overflow-tooltip
+        prop="Staff.EmployeeType.name"
+        :label="$t('snapshot.text_32')"
+        width="100px"
+      ></el-table-column>
       <!-- 体温 -->
       <el-table-column
         show-overflow-tooltip
