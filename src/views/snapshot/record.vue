@@ -16,7 +16,7 @@
               v-model="queryForm.department"
               :options="departments"
               :props="{
-                checkStrictly: true,
+                checkStrictly: false,
                 label: 'name',
                 value: 'id',
                 emitPath: false,
