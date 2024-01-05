@@ -1311,43 +1311,6 @@
           //     trigger: 'blur',
           //   },
           // ],
-          pickerOptions: {
-            shortcuts: [
-              {
-                text: this.$t('personnel.one_month'),
-                // text: '一个月',
-                onClick(picker) {
-                  const end = new Date()
-                  const start = new Date()
-                  end.setTime(start.getTime() + 3600 * 1000 * 24 * 30)
-                  end.setHours(0, 0, 0, 0)
-                  picker.$emit('pick', [start, end])
-                },
-              },
-              {
-                text: this.$t('personnel.three_month'),
-                // text: '三个月',
-                onClick(picker) {
-                  const end = new Date()
-                  const start = new Date()
-                  end.setTime(start.getTime() + 3600 * 1000 * 24 * 90)
-                  end.setHours(0, 0, 0, 0)
-                  picker.$emit('pick', [start, end])
-                },
-              },
-              {
-                text: this.$t('personnel.one_year'),
-                // text: '一年',
-                onClick(picker) {
-                  const end = new Date()
-                  const start = new Date()
-                  end.setTime(start.getTime() + 3600 * 1000 * 24 * 365)
-                  end.setHours(0, 0, 0, 0)
-                  picker.$emit('pick', [start, end])
-                },
-              },
-            ],
-          },
         },
         dialogTableVisible: false, //表格弹窗控制
         gridData: [], //设备列表
@@ -1357,8 +1320,45 @@
         informDialogVisible: false,
         setList: [],
         setData: [],
-
         deliveryMethod: false, //下发方式
+
+        pickerOptions: {
+          shortcuts: [
+            {
+              text: this.$t('personnel.one_month'),
+              // text: '一个月',
+              onClick(picker) {
+                const end = new Date()
+                const start = new Date()
+                end.setTime(start.getTime() + 3600 * 1000 * 24 * 30)
+                end.setHours(0, 0, 0, 0)
+                picker.$emit('pick', [start, end])
+              },
+            },
+            {
+              text: this.$t('personnel.three_month'),
+              // text: '三个月',
+              onClick(picker) {
+                const end = new Date()
+                const start = new Date()
+                end.setTime(start.getTime() + 3600 * 1000 * 24 * 90)
+                end.setHours(0, 0, 0, 0)
+                picker.$emit('pick', [start, end])
+              },
+            },
+            {
+              text: this.$t('personnel.one_year'),
+              // text: '一年',
+              onClick(picker) {
+                const end = new Date()
+                const start = new Date()
+                end.setTime(start.getTime() + 3600 * 1000 * 24 * 365)
+                end.setHours(0, 0, 0, 0)
+                picker.$emit('pick', [start, end])
+              },
+            },
+          ],
+        },
       }
     },
     computed: {},

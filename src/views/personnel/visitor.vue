@@ -343,6 +343,16 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
+        <!-- 门禁卡号 -->
+        <el-form-item :label="$t('personnel.title_10')" prop="accessCardNo">
+          <el-input
+            v-model="form.accessCardNo"
+            controls-position="right"
+            :placeholder="$t('personnel.title_10')"
+            size="small"
+            :style="lang == 'Fr_fr' ? 'width:50%;' : ''"
+          ></el-input>
+        </el-form-item>
         <!-- 授权时间区间 -->
         <el-form-item :label="$t('personnel.text_13')" prop="date">
           <el-date-picker
@@ -353,6 +363,8 @@
             :end-placeholder="$t('personnel.text_9')"
             :default-time="['00:00:00', '23:59:59']"
             style="width: 100%"
+            value-format="yyyy-MM-dd HH:mm"
+            format="yyyy-MM-dd HH:mm"
             :picker-options="pickerOptions"
             @change="checkInfoTime"
           ></el-date-picker>
@@ -520,6 +532,7 @@
           img: '',
           idNumber: '',
           isEdit: false,
+          accessCardNo: '',
         },
         rules: {
           name: [
@@ -785,6 +798,7 @@
             endTime: data.endTime,
             img: data.imge,
             idNumber: data.idNumber,
+            accessCardNo: data.accessCardNo,
             isEdit: true,
           }
         }
@@ -920,6 +934,7 @@
       getDeviceList() {
         //设备列表
         let deviceList = getDeviceList()
+        console.log('deviceList', deviceList)
         this.gridData = deviceList
       },
       //人员下发
