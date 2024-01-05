@@ -68,8 +68,8 @@ export function getUserList(data, page) {
         data.codestus,
         null,
         null,
-        page.pageNo.toString(),
-        page.pageSize.toString()
+        page.pageNo,
+        page.pageSize
       )
     } catch {
       reject(false)

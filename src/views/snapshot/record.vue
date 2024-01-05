@@ -9,6 +9,42 @@
           size="medium"
           @submit.native.prevent
         >
+          <!-- 组织机构 -->
+          <el-form-item>
+            <span>{{ $t('snapshot.text_30') }}</span>
+            <el-cascader
+              v-model="queryForm.department"
+              :options="departments"
+              :props="{
+                checkStrictly: false,
+                label: 'name',
+                value: 'id',
+                emitPath: false,
+                multiple: true,
+              }"
+              :show-all-levels="false"
+              :placeholder="$t('snapshot.text_31')"
+              style="width: 100%"
+            ></el-cascader>
+          </el-form-item>
+          <!-- 人员类别 -->
+          <el-form-item prop="Employetypename">
+            <span>{{ $t('snapshot.text_32') }}</span>
+            <el-select
+              v-model="queryForm.jobClassification"
+              :placeholder="$t('snapshot.text_33')"
+              autocomplete="off"
+              style="width: 100%"
+              multiple="true"
+            >
+              <el-option
+                v-for="item in jobClassifications"
+                :key="item.value"
+                :label="item.name"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
           <!-- 姓名 -->
           <el-form-item>
             <span>{{ $t('snapshot.text_1') }}</span>
@@ -56,7 +92,7 @@
           <el-form-item>
             <span>{{ $t('snapshot.text_16') }}</span>
             <el-input
-              v-model="queryForm.temp_from"
+              v-model.number="queryForm.temp_from"
               type="number"
               step="0.01"
               maxlength="4"
@@ -65,7 +101,7 @@
             />
             -
             <el-input
-              v-model="queryForm.temp_to"
+              v-model.number="queryForm.temp_to"
               type="number"
               step="0.01"
               maxlength="4"
@@ -218,8 +254,8 @@
       >
         <template #default="{ row }">
           <el-image
-            v-if="row.TemplateImage"
-            :src="row.TemplateImage"
+            v-if="row.Staff && row.Staff.picture"
+            :src="row.Staff && row.Staff.picture"
           ></el-image>
         </template>
       </el-table-column>
@@ -235,6 +271,22 @@
         show-overflow-tooltip
         prop="person_id"
         :label="$t('personnel.title_5')"
+        width="100px"
+      ></el-table-column>
+      <!-- 组织机构 -->
+      <el-table-column
+        if="Staff && Staff.Department && Staff.Department.name"
+        show-overflow-tooltip
+        prop="Staff.Department.name"
+        :label="$t('snapshot.text_30')"
+        width="100px"
+      ></el-table-column>
+      <!-- 工作类别 -->
+      <el-table-column
+        if="Staff && Staff.EmployeeType && Staff.EmployeeType.name"
+        show-overflow-tooltip
+        prop="Staff.EmployeeType.name"
+        :label="$t('snapshot.text_32')"
         width="100px"
       ></el-table-column>
       <!-- 体温 -->
@@ -266,13 +318,10 @@
         show-overflow-tooltip
         :label="$t('snapshot.text_4')"
         prop="time"
+        :formatter="localDateTimeFormatter"
         sortable
         width="200"
-      >
-        <template #default="{ row }">
-          <span>{{ row.time.split('.')[0] }}</span>
-        </template>
-      </el-table-column>
+      ></el-table-column>
       <!-- 设备名称 -->
       <el-table-column
         show-overflow-tooltip
@@ -607,7 +656,7 @@
         <el-form-item :label="$t('snapshot.text_30')">
           <el-cascader
             v-model="form.departmentname"
-            :options="option"
+            :options="departments"
             :props="{
               checkStrictly: true,
               label: 'name',
@@ -628,7 +677,7 @@
             style="width: 100%"
           >
             <el-option
-              v-for="item in options"
+              v-for="item in jobClassifications"
               :key="item.value"
               :label="item.name"
               :value="item.value"
@@ -811,7 +860,7 @@
     formatCellTemperatureString,
     formatTemperatureString,
   } from '@/utils/index'
-  import { validateIdNumber } from '@/api/common'
+  import { validateIdNumber, localDateTimeFormatter } from '@/api/common'
   export default {
     name: 'Record',
     data() {
@@ -834,6 +883,8 @@
           temp_from: '',
           temp_to: '',
           wg_card_id: '',
+          department: [],
+          jobClassification: [],
         },
         page: {
           pageNo: 1,
@@ -841,8 +892,8 @@
           total: 0, //总数
         },
         dialogFormVisible: false, //表单弹窗控制
-        option: [], // 组织机构列表
-        options: [], // 人员类别
+        departments: [], // 组织机构列表
+        jobClassifications: [], // 人员类别
         gridData: [], //设备列表
         // 注册
         form: {
@@ -984,11 +1035,12 @@
     methods: {
       formatCellTemperatureString,
       formatTemperatureString,
+      localDateTimeFormatter,
       typeList() {
         // 人员分类、组织机构列表
         let list = getTypeList()
-        this.option = list[0]
-        this.options = list[1]
+        this.departments = list[0]
+        this.jobClassifications = list[1]
         //设备列表
         let deviceList = getDeviceList()
         this.gridData = deviceList
@@ -997,6 +1049,7 @@
         this.listLoading = true
         this.queryForm.stranger ? this.queryForm.stranger : '0'
         //this.queryForm.codestus < 3 ? this.queryForm.codestus : '3'
+        console.log(this.queryForm.department, this.queryForm.jobClassification)
         let { counts, list } = getRecordList(this.queryForm, this.page)
         this.page.total = counts
         this.list = list
@@ -1175,8 +1228,8 @@
         if (!this.form.Employee_code && !this.deliveryMethod) {
           this.form.Employee_code = new Date().getTime().toString()
         }
-        if (this.options.length != 0) {
-          this.form.Employetypename = this.options[0].value
+        if (this.jobClassifications.length != 0) {
+          this.form.Employetypename = this.jobClassifications[0].value
         }
         this.dialogFormVisible = true
       },

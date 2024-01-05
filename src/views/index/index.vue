@@ -162,9 +162,9 @@
         <el-table-column show-overflow-tooltip label="" width="100px">
           <template #default="{ row }">
             <el-image
-              v-if="row.TemplateImage"
+              v-if="row.Staff && row.Staff.picture"
               :preview-src-list="imageList2"
-              :src="row.TemplateImage"
+              :src="row.Staff && row.Staff.picture"
               style="width: 68px; height: 68px"
             ></el-image>
           </template>
@@ -211,11 +211,8 @@
           prop="time"
           sortable
           width="180px"
-        >
-          <template #default="{ row }">
-            <span>{{ row.time.split('.')[0] }}</span>
-          </template>
-        </el-table-column>
+          :formatter="localDateTimeFormatter"
+        ></el-table-column>
       </el-table>
     </div>
 
@@ -239,6 +236,7 @@
     formatCellTemperatureString,
     formatTemperatureString,
   } from '@/utils/index'
+  import { localDateTimeFormatter } from '@/api/common'
   import socket from '@/api/websocket'
   export default {
     name: 'Index',
@@ -340,6 +338,7 @@
     methods: {
       formatCellTemperatureString,
       formatTemperatureString,
+      localDateTimeFormatter,
       // 新手引导
       setGuide() {
         this.$confirm(

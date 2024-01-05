@@ -1,29 +1,15 @@
 //抓拍列表
 export function getRecordList(data, page) {
-  let count = window.top.myExtension.getCapture_Datacuont(
-    data.startTime,
-    data.endTime,
-    data.name,
-    data.devname,
-    data.selectedPersonTypes.toString(),
-    data.codestus,
-    data.temp_from,
-    data.temp_to,
-    data.wg_card_id
+  let json = JSON.stringify(data)
+  let count = window.top.myExtension.getCapture_Datacuont(json)
+  let paged = Object.assign(
+    { pageNo: page.pageNo, pageSize: page.pageSize },
+    data
   )
-  let res = window.top.myExtension.getCapture_Data(
-    data.startTime,
-    data.endTime,
-    data.name,
-    data.devname,
-    data.selectedPersonTypes.toString(),
-    data.codestus,
-    data.temp_from,
-    data.temp_to,
-    page.pageNo.toString(),
-    page.pageSize.toString(),
-    data.wg_card_id
-  )
+
+  let pagedJson = JSON.stringify(paged)
+  let res = window.top.myExtension.getCapture_Data(pagedJson)
+
   let counts = JSON.parse(count)[0].count
   let list = JSON.parse(res)
 
@@ -44,17 +30,7 @@ export function delRecordByDatetime(data) {
 }
 // 批量导出
 export function BatchXport(data, type, ids) {
-  window.top.myExtension.BatchXportforCapture(
-    data.startTime,
-    data.endTime,
-    data.name,
-    data.devname,
-    data.selectedPersonTypes.toString(),
-    data.codestus,
-    type,
-    data.temp_from,
-    data.temp_to,
-    ids.toString(),
-    data.wg_card_id
-  )
+  let cretia = Object.assign({ type, ids }, data)
+  let json = JSON.stringify(cretia)
+  window.top.myExtension.BatchXportforCapture(json)
 }

@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 export const accessControl = {
   noAccess: 0,
   fullAccess: 1,
@@ -99,4 +101,10 @@ export function validateIdNumber(code) {
     }
     return result
   }
+}
+
+export function localDateTimeFormatter(row, column, cellValue) {
+  let day = dayjs(cellValue)
+  let res = day.format('YYYY-MM-DD HH:mm:ss')
+  return res
 }

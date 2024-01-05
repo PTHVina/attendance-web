@@ -72,7 +72,7 @@ module.exports = {
     tips_confirm: 'Assurez-vous de vider la galerie de visage de cet appareil:',
     empty_record: 'Vider les enregistrements',
     export_image: 'Exporter un avatar',
-    batch_operate:'Opération par lots',
+    batch_operate: 'Opération par lots',
     export_detail: 'Détail des exportations',
   },
   // 操作提示
@@ -186,8 +186,10 @@ module.exports = {
     redlight_is_poor: 'Aberration excessive de la lumière infrarouge visible',
     light_bright: 'La lumière est trop brillante',
     face_fuzzy: 'Visage humain flou',
-    confirm_delete: 'La suppression en vrac est sur le point de suivre le temps de capture. Confirmez-vous?',
-    effect_data: 'Les données en vigueur sont les données de recherche en cours. Total 0 articles'
+    confirm_delete:
+      'La suppression en vrac est sur le point de suivre le temps de capture. Confirmez-vous?',
+    effect_data:
+      'Les données en vigueur sont les données de recherche en cours. Total 0 articles',
   },
   // 首页
   home: {
@@ -343,8 +345,7 @@ module.exports = {
     one_week: 'Pour une semaine',
     one_month:'Pour un mois',
     three_month:'Trois mois',
-    one_year:'Par rapport à l’année',
-  },
+    one_year:'Par rapport à l’année',  },
   //设备管理
   device: {
     text_1: 'Numéro de série',
@@ -419,7 +420,7 @@ module.exports = {
     username: 'Le compte',
     password: 'Les mots de passe',
     personCount: 'Nombre de personnes',
-    interval:'Intervalle de comparaison'
+    interval: 'Intervalle de comparaison',
   },
   //抓拍管理
   snapshot: {
@@ -674,7 +675,7 @@ module.exports = {
     notes:
       "1. Ordre d'émission des règles: classification des emplois - > Ministère - > employé individuel. C'est - à - dire, si trois types de règles d'émission sont ajoutés en même temps, la classification des emplois sera publiée en premier, puis le Ministère, et enfin l'employé individuel. Les règles publiées plus tard écraseront Les règles publiées en premier.2. Ordre dans lequel il est recommandé d'ajouter des règles: classification des emplois - > Ministère - > employé individuel.3. Pour les règles de distribution du Ministère, les dépendances des ministères supérieurs et inférieurs du Ministère ne seront pas trouvées, c'est - à - dire que si un employé appartient au Ministère a, le Ministère a doit être sélectionné lors de l'ajout des règles de distribution du Ministère, et le parent du Ministère a ne distribuera pas l'employé.",
     issueTip:
-      'S’il vous plaît assurez-vous que le personnel a été envoyé avec succès, sinon les règles de planification ne seront pas en vigueur, continuer?',
+      "S'il vous plaît assurez-vous que le personnel a été envoyé avec succès, sinon les règles de planification ne seront pas en vigueur, continuer?",
     refresh: 'Rafraîchir',
     createdTime: 'Temps de création',
     progress: 'Progrès accomplis',
