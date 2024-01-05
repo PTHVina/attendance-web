@@ -324,7 +324,13 @@ module.exports = {
     sex: '性別',
     male: '男',
     female: '女',
-    card_error: 'カード番号が間違っています'
+    card_error: 'カード番号が間違っています',
+    one_day:'一日です',
+    three_day:'三日です',
+    one_week: '一週間です',
+    one_month:'ひと月です',
+    three_month:'三ヶ月です',
+    one_year:'一年です',
   },
   //设备管理
   device: {

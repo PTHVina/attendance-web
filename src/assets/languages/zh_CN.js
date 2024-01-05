@@ -318,7 +318,13 @@ module.exports = {
     sex: '性别',
     male: '男',
     female: '女',
-    card_error: '卡号不正确'
+    card_error: '卡号不正确',
+    one_day:'一天',
+    three_day:'三天',
+    one_week: '一星期',
+    one_month:'一个月',
+    three_month:'三个月',
+    one_year:'一年',
   },
   //设备管理
   device: {

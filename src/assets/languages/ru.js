@@ -324,7 +324,13 @@ module.exports = {
     photo_named_by_card_number:
       'Фото, названное номером лица(человека на фото)',
     photo_named_by_phone: 'Фото, названное номером телефона',
-    card_error: 'Ошибка номера.'
+    card_error: 'Ошибка номера.',
+    one_day:'ден',
+    three_day:'Три дня',
+    one_week: 'Неделю.',
+    one_month:'Месяц.',
+    three_month:'Три месяца.',
+    one_year:'год',
   },
   //设备管理
   device: {

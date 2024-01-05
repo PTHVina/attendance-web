@@ -330,7 +330,13 @@ module.exports = {
     sex: 'Giới tính',
     male: 'Người đàn ông',
     female: 'Phụ nữ',
-    card_error: '卡号不正确'
+    card_error: 'Số thẻ không phải là chính xác',
+    one_day:'Một ngày',
+    three_day:'Ba ngày',
+    one_week: 'Một tuần',
+    one_month:'Một tháng',
+    three_month:'Ba tháng',
+    one_year:'Một năm',
   },
   //设备管理
   device: {

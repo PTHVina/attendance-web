@@ -329,7 +329,13 @@ module.exports = {
     sex: 'gender',
     male: 'male',
     female: 'female',
-    card_error: 'card error'
+    card_error: 'card error',
+    one_day:'one day',
+    three_day:'three day',
+    one_week: 'one week',
+    one_month:'one month',
+    three_month:'three month',
+    one_year:'one year',
   },
   //设备管理
   device: {

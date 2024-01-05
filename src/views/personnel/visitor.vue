@@ -351,9 +351,9 @@
             :range-separator="$t('personnel.text_7')"
             :start-placeholder="$t('personnel.text_8')"
             :end-placeholder="$t('personnel.text_9')"
-            value-format="yyyy-MM-dd HH:mm"
-            format="yyyy-MM-dd HH:mm"
+            :default-time="['00:00:00', '23:59:59']"
             style="width: 100%"
+            :picker-options="pickerOptions"
             @change="checkInfoTime"
           ></el-date-picker>
         </el-form-item>
@@ -554,6 +554,41 @@
               required: true,
               message: this.$t('operation_tips.tips_19'),
               trigger: 'blur',
+            },
+          ],
+        },
+        pickerOptions: {
+          shortcuts: [
+            {
+              text: this.$t('personnel.one_day'),
+              onClick(picker) {
+                const end = new Date()
+                const start = new Date()
+                end.setTime(start.getTime() + 3600 * 1000 * 24)
+                // 设置明天的开始时间，即将时分秒重置为0
+                end.setHours(0, 0, 0, 0)
+                picker.$emit('pick', [start, end])
+              },
+            },
+            {
+              text: this.$t('personnel.three_day'),
+              onClick(picker) {
+                const end = new Date()
+                const start = new Date()
+                end.setTime(start.getTime() + 3600 * 1000 * 24 * 3)
+                end.setHours(0, 0, 0, 0)
+                picker.$emit('pick', [start, end])
+              },
+            },
+            {
+              text: this.$t('personnel.one_week'),
+              onClick(picker) {
+                const end = new Date()
+                const start = new Date()
+                end.setTime(start.getTime() + 3600 * 1000 * 24 * 7)
+                end.setHours(0, 0, 0, 0)
+                picker.$emit('pick', [start, end])
+              },
             },
           ],
         },

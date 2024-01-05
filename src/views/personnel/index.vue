@@ -807,12 +807,12 @@
             <el-date-picker
               v-model="authorized_time"
               type="datetimerange"
-              unlink-panels="true"
               :range-separator="$t('personnel.text_7')"
               :start-placeholder="$t('personnel.text_8')"
               :end-placeholder="$t('personnel.text_9')"
               :default-time="['00:00:00', '23:59:59']"
               style="width: 100%"
+              :picker-options="pickerOptions"
               @change="checkTime"
             ></el-date-picker>
           </el-form-item>
@@ -1311,6 +1311,43 @@
           //     trigger: 'blur',
           //   },
           // ],
+          pickerOptions: {
+            shortcuts: [
+              {
+                text: this.$t('personnel.one_month'),
+                // text: '一个月',
+                onClick(picker) {
+                  const end = new Date()
+                  const start = new Date()
+                  end.setTime(start.getTime() + 3600 * 1000 * 24 * 30)
+                  end.setHours(0, 0, 0, 0)
+                  picker.$emit('pick', [start, end])
+                },
+              },
+              {
+                text: this.$t('personnel.three_month'),
+                // text: '三个月',
+                onClick(picker) {
+                  const end = new Date()
+                  const start = new Date()
+                  end.setTime(start.getTime() + 3600 * 1000 * 24 * 90)
+                  end.setHours(0, 0, 0, 0)
+                  picker.$emit('pick', [start, end])
+                },
+              },
+              {
+                text: this.$t('personnel.one_year'),
+                // text: '一年',
+                onClick(picker) {
+                  const end = new Date()
+                  const start = new Date()
+                  end.setTime(start.getTime() + 3600 * 1000 * 24 * 365)
+                  end.setHours(0, 0, 0, 0)
+                  picker.$emit('pick', [start, end])
+                },
+              },
+            ],
+          },
         },
         dialogTableVisible: false, //表格弹窗控制
         gridData: [], //设备列表
