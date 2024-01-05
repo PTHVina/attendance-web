@@ -266,7 +266,8 @@ export function addVisitor(data) {
     data.img.toString(),
     data.startTime.toString(),
     data.endTime.toString(),
-    data.idNumber.toString()
+    data.idNumber.toString(),
+    data.accessCardNo
   )
   var res_json = JSON.parse(res)
 
@@ -281,7 +282,8 @@ export function editVisitor(data) {
     data.startTime.toString(),
     data.endTime.toString(),
     data.id.toString(),
-    data.idNumber.toString()
+    data.idNumber.toString(),
+    data.accessCardNo
   )
   var res_json = JSON.parse(res)
 
@@ -302,6 +304,7 @@ export function issueVisitor(data, devices) {
     data.endTime.toString(),
     data.id.toString(),
     data.idNumber,
+    data.accessCardNo,
     JSON.stringify(devices)
   )
 
