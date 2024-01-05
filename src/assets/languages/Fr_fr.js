@@ -345,7 +345,11 @@ module.exports = {
     one_week: 'Pour une semaine',
     one_month:'Pour un mois',
     three_month:'Trois mois',
-    one_year:'Par rapport à l’année',  },
+    one_year:'Par rapport à l’année',  
+    one_hour:'Pendant une heure',
+    two_hour:'Pendant deux heures',
+    three_hour:'Pendant trois heures'
+  },
   //设备管理
   device: {
     text_1: 'Numéro de série',

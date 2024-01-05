@@ -331,6 +331,9 @@ module.exports = {
     one_month:'ひと月です',
     three_month:'三ヶ月です',
     one_year:'一年です',
+    one_hour:'一時間です',
+    two_hour:'二時間です',
+    three_hour:'三時間です'
   },
   //设备管理
   device: {

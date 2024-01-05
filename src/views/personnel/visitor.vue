@@ -560,6 +560,33 @@
         pickerOptions: {
           shortcuts: [
             {
+              text: this.$t('personnel.one_hour'),
+              onClick(picker) {
+                const end = new Date()
+                const start = new Date()
+                end.setTime(start.getTime() + 3600 * 1000 * 1)
+                picker.$emit('pick', [start, end])
+              },
+            },
+            {
+              text: this.$t('personnel.two_hour'),
+              onClick(picker) {
+                const end = new Date()
+                const start = new Date()
+                end.setTime(start.getTime() + 3600 * 1000 * 2)
+                picker.$emit('pick', [start, end])
+              },
+            },
+            {
+              text: this.$t('personnel.three_hour'),
+              onClick(picker) {
+                const end = new Date()
+                const start = new Date()
+                end.setTime(start.getTime() + 3600 * 1000 * 3)
+                picker.$emit('pick', [start, end])
+              },
+            },
+            {
               text: this.$t('personnel.one_day'),
               onClick(picker) {
                 const end = new Date()
@@ -570,26 +597,26 @@
                 picker.$emit('pick', [start, end])
               },
             },
-            {
-              text: this.$t('personnel.three_day'),
-              onClick(picker) {
-                const end = new Date()
-                const start = new Date()
-                end.setTime(start.getTime() + 3600 * 1000 * 24 * 3)
-                end.setHours(0, 0, 0, 0)
-                picker.$emit('pick', [start, end])
-              },
-            },
-            {
-              text: this.$t('personnel.one_week'),
-              onClick(picker) {
-                const end = new Date()
-                const start = new Date()
-                end.setTime(start.getTime() + 3600 * 1000 * 24 * 7)
-                end.setHours(0, 0, 0, 0)
-                picker.$emit('pick', [start, end])
-              },
-            },
+            // {
+            //   text: this.$t('personnel.three_day'),
+            //   onClick(picker) {
+            //     const end = new Date()
+            //     const start = new Date()
+            //     end.setTime(start.getTime() + 3600 * 1000 * 24 * 3)
+            //     end.setHours(0, 0, 0, 0)
+            //     picker.$emit('pick', [start, end])
+            //   },
+            // },
+            // {
+            //   text: this.$t('personnel.one_week'),
+            //   onClick(picker) {
+            //     const end = new Date()
+            //     const start = new Date()
+            //     end.setTime(start.getTime() + 3600 * 1000 * 24 * 7)
+            //     end.setHours(0, 0, 0, 0)
+            //     picker.$emit('pick', [start, end])
+            //   },
+            // },
           ],
         },
       }

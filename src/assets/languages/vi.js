@@ -337,6 +337,9 @@ module.exports = {
     one_month:'Một tháng',
     three_month:'Ba tháng',
     one_year:'Một năm',
+    one_hour:'Một giờ',
+    two_hour:'Hai giờ',
+    three_hour:'Ba giờ'
   },
   //设备管理
   device: {

@@ -325,6 +325,9 @@ module.exports = {
     one_month:'一个月',
     three_month:'三个月',
     one_year:'一年',
+    one_hour:'一小时',
+    two_hour:'两小时',
+    three_hour:'三小时'
   },
   //设备管理
   device: {
