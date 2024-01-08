@@ -302,6 +302,33 @@
           ></el-switch>
         </div>
       </li>
+      <!--数据目录-->
+      <li class="setting_row">
+        <div
+          class="set_item"
+          :style="
+            lang == 'en_US'
+              ? 'width:800px'
+              : lang == 'Fr_fr'
+              ? 'width:950px'
+              : lang == 'Jan_JPN'
+              ? 'width:600px'
+              : ''
+          "
+        >
+          <span class="item_title">{{ $t('system.data_folder') }}</span>
+          <label
+            style="
+               {
+                flex-grow: 1;
+              }
+            "
+          >
+            {{ dataFolder }}
+          </label>
+          <el-button @click="openFolder">{{ $t('common.open') }}</el-button>
+        </div>
+      </li>
     </ul>
     <p class="item_tips">{{ $t('system.text_11') }}</p>
   </div>
@@ -325,6 +352,8 @@
     setShowTemperatueInCelsius,
     setPersonProperty,
     getPersonProperty,
+    getDataFolderPath,
+    openFolder,
   } from '@/api/sysPage'
   export default {
     name: 'Parameter',
@@ -351,6 +380,7 @@
           extra4: '',
           extra5: '',
         },
+        dataFolder: '',
       }
     },
     created() {
@@ -368,6 +398,7 @@
       this.autoIssue = cfg.AutoIssue
       this.autoDataSyn = cfg.AutoDataSyn
       this.autoCaptureSyn = cfg.AutoCaptureSyn
+      this.dataFolder = getDataFolderPath()
       // console.log(cfg)
       // console.log('this.autoDataSyn', this.autoDataSyn)
     },
@@ -445,6 +476,9 @@
         this.$nextTick(() => {
           this.showExtra = !this.showExtra
         })
+      },
+      openFolder() {
+        this.dataFolder && openFolder(this.dataFolder)
       },
     },
   }

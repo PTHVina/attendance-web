@@ -199,3 +199,11 @@ export function getPersonProperty() {
 export function setScaleInPercent(percent) {
   window.top.myExtension.SetScaleInPercent(percent)
 }
+
+export function getDataFolderPath() {
+  return window.top.myExtension.GetDataFolderPath()
+}
+
+export function openFolder(folder) {
+  window.top.myExtension.OpenFolder(folder)
+}

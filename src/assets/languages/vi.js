@@ -71,7 +71,7 @@ module.exports = {
     empty_device_face: 'Làm sạch khuôn mặt thiết bị',
     empty_record: 'Dọn sạch hồ sơ',
     export_image: 'Xuất khẩu avatar',
-    batch_operate:'Hoạt động hàng loạt',
+    batch_operate: 'Hoạt động hàng loạt',
     export_detail: 'Xuất khẩu thông tin',
   },
   // 操作提示
@@ -184,8 +184,10 @@ module.exports = {
       'Sự khác biệt giữa ánh sáng hồng ngoại nhìn thấy là quá lớn',
     light_bright: 'Ánh sáng là quá sáng',
     face_fuzzy: 'Khuôn mặt mờ',
-    confirm_delete: 'Sẽ theo thời gian chụp ảnh để loại bỏ hàng loạt, xác nhận?',
-    effect_data: 'Dữ liệu có hiệu lực là dữ liệu tìm kiếm hiện thời, tổng cộng là 0'
+    confirm_delete:
+      'Sẽ theo thời gian chụp ảnh để loại bỏ hàng loạt, xác nhận?',
+    effect_data:
+      'Dữ liệu có hiệu lực là dữ liệu tìm kiếm hiện thời, tổng cộng là 0',
   },
   // 首页
   home: {
@@ -234,6 +236,7 @@ module.exports = {
     title_temperature: 'Hiển thị nhiệt độ',
     auto_datasyn: 'Nhân viên thiết bị đồng bộ tự động',
     auto_capture_syn: 'Tự động lấy hồ sơ chụp ảnh',
+    data_folder: 'Thư mục dữ liệu',
   },
   //人员管理
   personnel: {
@@ -331,15 +334,15 @@ module.exports = {
     male: 'Người đàn ông',
     female: 'Phụ nữ',
     card_error: 'Số thẻ không phải là chính xác',
-    one_day:'Một ngày',
-    three_day:'Ba ngày',
+    one_day: 'Một ngày',
+    three_day: 'Ba ngày',
     one_week: 'Một tuần',
-    one_month:'Một tháng',
-    three_month:'Ba tháng',
-    one_year:'Một năm',
-    one_hour:'Một giờ',
-    two_hour:'Hai giờ',
-    three_hour:'Ba giờ'
+    one_month: 'Một tháng',
+    three_month: 'Ba tháng',
+    one_year: 'Một năm',
+    one_hour: 'Một giờ',
+    two_hour: 'Hai giờ',
+    three_hour: 'Ba giờ',
   },
   //设备管理
   device: {
@@ -413,7 +416,7 @@ module.exports = {
     username: 'Tài khoản',
     password: 'Mật khẩu',
     personCount: 'Số lượng nhân viên',
-    interval: 'So sánh khoảng cách'
+    interval: 'So sánh khoảng cách',
   },
   //抓拍管理
   snapshot: {
@@ -682,5 +685,6 @@ module.exports = {
   common: {
     ok: '确定',
     cancel: '取消',
+    open: 'Mở',
   },
 }

@@ -239,6 +239,7 @@ module.exports = {
     title_temperature: 'Affichage de la température',
     auto_datasyn: 'Synchronisation automatique du personnel des équipements',
     auto_capture_syn: 'Obtenez automatiquement les enregistrements de capture',
+    data_folder: 'Catalogue de données',
   },
   //人员管理
   personnel: {
@@ -340,15 +341,15 @@ module.exports = {
     male: 'Les hommes',
     female: 'Les femmes',
     card_error: 'Numéro de carte incorrect',
-    one_day:'jour',
-    three_day:'Trois jours',
+    one_day: 'jour',
+    three_day: 'Trois jours',
     one_week: 'Pour une semaine',
-    one_month:'Pour un mois',
-    three_month:'Trois mois',
-    one_year:'Par rapport à l’année',  
-    one_hour:'Pendant une heure',
-    two_hour:'Pendant deux heures',
-    three_hour:'Pendant trois heures'
+    one_month: 'Pour un mois',
+    three_month: 'Trois mois',
+    one_year: 'Par rapport à l’année',
+    one_hour: 'Pendant une heure',
+    two_hour: 'Pendant deux heures',
+    three_hour: 'Pendant trois heures',
   },
   //设备管理
   device: {
@@ -698,5 +699,6 @@ module.exports = {
   common: {
     ok: 'OK',
     cancel: 'Cancel',
+    open: 'Ouvrir',
   },
 }

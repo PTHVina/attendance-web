@@ -71,7 +71,7 @@ module.exports = {
     empty_device_face: '空にする装置の顔',
     empty_record: '記録を空にする',
     export_image: 'アイコンを導き出す',
-    batch_operate:'バッチ操作です',
+    batch_operate: 'バッチ操作です',
     export_detail: '明細を導出します',
   },
   // 操作提示
@@ -180,7 +180,7 @@ module.exports = {
     light_bright: '光が明るすぎる',
     face_fuzzy: '顔がぼやける',
     confirm_delete: 'スナップに合わせて一括削除しますが、確認しますか?',
-    effect_data: '有効データは現在の検索データで0件です'
+    effect_data: '有効データは現在の検索データで0件です',
   },
   // 首页
   home: {
@@ -230,6 +230,7 @@ module.exports = {
     title_temperature: '温度表示',
     auto_datasyn: '自動同期装置係',
     auto_capture_syn: 'スナップ記録を自動取得',
+    data_folder: 'データディレクトリ',
   },
   //人员管理
   personnel: {
@@ -325,15 +326,15 @@ module.exports = {
     male: '男',
     female: '女',
     card_error: 'カード番号が間違っています',
-    one_day:'一日です',
-    three_day:'三日です',
+    one_day: '一日です',
+    three_day: '三日です',
     one_week: '一週間です',
-    one_month:'ひと月です',
-    three_month:'三ヶ月です',
-    one_year:'一年です',
-    one_hour:'一時間です',
-    two_hour:'二時間です',
-    three_hour:'三時間です'
+    one_month: 'ひと月です',
+    three_month: '三ヶ月です',
+    one_year: '一年です',
+    one_hour: '一時間です',
+    two_hour: '二時間です',
+    three_hour: '三時間です',
   },
   //设备管理
   device: {
@@ -408,7 +409,7 @@ module.exports = {
     username: 'アカウント',
     password: 'パスワード',
     personCount: '人員の数',
-    interval:'照合間隔です'
+    interval: '照合間隔です',
   },
   //抓拍管理
   snapshot: {
@@ -670,5 +671,6 @@ module.exports = {
   common: {
     ok: '确定',
     cancel: '取消',
+    open: '開く',
   },
 }

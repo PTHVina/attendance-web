@@ -71,7 +71,7 @@ module.exports = {
     empty_device_face: '清空设备人脸',
     empty_record: '清空记录',
     export_image: '导出头像',
-    batch_operate:'批量操作',
+    batch_operate: '批量操作',
     export_detail: '导出明细',
   },
   // 操作提示
@@ -176,7 +176,7 @@ module.exports = {
     light_bright: '光线太亮',
     face_fuzzy: '人脸模糊',
     confirm_delete: '即将按照抓拍时间进行批量删除，是否确认？',
-    effect_data: '生效数据为当前搜索数据，总共0条'
+    effect_data: '生效数据为当前搜索数据，总共0条',
   },
   // 首页
   home: {
@@ -225,6 +225,7 @@ module.exports = {
     title_temperature: '温度显示',
     auto_datasyn: '自动同步设备人员',
     auto_capture_syn: '自动获取抓拍记录',
+    data_folder: '数据存储目录',
   },
   //人员管理
   personnel: {
@@ -319,15 +320,15 @@ module.exports = {
     male: '男',
     female: '女',
     card_error: '卡号不正确',
-    one_day:'一天',
-    three_day:'三天',
+    one_day: '一天',
+    three_day: '三天',
     one_week: '一星期',
-    one_month:'一个月',
-    three_month:'三个月',
-    one_year:'一年',
-    one_hour:'一小时',
-    two_hour:'两小时',
-    three_hour:'三小时'
+    one_month: '一个月',
+    three_month: '三个月',
+    one_year: '一年',
+    one_hour: '一小时',
+    two_hour: '两小时',
+    three_hour: '三小时',
   },
   //设备管理
   device: {
@@ -402,7 +403,7 @@ module.exports = {
     password: '密码',
     personCount: '人数',
     playerPosAdjustment: '视频位置调整',
-    interval: '比对间隔'
+    interval: '比对间隔',
   },
   //抓拍管理
   snapshot: {
@@ -667,5 +668,6 @@ module.exports = {
   common: {
     ok: '确定',
     cancel: '取消',
+    open: '打开',
   },
 }

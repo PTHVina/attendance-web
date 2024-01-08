@@ -72,7 +72,7 @@ module.exports = {
     tips_confirm: 'Действительно хотите удалить библиотеку лиц?',
     empty_record: 'Пустая запись',
     export_image: 'Скачать список сотрудников',
-    batch_operate:'Операция оптом',
+    batch_operate: 'Операция оптом',
     export_detail: 'Выводите тонкости',
   },
   // 操作提示
@@ -182,7 +182,8 @@ module.exports = {
     light_bright: 'Слишком яркий свет',
     face_fuzzy: 'Изображение нечеткое',
     confirm_delete: 'Готов к массированному удалению во время съемки.',
-    effect_data: 'Вступительные данные для текущих поисковых данных, суммируемых нулями'
+    effect_data:
+      'Вступительные данные для текущих поисковых данных, суммируемых нулями',
   },
   // 首页
   home: {
@@ -232,6 +233,7 @@ module.exports = {
     title_temperature: 'Отображение температуры',
     auto_datasyn: 'Автоматическая синхронизация сотрудников и оборудования',
     auto_capture_syn: 'Автоматичсекая запись',
+    data_folder: 'Каталог данных',
   },
   //人员管理
   personnel: {
@@ -325,15 +327,15 @@ module.exports = {
       'Фото, названное номером лица(человека на фото)',
     photo_named_by_phone: 'Фото, названное номером телефона',
     card_error: 'Ошибка номера.',
-    one_day:'ден',
-    three_day:'Три дня',
+    one_day: 'ден',
+    three_day: 'Три дня',
     one_week: 'Неделю.',
-    one_month:'Месяц.',
-    three_month:'Три месяца.',
-    one_year:'год',
-    one_hour:'Час.',
-    two_hour:'Два часа.',
-    three_hour:'Три часа.'
+    one_month: 'Месяц.',
+    three_month: 'Три месяца.',
+    one_year: 'год',
+    one_hour: 'Час.',
+    two_hour: 'Два часа.',
+    three_hour: 'Три часа.',
   },
   //设备管理
   device: {
@@ -408,7 +410,7 @@ module.exports = {
     password: 'Пароль',
     personCount: 'perconCount',
     playerPosAdjustment: 'Player Position',
-    interval:'Сравнительный интервал'
+    interval: 'Сравнительный интервал',
   },
   //抓拍管理
   snapshot: {
@@ -698,5 +700,6 @@ module.exports = {
   common: {
     ok: 'OK',
     cancel: 'Cancel',
+    open: 'Открыть',
   },
 }

@@ -72,8 +72,8 @@ module.exports = {
     tips_confirm: 'Are you sure to empty the face library?',
     empty_record: 'Empty record',
     export_image: 'Export the avatar',
-    batch_operate:'batch operate',
-    export_detail: 'export detail'
+    batch_operate: 'batch operate',
+    export_detail: 'export detail',
   },
   // 操作提示
   operation_tips: {
@@ -183,8 +183,9 @@ module.exports = {
     redlight_is_poor: 'Visible infrared light aberration is too large',
     light_bright: 'The light is too bright',
     face_fuzzy: 'The face of a fuzzy',
-    confirm_delete: 'Are you sure that batch deletion will be performed according to the capture time?',
-    effect_data: 'Valid data indicates the current search data, 0 in total'
+    confirm_delete:
+      'Are you sure that batch deletion will be performed according to the capture time?',
+    effect_data: 'Valid data indicates the current search data, 0 in total',
   },
   // 首页
   home: {
@@ -234,6 +235,7 @@ module.exports = {
     title_temperature: 'Temperature Display',
     auto_datasyn: 'Automatic synchronization of equipment personnel',
     auto_capture_syn: 'Automatic capture record',
+    data_folder: 'Data folder',
   },
   //人员管理
   personnel: {
@@ -330,15 +332,15 @@ module.exports = {
     male: 'male',
     female: 'female',
     card_error: 'card error',
-    one_day:'one day',
-    three_day:'three day',
+    one_day: 'one day',
+    three_day: 'three day',
     one_week: 'one week',
-    one_month:'one month',
-    three_month:'three month',
-    one_year:'one year',
-    one_hour:'one hour',
-    two_hour:'two hour',
-    three_hour:'three hour'
+    one_month: 'one month',
+    three_month: 'three month',
+    one_year: 'one year',
+    one_hour: 'one hour',
+    two_hour: 'two hour',
+    three_hour: 'three hour',
   },
   //设备管理
   device: {
@@ -414,7 +416,7 @@ module.exports = {
     password: 'password',
     personCount: 'perconCount',
     playerPosAdjustment: 'Player Pos',
-    interval:'Comparison interval'
+    interval: 'Comparison interval',
   },
   //抓拍管理
   snapshot: {
@@ -704,5 +706,6 @@ module.exports = {
   common: {
     ok: 'OK',
     cancel: 'Cancel',
+    open: 'Open',
   },
 }
