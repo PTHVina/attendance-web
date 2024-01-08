@@ -464,6 +464,7 @@ module.exports = {
     text_49: 'ID',
     text_50: 'Категория сотрудников',
     text_51: 'Список',
+    visitor: 'Посетители',
   },
   //考勤管理
   attendance: {

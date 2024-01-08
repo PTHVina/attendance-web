@@ -480,6 +480,7 @@ module.exports = {
     text_49: 'ID',
     text_50: 'Catégorie de personnel',
     text_51: 'Liste blanche',
+    visitor: 'Visiteurs',
   },
   //考勤管理
   attendance: {

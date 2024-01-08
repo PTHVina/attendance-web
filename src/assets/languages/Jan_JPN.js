@@ -463,6 +463,7 @@ module.exports = {
     text_49: 'ID',
     text_50: '人員の種類',
     text_51: '白リスト',
+    visitor: '訪問者',
   },
   //考勤管理
   attendance: {

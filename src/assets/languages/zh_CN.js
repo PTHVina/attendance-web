@@ -458,6 +458,7 @@ module.exports = {
     text_49: 'ID',
     text_50: '人员类别',
     text_51: '白名单',
+    visitor: '访客',
   },
   //考勤管理
   attendance: {

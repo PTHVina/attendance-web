@@ -112,7 +112,12 @@
           <!-- 人员类别 -->
           <el-form-item>
             <span>{{ $t('snapshot.text_50') }}</span>
-            <el-select v-model="queryForm.selectedPersonTypes" multiple>
+            <el-select
+              v-model="queryForm.selectedPersonTypes"
+              multiple
+              :disabled="visitorTypChecked"
+              @change="selectedPersonTypesChange"
+            >
               <el-option
                 v-for="item in personTypes"
                 :key="item.value"
@@ -120,6 +125,15 @@
                 :value="item.value"
               ></el-option>
             </el-select>
+          </el-form-item>
+          <!-- 访客 -->
+          <el-form-item>
+            <el-checkbox
+              v-model="visitorTypChecked"
+              @change="visitorCheckChanged"
+            >
+              {{ $t('snapshot.visitor') }}
+            </el-checkbox>
           </el-form-item>
           <!-- 健康码状态 -->
           <el-form-item v-if="lang == 'zh_CN' && showCode">
@@ -1009,6 +1023,7 @@
           { label: this.$t('snapshot.text_51'), value: 1 }, //白名单
           { label: this.$t('snapshot.text_8'), value: 0 }, //陌生人
         ],
+        visitorTypChecked: false,
       }
     },
     watch: {
@@ -1048,9 +1063,10 @@
       init() {
         this.listLoading = true
         this.queryForm.stranger ? this.queryForm.stranger : '0'
-        //this.queryForm.codestus < 3 ? this.queryForm.codestus : '3'
-        console.log(this.queryForm.department, this.queryForm.jobClassification)
-        let { counts, list } = getRecordList(this.queryForm, this.page)
+        let query = this.visitorTypChecked
+          ? Object.assign({}, this.queryForm, { selectedPersonTypes: [2] })
+          : this.queryForm
+        let { counts, list } = getRecordList(query, this.page)
         this.page.total = counts
         this.list = list
         let imageList = []
@@ -1448,6 +1464,10 @@
         ) {
           this.queryForm.temp_from = this.queryForm.temp_to
         }
+      },
+      visitorCheckChanged(checked) {
+        //访客不能和其他两类同时选
+        //this.queryForm.selectedPersonTypes = [2]
       },
     },
   }
