@@ -13,7 +13,7 @@ Vue.prototype.$intro = VueIntro
 
 import * as echarts from 'echarts'
 Vue.prototype.$echarts = echarts
-
+//todo: 多语言
 import 'element-ui/lib/theme-chalk/index.css'
 import localeEn from '../node_modules/element-ui/lib/locale/lang/en'
 import localeJa from '../node_modules/element-ui/lib/locale/lang/ja'
@@ -21,6 +21,7 @@ import localeCn from '../node_modules/element-ui/lib/locale/lang/zh-CN'
 import localeFr from '../node_modules/element-ui/lib/locale/lang/fr'
 import localeVi from '../node_modules/element-ui/lib/locale/lang/vi'
 import localeRu from '../node_modules/element-ui/lib/locale/lang/ru-RU'
+import localeTW from '../node_modules/element-ui/lib/locale/lang/zh-TW'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 
@@ -37,6 +38,7 @@ const i18n = new VueI18n({
     Fr_fr: require('@/assets/languages/Fr_fr'),
     vi: require('@/assets/languages/vi'),
     ru: require('@/assets/languages/ru'),
+    zh_TW: require('@/assets/languages/zh_TW'),
   },
 })
 Vue.prototype.$lang = lang
@@ -51,6 +53,8 @@ if (lang == 'Jan_JPN') {
   locale = localeVi
 } else if (lang == 'ru') {
   locale = localeRu
+} else if (lang == 'zh_TW') {
+  locale = localeTW
 }
 
 Vue.use(ElementUI, { locale, size: 'small' })

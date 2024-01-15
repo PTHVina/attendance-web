@@ -15,6 +15,7 @@ import {
 Vue.use(VueRouter)
 let lang = window.top.myExtension.getlanguage()
 let i18
+//todo: 多语言
 if (lang == 'zh_CN') {
   i18 = require('@/assets/languages/zh_CN')
 } else if (lang == 'Jan_JPN') {
@@ -27,6 +28,8 @@ if (lang == 'zh_CN') {
   i18 = require('@/assets/languages/vi')
 } else if (lang == 'ru') {
   i18 = require('@/assets/languages/ru')
+} else if (lang == 'zh_TW') {
+  i18 = require('@/assets/languages/zh_TW')
 }
 export const constantRoutes = [
   {
