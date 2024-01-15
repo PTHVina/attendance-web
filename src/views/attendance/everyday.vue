@@ -1019,6 +1019,24 @@
           { value: 'isAbsenteeism', title: 'Vắng mặt' },
           { value: 'temperature', title: 'Nhiệt độ cơ thể' },
         ]
+        let dataTW = [
+          { value: 'name', title: '姓名' },
+          { value: 'department', title: '組織機構' },
+          { value: 'Employee_code', title: '員工編號' },
+          { value: 'Date', title: '考勤日期' },
+          { value: 'Punchinformation', title: '上班打卡' },
+          { value: 'Punchinformation1', title: '下班打卡' },
+          { value: 'Punchinformation2', title: '上班打卡2' },
+          { value: 'Punchinformation22', title: '下班打卡2' },
+          { value: 'Shiftinformation', title: '班次資訊' },
+          { value: 'Duration', title: '應出勤時間（小時）' },
+          { value: 'late', title: '遲到（分鐘）' },
+          { value: 'Leaveearly', title: '早退（分鐘）' },
+          { value: 'workOvertime', title: '加班（分鐘）' },
+          { value: 'isAbsenteeism', title: '是否曠工' },
+          { value: 'temperature', title: '體溫' },
+        ]
+        //todo: 多语言
         if (this.$lang == 'zh_CN') {
           this.setList = dataZn
         } else if (this.$lang == 'Jan_JPN') {
@@ -1029,6 +1047,8 @@
           this.setList = dataFr
         } else if (this.$lang == 'vi') {
           this.setList = dataVi
+        } else if (this.$lang == 'zh_TW') {
+          this.setList = dataTW
         }
       },
       // 切换显示条数
