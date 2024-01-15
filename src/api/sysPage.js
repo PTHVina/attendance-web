@@ -9,7 +9,7 @@ export function editTree(data) {
     data.explain,
     data.phone,
     data.address,
-    data.no
+    data.no.toString()
   )
   var datajson = JSON.parse(res)
   return datajson
@@ -34,7 +34,7 @@ export function addTree(data) {
     data.phone,
     data.address,
     JSON.stringify(data.no),
-    data.ParentId
+    data.ParentId.toString()
   )
   var datajson = JSON.parse(res)
   return datajson
