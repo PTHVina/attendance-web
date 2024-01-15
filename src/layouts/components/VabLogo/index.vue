@@ -44,6 +44,7 @@
       console.log('logo', this.logoImg)
     },
     mounted() {
+      //todo: 多语言
       if (this.$lang == 'en_US') {
         this.title = 'FaceRASystem'
       } else if (this.$lang == 'Jan_JPN') {
@@ -55,6 +56,8 @@
         this.title = 'FaceRASystem'
       } else if (this.$lang == 'ru') {
         this.title = 'FaceRASystem'
+      } else if (this.$lang == 'zh_TW') {
+        this.title = '人臉門禁系統'
       } else {
         this.title = this.$baseTitle
       }
