@@ -69,6 +69,14 @@
               :placeholder="$t('personnel.text_3')"
             />
           </el-form-item>
+          <!--门禁卡号-->
+          <el-form-item>
+            <span>{{ $t('personnel.title_10') }}</span>
+            <el-input
+              v-model="queryForm.face_idcard"
+              :placeholder="$t('personnel.title_10')"
+            />
+          </el-form-item>
           <!--头像-->
           <el-form-item>
             <span>{{ $t('personnel.title_1') }}</span>
@@ -385,6 +393,14 @@
             ? '115'
             : ''
         "
+      ></el-table-column>
+      <!--门禁卡号-->
+      <el-table-column
+        show-overflow-tooltip
+        prop="face_idcard"
+        :label="$t('personnel.title_10')"
+        sortable
+        :width="lang == 'en_US' ? '120' : lang == 'Fr_fr' ? '180' : ''"
       ></el-table-column>
       <!-- 已下发总数 -->
       <!-- <el-table-column
@@ -1182,6 +1198,7 @@
           dep: '',
           employeeTypeName: '',
           haspicture: '',
+          face_idcard: '',
         },
         //人员属性
         propertyForm: {

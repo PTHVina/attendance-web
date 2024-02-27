@@ -21,7 +21,8 @@ export function queryList(page, data) {
     page.pageSize.toString(),
     data.dep ? data.dep.toString() : '',
     data.employeeTypeName?.toString() ?? '',
-    data.haspicture.toString()
+    data.haspicture.toString(),
+    data.face_idcard.toString()
   )
   let re_json1 = JSON.parse(list)
   let count = window.top.myExtension.getStaffDataQueyforcount(
@@ -30,7 +31,8 @@ export function queryList(page, data) {
     data.qu_phone.toString(),
     data.dep ? data.dep.toString() : '',
     data.employeeTypeName?.toString() ?? '',
-    data.haspicture.toString()
+    data.haspicture.toString(),
+    data.face_idcard.toString()
   )
   let re_json2 = JSON.parse(count)
 
