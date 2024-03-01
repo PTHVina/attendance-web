@@ -132,9 +132,7 @@
           :rules="rules"
           size="medium"
           style="overflow: auto; flex: 1"
-          :style="
-            form.radio == '2' && isShow ? 'padding-right:10px !important;' : ''
-          "
+          :style="form.radio == '2' ? 'padding-right:10px !important;' : ''"
         >
           <!-- 班次类型 -->
           <el-form-item :label="$t('attendanceSet.text_74')">
@@ -318,29 +316,14 @@
             </el-tag>
           </el-form-item>
           <el-divider></el-divider>
-          <el-form-item :label="$t('attendanceSet.text_28')">
-            <el-switch v-model="isShow"></el-switch>
-            <el-tooltip placement="top">
-              <div slot="content">
-                {{ $t('attendanceSet.attendance_tip1') }}
-                <br />
-                {{ $t('attendanceSet.attendance_tip2') }}
-              </div>
-              <vab-icon
-                style="margin-left: 8px; cursor: pointer"
-                :icon="['fas', 'question-circle']"
-              ></vab-icon>
-            </el-tooltip>
-          </el-form-item>
           <span
-            v-if="isShow"
             style="display: inline-block; margin: 0 0 10px 10px; color: #999"
           >
             {{ $t('attendanceSet.work_time1') }}
           </span>
           <!-- 上班有效打卡区间-白班 -->
           <el-form-item
-            v-if="isShow && !form.IsAcrossNight"
+            v-if="!form.IsAcrossNight"
             :label="$t('attendanceSet.text_23')"
           >
             <el-time-picker
@@ -358,7 +341,7 @@
           </el-form-item>
           <!-- 下班有效打卡区间-白班 -->
           <el-form-item
-            v-if="isShow && !form.IsAcrossNight"
+            v-if="!form.IsAcrossNight"
             :label="$t('attendanceSet.text_24')"
           >
             <el-time-picker
@@ -375,14 +358,14 @@
             ></el-time-picker>
           </el-form-item>
           <span
-            v-if="isShow && form.radio == '2'"
+            v-if="form.radio == '2'"
             style="display: inline-block; margin: 0 0 10px 10px; color: #999"
           >
             {{ $t('attendanceSet.work_time2') }}
           </span>
           <!-- 上班有效打卡区间-白班-时段2 -->
           <el-form-item
-            v-if="isShow && !form.IsAcrossNight && form.radio == '2'"
+            v-if="!form.IsAcrossNight && form.radio == '2'"
             :label="$t('attendanceSet.text_23') + '2'"
           >
             <el-time-picker
@@ -400,7 +383,7 @@
           </el-form-item>
           <!-- 下班有效打卡区间-白班-时段2 -->
           <el-form-item
-            v-if="isShow && !form.IsAcrossNight && form.radio == '2'"
+            v-if="!form.IsAcrossNight && form.radio == '2'"
             :label="$t('attendanceSet.text_24') + '2'"
           >
             <el-time-picker
@@ -418,7 +401,7 @@
           </el-form-item>
           <!-- 上班有效打卡区间-夜班 -->
           <el-form-item
-            v-if="isShow && form.IsAcrossNight"
+            v-if="form.IsAcrossNight"
             :label="$t('attendanceSet.text_23')"
           >
             <div style="display: flex; align-items: center">
@@ -449,7 +432,7 @@
           </el-form-item>
           <!-- 下班有效打卡区间-夜班 -->
           <el-form-item
-            v-if="isShow && form.IsAcrossNight"
+            v-if="form.IsAcrossNight"
             :label="$t('attendanceSet.text_24')"
           >
             <div style="display: flex; align-items: center">
@@ -537,8 +520,8 @@
           repose2: '01:00', //夜班休息时间结束时
 
           time: '',
-          punchCard1: '', //上班有效打卡区间-白班
-          punchCard2: '', //下班有效打卡区间-白班
+          punchCard1: ['04:00', '11:00'], //上班有效打卡区间-白班
+          punchCard2: ['16:00', '23:00'], //下班有效打卡区间-白班
           punchCardB1: '', //上班有效打卡区间-白班-时段2
           punchCardB2: '', //下班有效打卡区间-白班-时段2
 
@@ -566,14 +549,14 @@
             {
               required: true,
               message: this.$t('attendanceSet.text_26'),
-              trigger: 'blur',
+              trigger: 'change',
             },
           ],
           commuter2: [
             {
               required: true,
               message: this.$t('attendanceSet.text_26'),
-              trigger: 'blur',
+              trigger: 'change',
             },
           ],
           rest: [
@@ -597,8 +580,35 @@
               trigger: 'blur',
             },
           ],
+          punchCard1: [
+            {
+              required: true,
+              message: this.$t('attendanceSet.text_20'),
+              trigger: 'blur',
+            },
+          ],
+          punchCard2: [
+            {
+              required: true,
+              message: this.$t('attendanceSet.text_20'),
+              trigger: 'blur',
+            },
+          ],
+          punchCardB1: [
+            {
+              required: true,
+              message: this.$t('attendanceSet.text_20'),
+              trigger: 'blur',
+            },
+          ],
+          punchCardB2: [
+            {
+              required: true,
+              message: this.$t('attendanceSet.text_20'),
+              trigger: 'blur',
+            },
+          ],
         },
-        isShow: false,
       }
     },
     computed: {
@@ -813,7 +823,17 @@
     },
     watch: {
       'form.commuter'(val, old) {
-        this.form.commuter = val
+        //this.form.commuter = val
+        if (val) {
+          if (this.form.punchCard1 == '') this.effectiveClock('punchCard1')
+          if (this.form.punchCard2 == '') this.effectiveClock('punchCard2')
+        }
+      },
+      'form.commuter2'(val) {
+        if (val) {
+          if (this.form.punchCardB1 == '') this.effectiveClock('punchCardB1')
+          if (this.form.punchCardB2 == '') this.effectiveClock('punchCardB2')
+        }
       },
       'form.rest'(val, old) {
         this.form.rest = val
@@ -821,16 +841,8 @@
       timeLong(val, old) {
         this.form.time = val
       },
-      'form.punchCard1'(val) {
-        if (val) {
-          this.isShow = true
-        }
-      },
-      'form.punchCard2'(val) {
-        if (val) {
-          this.isShow = true
-        }
-      },
+      'form.punchCard1'(val) {},
+      'form.punchCard2'(val) {},
       'form.clockIn1'(val) {
         if (!this.form.IsAcrossNight || !val) {
           return
@@ -1007,10 +1019,6 @@
           this.form.punchCardB1 = ''
           this.form.punchCardB2 = ''
         }
-      },
-      //显示上下班有效打卡时间
-      setShow() {
-        this.isShow = !this.isShow
       },
       //监控休息时间范围
       restChange(val) {
@@ -1337,7 +1345,6 @@
       //打开弹窗
       openFormDialog(data) {
         this.dialogFormVisible = true
-        this.isShow = false
         data.gotowork2 = this.removeWhiteSpace(data.gotowork2)
         if (data.id) {
           //console.log('选中参数', data)
@@ -1491,8 +1498,8 @@
           repose1: '00:00',
           repose2: '01:00',
           time: '',
-          punchCard1: '',
-          punchCard2: '',
+          punchCard1: ['04:00', '11:00'],
+          punchCard2: ['16:00', '23:00'],
           CIARange1: '',
           CIARange2: '',
           CIBRange1: '',
