@@ -932,6 +932,7 @@
           { value: 'workOvertime', title: '加班(分钟)' },
           { value: 'isAbsenteeism', title: '是否旷工' },
           { value: 'temperature', title: '体温' },
+          { value: 'empType', title: '工种' },
         ]
         var dataJpan = [
           { value: 'name', title: '名前' },
@@ -949,6 +950,7 @@
           { value: 'workOvertime', title: '残業（分）' },
           { value: 'isAbsenteeism', title: '欠勤かどうか' },
           { value: 'temperature', title: 'ポジション番号' },
+          { value: 'empType', title: '職種です' },
         ]
         var dataEn = [
           { value: 'name', title: 'Name' },
@@ -966,6 +968,7 @@
           { value: 'workOvertime', title: 'Overtime(minutes)' },
           { value: 'isAbsenteeism', title: 'Absenteeism' },
           { value: 'temperature', title: 'Body temperature' },
+          { value: 'empType', title: 'Employee Type' },
         ]
         var dataFr = [
           { value: 'name', title: 'Nom' },
@@ -992,6 +995,7 @@
           { value: 'workOvertime', title: 'Heures supplémentaires (minutes)' },
           { value: 'isAbsenteeism', title: 'Absentéisme' },
           { value: 'temperature', title: 'Température corporelle' },
+          { value: 'empType', title: 'emplois' },
         ]
         var dataVi = [
           { value: 'name', title: 'Tên' },
@@ -1018,6 +1022,7 @@
           { value: 'workOvertime', title: 'Làm thêm giờ (phút)' },
           { value: 'isAbsenteeism', title: 'Vắng mặt' },
           { value: 'temperature', title: 'Nhiệt độ cơ thể' },
+          { value: 'empType', title: 'Các loại nhân viên' },
         ]
         let dataTW = [
           { value: 'name', title: '姓名' },
@@ -1035,6 +1040,7 @@
           { value: 'workOvertime', title: '加班（分鐘）' },
           { value: 'isAbsenteeism', title: '是否曠工' },
           { value: 'temperature', title: '體溫' },
+          { value: 'empType', title: '員工種類' },
         ]
         //todo: 多语言
         if (this.$lang == 'zh_CN') {
