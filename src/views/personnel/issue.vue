@@ -230,6 +230,9 @@
             <span v-else-if="row.code == 41">{{ $t('personnel.pl_29') }}</span>
             <span v-else-if="row.code == 16">{{ $t('personnel.pl_30') }}</span>
             <span v-else-if="row.code == 25">{{ $t('personnel.re_pic') }}</span>
+            <span v-else-if="row.code == 15">
+              {{ $t('personnel.tips_25') }}
+            </span>
             <span v-else-if="row.code == 2">
               {{ $t('personnel.please_upgrade') }}
             </span>

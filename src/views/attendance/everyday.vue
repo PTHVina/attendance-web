@@ -123,6 +123,7 @@
             <el-button icon="el-icon-setting" type="primary" @click="setExport">
               {{ $t('operation_btn.btn_text_31') }}
             </el-button>
+            <!--手动计算考勤-->
             <el-popover v-model="datesPopoverVisible" placement="bottom">
               <el-date-picker
                 v-model="datesToRecalculateAttendance"

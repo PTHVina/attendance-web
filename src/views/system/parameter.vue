@@ -171,6 +171,25 @@
           </el-popover>
         </div>
       </li>
+      <!--平台id-->
+      <li v-if="lang == 'zh_CN'" class="setting_row">
+        <div class="set_item">
+          <span class="item_title">下发平台</span>
+          <el-select
+            v-model="worksiteId"
+            placeholder="请选择平台"
+            filterable
+            @change="setParamWorksiteId"
+          >
+            <el-option
+              v-for="item in worksiteOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </div>
+      </li>
       <li class="setting_row"></li>
       <!--分割线-->
       <el-divider></el-divider>
@@ -337,6 +356,7 @@
 <script>
   import { setSwitch, getSwitch } from '@/api/device'
   import {
+    setParamWorkSite,
     setParamCaptureSyn,
     setParamDatasyn,
     setParam,
@@ -381,6 +401,127 @@
           extra5: '',
         },
         dataFolder: '',
+        worksiteId: '', //多平台id
+        //平台id列表
+        worksiteOptions: [
+          { value: '', label: '无' },
+          { value: '000001', label: '华安视讯' },
+          { value: '000002', label: '济工网' },
+          { value: '000003', label: '成都住建部' },
+          { value: '000004', label: '浙江工汇' },
+          { value: '000005', label: '浙江工汇_成都住建部' },
+          { value: '000006', label: '阿里云IOT' },
+          { value: '000007', label: '聊城实名制平台' },
+          { value: '000009', label: '赣州市建筑工人劳务实名制' },
+          { value: '000010', label: '福建平台' },
+          { value: '000011', label: '广东平台' },
+          { value: '000012', label: '广联达' },
+          { value: '000013', label: '武汉平台' },
+          { value: '000014', label: '山东省农民工支付平台' },
+          { value: '000015', label: '沈阳住建局' },
+          { value: '000016', label: '黄石汇聚平台' },
+          { value: '000017', label: '数字雄安建设管理平台' },
+          { value: '000018', label: '山西住建局' },
+          { value: '000019', label: '辽宁盘锦住建局' },
+          { value: '000020', label: '云启平台' },
+          { value: '000021', label: '黑龙江住建局平台' },
+          { value: '000022', label: '信禾巴士' },
+          { value: '000023', label: '烽火平台' },
+          { value: '000024', label: '宁图平台' },
+          { value: '000025', label: '喜鹊云社区平台' },
+          { value: '000026', label: '中铁建工智慧管控云平台' },
+          { value: '000027', label: '呼呼智慧工地平台' },
+          { value: '000028', label: 'linkface2.0' },
+          { value: '000029', label: '福建地体平台' },
+          { value: '000031', label: '南方电网' },
+          { value: '000032', label: '边缘网关（阿里）' },
+          { value: '000033', label: '海南实名制' },
+          { value: '000034', label: '中山实名制' },
+          { value: '000035', label: '会基' },
+          { value: '000036', label: '佛山南海实名制' },
+          { value: '000037', label: '上海电力系统' },
+          { value: '000040', label: '福建顶点' },
+          { value: '000041', label: '深圳住建局' },
+          { value: '000042', label: '安徽平台' },
+          { value: '000044', label: '湖北黄岗' },
+          { value: '000046', label: '中建云筑网' },
+          { value: '000045', label: '奥力工地平台' },
+          { value: '000047', label: '陕西广联达' },
+          { value: '000049', label: '智奇实业' },
+          { value: '000050', label: '湖南住建局' },
+          { value: '000055', label: '闪电face' },
+          { value: '000056', label: '安一（珠海A3协议）' },
+          { value: '000058', label: '杭州品茗' },
+          { value: '000063', label: '横琴' },
+          { value: '000065', label: '邦客惠(卡联)' },
+          { value: '000067', label: '济南住建平台' },
+          { value: 'nvr', label: 'nvr设备' },
+          { value: 'workweixin', label: '企业微信' },
+          { value: '000069', label: '云南建筑平台' },
+          { value: '000070', label: '宁图阜阳(http)' },
+          { value: '000073', label: '建造工平台' },
+          { value: '000076', label: '重庆智慧工地平台' },
+          { value: '000077', label: '好工易平台' },
+          { value: '000078', label: '横琴鹤州' },
+          { value: '000080', label: '工匠易' },
+          { value: '000082', label: '腾辉工地端' },
+          { value: '000083', label: '贵州智联（和校园）' },
+          { value: '000085', label: '广州住建局' },
+          { value: '000079', label: '江西实名制' },
+          { value: '000086', label: '鼎力兴' },
+          { value: '000087', label: '江门住建监管平台' },
+          { value: '000088', label: '合肥实名制平台' },
+          { value: '000089', label: 'SH01' },
+          { value: '000090', label: '腾辉云筑网' },
+          { value: '000091', label: '云雄智慧平台' },
+          { value: '000092', label: '佛山工地XY' },
+          { value: '000093', label: '中建八局' },
+          { value: '000094', label: '中山建筑工地' },
+          { value: '000095', label: '珠海腾辉' },
+          { value: '000096', label: '设备统一接入平台' },
+          { value: '000097', label: '泥蜂平台' },
+          { value: '000098', label: '华西智建通平台' },
+          { value: '000100', label: '四川省建筑工人管理服务平台' },
+          { value: '000101', label: '18号线三期机电装修工区' },
+          { value: '000102', label: '内蒙实名制' },
+          { value: '000103', label: '宜宾住建局' },
+          { value: '000104', label: '一指通' },
+          { value: '000105', label: '西安电信疫情防控设备管理平台' },
+          { value: '000106', label: '河南郑州平台' },
+          { value: '000107', label: '济南轨道' },
+          { value: '000108', label: '闽粤北京市政' },
+          { value: '000109', label: '新疆实名制' },
+          { value: '000110', label: '新疆阿克苏平台' },
+          { value: '000111', label: '海鸥平台' },
+          { value: '000112', label: '济工旧版本' },
+          { value: '000113', label: '德州智慧工地平台' },
+          { value: '000114', label: '乐云宝' },
+          { value: '000115', label: '河南住建' },
+          { value: '000116', label: '浙里建(杭州平台)' },
+          { value: '000117', label: '新点智慧工地' },
+          { value: '000118', label: '万润平台' },
+          { value: '000119', label: '北京住建平台' },
+          { value: '000120', label: '华瑆平台(宁波平台)' },
+          { value: '000121', label: '新疆云雄平台' },
+          { value: '000122', label: '青海' },
+          { value: '000123', label: '山西劳务监督平台' },
+          { value: '000124', label: '济南智慧工地平台' },
+          { value: '000125', label: '广州住建局V3.0' },
+          { value: '000126', label: '易建云平台' },
+          { value: '000127', label: '湖北黄冈实名制' },
+          { value: '000128', label: '珠海腾辉水利' },
+          { value: '000129', label: '衢州平台' },
+          { value: '000130', label: '德阳住建' },
+          { value: '000131', label: '程象智慧工地' },
+          { value: '000132', label: '中铁施工协管平台' },
+          { value: '000133', label: '浙江丽水' },
+          { value: '000134', label: '滁州平台' },
+          { value: '000135', label: '湖北住建局' },
+          { value: '000136', label: '雄安' },
+          { value: '000137', label: '云筑劳务行业版' },
+          { value: '000138', label: '成都建工' },
+          { value: '000139', label: '智建通' },
+        ],
       }
     },
     created() {
@@ -399,10 +540,22 @@
       this.autoDataSyn = cfg.AutoDataSyn
       this.autoCaptureSyn = cfg.AutoCaptureSyn
       this.dataFolder = getDataFolderPath()
-      // console.log(cfg)
+      this.worksiteId = cfg.WorksiteId
+      console.log(cfg)
       // console.log('this.autoDataSyn', this.autoDataSyn)
     },
     methods: {
+      //设置多平台ID
+      setParamWorksiteId(e) {
+        try {
+          console.log(e)
+          setParamWorkSite(e)
+          this.$baseMessage('设置成功', 'success')
+        } catch (error) {
+          console.log(error)
+          this.$baseMessage('设置失败', 'warning')
+        }
+      },
       //设置自动获取抓拍记录
       setParamCaptureSyn(e) {
         try {

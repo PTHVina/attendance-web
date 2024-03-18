@@ -142,7 +142,10 @@ export function setParamDatasyn(data) {
 export function setParamCaptureSyn(data) {
   window.top.myExtension.setParamCapture_syn(data.toString())
 }
-
+//设置下发平台id
+export function setParamWorkSite(data) {
+  window.top.myExtension.setParamWorkSiteId(data.toString())
+}
 export function enableLongTitle(enable) {
   window.top.myExtension.enableLongTitle(enable)
 }
