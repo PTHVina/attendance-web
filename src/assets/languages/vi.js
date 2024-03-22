@@ -168,14 +168,14 @@ module.exports = {
     auto_refresh_on: 'Bật danh sách cập nhật tự động',
     auto_refresh_off: 'Tắt danh sách cập nhật tự động',
     auto_refresh: 'Tự động cập nhật',
-    issue_finished: 'Phát hành đã hoàn thành',
+    issue_finished: 'Đăng ký hoàn thành',
     choose_device: 'Hãy chọn thiết bị',
     reupload_face:
-      'Thiết bị nhân viên hình ảnh độ phân giải là quá thấp, bạn cần phải tải lại hình ảnh khuôn mặt',
+      'Hình ảnh khuôn mặt nhân viên độ phân giải là quá thấp, bạn cần phải thay lại hình ảnh khuôn mặt',
     tips_confirm: 'Đã xóa sạch khuôn mặt của thiết bị này.',
     tips_export_staff:
-      'Tập tin xuất khẩu không thể được dùng trực tiếp để nhập khẩu hàng loạt',
-    confirm_empty: 'Xác nhận có muốn xóa hồ sơ không?',
+      'Mẫu xuất Excel không thể dùng trực tiếp để nhập Nhập từ Excel',
+    confirm_empty: 'Bạn có muốn xóa hồ sơ không?',
 
     light_dim: 'Ánh sáng là quá tối',
     no_face: 'Không thấy khuôn mặt',
@@ -275,9 +275,9 @@ module.exports = {
     title_15: 'Số thứ tự',
     title_16: 'Thời gian đồng bộ',
     title_17: 'Nguồn nhân sự',
-    title_18: 'User-defined text',
-    title_19: 'Valid from',
-    title_20: 'Valid through',
+    title_18: 'Năm sinh',
+    title_19: 'Hiệu lực từ',
+    title_20: 'Hết hiệu lực',
     authorized_time: 'Thời gian cho phép',
 
     pl_1: 'Tên nhân viên',
