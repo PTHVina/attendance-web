@@ -470,7 +470,7 @@ module.exports = {
     text_49: 'ID',
     text_50: 'Phân loại nhân sự',
     text_51: 'Danh sách trắng',
-    visitor: 'Khách viếng thăm',
+    visitor: 'Khách vãng lai',
   },
   //考勤管理
   attendance: {
